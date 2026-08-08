@@ -4,23 +4,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getMovieUrl } from "@/app/actions/movie";
+import type { Episode, EpisodeListProps } from "@/types/movie";
 
-interface Episode {
-  link: string;
-  title: string;
-  image: string;
-  numberEpisode: string;
-  caption: string;
-}
-
-interface Season {
-  season: string;
-  episodes: Episode[];
-}
-
-interface EpisodeListProps {
-  seasons: Season[];
-}
+import { useMovieStore } from '../../store/useMovieStore';
 
 export function EpisodeList({ seasons }: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
@@ -28,22 +14,25 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
   const router = useRouter();
 
+  const store = useMovieStore();
+
   const current = seasons.find((s) => s.season === activeSeason) ?? seasons[0];
 
   async function handleEpisode(ep: Episode) {
     if (loadingLink) return;
     setLoadingLink(ep.link);
-    const url = await getMovieUrl(ep.link) as string;
+   // const url = await getMovieUrl(ep.link) as string;
     setLoadingLink(null);
-    sessionStorage.setItem("movieUrl", url);
-    sessionStorage.setItem("moviePreview", JSON.stringify({ title: ep.title, link: ep.link, image: ep.image }));
+    
+    store.setMovieData({ title: ep.title, image: ep.image, link: ep.link });
+
     // navigate to the serie slug player; slug is the second segment of ep.link
     const slug = ep.link.split("/")[1];
     router.push(`/serie/${slug}/player`);
   }
 
   return (
-    <section className="max-w-5xl mx-auto px-6 pb-20">
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 sm:pb-20">
       {/* Season tabs */}
       <div className="flex items-center gap-2 mb-6">
         <h2 className="text-white font-bold text-lg mr-4">Episodes</h2>
@@ -98,7 +87,7 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
               {/* Thumbnail */}
               <div
                 className="shrink-0 rounded overflow-hidden relative"
-                style={{ width: 130, aspectRatio: "16/9", background: "#1a1a1a" }}
+                style={{ width: "clamp(90px, 25vw, 130px)", aspectRatio: "16/9", background: "#1a1a1a" }}
               >
                 {ep.image && (
                   <Image
@@ -131,7 +120,7 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
 
               {/* Info */}
               <div className="flex flex-col gap-1 min-w-0 flex-1 self-center">
-                <p className="text-white font-semibold text-sm leading-snug truncate">
+                <p className="text-white font-semibold text-sm leading-snug line-clamp-2">
                   {ep.title}
                 </p>
                 <p

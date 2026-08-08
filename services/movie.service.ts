@@ -1,5 +1,5 @@
 import { chromium } from "playwright";
-import { upsert, get, getAll as getAllStored } from "./movie.store";
+import { upsert, get } from "./movie.store";
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -31,36 +31,33 @@ export async function getBrowser() {
 
 export async function getUrl(path: string) {
   // ponytail: cache-first — skip scrape if URL already stored
-  const cached = get(path);
-  if (cached?.movieUrl) return cached.movieUrl;
 
   let resolved = false;
 
   return new Promise(async (resolve) => {
     const { browser, context, page } = await getBrowser();
 
-    const allowVideos = [".bin"];
+    await page.route("**/*", (route) => {
+      const type = route.request().resourceType();
+      if (["image", "font"].includes(type)) {
+        return route.abort();
+      }
+      route.continue();
+    });
 
     const videoPromise = new Promise<string>((resolveVideo) => {
-      page.on("response", async (response) => {
-        const isAllowVideo = allowVideos.some((ext) =>
-          response.url().includes(ext),
-        );
-
-        if (!isAllowVideo) return;
-
-        const url = response.url();
-
-        console.log("URL de video encontrada:", url);
-
-        resolved = true;
-        resolveVideo(url);
-        upsert(path, { movieUrl: url });
-      });
+      const handler = (response: { url: () => string }) => {
+        if (response.url().includes(".bin")) {
+          resolved = true;
+          page.off("response", handler); // Limpiamos el listener en cuanto lo encontramos
+          resolveVideo(response.url());
+        }
+      };
+      page.on("response", handler);
     });
 
     await page.goto(BASE_PATH + path, {
-      waitUntil: "commit",
+      waitUntil: "domcontentloaded",
     });
 
     const frame = page.frameLocator('iframe[src*="player.pelisserieshoy.com"]');
@@ -72,11 +69,15 @@ export async function getUrl(path: string) {
     try {
       const play = await frame.locator("#playBtn");
 
-      while (!resolved) {
-        play?.click({ force: true });
+      const clickLoop = async () => {
+        while (!resolved) {
+          play?.click({ force: true });
 
-        await Promise.race([videoPromise, page.waitForTimeout(1000)]);
-      }
+          await page.waitForTimeout(500);
+        }
+      };
+
+      Promise.race([clickLoop(), videoPromise]);
 
       resolve(await videoPromise);
     } catch (error) {
@@ -88,13 +89,15 @@ export async function getUrl(path: string) {
 }
 
 export async function getAll(search?: string, slug: string = "") {
-  // ponytail: return store if no search/slug filter — avoids full scrape on home
-  if (!search && !slug) {
-    const stored = getAllStored();
-    if (stored.length > 0) return stored;
-  }
-
   const { browser, page } = await getBrowser();
+
+  await page.route("**/*", (route) => {
+    const type = route.request().resourceType();
+    if ([, "font", "media"].includes(type)) {
+      return route.abort();
+    }
+    route.continue();
+  });
   try {
     await page.goto(
       `${BASE_PATH}${slug}${search ? `buscar?q=${search}` : ""}`,
@@ -126,9 +129,6 @@ export async function getAll(search?: string, slug: string = "") {
 
     await browser.close();
 
-    // ponytail: persist each card; skip empty links
-    movies.filter((m) => m.link).forEach((m) => upsert(m.link, m));
-
     return movies;
   } catch (error) {
     console.error("Error occurred while fetching movies:", error);
@@ -140,7 +140,11 @@ export async function getMovieDetails(link: string) {
   // ponytail: cache-first — series need episodes too, movies just need title+image
   const cached = get(link);
   const isSerie = link.includes("serie");
-  if (cached?.title && cached?.image && (!isSerie || cached?.episodes?.length)) {
+  if (
+    cached?.title &&
+    cached?.image &&
+    (!isSerie || cached?.episodes?.length)
+  ) {
     return {
       backgroundImage: cached.backgroundImage ?? "",
       image: cached.image,
@@ -156,6 +160,7 @@ export async function getMovieDetails(link: string) {
 
   const { browser, page } = await getBrowser();
   try {
+
     await page.goto(BASE_PATH + link, {
       waitUntil: "domcontentloaded",
     });
@@ -216,7 +221,6 @@ export async function getMovieDetails(link: string) {
             (await episode.locator(".ep-num").textContent()) || "";
           const caption =
             (await episode.locator(".line-clamp-2").textContent()) || "";
-
 
           const match = link.match(
             /https?:\/\/[^/]+\/((?:pelicula|serie)\/[^?#]+)/,

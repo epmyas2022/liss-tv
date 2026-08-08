@@ -20,7 +20,7 @@ export default async function MovieDetailPage({ params }: { params: { slug: stri
   }
 
   return (
-    <main style={{ background: "#070707", minHeight: "100vh" }}>
+    <main className="pb-16 sm:pb-0" style={{ background: "#070707", minHeight: "100vh" }}>
       <FloatingNav />
       <HeroBackdrop
         backgroundImage={movie.backgroundImage}

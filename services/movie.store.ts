@@ -1,32 +1,11 @@
 import fs from "fs";
 import path from "path";
 
+import { StoredMovie } from "../types/movie";
+
 const STORE_PATH = path.join(process.cwd(), "data", "movies.json");
 
-// ponytail: Record keyed by link = O(1) dedup, no DB needed
-type StoredMovie = {
-  link: string;
-  image?: string;
-  rating?: string;
-  title?: string;
-  year?: string;
-  backgroundImage?: string;
-  duration?: string;
-  tags?: string[];
-  caption?: string;
-  movieUrl?: string;
-  updatedAt: string;
-  episodes?: {
-    season: string;
-    episodes: {
-      link: string;
-      title: string;
-      image: string;
-      numberEpisode: string;
-      caption: string;
-    }[];
-  }[];
-};
+
 
 function read(): Record<string, StoredMovie> {
   if (!fs.existsSync(STORE_PATH)) return {};
