@@ -1,12 +1,37 @@
-import { getAll } from "@/services/movie.service";
+"use client";
+
 import { MovieCard } from "@/components/MovieCard";
+import { MovieCardSkeleton } from "@/components/MovieCardSkeleton";
 import { FloatingNav } from "@/components/FloatingNav";
+import { Movie } from '../types/movie';
+import { useEffect, useState } from "react";
+import  {getAllMovies } from "@/app/actions/movie";
 
-export default async function Home({ searchParams }: { searchParams: { search?: string; filter?: string } }) {
+import { useSearchParams } from "next/navigation";
 
-  const { search, filter } = await  searchParams;
 
-  const movies = await getAll(search, filter);
+export default  function Home() {
+
+  const searchParams  = useSearchParams();
+
+  const search = searchParams.get("search") || undefined;
+  const filter = searchParams.get("filter") || undefined;
+
+  const [movies, setMovies] = useState<Movie[] | undefined>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const fetchMovies = async () => {
+      setLoading(true);
+      const movies = await getAllMovies(search, filter);
+      setLoading(false);
+      setMovies(movies);
+    };
+
+    fetchMovies();
+
+  }, [search, filter]);
 
 
   return (
@@ -16,9 +41,13 @@ export default async function Home({ searchParams }: { searchParams: { search?: 
       >
       <FloatingNav />
       <div className="mt-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-        {movies?.map((movie, index) => (
-          <MovieCard key={index} movie={movie} />
-        ))}
+        {loading ? (
+          <MovieCardSkeleton />
+        ) : (
+          movies?.map((movie, index) => (
+            <MovieCard key={index} movie={movie} />
+          ))
+        )}
       </div>
 
     </main>

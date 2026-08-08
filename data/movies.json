@@ -6287,5 +6287,22 @@
     ],
     "link": "serie/lucky-2026",
     "updatedAt": "2026-08-08T21:54:17.617Z"
+  },
+  "pelicula/feliz-dia-de-tu-muerte-2": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/bU1n7bkDviEqwfKFTbjQ8BFrqEN.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/q6PSTBNlI9WtfuMlngz82yaudUg.jpg",
+    "title": "Feliz día de tu muerte 2",
+    "year": "2019",
+    "duration": "1h 40m",
+    "rating": "◆ 6.3",
+    "tags": [
+      "Comedia",
+      "Terror",
+      "Ciencia Ficción"
+    ],
+    "caption": "Dos años después de los eventos acaecidos en la primera película, Tree Gelbman vuelve a entrar en el bucle temporal para descubrir el motivo por el cual accedió a él en primer lugar. También debe hacer frente a Lori, que tras resucitar a causa del bucle ha vuelto sedienta de venganza.",
+    "episodes": [],
+    "link": "pelicula/feliz-dia-de-tu-muerte-2",
+    "updatedAt": "2026-08-08T22:31:57.420Z"
   }
 }
