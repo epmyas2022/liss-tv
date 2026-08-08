@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { MediaPlayer, MediaProvider, Poster, Track } from "@vidstack/react";
+import { MediaPlayer, MediaProvider, MediaTimeUpdateEvent, MediaTimeUpdateEventDetail, Poster, Track } from "@vidstack/react";
 import {
   DefaultVideoLayout,
   defaultLayoutIcons,
@@ -18,7 +18,9 @@ export interface TextTrack {
 
 export interface VideoPlayerProps {
   src: string;
+  handleTimeUpdate?: (detail: MediaTimeUpdateEventDetail, nativeEvent: MediaTimeUpdateEvent) => void;
   title: string;
+  startTime: number;
   poster?: string;
   thumbnails?: string;
   textTracks?: TextTrack[];
@@ -29,7 +31,9 @@ export default function VideoPlayer({
   title,
   poster,
   thumbnails,
+  startTime,
   textTracks = [],
+  handleTimeUpdate,
 }: VideoPlayerProps) {
   return (
     // ponytail: Netflix palette via CSS custom props on the vidstack default layout
@@ -64,6 +68,8 @@ export default function VideoPlayer({
         playsInline
         title={title}
         poster={poster}
+        currentTime={startTime}
+        onTimeUpdate={handleTimeUpdate}
         style={{ width: "100%", height: "100%" }}
       >
         <MediaProvider>

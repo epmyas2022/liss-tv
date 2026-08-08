@@ -6,7 +6,7 @@ import { useState } from "react";
 import { getMovieUrl } from "@/app/actions/movie";
 import type { Episode, EpisodeListProps } from "@/types/movie";
 
-import { useMovieStore } from '../../store/useMovieStore';
+import { useMovieStore } from "../../store/useMovieStore";
 
 export function EpisodeList({ seasons }: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
@@ -21,10 +21,15 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
   async function handleEpisode(ep: Episode) {
     if (loadingLink) return;
     setLoadingLink(ep.link);
-   // const url = await getMovieUrl(ep.link) as string;
+    // const url = await getMovieUrl(ep.link) as string;
     setLoadingLink(null);
-    
-    store.setMovieData({ title: ep.title, image: ep.image, link: ep.link });
+
+    store.setMovieData({
+      title: ep.title,
+      image: ep.image,
+      link: ep.link,
+      startTime: 0,
+    });
 
     // navigate to the serie slug player; slug is the second segment of ep.link
     const slug = ep.link.split("/")[1];
@@ -87,7 +92,11 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
               {/* Thumbnail */}
               <div
                 className="shrink-0 rounded overflow-hidden relative"
-                style={{ width: "clamp(90px, 25vw, 130px)", aspectRatio: "16/9", background: "#1a1a1a" }}
+                style={{
+                  width: "clamp(90px, 25vw, 130px)",
+                  aspectRatio: "16/9",
+                  background: "#1a1a1a",
+                }}
               >
                 {ep.image && (
                   <Image
@@ -110,7 +119,13 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
                   {loadingLink === ep.link ? (
                     <span className="text-white text-xs">Loading...</span>
                   ) : (
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="white" className="group-hover:opacity-100">
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 32 32"
+                      fill="white"
+                      className="group-hover:opacity-100"
+                    >
                       <circle cx="16" cy="16" r="15" fill="rgba(0,0,0,0.5)" />
                       <polygon points="13,10 24,16 13,22" fill="white" />
                     </svg>

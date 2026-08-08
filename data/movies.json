@@ -5674,5 +5674,618 @@
     ],
     "link": "serie/operacion-safed-sagar",
     "updatedAt": "2026-08-08T18:12:06.524Z"
+  },
+  "serie/star-trek-extranos-nuevos-mundos": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/fZJs6xgU9dqIg9phIXjZAZOInzy.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/w6KapI2JvrCkOPmQhkwYPJNjqeo.jpg",
+    "title": "Star Trek: Extraños Nuevos Mundos",
+    "year": "Returning Series",
+    "duration": "2022",
+    "rating": "\n                    TMDB\n                    7.9\n                ",
+    "tags": [
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "caption": "Siga a Christopher Pike, Spock y Number One en los años antes de que el Capitán Kirk abordara el U.S.S. Enterprise, mientras exploran nuevos mundos alrededor de la galaxia.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-1",
+            "title": "Strange New Worlds",
+            "image": "https://image.tmdb.org/t/p/w300/iU2g0Ms11BZKX6i1KxHJUfnmCXf.jpg",
+            "numberEpisode": "E1",
+            "caption": "Los oficiales del capitán Pike desaparecen durante una misión secreta para la Flota Estelar."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-2",
+            "title": "Los niños del cometa",
+            "image": "https://image.tmdb.org/t/p/w300/HIVV4a2UE6CRlWIYGWl6zpN5TJ.jpg",
+            "numberEpisode": "E2",
+            "caption": "La tripulación de la USS Enterprise descubre un cometa que va a impactar en un planeta habitado."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-3",
+            "title": "Los fantasmas de Ilyria",
+            "image": "https://image.tmdb.org/t/p/w300/cuBwdj9rc1EhqGHSC13rqx8R4c3.jpg",
+            "numberEpisode": "E3",
+            "caption": "Cuando un contagio asola la USS Enterprise, solo Una puede salvar a la tripulación incapacitada."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-4",
+            "title": "Memento Mori",
+            "image": "https://image.tmdb.org/t/p/w300/mQGJK4sxx3hUzYz46m94u10Jsy9.jpg",
+            "numberEpisode": "E4",
+            "caption": "Una misión rutinaria sale mal cuando una fuerza malévola desconocida ataca a la USS Enterprise."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-5",
+            "title": "Spock fuera de sí",
+            "image": "https://image.tmdb.org/t/p/w300/imnMP7fetdx9QAc2yTBZxhNQsPX.jpg",
+            "numberEpisode": "E5",
+            "caption": "Una visita personal provoca una secuencia cómica de errores durante las cruciales negociaciones de Spock y Pike con una inusual especie alienígena."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-6",
+            "title": "Llévanos donde el sufrimiento no alcanza",
+            "image": "https://image.tmdb.org/t/p/w300/tQjLSGjSmutnJH8PifNUbTC3ySz.jpg",
+            "numberEpisode": "E6",
+            "caption": "Una amenaza a un planeta idílico reúne al capitán Pike con el amor perdido de su vida. Para protegerla a ella y a un niño científico sagrado de una conspiración, Pike ofrece su ayuda y se ve obligado a enfrentarse a sentimientos no resueltos de su pasado."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-7",
+            "title": "La tormenta serena",
+            "image": "https://image.tmdb.org/t/p/w300/momEFknzpISRl6pBr3nuT7MAEy.jpg",
+            "numberEpisode": "E7",
+            "caption": "Durante una peligrosa misión humanitaria, la tripulación la USS Enterprise tropieza con un peligroso juego con el pirata espacial más letal del cuadrante."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-8",
+            "title": "El reino Elíseo",
+            "image": "https://image.tmdb.org/t/p/w300/uVFtQkSMwjuGoWf4Luu1q4fxS8o.jpg",
+            "numberEpisode": "E8",
+            "caption": "La USS Enterprise queda atrapada en una nebulosa que alberga una conciencia alienígena que atrapa a la tripulación en un cuento de hadas."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-9",
+            "title": "Todos los que vagan",
+            "image": "https://image.tmdb.org/t/p/w300/nqvyeP8J7wKdel1xtPstvQ92rb5.jpg",
+            "numberEpisode": "E9",
+            "caption": "La tripulación de la USS Enterprise se encuentra cara a cara con sus demonios, tanto reales como psicológicos."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-1/episodio-10",
+            "title": "Una cualidad de piedad",
+            "image": "https://image.tmdb.org/t/p/w300/dInKNSozbQFAa1i3Xxd1NcorPLc.jpg",
+            "numberEpisode": "E10",
+            "caption": "El capitán Pike recibe la visita de su yo futuro, quien le muestra las consecuencias de sus acciones."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-1",
+            "title": "El círculo fragmentado",
+            "image": "https://image.tmdb.org/t/p/w300/laHGPCjO9wJx52pIPvqMBt2Is9g.jpg",
+            "numberEpisode": "E1",
+            "caption": "Una llamada de socorro obliga a Spock a llevar al USS Enterprise y a su tripulación al espacio en disputa."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-2",
+            "title": "Ad astra per aspera",
+            "image": "https://image.tmdb.org/t/p/w300/xmDChudvEB7eq7DlKlljjrqUiFg.jpg",
+            "numberEpisode": "E2",
+            "caption": "La comandante Una es juzgada por un consejo de guerra. Se enfrenta a una pena de prisión y a una destitución deshonrosa."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-3",
+            "title": "Mañana y mañana y mañana",
+            "image": "https://image.tmdb.org/t/p/w300/f4FRVjwKKwM37g55Y32ule1wvIh.jpg",
+            "numberEpisode": "E3",
+            "caption": "La'An viaja al pasado para evitar un ataque que podría cambiar el futuro de la humanidad."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-4",
+            "title": "Entre los devoradores de loto",
+            "image": "https://image.tmdb.org/t/p/w300/jJi2VGuS0tyXKtuqgCjsNIOztUY.jpg",
+            "numberEpisode": "E4",
+            "caption": "El capitán Pike y su tripulación regresan a un planeta que les trae trágicos recuerdos."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-5",
+            "title": "Charadas",
+            "image": "https://image.tmdb.org/t/p/w300/An9V1HboTzyLOCzEBygUHZiEmRG.jpg",
+            "numberEpisode": "E5",
+            "caption": "Un accidente provoca que el ADN vulcano de Spock sea extraído por los alienígenas, convirtiéndole en humano."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-6",
+            "title": "Perdidos en la traducción",
+            "image": "https://image.tmdb.org/t/p/w300/wvAbW0YLMeOHjUIdd7N8euPBc4f.jpg",
+            "numberEpisode": "E6",
+            "caption": "Únicamente Uhura parece oír un extraño sonido que provoca terribles alucinaciones."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-7",
+            "title": "Los sabios originales",
+            "image": "https://image.tmdb.org/t/p/w300/cUXmAvXYhi7zBIzoFgIzbxmf6QI.jpg",
+            "numberEpisode": "E7",
+            "caption": "Mientras investiga un portal del tiempo, un accidente envía al alférez Brad Boimler a través del tiempo."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-8",
+            "title": "Bajo el velo de la guerra",
+            "image": "https://image.tmdb.org/t/p/w300/6UHcQZJjC5StPGkzq6sZAsBLGqx.jpg",
+            "numberEpisode": "E8",
+            "caption": "El capitán Pike y su equipo dan la bienvenida a un desertor Klingon a bordo del USS Enterprise."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-9",
+            "title": "Rapsodia subespacial",
+            "image": "https://image.tmdb.org/t/p/w300/a7Cu3KpMBkCh8Tgxgja87WgFE6u.jpg",
+            "numberEpisode": "E9",
+            "caption": "La Enterprise sufre un extraño accidente con un campo de probabilidad cuántica experimental."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-2/episodio-10",
+            "title": "Hegemonía",
+            "image": "https://image.tmdb.org/t/p/w300/rwqAAZjadCcmzfpLFvScBmzl274.jpg",
+            "numberEpisode": "E10",
+            "caption": "En los confines del espacio, el capitán Pike y su tripulación se enfrentan al regreso de un terrible enemigo."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-1",
+            "title": "Hegemonía (2)",
+            "image": "https://image.tmdb.org/t/p/w300/opluRsQk2CN6b3jopZoJCvrP7Cm.jpg",
+            "numberEpisode": "E1",
+            "caption": "Pike lidera un arriesgado rescate mientras el grupo de desembarco huye de un enemigo letal."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-2",
+            "title": "Campanas de boda",
+            "image": "https://image.tmdb.org/t/p/w300/9r9pBXDtdgVtp5x0VLlSgilhwgG.jpg",
+            "numberEpisode": "E2",
+            "caption": "En una celebración de la Federación, un invitado no deseado interrumpe a Spock y a la tripulación."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-3",
+            "title": "Lanzadera a Kenfori",
+            "image": "https://image.tmdb.org/t/p/w300/IF8eXYDYglz6W52FCozVCiySn3.jpg",
+            "numberEpisode": "E3",
+            "caption": "Pike y M'Benga se cuelan en el espacio Klingon para encontrar un tratamiento para Batel."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-4",
+            "title": "Una hora de aventura espacial",
+            "image": "https://image.tmdb.org/t/p/w300/uH8ElDr6YZPXIVXmcl8QyMv5fCO.jpg",
+            "numberEpisode": "E4",
+            "caption": "La'An prueba un prototipo de holosección con un caso ficticio que solo ella puede resolver."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-5",
+            "title": "A través del prisma del tiempo",
+            "image": "https://image.tmdb.org/t/p/w300/8wU3xRdYMMWoV6yurDEr9XHw190.jpg",
+            "numberEpisode": "E5",
+            "caption": "La búsqueda de Chapel y Korby lleva a la Enterprise a unas antiguas ruinas que esconden un oscuro secreto."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-6",
+            "title": "El Sehlat que devoró su propia cola",
+            "image": "https://image.tmdb.org/t/p/w300/wfbnUqpIQWnDq4U1i0X2WKchimt.jpg",
+            "numberEpisode": "E6",
+            "caption": "El primer día de Kirk como capitán resulta desastroso cuando una nave saqueadora captura a la Enterprise."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-7",
+            "title": "¿Qué es la Flota Estelar?",
+            "image": "https://image.tmdb.org/t/p/w300/3s5WG0w3zQpKJeJdAUepWaFNBIU.jpg",
+            "numberEpisode": "E7",
+            "caption": "Mientras ayudan a un planeta devastado por la guerra, Pike y su tripulación se enfrentan al escrutinio de un periodista."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-8",
+            "title": "Cuatro vulcanos y medio",
+            "image": "https://image.tmdb.org/t/p/w300/jTI3PI3cEqJJX5jvik1kmu1qLxs.jpg",
+            "numberEpisode": "E8",
+            "caption": "Después de que una misión convierta a los miembros de la tripulación en vulcanos, intentan volver a ser humanos."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-9",
+            "title": "Terrario",
+            "image": "https://image.tmdb.org/t/p/w300/AbgG3jb8kSEWxJvHYotQmGpSPQP.jpg",
+            "numberEpisode": "E9",
+            "caption": "Varada en una luna tóxica, Ortegas debe desafiar sus creencias más profundas para sobrevivir."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-3/episodio-10",
+            "title": "Nueva vida y nuevas civilizaciones",
+            "image": "https://image.tmdb.org/t/p/w300/orhTTIshYMwHRcsLmgmePXo0cHg.jpg",
+            "numberEpisode": "E10",
+            "caption": "Cuando un antiguo mal resurge, Pike se enfrenta a una decisión que cambiará su vida para detenerlo."
+          }
+        ]
+      },
+      {
+        "season": "4",
+        "episodes": [
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-4/episodio-1",
+            "title": "Valles Marineris",
+            "image": "https://image.tmdb.org/t/p/w300/dkplcEqCZV5nNmsUm12CimwDqjy.jpg",
+            "numberEpisode": "E1",
+            "caption": "Pike conduce a la tripulación hacia una tormenta estelar, lo que hace que la Enterprise retroceda 65 millones de años."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-4/episodio-2",
+            "title": "Griffin Incident",
+            "image": "https://image.tmdb.org/t/p/w300/nPOUZeuggzzmE0QAPpgKX4TJNJ6.jpg",
+            "numberEpisode": "E2",
+            "caption": "Siga a Christopher Pike, Spock y Number One en los años antes de que el Capitán Kirk abordara el U.S.S. Enterprise, mientras exploran nuevos mundos alrededor de la galaxia."
+          },
+          {
+            "link": "serie/star-trek-extranos-nuevos-mundos/temporada-4/episodio-3",
+            "title": "Human Best Friend",
+            "image": "https://image.tmdb.org/t/p/w300/z7v5DpM6lCDxdHZMDYeUPV1lunF.jpg",
+            "numberEpisode": "E3",
+            "caption": "Siga a Christopher Pike, Spock y Number One en los años antes de que el Capitán Kirk abordara el U.S.S. Enterprise, mientras exploran nuevos mundos alrededor de la galaxia."
+          }
+        ]
+      }
+    ],
+    "link": "serie/star-trek-extranos-nuevos-mundos",
+    "updatedAt": "2026-08-08T19:03:28.889Z"
+  },
+  "serie/cien-anos-de-soledad": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/5mcc7J07f680Q88xeLClf5SIZtt.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/vYtbH9Q5DaCDqzkB483dmYjfkA3.jpg",
+    "title": "Cien años de soledad",
+    "year": "Returning Series",
+    "duration": "2024",
+    "rating": "\n                    TMDB\n                    7.9\n                ",
+    "tags": [
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "caption": "En el mítico pueblo de Macondo, siete generaciones de la familia Buendía se enfrentan a una maldición, al olvido y lo ineludible de su pasado... y de su destino.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-1",
+            "title": "Macondo",
+            "image": "https://image.tmdb.org/t/p/w300/9GNp1qDvSkxVn1ejgPyLsWyxU5Q.jpg",
+            "numberEpisode": "E1",
+            "caption": "Para huir de un fantasma y una maldición, Úrsula y José Arcadio abandonan su pueblo y emprenden una travesía por terrenos hostiles para fundar su nuevo hogar."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-2",
+            "title": "Es como un temblor de tierra",
+            "image": "https://image.tmdb.org/t/p/w300/vizdx41QJay475Tvcrjony050BM.jpg",
+            "numberEpisode": "E2",
+            "caption": "Aureliano tiene visiones de guerra, y José Arcadio hijo conoce a una mujer. Mientras su esposo se obsesiona con la alquimia, Úrsula debe buscar la manera de mantener a su familia."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-3",
+            "title": "Un daguerrotipo de Dios",
+            "image": "https://image.tmdb.org/t/p/w300/xr1x0JvdpaYi8HARSBFtGznKEWN.jpg",
+            "numberEpisode": "E3",
+            "caption": "Una niña llega a Macondo y trae con ella una peste de insomnio. José Arcadio queda fascinado con la cámara de Melquíades. Rebeca y Amaranta compiten por la atención de Pietro."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-4",
+            "title": "El castaño",
+            "image": "https://image.tmdb.org/t/p/w300/94qArX0KxcKaU0j5XgSncvL2UoO.jpg",
+            "numberEpisode": "E4",
+            "caption": "El nuevo alcalde y su familia se instalan en Macondo. Mientras Aureliano conoce el amor, la muerte lleva a José Arcadio a la locura."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-5",
+            "title": "Remedios Moscote",
+            "image": "https://image.tmdb.org/t/p/w300/lvdPr8tGZ33fWKzXy4VQqECsNj3.jpg",
+            "numberEpisode": "E5",
+            "caption": "Arcadio pasa a ser el director de la escuela, y Pilar le da a Aureliano noticias importantes. Remedios lleva la alegría al hogar de los Buendía... hasta que ocurre una tragedia."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-6",
+            "title": "El coronel Aureliano Buendía",
+            "image": "https://image.tmdb.org/t/p/w300/cH6XtbYEeDC8xevQhV6pSX7kP9K.jpg",
+            "numberEpisode": "E6",
+            "caption": "José Arcadio hijo regresa y asombra a todos, en especial a Rebeca, con su cambio de carácter. En medio de la crisis política, Aureliano se convierte en un líder revolucionario."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-7",
+            "title": "Arcadio y el paraíso liberal",
+            "image": "https://image.tmdb.org/t/p/w300/nDv2jtduI4fz9XWjnJlaHzLLoio.jpg",
+            "numberEpisode": "E7",
+            "caption": "Arcadio impone el régimen liberal en Macondo mientras Aureliano trata de rescatar a un coronel de los conservadores. La acechante amenaza de la guerra se hace realidad."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-1/episodio-8",
+            "title": "Tantas flores cayeron del cielo",
+            "image": "https://image.tmdb.org/t/p/w300/adzLSgzmxT1HN3oi5XfFgLPqlG0.jpg",
+            "numberEpisode": "E8",
+            "caption": "Años después, cuando Aureliano revela sus planes de guerra para Macondo, una desconsolada Úrsula llega a una conclusión desoladora sobre su familia."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-1",
+            "title": "El armisticio",
+            "image": "https://image.tmdb.org/t/p/w300/hSbiq4rFoOKJ0IiYEg17IJR5nGM.jpg",
+            "numberEpisode": "E1",
+            "caption": "Aureliano Segundo y José Arcadio Segundo, idénticos, pero con un destino muy distinto, forjan cada uno su camino mientras el coronel Aureliano decide el sino del mundo."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-2",
+            "title": "La reina de Madagascar",
+            "image": "https://image.tmdb.org/t/p/w300/5v9SLgdCwLmbQwGRNIv6YiP3QZ.jpg",
+            "numberEpisode": "E2",
+            "caption": "Macondo se deja hechizar por una nueva belleza, pero hasta las flores más hermosas se marchitan. Aureliano Segundo conoce a Petra, sin saber que se debate entre dos hombres."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-3",
+            "title": "Fernanda del Carpio",
+            "image": "https://image.tmdb.org/t/p/w300/vi8wo6ED3lyf4OMzVSW2BklH9I0.jpg",
+            "numberEpisode": "E3",
+            "caption": "El amor de Aureliano Segundo por Fernanda del Carpio no basta para apartarlo de sus viejos hábitos. Mientras tanto, un acuerdo se sella y los 17 Aurelianos vuelven a reunirse."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-4",
+            "title": "Había llegado el inocente tren",
+            "image": "https://image.tmdb.org/t/p/w300/oc6b8453ss0i55iDLQJ3gvIdgRp.jpg",
+            "numberEpisode": "E4",
+            "caption": "Un nuevo tren conecta Macondo con el mundo exterior, pero la llegada de los forasteros trae consigo una dura realidad. Los Buendía presencian una desaparición milagrosa."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-5",
+            "title": "Fue un once de octubre",
+            "image": "https://image.tmdb.org/t/p/w300/zNkeZfVN9GT3ehurQPsgFknMvgU.jpg",
+            "numberEpisode": "E5",
+            "caption": "A su vuelta, salta la chispa entre Meme y Mauricio Babilonia. Mientras se desata en ellos el amor y el ardor, también lo hace la ira de Fernanda. Se gesta un motín."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-6",
+            "title": "Eran más de tres mil",
+            "image": "https://image.tmdb.org/t/p/w300/a7yxyHD2ChqSH8S3rfvt6Fs4glA.jpg",
+            "numberEpisode": "E6",
+            "caption": "La tensión entre las granjas y la United Fruit Company desemboca en una carnicería que destroza Macondo, a sus habitantes y a José Arcadio Segundo."
+          },
+          {
+            "link": "serie/cien-anos-de-soledad/temporada-2/episodio-7",
+            "title": "Llovió cuatro años, once meses y dos días",
+            "image": "https://image.tmdb.org/t/p/w300/2Ddh00iVIKpHo3qFggCn6RsJPGG.jpg",
+            "numberEpisode": "E7",
+            "caption": "El final de Macondo empieza a tomar forma. Fernanda esconde otro secreto, Úrsula lanza una advertencia inquietante y el destino de los gemelos vuelve a entrelazarse."
+          }
+        ]
+      }
+    ],
+    "link": "serie/cien-anos-de-soledad",
+    "updatedAt": "2026-08-08T20:51:00.432Z"
+  },
+  "pelicula/supergirl-2026": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/cbyslfazMuDUGt4W6QcO3cKq8xj.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/sbPxtcrj3fPp3CH4CZgSj9Or7Yr.jpg",
+    "title": "Supergirl",
+    "year": "2026",
+    "duration": "1h 48m",
+    "rating": "◆ 6.3",
+    "tags": [
+      "Acción",
+      "Ciencia Ficción",
+      "Aventura"
+    ],
+    "caption": "Mientras celebra su cumpleaños número 21, Kara Zor-El viaja por la galaxia con su perro Krypto, durante el cual conoce a la joven Ruthye Marye Knoll y emprende una \"búsqueda asesina de venganza\".",
+    "episodes": [],
+    "link": "pelicula/supergirl-2026",
+    "updatedAt": "2026-08-08T21:44:37.805Z"
+  },
+  "serie/nadie-nos-va-a-extranar": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/jmV6NIzZxGzRoljFPwao6sh4Nny.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/py0s87C9214KRbZ4kWLQfgsE9ET.jpg",
+    "title": "No One Will Miss Us",
+    "year": "Returning Series",
+    "duration": "2024",
+    "rating": "\n                    TMDB\n                    8.6\n                ",
+    "tags": [
+      "Drama",
+      "Comedia"
+    ],
+    "caption": "Son los 90 y cinco losers manejan un negocio ilegal en su prepa: venden tareas y trabajos a sus compañeros. ¿La ventaja? Nadie sospecha nunca de los nerds. Su negocio les trae dinero y popularidad, pero las hormonas y los conflictos de la edad amenazan con arruinarlo todo. Si el negocio colapsa, el futuro de todos y su amistad estarían en riesgo.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-1",
+            "title": "Nadie va a volver a aceptar",
+            "image": "https://image.tmdb.org/t/p/w300/mYaUugj1dGyqVIqLaJoJ1WSe2KZ.jpg",
+            "numberEpisode": "E1",
+            "caption": "Llega un alumno nuevo al instituto, Memo. Los únicos que se apiadan de él son un grupo de traficantes de conocimiento que venden trabajos y deberes. Pero el grupo pasa por una pequeña crisis. Álex y Marifer, que llevan un tiempo saliendo, tienen problemas: ella quiere tener relaciones sexuales, pero él no, porque le gusta Rafa, un chico que trabaja en el videoclub familiar."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-2",
+            "title": "Nadie se va a ir de rositas",
+            "image": "https://image.tmdb.org/t/p/w300/fvDZ5iRLc6yL6dToN6iESWTuVEI.jpg",
+            "numberEpisode": "E2",
+            "caption": "Álex se junta con Rafa y su relación con Marifer se debilita. Los abusones van a por Memo y Álex deja de venderles \"mercancía\". Diego, uno de los más populares, hace que todos dejen de comprarles deberes. Memo y Tenoch intervienen, pero Diego les advierte de que Álex los cambiará. Álex le cuenta a Memo que está coladito por Rafa. Álex y Rafa están a punto de besarse, pero Marifer los interrumpe."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-3",
+            "title": "Nadie ha hecho los deberes de Inglés",
+            "image": "https://image.tmdb.org/t/p/w300/18G6jlr3RG8U9INzFewbTxX3u5A.jpg",
+            "numberEpisode": "E3",
+            "caption": "Ilse, la profesora de Inglés, quiere que los alumnos escriban sobre su infancia. Marifer y Memo se hacen cargo, pero Marifer tiene la mente ocupada con lo de Álex y Rafa. Memo convence a Álex para que sea sincero y Marifer rompe con él. Marifer y Memo entregan los trabajos, pero Ilse nota que son muy parecidos. Memo le habla a Marifer de su lado oscuro y ella reconoce tener uno también."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-4",
+            "title": "Nadie va a ir a la fiesta de Mariana",
+            "image": "https://image.tmdb.org/t/p/w300/7WIG2uZFWg1utm1W54hARAx7G9J.jpg",
+            "numberEpisode": "E4",
+            "caption": "El grupo acude a una fiesta. Marifer se emborracha y le tira los tejos a Lalo, un skater. Álex evita a sus antiguos amigos pijos. Daniela ve a Diego con su novia y Tenoch nota que hay algo entre ellos dos. Solo Memo se lo pasa bien bebiendo. Susana, la hermana de Álex, besa a Tenoch. Acaba con Marifer peleándose con Álex y diciendo delante de todos que a Álex le gusta Rafa. Álex siente vergüenza."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-5",
+            "title": "Nadie va a hablar de lo que pasó en la fiesta",
+            "image": "https://image.tmdb.org/t/p/w300/2eUqwFM72jMX5B2VtPs4bXNxdqW.jpg",
+            "numberEpisode": "E5",
+            "caption": "En el instituto se preguntan si Álex es gay. A Marifer la tratan como la ex amargada, así que se va con Lalo. Tenoch quiere que Daniela escoja entre Diego y el negocio. Gracias a Memo, Daniela obliga a Diego a elegir entre ella y Mariana. Diego y Daniela se acuestan juntos. Pensando que Diego la ha elegido a ella, Daniela deja el negocio. Su hermana la consuela y la anima a ser independiente."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-6",
+            "title": "Nadie va a cantar en el karaoke",
+            "image": "https://image.tmdb.org/t/p/w300/mIg2AA5rz05frw9bsmoypqil9wT.jpg",
+            "numberEpisode": "E6",
+            "caption": "Los únicos que quedan en el negocio son Tenoch y Memo. Daniela es su nueva competidora. La profesora Ilse quiere que lo dejen. Tenoch decide retirarse después de robar un examen. Diego le hace la puñeta a Tenoch diciendo que él también es gay, así que Tenoch se mete con Álex delante de los demás para no salir escaldado. Álex le confiesa a Rafa que le gusta, pero él solo quiere ser su amigo."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-7",
+            "title": "Nadie va a poder hacer frente al lado oscuro",
+            "image": "https://image.tmdb.org/t/p/w300/98fTnoNcErXb1EfaZB0k1JtJBBa.jpg",
+            "numberEpisode": "E7",
+            "caption": "Memo se entera de que tendrá que mudarse a EE. UU. e invita a Álex, Tenoch, Marifer y Daniela a su casa. La relación entre todos ellos está tensa, pero Memo saca su equipo de karaoke y empiezan a pasárselo bien. Memo le agradece a Álex que lo dejara entrar en el grupo. Álex se marcha a casa, pero está inquieto. Cuando vuelve para ver a Memo, se encuentra con una ambulancia. Memo quería despedirse."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-1/episodio-8",
+            "title": "Nadie nos va a extrañar",
+            "image": "https://image.tmdb.org/t/p/w300/qoLP2RgHxUBQzzygfjBMx5Gos0k.jpg",
+            "numberEpisode": "E8",
+            "caption": "Memo se ha suicidado. Álex estalla en clase: todos dicen estar tristes, pero nadie lo echará de menos. Llega el temido examen, pero las respuestas que vendió Tenoch ya no sirven. Están a punto de pegarle, pero el grupo interviene. Recordar a Memo vuelve a unirlos y se plantean reabrir el negocio. Animan a Álex para que hable con Rafa y los dos acaban besándose. El final es feliz pero incierto."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-1",
+            "title": "Nadie ha pensado en el futuro",
+            "image": "https://image.tmdb.org/t/p/w300/ko7DBUc9dp8ztTKPqmIa1y3n0nB.jpg",
+            "numberEpisode": "E1",
+            "caption": "Es el primer día del último año de la prepa y los súper amigos están lidiando con la pérdida de Memo y el desastre del examen imposible. Tienen que recuperar a su clientela para que el negocio sobreviva, pero pronto enfrentarán una amenaza que ni siquiera se imaginan."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-2",
+            "title": "Nadie dijo que tendríamos competencia",
+            "image": "https://image.tmdb.org/t/p/w300/pIjreuTJqnn1L918ERL3pT7InL8.jpg",
+            "numberEpisode": "E2",
+            "caption": "Diego se enfrenta a su nueva situación y se da cuenta que extraña a un viejo amigo. La banda también se enfrenta a un cambio en su estatus dentro de la prepa, luego de que por primera vez tienen competencia."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-3",
+            "title": "Nadie sabe qué va a ser cuando sea grande",
+            "image": "https://image.tmdb.org/t/p/w300/dAWs1mai8CbqNBh6Sl0lMc80I6.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mientras Tenoch intenta incorporar a un nuevo elemento al negocio, Alex intenta incorporarse al mundo de Rafa y descubre que ahí también tiene competencia inesperada."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-4",
+            "title": "Nadie puede faltar a la tardeada",
+            "image": "https://image.tmdb.org/t/p/w300/h1jznDkPqZ45Ocg0ZMyWepSB1v.jpg",
+            "numberEpisode": "E4",
+            "caption": "En un intento de ganarse a los miembros de la banda enemiga, Tenoch lleva al grupo a su primera tardeada en el News. Ahí, los secretos de todos quedan al descubierto y Tenoch se da cuenta que Ricardo es un rival mucho más difícil de lo que pensaba."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-5",
+            "title": "Nadie esperaba la crisis",
+            "image": "https://image.tmdb.org/t/p/w300/4RKK1W7f5micBtN2X3vTgvzWcun.jpg",
+            "numberEpisode": "E5",
+            "caption": "La crisis del 94, el error de diciembre, afecta las vidas de todos los mexicanos. Y el error de diciembre de los súper amigos, haber ido al News, también les pasa factura. Hay corazones rotos por todos lados, pero por lo menos Marifer ya tiene claro qué quiere hacer cuando sea grande."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-6",
+            "title": "Nadie quiere ser un adulto responsable",
+            "image": "https://image.tmdb.org/t/p/w300/9xLbMnFlSGxmg9tD8tzz4aAMwjx.jpg",
+            "numberEpisode": "E6",
+            "caption": "Una emergencia inesperada une a Daniela y Mariana y por primera vez, Daniela tiene que lidiar con las consecuencias de su relación con Diego y decidir si es la buena o la mala de la telenovela."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-7",
+            "title": "Nadie sabe quién es realmente",
+            "image": "https://image.tmdb.org/t/p/w300/AvygkpwSCr2h0es3lKSAzybuslL.jpg",
+            "numberEpisode": "E7",
+            "caption": "Es el viaje de generación de la preparatoria Héroes de la Revolución. Va a ser una noche de encuentros y rupturas que nadie veía venir. Y para Tenoch, va a ser el momento de enfrentar que tal vez ya no es el mismo que era antes."
+          },
+          {
+            "link": "serie/nadie-nos-va-a-extranar/temporada-2/episodio-8",
+            "title": "Todos nos vamos a extrañar",
+            "image": "https://image.tmdb.org/t/p/w300/6aiCDXbcZ8YudPfjZoGM8OiHADN.jpg",
+            "numberEpisode": "E8",
+            "caption": "La banda se gradúa y mientras terminan de definir qué van a hacer cuando salgan de la prepa, se enfrentan a cambios en la competencia y una amenaza a su maestra favorita. Pero lo que más les da miedo es qué va a pasar cuando se gradúen, ¿seguirán siendo amigos?"
+          }
+        ]
+      }
+    ],
+    "link": "serie/nadie-nos-va-a-extranar",
+    "updatedAt": "2026-08-08T21:51:56.860Z"
+  },
+  "serie/lucky-2026": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/lW1kTROBEqpKlhBhMKaPoo0Y64D.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/vZ3GfOoeha2xVCPec0jv2jf3yfC.jpg",
+    "title": "Lucky",
+    "year": "Returning Series",
+    "duration": "2026",
+    "rating": "\n                    TMDB\n                    5.5\n                ",
+    "tags": [
+      "Drama",
+      "Crimen"
+    ],
+    "caption": "Cuando un robo multimillonario sale mal, la estafadora Lucky se ve obligada a escapar. Perseguida por el FBI y un despiadado jefe militar, Lucky debe pelear por su vida y por una salida.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/lucky-2026/temporada-1/episodio-1",
+            "title": "Nada de atajos",
+            "image": "https://image.tmdb.org/t/p/w300/cJTtOczikqJWaQYwQw5dbuRwT6.jpg",
+            "numberEpisode": "E1",
+            "caption": "Tras una noche desenfrenada en Las Vegas, Lucky se despierta y descubre que su mundo se ha puesto patas arriba."
+          },
+          {
+            "link": "serie/lucky-2026/temporada-1/episodio-2",
+            "title": "Haz que bailen",
+            "image": "https://image.tmdb.org/t/p/w300/j9tZvz6gMdm3nAUOpflSzVB9fsr.jpg",
+            "numberEpisode": "E2",
+            "caption": "En busca de cobijo, Luky se refugia en casa de una familia que no sospecha nada. Mientras, Priscilla visita al padre de Lucky."
+          },
+          {
+            "link": "serie/lucky-2026/temporada-1/episodio-3",
+            "title": "Observar el ambiente",
+            "image": "https://image.tmdb.org/t/p/w300/jKeFPdISdSCfB6BlBgEfu6K2GBp.jpg",
+            "numberEpisode": "E3",
+            "caption": "Lucky intenta localizar a Cary y recuperar su dinero. Mientras, la agente Rand sigue la pista de Lucky."
+          },
+          {
+            "link": "serie/lucky-2026/temporada-1/episodio-4",
+            "title": "Negarse a ver",
+            "image": "https://image.tmdb.org/t/p/w300/wIqlraRAqpeXOKFOFrhFaqv8hYN.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mientras Lucky se enfrenta a la traición, los viejos rencores pasan a un segundo plano ante una persecución mortal."
+          },
+          {
+            "link": "serie/lucky-2026/temporada-1/episodio-5",
+            "title": "Personas malas",
+            "image": "https://image.tmdb.org/t/p/w300/xSN56H3np7VyAC7bAeAEzFk3mCa.jpg",
+            "numberEpisode": "E5",
+            "caption": "De nuevo a la fuga, Lucky hace un hallazgo de lo más lucrativo. La agente Rand urde un plan."
+          }
+        ]
+      }
+    ],
+    "link": "serie/lucky-2026",
+    "updatedAt": "2026-08-08T21:54:17.617Z"
   }
 }

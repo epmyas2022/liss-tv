@@ -40,7 +40,7 @@ export function HeroBackdrop({
               fill
               priority
               className="object-cover object-top"
-              sizes="100vw"
+              sizes="(max-width: 767px) 100vw, 1px"
             />
           )}
           {/* Gradient: transparent top → solid bottom */}
@@ -128,7 +128,7 @@ export function HeroBackdrop({
               fill
               priority
               className="object-cover object-top"
-              sizes="100vw"
+              sizes="(min-width: 768px) 100vw, 1px"
             />
             <div
               className="absolute inset-0"

@@ -2,11 +2,11 @@ import { getAll } from "@/services/movie.service";
 import { MovieCard } from "@/components/MovieCard";
 import { FloatingNav } from "@/components/FloatingNav";
 
-export default async function Home({ searchParams }: { searchParams: { search?: string } }) {
+export default async function Home({ searchParams }: { searchParams: { search?: string; filter?: string } }) {
 
-  const { search } = await  searchParams;
+  const { search, filter } = await  searchParams;
 
-  const movies = await getAll(search);
+  const movies = await getAll(search, filter);
 
 
   return (

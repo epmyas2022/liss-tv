@@ -51,11 +51,17 @@ export interface MoviePreview {
   title: string;
   image: string;
   link: string;
+  startTime: number;
   backgroundImage?: string;
 }
 
+
+export type ContinueWatching = (MoviePreview & { currentTime: number, duration: number });
 export interface MovieState {
+  continueWatching: ContinueWatching[];
   moviePreview: MoviePreview | null;
   setMovieData: (preview: MoviePreview) => void;
   clearMovieData: () => void;
+  addToContinueWatching: (movie: ContinueWatching) => void;
+  removeFromContinueWatching: (link: string) => void;
 }

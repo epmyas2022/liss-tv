@@ -37,13 +37,7 @@ export async function getUrl(path: string) {
   return new Promise(async (resolve) => {
     const { browser, context, page } = await getBrowser();
 
-    await page.route("**/*", (route) => {
-      const type = route.request().resourceType();
-      if (["image", "font"].includes(type)) {
-        return route.abort();
-      }
-      route.continue();
-    });
+
 
     const videoPromise = new Promise<string>((resolveVideo) => {
       const handler = (response: { url: () => string }) => {

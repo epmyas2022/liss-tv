@@ -6,8 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Popcorn, Clapperboard, Eye, Search, X } from "lucide-react";
 
 const NAV_ITEMS = [
-  { label: "Movies", href: "/movies", icon: Popcorn },
-  { label: "Series", href: "/series", icon: Clapperboard },
+  { label: "Movies", href: "/?filter=peliculas", icon: Popcorn },
+  { label: "Series", href: "/?filter=series", icon: Clapperboard },
   { label: "Watching", href: "/continue-watching", icon: Eye },
 ];
 

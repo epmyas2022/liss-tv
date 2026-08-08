@@ -1,0 +1,188 @@
+"use client";
+
+import Image from "next/image";
+import { Trash2, Play, Clock } from "lucide-react";
+import { useMovieStore } from "@/store/useMovieStore";
+import { FloatingNav } from "@/components/FloatingNav";
+import type { ContinueWatching } from "@/types/movie";
+import { useRouter  } from "next/navigation";
+
+function formatTime(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function ProgressBar({
+  current,
+  duration,
+}: {
+  current: number;
+  duration: number;
+}) {
+  const pct = duration > 0 ? Math.min((current / duration) * 100, 100) : 0;
+  return (
+    <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-[#EA1C25] rounded-full transition-all duration-300"
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  );
+}
+
+function ContinueWatchingCard({
+  item,
+  onRemove,
+}: {
+  item: ContinueWatching;
+  onRemove: (link: string) => void;
+}) {
+  const pct =
+    item.duration > 0
+      ? Math.min((item.currentTime / item.duration) * 100, 100)
+      : 0;
+  const remaining = Math.max(item.duration - item.currentTime, 0);
+
+  return (
+    <div className="group relative rounded-xl overflow-hidden bg-[#111] cursor-pointer">
+      {/* Poster */}
+      <div className="block relative aspect-[16/9] w-full">
+        <Image
+          src={item.image}
+          alt={item.title || item.link}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-100"
+        />
+
+        {/* Dark gradient — intensifies on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
+
+        {/* Play button overlay */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div
+            className="w-14 h-14 rounded-full flex items-center justify-center"
+            style={{
+              background: "rgba(234,28,37,0.9)",
+              boxShadow:
+                "0 0 0 3px rgba(234,28,37,0.3), 0 8px 32px rgba(0,0,0,0.6)",
+            }}
+          >
+            <Play size={22} fill="white" className="text-white ml-1" />
+          </div>
+        </div>
+
+        {/* Remove button */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onRemove(item.link);
+          }}
+          className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"
+          style={{
+            background: "rgba(0,0,0,0.7)",
+            border: "1px solid rgba(255,255,255,0.15)",
+          }}
+          aria-label="Remove from continue watching"
+        >
+          <Trash2 size={13} className="text-white/80" />
+        </button>
+
+        {/* Progress pct badge */}
+        {pct > 0 && (
+          <span
+            className="absolute top-2 left-2 text-[10px] font-bold text-white/80 px-1.5 py-0.5 rounded-md"
+            style={{ background: "rgba(0,0,0,0.6)" }}
+          >
+            {Math.round(pct)}%
+          </span>
+        )}
+      </div>
+
+      {/* Bottom info + progress */}
+      <div className="px-3 pt-2.5 pb-3 space-y-2">
+        <ProgressBar current={item.currentTime} duration={item.duration} />
+
+        <div className="flex items-center justify-evenly
+         gap-2">
+          <p className="text-white text-sm font-semibold leading-tight line-clamp-1 font-poppins flex-1">
+            {item.title || item.link}
+          </p>
+
+          {remaining > 0 && (
+            <span className="flex items-center gap-1 text-white/50 text-[11px] shrink-0">
+              <Clock size={11} />
+              {formatTime(remaining)} left
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-6 py-24 text-center px-4">
+      <p className="text-white text-lg sm:text-xl font-semibold">
+        You have no titles in progress.
+      </p>
+    </div>
+  );
+}
+
+export default function ContinueWatchingPage() {
+  const router = useRouter();
+  const { continueWatching, removeFromContinueWatching, setMovieData } =
+    useMovieStore();
+
+  const handleCardClick = (item: ContinueWatching) => {
+    setMovieData({
+      ...item,
+      startTime: item.currentTime,
+    });
+
+    router.push(`${item.link.split("/").slice(0,2).join("/")}/player`);
+  };
+
+  return (
+    <main
+      className="min-h-screen pb-28 sm:pb-12 pt-20 px-4 sm:px-6"
+      style={{ background: "#070707" }}
+    >
+      <FloatingNav />
+
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="my-7">
+          <h1 className="text-white text-2xl sm:text-3xl font-bold font-poppins">
+            Continue <span className="text-[#EA1C25]">Watching</span>
+          </h1>
+          {continueWatching.length > 0 && (
+            <p className="text-white/40 text-sm mt-1">
+              {continueWatching.length} title
+              {continueWatching.length !== 1 ? "s" : ""} in progress
+            </p>
+          )}
+        </div>
+
+        {continueWatching.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {continueWatching.map((item) => (
+              <a key={item.link} onClick={() => handleCardClick(item)}>
+                <ContinueWatchingCard
+                  item={item}
+                  onRemove={removeFromContinueWatching}
+                />
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
