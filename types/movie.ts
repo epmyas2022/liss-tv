@@ -44,6 +44,7 @@ export interface Season {
 }
 
 export interface EpisodeListProps {
+  title: string;
   seasons: Season[];
 }
 

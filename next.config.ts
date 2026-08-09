@@ -1,18 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-  },
-
+  experimental: {},
+  output: "standalone",
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: 'image.tmdb.org',
-        pathname: '/t/p/**',
-      }
-    ]
-  }
+        hostname: "image.tmdb.org",
+        pathname: "/t/p/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

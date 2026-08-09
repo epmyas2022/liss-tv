@@ -48,7 +48,7 @@ export function FloatingNav() {
   return (
     <>
       {/* ── Desktop: single floating pill (hidden on mobile) ── */}
-      <div className="hidden sm:block fixed top-6 left-1/2 -translate-x-1/2 z-50">
+      <div className="hidden md:block fixed top-6 left-1/2 -translate-x-1/2 z-50 w-max">
         <nav
           className="flex items-center gap-1 px-3 py-3 rounded-full"
           style={glassStyle}
@@ -109,7 +109,7 @@ export function FloatingNav() {
       </div>
 
       {/* ── Mobile: top bar (brand + search toggle) ── */}
-      <div className="sm:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3" style={glassStyle}>
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3" style={glassStyle}>
         <Link href="/" className="font-poppins text-white text-xl font-bold">
           Liss <span className="text-[#EA1C25]">TV</span>
         </Link>

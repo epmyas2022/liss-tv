@@ -3,12 +3,11 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { getMovieUrl } from "@/app/actions/movie";
 import type { Episode, EpisodeListProps } from "@/types/movie";
 
 import { useMovieStore } from "../../store/useMovieStore";
 
-export function EpisodeList({ seasons }: EpisodeListProps) {
+export function EpisodeList({ title, seasons }: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
   // ponytail: loading key = episode link; null means nothing loading
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
@@ -25,7 +24,7 @@ export function EpisodeList({ seasons }: EpisodeListProps) {
     setLoadingLink(null);
 
     store.setMovieData({
-      title: ep.title,
+      title: `${title} - ${ep.title}`,
       image: ep.image,
       link: ep.link,
       startTime: 0,

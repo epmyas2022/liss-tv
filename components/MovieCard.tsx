@@ -14,7 +14,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
       {/* Poster */}
       <div className="relative aspect-[2/3] w-full">
         <Image
-          src={movie.image}
+          src={movie.image || "/logo-with-background.png"}
           alt={movie.title || movie.link}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"

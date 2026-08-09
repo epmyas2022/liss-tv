@@ -1,0 +1,9 @@
+services:
+  liss-tv:
+    image: liss-tv:latest
+    container_name: liss-tv
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    ports:
+      - "8000:8000"

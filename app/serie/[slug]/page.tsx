@@ -43,7 +43,7 @@ export default async function SerieDetailPage({
         caption={movie.caption}
         link={`serie/${slug}`}
       />
-      {seasons.length > 0 && <EpisodeList seasons={seasons} />}
+      {seasons.length > 0 && <EpisodeList title={movie.title} seasons={seasons} />}
     </main>
   );
 }

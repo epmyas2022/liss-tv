@@ -12,6 +12,7 @@ export async function getBrowser() {
       "--disable-blin k-features=AutomationControlled",
       "--no-sandbox",
       "--disable-dev-shm-usage",
+      "-disable-gpu",
     ],
   });
 
@@ -36,8 +37,6 @@ export async function getUrl(path: string) {
 
   return new Promise(async (resolve) => {
     const { browser, context, page } = await getBrowser();
-
-
 
     const videoPromise = new Promise<string>((resolveVideo) => {
       const handler = (response: { url: () => string }) => {
@@ -154,7 +153,6 @@ export async function getMovieDetails(link: string) {
 
   const { browser, page } = await getBrowser();
   try {
-
     await page.goto(BASE_PATH + link, {
       waitUntil: "domcontentloaded",
     });
@@ -193,40 +191,38 @@ export async function getMovieDetails(link: string) {
       const seasonLocators = await page.locator("[data-season-panel]").all();
 
       for (const seasonLocator of seasonLocators) {
-        // 2. Extraemos el número de la temporada del atributo 'data-season-panel'
         const seasonNumber =
           (await seasonLocator.getAttribute("data-season-panel")) ||
           "Desconocida";
 
-        const episodesData = [];
-
         // 3. Buscamos los episodios ÚNICAMENTE dentro de este panel de temporada
-        const episodeLocators = await seasonLocator.locator(".ep-item").all();
+        const episodesData = await seasonLocator
+          .locator(".ep-item")
+          .evaluateAll((elements) => {
+            return elements.map((episode) => {
+              // Buscar los elementos de forma segura dentro del DOM
+              const imgEl = episode.querySelector("img.ep-thumb");
+              const titleEl = episode.querySelector(".text-sm.font-semibold");
+              const numEl = episode.querySelector(".ep-num");
+              const captionEl = episode.querySelector(".line-clamp-2");
 
-        for (const episode of episodeLocators) {
-          const link = (await episode.getAttribute("href")) || "";
-          const image =
-            (await episode.locator("img.ep-thumb").getAttribute("src")) || "";
+              const fullLink = episode.getAttribute("href") || "";
 
-          const title =
-            (await episode.locator(".text-sm.font-semibold").textContent()) ||
-            "";
-          const numberEpisode =
-            (await episode.locator(".ep-num").textContent()) || "";
-          const caption =
-            (await episode.locator(".line-clamp-2").textContent()) || "";
+              // Aplicar la expresión regular directamente en el navegador
+              const match = fullLink.match(
+                /https?:\/\/[^/]+\/((?:pelicula|serie)\/[^?#]+)/,
+              );
+              const cleanedLink = match ? match[1] : "";
 
-          const match = link.match(
-            /https?:\/\/[^/]+\/((?:pelicula|serie)\/[^?#]+)/,
-          );
-          episodesData.push({
-            link: match ? match[1] : "",
-            title: title.trim(),
-            image,
-            numberEpisode: numberEpisode.trim(),
-            caption: caption.trim(),
+              return {
+                link: cleanedLink,
+                title: titleEl ? titleEl.textContent.trim() : "",
+                image: imgEl ? imgEl.getAttribute("src") || "" : "",
+                numberEpisode: numEl ? numEl.textContent.trim() : "",
+                caption: captionEl ? captionEl.textContent.trim() : "",
+              };
+            });
           });
-        }
 
         // 4. Guardamos la temporada junto con su lista de episodios
         seasonsData.push({
