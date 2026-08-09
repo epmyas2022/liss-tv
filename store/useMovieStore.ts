@@ -38,7 +38,7 @@ export const useMovieStore = create<MovieState>()(
     }),
     {
       name: "movie-storage",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );

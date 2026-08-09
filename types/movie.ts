@@ -54,6 +54,7 @@ export interface MoviePreview {
   link: string;
   startTime: number;
   backgroundImage?: string;
+  next?: MoviePreview;
 }
 
 

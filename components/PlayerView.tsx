@@ -7,7 +7,6 @@ import { useMovieStore } from "../store/useMovieStore";
 import { useEffect, useRef, useState } from "react";
 import { getMovieUrl } from "@/app/actions/movie";
 
-// ponytail: lazy-load VideoPlayer — heavy dep, no SSR needed
 const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
   ssr: false,
   loading: () => (
@@ -31,12 +30,16 @@ export function PlayerView() {
     if (!moviePreview) return;
 
     if (duration - currentTime < 180) {
+
+      if(moviePreview.next) store.addToContinueWatching({ ...moviePreview.next, currentTime: 0, duration: 0 });
+
       return store.removeFromContinueWatching(moviePreview.link);
     }
 
     if(currentTime - lastSavedTimeRef.current < 20) return;
 
     store.addToContinueWatching({ ...moviePreview, currentTime, duration });
+
     lastSavedTimeRef.current = currentTime;
   };
 

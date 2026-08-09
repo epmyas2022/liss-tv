@@ -17,21 +17,28 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
 
   const current = seasons.find((s) => s.season === activeSeason) ?? seasons[0];
 
-  async function handleEpisode(ep: Episode) {
+  async function handleEpisode(ep: Episode, nextEp?: Episode) {
     if (loadingLink) return;
     setLoadingLink(ep.link);
-    // const url = await getMovieUrl(ep.link) as string;
-    setLoadingLink(null);
 
     store.setMovieData({
       title: `${title} - ${ep.title}`,
       image: ep.image,
       link: ep.link,
       startTime: 0,
+      next: nextEp ? {
+        image: nextEp.image,
+        link: nextEp.link,
+        title: `${title} - ${nextEp.title}`,
+        startTime: 0,
+      } : undefined,
     });
 
-    // navigate to the serie slug player; slug is the second segment of ep.link
+    setLoadingLink(null);
+
+
     const slug = ep.link.split("/")[1];
+    
     router.push(`/serie/${slug}/player`);
   }
 
@@ -64,10 +71,10 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
 
       {/* Episode rows */}
       <ol className="flex flex-col gap-2">
-        {current.episodes.map((ep) => (
+        {current.episodes.map((ep, index) => (
           <li key={ep.link + ep.numberEpisode}>
             <button
-              onClick={() => handleEpisode(ep)}
+              onClick={() => handleEpisode(ep, current.episodes[index + 1])}
               disabled={!!loadingLink}
               className="w-full text-left flex items-start gap-4 rounded-md px-3 py-3 group transition-colors duration-150 disabled:opacity-60"
               style={{ background: "transparent" }}

@@ -130,12 +130,19 @@ export async function getAll(search?: string, slug: string = "") {
 }
 
 export async function getMovieDetails(link: string) {
-  // ponytail: cache-first — series need episodes too, movies just need title+image
   const cached = get(link);
   const isSerie = link.includes("serie");
+
+  const isPastDays = (dateString: string, days: number): boolean => {
+    const date = new Date(dateString);
+
+    return (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24) > days;
+  };
+
   if (
     cached?.title &&
     cached?.image &&
+    !isPastDays(cached.updatedAt, 7) &&
     (!isSerie || cached?.episodes?.length)
   ) {
     return {

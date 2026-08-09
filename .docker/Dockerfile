@@ -44,6 +44,6 @@ COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
 ENV PORT=8000
 
 
-EXPOSE 8000
+EXPOSE $PORT
 
-CMD ["sh", "-c", "tor & node server.js"]
+CMD ["sh", "-c", "tor & HOSTNAME=0.0.0.0 PORT=$PORT node server.js"]
