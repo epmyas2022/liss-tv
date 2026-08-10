@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { Episode, EpisodeListProps } from "@/types/movie";
+import type { Episode, EpisodeListProps, MoviePreview } from "@/types/movie";
 
 import { useMovieStore } from "../../store/useMovieStore";
 
@@ -15,30 +15,47 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
 
   const store = useMovieStore();
 
+
+  const allEpisodes = seasons.flatMap((s) => s.episodes);
   const current = seasons.find((s) => s.season === activeSeason) ?? seasons[0];
 
-  async function handleEpisode(ep: Episode, nextEp?: Episode) {
+  const next = (
+    episodes: Episode[],
+    nextValue?: MoviePreview,
+    index: number = 0,
+  ): MoviePreview | undefined => {
+    if (!episodes || episodes.length === 0 || index >= episodes.length)
+      return undefined;
+
+    nextValue = {
+      image: episodes[index].image,
+      link: episodes[index].link,
+      title: `${title} - ${episodes[index].title}`,
+      startTime: 0,
+      next: next(episodes.slice(index + 1), nextValue),
+    };
+
+    return nextValue;
+  };
+
+  async function handleEpisode(ep: Episode) {
     if (loadingLink) return;
     setLoadingLink(ep.link);
 
+    const index = allEpisodes.findIndex((e) => e.link === ep.link);
+  
     store.setMovieData({
       title: `${title} - ${ep.title}`,
       image: ep.image,
       link: ep.link,
       startTime: 0,
-      next: nextEp ? {
-        image: nextEp.image,
-        link: nextEp.link,
-        title: `${title} - ${nextEp.title}`,
-        startTime: 0,
-      } : undefined,
+      next: next(allEpisodes.slice(index + 1)),
     });
 
     setLoadingLink(null);
 
-
     const slug = ep.link.split("/")[1];
-    
+
     router.push(`/serie/${slug}/player`);
   }
 
@@ -71,10 +88,10 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
 
       {/* Episode rows */}
       <ol className="flex flex-col gap-2">
-        {current.episodes.map((ep, index) => (
+        {current.episodes.map((ep) => (
           <li key={ep.link + ep.numberEpisode}>
             <button
-              onClick={() => handleEpisode(ep, current.episodes[index + 1])}
+              onClick={() => handleEpisode(ep)}
               disabled={!!loadingLink}
               className="w-full text-left flex items-start gap-4 rounded-md px-3 py-3 group transition-colors duration-150 disabled:opacity-60"
               style={{ background: "transparent" }}
