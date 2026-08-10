@@ -1,6 +1,18 @@
 ﻿"use client";
 
-import { MediaPlayer, MediaProvider, MediaTimeUpdateEvent, MediaTimeUpdateEventDetail, Poster, Track } from "@vidstack/react";
+import {
+  MediaPlayer,
+  MediaProvider,
+  MediaTimeUpdateEvent,
+  MediaTimeUpdateEventDetail,
+  Poster,
+  Track,
+  type MediaPlayerInstance,
+} from "@vidstack/react";
+
+import {  useState } from "react";
+
+import { Maximize2, Minimize2 } from "lucide-react";
 import {
   DefaultVideoLayout,
   defaultLayoutIcons,
@@ -17,8 +29,13 @@ export interface TextTrack {
 }
 
 export interface VideoPlayerProps {
+  ref: React.RefObject<MediaPlayerInstance | null>;
   src: string;
-  handleTimeUpdate?: (detail: MediaTimeUpdateEventDetail, nativeEvent: MediaTimeUpdateEvent) => void;
+  children?: React.ReactNode;
+  handleTimeUpdate?: (
+    detail: MediaTimeUpdateEventDetail,
+    nativeEvent: MediaTimeUpdateEvent,
+  ) => void;
   title: string;
   startTime: number;
   poster?: string;
@@ -28,6 +45,8 @@ export interface VideoPlayerProps {
 
 export default function VideoPlayer({
   src,
+  ref,
+  children,
   title,
   poster,
   thumbnails,
@@ -35,32 +54,53 @@ export default function VideoPlayer({
   textTracks = [],
   handleTimeUpdate,
 }: VideoPlayerProps) {
+
+  const [isFullScreenIOS, setIsFullScreenIOS] = useState(false);
+
+  const canFullscreen =
+    typeof document !== "undefined" && !!document.fullscreenEnabled;
+
   return (
     // ponytail: Netflix palette via CSS custom props on the vidstack default layout
     <div
-      style={{
-        "--media-brand": "#e50914",
-        "--media-focus-ring": "#e50914",
-        "--media-slider-track-bg": "rgba(255,255,255,0.2)",
-        "--media-slider-track-fill-bg": "#e50914",
-        "--media-tooltip-bg": "rgba(20,20,20,0.95)",
-        "--media-tooltip-color": "#fff",
-        "--media-controls-bg":
-          "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
-        "--media-menu-bg": "#141414",
-        "--media-menu-color": "#fff",
-        borderRadius: "4px",
-        overflow: "hidden",
-        background: "#000",
-        width: "100%",
-        aspectRatio: "16/9",
-      } as React.CSSProperties}
+      style={
+        {
+          "--media-brand": "#e50914",
+          "--media-focus-ring": "#e50914",
+          "--media-slider-track-bg": "rgba(255,255,255,0.2)",
+          "--media-slider-track-fill-bg": "#e50914",
+          "--media-tooltip-bg": "rgba(20,20,20,0.95)",
+          "--media-tooltip-color": "#fff",
+          "--media-controls-bg":
+            "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
+          "--media-menu-bg": "#141414",
+          "--media-menu-color": "#fff",
+          borderRadius: "4px",
+          overflow: "hidden",
+          background: "#000",
+          width: "100%",
+          aspectRatio: "16/9",
+
+          ...(isFullScreenIOS
+            ? {
+                position: "fixed",
+                inset: 0,
+                zIndex: 9999,
+                width: "100vw",
+                height: "100dvh",
+                aspectRatio: "unset",
+                borderRadius: 0,
+              }
+            : {}),
+        } as React.CSSProperties
+      }
     >
       <MediaPlayer
         src={{
           src,
           type: "video/mp4",
         }}
+        ref={ref}
         viewType="video"
         streamType="on-demand"
         logLevel="warn"
@@ -85,10 +125,28 @@ export default function VideoPlayer({
             />
           ))}
         </MediaProvider>
+
         <DefaultVideoLayout
           thumbnails={thumbnails}
           icons={defaultLayoutIcons}
+          slots={{
+            fullscreenButton: !canFullscreen ? (
+              <button
+                onClick={() => setIsFullScreenIOS(!isFullScreenIOS)}
+                className="vds-button"
+                aria-label="Pantalla completa"
+              >
+                {isFullScreenIOS ? (
+                  <Minimize2 size={19} />
+                ) : (
+                  <Maximize2 size={19} />
+                )}
+              </button>
+            ) : undefined,
+          }}
         />
+
+        {children}
       </MediaPlayer>
     </div>
   );

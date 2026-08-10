@@ -6,6 +6,8 @@ import dynamic from "next/dynamic";
 import { useMovieStore } from "../store/useMovieStore";
 import { useEffect, useRef, useState } from "react";
 import { getMovieUrl } from "@/app/actions/movie";
+import { type MediaPlayerInstance } from "@vidstack/react";
+import NextEpisode from "./ui/NextEpisode";
 
 const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
   ssr: false,
@@ -24,19 +26,39 @@ export function PlayerView() {
   const [loading, setLoading] = useState(true);
   const lastSavedTimeRef = useRef<number>(0);
 
+  const THRESHOLD_PROGRESS_SECONDS = 180; //SEGUNDOS ANTES DE TERMINAR EL VIDEO
+
+  const player = useRef<MediaPlayerInstance | null>(null);
+
   const { moviePreview } = store;
+
+  const handleNextEpisodeClick = async () => {
+    if (!moviePreview?.next) return;
+
+    store.setMovieData({
+      ...moviePreview.next,
+      startTime: 0,
+    });
+
+    setTimeout(() => window.location.reload(), 1000);
+
+  };
 
   const saveWatchProgress = (currentTime: number, duration: number) => {
     if (!moviePreview) return;
 
-    if (duration - currentTime < 180) {
-
-      if(moviePreview.next) store.addToContinueWatching({ ...moviePreview.next, currentTime: 0, duration: 0 });
+    if (duration - currentTime < THRESHOLD_PROGRESS_SECONDS) {
+      if (moviePreview.next)
+        store.addToContinueWatching({
+          ...moviePreview.next,
+          currentTime: 0,
+          duration: 0,
+        });
 
       return store.removeFromContinueWatching(moviePreview.link);
     }
 
-    if(currentTime - lastSavedTimeRef.current < 20) return;
+    if (currentTime - lastSavedTimeRef.current < 20) return;
 
     store.addToContinueWatching({ ...moviePreview, currentTime, duration });
 
@@ -86,6 +108,7 @@ export function PlayerView() {
         </button>
       </div>
       <VideoPlayer
+        ref={player}
         handleTimeUpdate={(detail, nativeEvent) =>
           saveWatchProgress(detail.currentTime, nativeEvent.target.duration)
         }
@@ -93,7 +116,15 @@ export function PlayerView() {
         src={movieUrl}
         title={moviePreview.title}
         poster={moviePreview.backgroundImage || moviePreview.image}
-      />
+      >
+        {moviePreview.next && (
+          <NextEpisode
+            threshold={THRESHOLD_PROGRESS_SECONDS}
+            playerRef={player}
+            onClick={handleNextEpisodeClick}
+          />
+        )}
+      </VideoPlayer>
     </div>
   );
 }
