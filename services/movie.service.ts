@@ -8,7 +8,7 @@ let browserInstance: Promise<Browser> | null = null;
 export async function getBrowser() {
   if (!browserInstance)
     browserInstance = chromium.launch({
-      headless: false,
+      headless: true,
       proxy: { server: "socks5://127.0.0.1:9050" },
       args: [
         "--autoplay-policy=no-user-gesture-required",
