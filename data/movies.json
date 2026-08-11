@@ -10848,5 +10848,537 @@
     ],
     "link": "serie/silo",
     "updatedAt": "2026-08-11T14:50:58.163Z"
+  },
+  "serie/breaking-bad": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+    "title": "Breaking Bad",
+    "year": "Ended",
+    "duration": "2008",
+    "rating": "\n                    TMDB\n                    8.9\n                ",
+    "tags": [
+      "Drama",
+      "Crimen"
+    ],
+    "caption": "Un profesor de Química de secundaria con cáncer terminal se asocia a un exestudiante para asegurar el futuro de su familia al fabricar y vender metanfetamina.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-1",
+            "title": "Piloto",
+            "image": "https://image.tmdb.org/t/p/w300/ydlY3iPfeOAvu8gVqrxPoMvzNCn.jpg",
+            "numberEpisode": "E1",
+            "caption": "Walter White, profesor de química en un instituto, descubre que tiene cáncer de pulmón y decide trabajar junto con un ex-alumno elaborando metanfetamina de alta calidad para poder ganar dinero para que su familia se mantenga."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-2",
+            "title": "El gato está en la bolsa...",
+            "image": "https://image.tmdb.org/t/p/w300/AbMoecO0ZZio0LcgeLxlzdyGs6X.jpg",
+            "numberEpisode": "E2",
+            "caption": "Walter y Jesse tratan de atar cabos sueltos, pero la situación se vuelve cada vez más compleja rápidamente. Mientras, Skyler empieza a sospechar del comportamiento de Walt."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-3",
+            "title": "...Y la bolsa está en el río",
+            "image": "https://image.tmdb.org/t/p/w300/2kBeBlxGqBOdWlKwzAxiwkfU5on.jpg",
+            "numberEpisode": "E3",
+            "caption": "Walter pelea con Jesse debido a su adicción a las drogas y Jesse se va, dejándole solo con su cautivo, Krazy-8; Hank lleva a Walter Jr. a dar un paseo para hablarle acerca de la marihuana; a Skyler no le gusta que Walt esté tan ausente de casa."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-4",
+            "title": "Hombre del cáncer",
+            "image": "https://image.tmdb.org/t/p/w300/2UbRgW6apE4XPzhHPA726wUFyaR.jpg",
+            "numberEpisode": "E4",
+            "caption": "Walter finalmente revela a su familia que tiene cáncer. La DEA cree que hay en Albuquerque un nuevo pez gordo del que preocuparse. Jesse hace una visita a la casa de sus padres y Walt acaba desahogando su furia."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-5",
+            "title": "Materia gris",
+            "image": "https://image.tmdb.org/t/p/w300/82G3wZgEvZLKcte6yoZJahUWBtx.jpg",
+            "numberEpisode": "E5",
+            "caption": "Walter y Skyler van a la fiesta de cumpleaños de un ex-compañero. Jesse trata de librarse de las drogas. Skyler reúne a la familia para que puedan hablar."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-6",
+            "title": "Nada como un puñado de locura",
+            "image": "https://image.tmdb.org/t/p/w300/rCCLuycNPL30W3BtuB8HafxEMYz.jpg",
+            "numberEpisode": "E6",
+            "caption": "Los efectos secundarios de la quimioterapia empiezan a afectar a Walt. Mientras tanto, la DEA trata de acercarse a sospechosos traficantes."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-1/episodio-7",
+            "title": "Un trato de no violencia",
+            "image": "https://image.tmdb.org/t/p/w300/1dgFAsajUpUT7DLXgAxHb9GyXHH.jpg",
+            "numberEpisode": "E7",
+            "caption": "Walter acepta su identidad como traficante de drogas, Jesse decide poner en venta la casa de su tía y Skyler celebra un baby shower."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-1",
+            "title": "7-37",
+            "image": "https://image.tmdb.org/t/p/w300/6Uo1z56uKnX60JXvYYFWACHR31u.jpg",
+            "numberEpisode": "E1",
+            "caption": "Walter y Jesse tratan de encontrar una forma de desvincularse de Tuco. Hank trata de arreglar el problema entre Marie y Skyler."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-2",
+            "title": "A la parrilla",
+            "image": "https://image.tmdb.org/t/p/w300/th3SNe0gNgRguv8VveLd4f2JcaH.jpg",
+            "numberEpisode": "E2",
+            "caption": "Walter y Jesse son secuestrados por Tuco. Marie y Hank prestan ayuda a Skyler debido a la desaparición de Walt y Hank acaba visitando a la señora Pinkman."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-3",
+            "title": "Picado por una abeja muerta",
+            "image": "https://image.tmdb.org/t/p/w300/abgJTOWYPdZGxAWhsg6lmtM8qcU.jpg",
+            "numberEpisode": "E3",
+            "caption": "Walter y Jesse se van quedando sin dinero mientras tratan de cubrirse las espaldas. Mientras tanto, la DEA obtiene una pista que les podría llevar hacia ambos."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-4",
+            "title": "Abajo",
+            "image": "https://image.tmdb.org/t/p/w300/9xi18yhtCLrrJ2plZjXgfGqeTjU.jpg",
+            "numberEpisode": "E4",
+            "caption": "Walter trata de reconectar con su familia mientras Jesse se esfuerza en reconstruir su vida."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-5",
+            "title": "Rotura",
+            "image": "https://image.tmdb.org/t/p/w300/bPQxF63jhfT5eNYjhzuGEO7oMQg.jpg",
+            "numberEpisode": "E5",
+            "caption": "Hank sufre como consecuencia de su encuentro con Tuco. Jesse ofrece a sus colegas Combo, Badger y Skinny Pete trabajo distribuyendo la droga por las calles de la ciudad."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-6",
+            "title": "Peekaboo",
+            "image": "https://image.tmdb.org/t/p/w300/tfCuh20gNHGGF6A1te3NmiqML6D.jpg",
+            "numberEpisode": "E6",
+            "caption": "Para mantener su reputación, Jesse tiene que encargarse de un problema. El secreto de Walter entra en peligro cuando Skyler agradece a Gretchen que hayan pagado por el tratamiento del cáncer."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-7",
+            "title": "Negro y azul",
+            "image": "https://image.tmdb.org/t/p/w300/1IOnhCCeru1BZUPeppu7tMmtxvL.jpg",
+            "numberEpisode": "E7",
+            "caption": "Jesse y Walt se plantean la posibilidad de expandirse a más territorios. Hank se esfuerza para encajar en El Paso, Skyler busca un nuevo trabajo y Pinkman conoce mejor a su casera."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-8",
+            "title": "Mejor llama a Saul",
+            "image": "https://image.tmdb.org/t/p/w300/KmFdF23FtbPwwz3FJF2T885r2Z.jpg",
+            "numberEpisode": "E8",
+            "caption": "Walt y Jesse reciben ayuda de un abogado muy peculiar cuando Badger tiene problemas con la ley. La DEA cree haber encontrado por fin a Heisenberg y Hank regresa a la ciudad."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-9",
+            "title": "Cuatro días fuera",
+            "image": "https://image.tmdb.org/t/p/w300/etUWlVbdQ7PzbGeUOBNpmFRm1Z9.jpg",
+            "numberEpisode": "E9",
+            "caption": "Walter y su familia esperan las novedades de su escáner PET-CT. Jesse y Walt, siguiendo el consejo de Saul, se dirigen al desierto para cocinar durante varios días."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-10",
+            "title": "Por encima",
+            "image": "https://image.tmdb.org/t/p/w300/qJvm57aPMMEraJ62bDb79O0XXG9.jpg",
+            "numberEpisode": "E10",
+            "caption": "Walt y Hank tienen una discusión en una fiesta, Skyler comparte sus sentimientos con su jefe y Jane oculta ante su padre la relación con Jesse."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-11",
+            "title": "Mandala",
+            "image": "https://image.tmdb.org/t/p/w300/yeQAQsV4WPTmKWTyuDhF3DAna1x.jpg",
+            "numberEpisode": "E11",
+            "caption": "Cuando Walt y Jesse pierden a uno de sus traficantes, Saul sugiere que traten con un nuevo compañero de negocios. Skyler confronta a Ted ante la desconcertante información que ha descubierto. Jesse habla a Jane sobre su ocupación y esto acarrea desastrosas consecuencias."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-12",
+            "title": "Fénix",
+            "image": "https://image.tmdb.org/t/p/w300/zxFfozd55eJ6Aa4J0pd3SRqJl5l.jpg",
+            "numberEpisode": "E12",
+            "caption": "Walt explora opciones para el lavado de dinero y discute con Jesse tras haberse llevado su parte del dinero de su último trato. Jane se enfrenta a su padre con Jesse. Walt toma una decisión mortal."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-2/episodio-13",
+            "title": "ABQ",
+            "image": "https://image.tmdb.org/t/p/w300/xdSWJjptnLAvFnh5Is6iJPlH1ds.jpg",
+            "numberEpisode": "E13",
+            "caption": "Skyler confronta a Walt ante su secreto, Jesse se derrumba y el desconsuelo del padre de Jane acaba teniendo graves consecuencias."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-1",
+            "title": "No más",
+            "image": "https://image.tmdb.org/t/p/w300/gOevWiZjFEeZgJBCQnWySzd6no9.jpg",
+            "numberEpisode": "E1",
+            "caption": "Walt se enfrenta a una nueva amenaza y tiene que tratar con una Skyler cada vez más indignada que, a su vez, debe pensar en que hacer con su vida y la de sus hijos. Jesse descubre varias revelaciones de sí mismo."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-2",
+            "title": "Caballo sin nombre",
+            "image": "https://image.tmdb.org/t/p/w300/eQYTr6cH834QyF3cE1VQymwolE1.jpg",
+            "numberEpisode": "E2",
+            "caption": "A pesar del creciente conflicto entre Walt y Skyler, él se esfuerza en hacer todo lo que puede para reconciliarse con su familia. Saul ayuda a Jesse a triunfar en una inusual oportunidad de inversión."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-3",
+            "title": "IFT (Me tiro a T)",
+            "image": "https://image.tmdb.org/t/p/w300/jH2nkMFxuX5tXc832jyDNU4AjKq.jpg",
+            "numberEpisode": "E3",
+            "caption": "Walt ignora los deseos de Skyler, forzando aún más la situación entre ambos, lo cual lleva a Skyler a actuar. Hank, aún sufriendo el pánico y los ataques de ansiedad, exagera en su trabajo."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-4",
+            "title": "Luz verde",
+            "image": "https://image.tmdb.org/t/p/w300/1Se5PpvIgUey9MgXmrKkgO8HVye.jpg",
+            "numberEpisode": "E4",
+            "caption": "Walt pierde el control como consecuencia de la actitud de Skyler y acaba poniendo en peligro su trabajo y sus relaciones con Saul y Jesse. Hank profundiza en su investigación de la droga azul. Jesse tiene un nuevo plan."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-5",
+            "title": "Más",
+            "image": "https://image.tmdb.org/t/p/w300/m2cipfAKEdLR4MIZKA3EiOcTYiZ.jpg",
+            "numberEpisode": "E5",
+            "caption": "Gus se sigue esforzando en intentar que Walt vuelva al negocio, lo cual provoca un conflicto entre Walt y Jesse. Skyler tiene dudas acerca de su nueva relación. Marie confiesa a Skyler sus preocupaciones por la actitud de Hank."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-6",
+            "title": "Puesta de sol",
+            "image": "https://image.tmdb.org/t/p/w300/sl5zRr0u0kYcIyCdQjOTsexq4bL.jpg",
+            "numberEpisode": "E6",
+            "caption": "Walt se establece en sus nuevos alrededores. Walter Jr. busca respuestas sobre el estado de la relación entre sus padres. La investigación de Hank causa graves problemas para Walt y Jesse."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-7",
+            "title": "Un minuto",
+            "image": "https://image.tmdb.org/t/p/w300/4yyVAkAQhzc5URhJJiy21biH3FJ.jpg",
+            "numberEpisode": "E7",
+            "caption": "La volatilidad de Hank le lleva a un enfrentamiento con Jesse, lo cual se convierte un problema en su trabajo. Skyler presiona a Walt para que haga un trato. Las acciones de Gus acarrean severas consecuencias."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-8",
+            "title": "Te veo",
+            "image": "https://image.tmdb.org/t/p/w300/edBDR59bzVWdMtCawimRzOMgrlW.jpg",
+            "numberEpisode": "E8",
+            "caption": "La familia espera por noticias sobre el estado de Hank. Mientras Jesse le cubre en el trabajo, Walt trata de reunirse con Gus. Tras observar una reacción inquietante, Walt piensa que él y su familia podrían estar en peligro."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-9",
+            "title": "Kafkiano",
+            "image": "https://image.tmdb.org/t/p/w300/ztG7AnGy4YKs1vxLbpK9euPwjaK.jpg",
+            "numberEpisode": "E9",
+            "caption": "Skyler tiene una idea para pagar los gastos de hospital de Hank. Walt y Gus se reúnen para entenderse mejor. Jesse, en busca de más independencia, piensa en una nueva oportunidad."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-10",
+            "title": "Mosca",
+            "image": "https://image.tmdb.org/t/p/w300/3ns0vN3bEl7elFWoodHJ9nDBogC.jpg",
+            "numberEpisode": "E10",
+            "caption": "Walt se obsesiona con un contaminante en el laboratorio, se niega a seguir cocinando hasta que se elimine y Jesse, frustrado, trata de hacer que Walt trabaje."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-11",
+            "title": "Abiquiú",
+            "image": "https://image.tmdb.org/t/p/w300/llw7fwOmOMs6OSqwK96XrPPQZD3.jpg",
+            "numberEpisode": "E11",
+            "caption": "Skyler se involucra en el negocio de Walt. Hank lucha por recuperarse. Jesse descubre algo sobrecogedor tras conocer a una chica en la terapia de grupo."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-12",
+            "title": "Medidas a medias",
+            "image": "https://image.tmdb.org/t/p/w300/mOvMekI0YKm20I42XK93mPCQ4ru.jpg",
+            "numberEpisode": "E12",
+            "caption": "A pesar de los consejos de Walt, Jesse se dispone a atacar. Temiendo por la seguridad de Jesse, Walt interviene tomando decisiones drásticas. Un trágico evento lleva a una chocante confrontación."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-3/episodio-13",
+            "title": "Medidas completas",
+            "image": "https://image.tmdb.org/t/p/w300/jdi3BLxvs61t3ZyXNKwQQqTI8YD.jpg",
+            "numberEpisode": "E13",
+            "caption": "Con Jesse oculto y Mike buscando su paradero, Walter negocia con Gus y acaba llevando a cabo un plan para asegurar su seguridad y la de Jesse."
+          }
+        ]
+      },
+      {
+        "season": "4",
+        "episodes": [
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-1",
+            "title": "Cúter",
+            "image": "https://image.tmdb.org/t/p/w300/2g6dLvOrLE7tpJatonCchLDkDyF.jpg",
+            "numberEpisode": "E1",
+            "caption": "Las vidas de Walt y Jesse penden de un hilo mientras Gus toma medidas para garantizar la continuidad de la producción de su producto. Skyler se preocupa por el paradero de Walter y Marie intenta tratar con un deprimido Hank."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-2",
+            "title": "Calibre 38 de cañón corto",
+            "image": "https://image.tmdb.org/t/p/w300/ra0R3q9jEOObo6gspjYcbqPmIM.jpg",
+            "numberEpisode": "E2",
+            "caption": "Walt intenta conseguir un nuevo aliado. Skyler trata de aprovechar una oportunidad de hacer negocios para proteger la familia."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-3",
+            "title": "Puertas abiertas",
+            "image": "https://image.tmdb.org/t/p/w300/Ac0wu93r4LaZk07wa7PiWpNOOru.jpg",
+            "numberEpisode": "E3",
+            "caption": "Skyler pide ayuda a Saul. Mientras tanto, Marie vuelve a un antiguo y molesto hábito y un amigo de Hank le pide ayuda respecto a un caso."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-4",
+            "title": "Puntos clave",
+            "image": "https://image.tmdb.org/t/p/w300/gzHp77NjrkDOu9sgkLB5PYmwArK.jpg",
+            "numberEpisode": "E4",
+            "caption": "El cartel empieza a actuar contra Gus. Walt y Skyler comparten un secreto con el resto de la familia y los actos de Jesse atraen atención innecesaria."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-5",
+            "title": "Escopeta",
+            "image": "https://image.tmdb.org/t/p/w300/cIpk1YHRcySKOET8qUfs2JC3QAy.jpg",
+            "numberEpisode": "E5",
+            "caption": "Jesse desaparece y Walt teme que haya ocurrido lo peor. Skyler tiene una reunión peculiar y Hank comparte malas noticias con el detective Tim Roberts."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-6",
+            "title": "Arrinconado",
+            "image": "https://image.tmdb.org/t/p/w300/3tuFJVKzlWRqstoAOxwWF6lPzJY.jpg",
+            "numberEpisode": "E6",
+            "caption": "Skyler descubre algo muy inquietante, Walt hace una compra extravagante para su hijo y Jesse sigue ayudando a Mike."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-7",
+            "title": "Perro problemático",
+            "image": "https://image.tmdb.org/t/p/w300/gXYKZO4nTsDrAc2AjJOhjJkwu1V.jpg",
+            "numberEpisode": "E7",
+            "caption": "Walter apuesta por un nuevo y arriesgado plan. Los negocios de Skyler se complican y Hank se lleva a Walter Jr. de paseo."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-8",
+            "title": "Hermanos",
+            "image": "https://image.tmdb.org/t/p/w300/jwGeSa4lw93UqvxoII5kb4nko1b.jpg",
+            "numberEpisode": "E8",
+            "caption": "Skyler desarrolla una curiosa solución para sus problemas financieros. Hank recluta a Walter para que le ayude en su investigación personal y la falta de paciencia de Walt con Jesse aumenta."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-9",
+            "title": "Bicho",
+            "image": "https://image.tmdb.org/t/p/w300/bIU8FJxe1yXvMm7yREwj138Z6x8.jpg",
+            "numberEpisode": "E9",
+            "caption": "Errores previos de Skyler vuelven a aparecer en su vida. Gus trata de frustrar los planes de sus rivales. Jesse busca la ayuda de Walter pero ocurre algo inesperado."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-10",
+            "title": "Salud",
+            "image": "https://image.tmdb.org/t/p/w300/dBrs0Npmn76g81yel2mjK7mTaOj.jpg",
+            "numberEpisode": "E10",
+            "caption": "La familia de Walter se preocupa cuando él no aparece para el cumpleaños de su hijo. Las habilidades de Jesse en un laboratorio son puestas a prueba sin la ayuda de Walt."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-11",
+            "title": "Semisótano",
+            "image": "https://image.tmdb.org/t/p/w300/xMR8o7N4ZBacim1druJ6PanTlPQ.jpg",
+            "numberEpisode": "E11",
+            "caption": "Walt toma decisiones drásticas para poder proteger tanto a su secreto como a Gus. Los esfuerzos de Skyler por solucionar los problemas financieros de Ted son inútiles."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-12",
+            "title": "El fin de los tiempos",
+            "image": "https://image.tmdb.org/t/p/w300/ffIjlpJndsel3FkPMpHCnpJ71lw.jpg",
+            "numberEpisode": "E12",
+            "caption": "Hank hace que Gomez investigue una última pista, mientras Walter se esfuerza para proteger a la familia. Al obtener noticias preocupantes, Jesse se dirige rápidamente a reunirse con Walt."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-4/episodio-13",
+            "title": "Enfrentamiento",
+            "image": "https://image.tmdb.org/t/p/w300/Apl61kYZF2zQlUMh13t8zmUD7Vr.jpg",
+            "numberEpisode": "E13",
+            "caption": "Walt y Jesse se unen para enfrentarse a Gus. Walt consigue un aliado inesperado gracias a la ayuda de Saul."
+          }
+        ]
+      },
+      {
+        "season": "5",
+        "episodes": [
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-1",
+            "title": "Vive libre o muere",
+            "image": "https://image.tmdb.org/t/p/w300/uShB5dWoA3xIivZ9jvwWnGCVvt4.jpg",
+            "numberEpisode": "E1",
+            "caption": "Mientras Walt trata con las consecuencias de la explosión en Casa Tranquila, Hank trabaja en su investigación acerca del imperio de Gus."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-2",
+            "title": "Madrigal",
+            "image": "https://image.tmdb.org/t/p/w300/9WIzJqqUthdASBRE1Ts8ymrDhIv.jpg",
+            "numberEpisode": "E2",
+            "caption": "Walt y Jesse tratan de convencer a Mike para que se asocie con ellos. Mientras tanto, la DEA sigue nuevas pistas en su investigación del imperio de Gus."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-3",
+            "title": "Paga de riesgo",
+            "image": "https://image.tmdb.org/t/p/w300/l84H1dZVkQGgFVomKHc67RKaEC2.jpg",
+            "numberEpisode": "E3",
+            "caption": "Walter y Jesse llevan a cabo un plan de negocios. Además, Walt confiesa a Marie un secreto."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-4",
+            "title": "Cincuenta y uno",
+            "image": "https://image.tmdb.org/t/p/w300/zxcf3ER2rzU9IxCxJEhCCw1MyT.jpg",
+            "numberEpisode": "E4",
+            "caption": "Walter celebra otro cumpleaños. Skyler contempla sus opciones. Un socio acaba influyendo en la estrategia de negocios de Walt, Jesse y Mike."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-5",
+            "title": "Carga mortal",
+            "image": "https://image.tmdb.org/t/p/w300/ay9uj9CMQJezaB407JCPMDYSptK.jpg",
+            "numberEpisode": "E5",
+            "caption": "El equipo de Walter tiene que empezar utilizar el ingenio para obtener los materiales necesarios para continuar la operación."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-6",
+            "title": "Compra",
+            "image": "https://image.tmdb.org/t/p/w300/6SHawaVRg4Iw3Ry2adH29TjHYhK.jpg",
+            "numberEpisode": "E6",
+            "caption": "Walt, Jesse y Mike deciden como será el futuro de su negocio, mientras los riesgos del trabajo preocupan a Jesse."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-7",
+            "title": "Di mi nombre",
+            "image": "https://image.tmdb.org/t/p/w300/2NA7ti9jsWnG4xreMEFwbq4DH1f.jpg",
+            "numberEpisode": "E7",
+            "caption": "Walter asume un nuevo nivel de superioridad en su proyecto de negocios. Mike tiene que tratar con las consecuencias de sus actos."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-8",
+            "title": "Deslizándose sobre todo",
+            "image": "https://image.tmdb.org/t/p/w300/uTAPBgAah14jQbV98Sw7iqJD4W7.jpg",
+            "numberEpisode": "E8",
+            "caption": "Walter se dispone a atar cabos sueltos y, viendo su éxito, acaba haciendo una peligrosa decisión."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-9",
+            "title": "Dinero ensangrentado",
+            "image": "https://image.tmdb.org/t/p/w300/1Oe2rlJ4qbZdwRmaQjh57vH2gUb.jpg",
+            "numberEpisode": "E9",
+            "caption": "Hank trata con una revelación imposible. Jesse se encuentra sólo y en un momento de oscuridad. Walter descubre que su secreto está en peligro."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-10",
+            "title": "Enterrado",
+            "image": "https://image.tmdb.org/t/p/w300/b0aRvTXslQgJpCmmcmoYqS9MsIB.jpg",
+            "numberEpisode": "E10",
+            "caption": "Mientras Walter toma medidas para poner a salvo su dinero, Skyler se ve atrapada entre él y Hank. Jesse continúa sufriendo por su culpabilidad."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-11",
+            "title": "Confesiones",
+            "image": "https://image.tmdb.org/t/p/w300/w8Aw3SPdT3uyZpP2pCnKHEIMYj3.jpg",
+            "numberEpisode": "E11",
+            "caption": "Jesse decide llevar a cabo un cambio, mientras que Walter desarrolla un plan para hacer retroceder a Hank."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-12",
+            "title": "Perro rabioso",
+            "image": "https://image.tmdb.org/t/p/w300/5VkI8lm7Xcmlxk92pWRyW341d70.jpg",
+            "numberEpisode": "E12",
+            "caption": "Se empiezan a poner en marcha ciertos planes que podrían cambiarlo todo. Walter considera medidas extremas debido a la amenaza de Jesse."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-13",
+            "title": "To'hajiilee",
+            "image": "https://image.tmdb.org/t/p/w300/lunoCRprYl0jEJEkGTS8v6eFq1n.jpg",
+            "numberEpisode": "E13",
+            "caption": "Todd es presionado por mejorar la calidad de su producto. Hank lleva a cabo una maniobra y las cosas se complican para Walt de manera inesperada."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-14",
+            "title": "Ozymandias",
+            "image": "https://image.tmdb.org/t/p/w300/k80r5JYO4LLrPJbWDXmlg7IxRMI.jpg",
+            "numberEpisode": "E14",
+            "caption": "Walter sufre terribles consecuencias por todo lo que hizo y todos tienen que tratar con circunstancias radicalmente cambiadas."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-15",
+            "title": "Estado del granito",
+            "image": "https://image.tmdb.org/t/p/w300/lCVFehyLhc4qlwTxBwbKpYvc3BS.jpg",
+            "numberEpisode": "E15",
+            "caption": "Eventos iniciados mucho tiempo atrás transcurren hacia una conclusión. El prófugo Walter lidia con sus demonios mientras Jesse sigue aprisionado y Skyler sufre las consecuencias de los actos de Walt."
+          },
+          {
+            "link": "serie/breaking-bad/temporada-5/episodio-16",
+            "title": "Felina",
+            "image": "https://image.tmdb.org/t/p/w300/pA0YwyhvdDXP3BEGL2grrIhq8aM.jpg",
+            "numberEpisode": "E16",
+            "caption": "Todo lo malo llega a su final en el último episodio de Breaking Bad."
+          }
+        ]
+      }
+    ],
+    "link": "serie/breaking-bad",
+    "updatedAt": "2026-08-11T15:35:24.801Z"
+  },
+  "serie/chernobil": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/3URK0z9PzpVNJrGE7XOuyy6KFzk.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg",
+    "title": "Chernobyl",
+    "year": "Ended",
+    "duration": "2019",
+    "rating": "\n                    TMDB\n                    8.7\n                ",
+    "tags": [
+      "Drama"
+    ],
+    "caption": "Sigue \"la verdadera historia\" de una de las peores catástrofes provocadas por el hombre y habla de los valientes hombres y mujeres que se sacrificaron para salvar a Europa de un desastre inimaginable. La miniserie se centra en el desgarrador alcance del desastre de la planta nuclear que ocurrió en Ucrania en abril de 1986, revelando cómo y por qué ocurrió, además contando las sorprendentes y notables historias de los héroes que lucharon y cayeron.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/chernobil/temporada-1/episodio-1",
+            "title": "1:23:45",
+            "image": "https://image.tmdb.org/t/p/w300/thaMHLz5l6TVL8R4EzaBkjn2EZA.jpg",
+            "numberEpisode": "E1",
+            "caption": "26 de abril de 1986, RSS de Ucrania. Trabajadores de la planta y bomberos arriesgan sus vidas para controlar la catastrófica explosión de 1986 en una central nuclear soviética."
+          },
+          {
+            "link": "serie/chernobil/temporada-1/episodio-2",
+            "title": "Por favor, mantengan la calma",
+            "image": "https://image.tmdb.org/t/p/w300/kVsUEtOOYeLRmABVuZztl4k9onO.jpg",
+            "numberEpisode": "E2",
+            "caption": "Con millones de personas en peligro después de la explosión de Chernobyl, la físico nuclear Ulana Khomyuk hace un intento desesperado de llegar a Valery Legasov, un destacado físico nuclear soviético, y le advierte sobre la amenaza de una segunda explosión que podría devastar el continente."
+          },
+          {
+            "link": "serie/chernobil/temporada-1/episodio-3",
+            "title": "Tierra, ábrete",
+            "image": "https://image.tmdb.org/t/p/w300/f3AgIEfGWWO3qNoxymagUqCBaE8.jpg",
+            "numberEpisode": "E3",
+            "caption": "Lyudmilla Ignatenko ignora las advertencias sobre la contaminación de su marido, Legásov crea un plan de descontaminación en el que tiene en cuenta las vidas humanas en juego."
+          },
+          {
+            "link": "serie/chernobil/temporada-1/episodio-4",
+            "title": "La felicidad de la humanidad",
+            "image": "https://image.tmdb.org/t/p/w300/xV2eVT4ejGhVn9OIMCo4uBOhmCC.jpg",
+            "numberEpisode": "E4",
+            "caption": "Valery Legasov y el viceprimer ministro soviético Boris Shcherbina consideran usar vehículos lunares para eliminar los desechos radiactivos, mientras tanto Ulana Khomyuk se enfrenta  a obstáculos gubernamentales para determinar la verdad sobre la causa de la explosión."
+          },
+          {
+            "link": "serie/chernobil/temporada-1/episodio-5",
+            "title": "Vichnaya Pamyat",
+            "image": "https://image.tmdb.org/t/p/w300/mgXm2Y6SOFDHtD5thi2LmS7uQBj.jpg",
+            "numberEpisode": "E5",
+            "caption": "Valery Legasov, Boris Shcherbina y Ulana Khomyuk arriesgan sus vidas y reputaciones para exponer la verdad sobre Chernobyl.\n\nFinal"
+          }
+        ]
+      }
+    ],
+    "link": "serie/chernobil",
+    "updatedAt": "2026-08-11T16:06:12.364Z"
   }
 }

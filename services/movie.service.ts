@@ -8,7 +8,7 @@ let browserInstance: Promise<Browser> | null = null;
 export async function getBrowser() {
   if (!browserInstance)
     browserInstance = chromium.launch({
-      headless: true,
+      headless: false,
       proxy: { server: "socks5://127.0.0.1:9050" },
       args: [
         "--autoplay-policy=no-user-gesture-required",
@@ -32,7 +32,7 @@ export async function getBrowser() {
 
   setTimeout(async () => {
     await context.close();
-  }, 30000); // Cierra el contexto después de 30 segundos
+  }, 15000); // Cierra el contexto después de 15 segundos
 
   const page = await context.newPage();
 
@@ -60,6 +60,7 @@ export async function getUrl(path: string) {
 
     await page.goto(BASE_PATH + path, {
       waitUntil: "domcontentloaded",
+      timeout: 10000,
     });
 
     const frame = page.frameLocator('iframe[src*="player.pelisserieshoy.com"]');
@@ -69,7 +70,9 @@ export async function getUrl(path: string) {
     });
 
     try {
-      const play = await frame.locator("#playBtn");
+      const play = await frame.locator("#playBtn")
+
+      await play.waitFor({ timeout: 10000 });
 
       const clickLoop = async () => {
         while (!resolved) {
@@ -104,6 +107,7 @@ export async function getAll(search?: string, slug: string = "") {
 
       {
         waitUntil: "domcontentloaded",
+        timeout: 10000,
       },
     );
 

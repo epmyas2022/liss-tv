@@ -69,8 +69,13 @@ export function PlayerView() {
     const fetchMovieUrl = async () => {
       if (!moviePreview) return setLoading(false);
       try {
-        const url = await getMovieUrl(moviePreview.link);
-        setMovieUrl(url as string);
+        const content = await getMovieUrl(moviePreview.link) as string | { error: boolean; message: string };
+
+        if(typeof content === "object" && content.error) {
+          return setLoading(false);
+        }
+
+        setMovieUrl(content as string);
       } catch (error) {
         console.error(error);
       } finally {
