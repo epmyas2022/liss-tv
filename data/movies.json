@@ -10615,5 +10615,238 @@
     ],
     "link": "serie/ley-y-orden-unidad-de-victimas-especiales",
     "updatedAt": "2026-08-09T01:17:19.915Z"
+  },
+  "pelicula/la-heroina-del-lazo": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/8SEb8rEZ9DYqBT7U3FI5nBOS1lV.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/d1nx0zBp0c513iJbhKj5VhpO76C.jpg",
+    "title": "La heroína del moño",
+    "year": "2026",
+    "duration": "1h 49m",
+    "rating": "◆ 0.0",
+    "tags": [
+      "Acción",
+      "Drama",
+      "Animación",
+      "Fantasía",
+      "Anime"
+    ],
+    "caption": "Cuando el Nergal destruye su reino, la princesa Sapphire despierta sus poderes como la heroína del moño y lucha para evitar que su nuevo hogar sufra el mismo destino.",
+    "episodes": [],
+    "link": "pelicula/la-heroina-del-lazo",
+    "updatedAt": "2026-08-11T14:24:29.583Z"
+  },
+  "serie/silo": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/uTWhbLc7Bj4qNSdW3ZvZKL8cOHv.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/8gjKCC85lHIGer9q6duOcVR1PVm.jpg",
+    "title": "Silo",
+    "year": "Returning Series",
+    "duration": "2023",
+    "rating": "\n                    TMDB\n                    8.2\n                ",
+    "tags": [
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "caption": "En un futuro arruinado y tóxico, existe una comunidad en un enorme silo subterráneo cientos de pisos bajo tierra. Ahí, hombres y mujeres viven en una sociedad llena de reglas que creen que están hechas para protegerlos.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/silo/temporada-1/episodio-1",
+            "title": "Día de la Libertad",
+            "image": "https://image.tmdb.org/t/p/w300/rpZhJcWPpyLvPC5Vid61GD6JHVu.jpg",
+            "numberEpisode": "E1",
+            "caption": "Los planes de futuro del sheriff Becker se desbaratan cuando su mujer conoce a un hacker con información sobre el silo."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-2",
+            "title": "La elección de Holston",
+            "image": "https://image.tmdb.org/t/p/w300/bRYHFClG8YkTJTy8fx73hgCd8Ac.jpg",
+            "numberEpisode": "E2",
+            "caption": "Juliette, una ingeniera, intenta averiguar qué pudo provocar la misteriosa muerte de un compañero de trabajo."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-3",
+            "title": "Máquinas",
+            "image": "https://image.tmdb.org/t/p/w300/8hQB4jxk9ydj55Mrl9sY95smV7.jpg",
+            "numberEpisode": "E3",
+            "caption": "En su búsqueda de un nuevo sheriff, la alcaldesa Jahns choca con Bernard. Juliette llega a un acuerdo para que el generador siga funcionando."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-4",
+            "title": "Verdad",
+            "image": "https://image.tmdb.org/t/p/w300/x3fMuXhTx5f91tQgjXNzopo5B5g.jpg",
+            "numberEpisode": "E4",
+            "caption": "Juliette intenta ganarse la confianza del ayudante del sheriff Marnes mientras trabajan para descubrir la verdad sobre las recientes tragedias."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-5",
+            "title": "El hijo del conserje",
+            "image": "https://image.tmdb.org/t/p/w300/yzLUNo2jU82N5rdRG0xZ2A2ed79.jpg",
+            "numberEpisode": "E5",
+            "caption": "Sims nombra a Billings ayudante para que vigile a Juliette, cuyos esfuerzos por resolver dos asesinatos desembocan en un enfrentamiento."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-6",
+            "title": "La reliquia",
+            "image": "https://image.tmdb.org/t/p/w300/k5UxYAS4Xmcsn3GZdCklXGMIBMd.jpg",
+            "numberEpisode": "E6",
+            "caption": "Durante su investigación, Juliette descubre inquietantes secretos sobre alguien a quien creía conocer."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-7",
+            "title": "Los guardianes",
+            "image": "https://image.tmdb.org/t/p/w300/ukzV8BZbjlIU6WOKdoZqhHMg2yi.jpg",
+            "numberEpisode": "E7",
+            "caption": "Bernard busca la colaboración de Juliette, cada vez más preocupado por la seguridad del silo. Juliette le pide un favor a su padre."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-8",
+            "title": "Hanna",
+            "image": "https://image.tmdb.org/t/p/w300/sZaeOvZYS4evALQtm2wfC3eJxit.jpg",
+            "numberEpisode": "E8",
+            "caption": "Una nueva información hace que Juliette vea el pasado de su familia de forma diferente, y por fin consigue acceder a los mayores secretos del silo."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-9",
+            "title": "La fuga",
+            "image": "https://image.tmdb.org/t/p/w300/mogTf95jiLdvSXwnjpQcIs6Wxh2.jpg",
+            "numberEpisode": "E9",
+            "caption": "Angustiado por la culpa, Billings emprende una misión personal, solo para descubrir una pista alucinante de Juliette."
+          },
+          {
+            "link": "serie/silo/temporada-1/episodio-10",
+            "title": "Fuera",
+            "image": "https://image.tmdb.org/t/p/w300/qcqkEv0S8Re5V2UV9LFUWzHYyq3.jpg",
+            "numberEpisode": "E10",
+            "caption": "El destino de Juliette parece sellado cuando ciertas verdades finalmente salen a la luz."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/silo/temporada-2/episodio-1",
+            "title": "El ingeniero",
+            "image": "https://image.tmdb.org/t/p/w300/kB5wWdEknKlBJ8iGEYQyTJWTSZv.jpg",
+            "numberEpisode": "E1",
+            "caption": "Juliette encuentra refugio en un silo destruido hace tiempo por la guerra, pensando que está sola."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-2",
+            "title": "La Orden",
+            "image": "https://image.tmdb.org/t/p/w300/gB2lEpKUvTshTdq00IRjQHFgG4J.jpg",
+            "numberEpisode": "E2",
+            "caption": "En el silo 18, la conmoción y el malestar se apoderan de Juliette cuando hace lo que nadie había hecho antes."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-3",
+            "title": "Solo",
+            "image": "https://image.tmdb.org/t/p/w300/dY1nJnRuuhC0stZqNWShBYqk93H.jpg",
+            "numberEpisode": "E3",
+            "caption": "Bernard pide ayuda a la jueza Meadows. Billings empieza a preguntarse si le están mintiendo. Juliette conoce por fin al hombre de la cámara acorazada."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-4",
+            "title": "El armonio",
+            "image": "https://image.tmdb.org/t/p/w300/lSsLzD8eVZaju4XUGmoTGSvZq2C.jpg",
+            "numberEpisode": "E4",
+            "caption": "Juliette emprende una peligrosa búsqueda para recuperar un traje que le permita volver a casa y salvar su silo. Mecánica prepara una reunión con la jueza Meadows."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-5",
+            "title": "Descenso",
+            "image": "https://image.tmdb.org/t/p/w300/y2KEcaL7GLj5uYXP0t7C0d0R5B6.jpg",
+            "numberEpisode": "E5",
+            "caption": "Sims adquiere un nuevo puesto. Juliette descubre que Solo no está siendo sincero. Bernard y Lukas hacen un importante descubrimiento"
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-6",
+            "title": "Barricadas",
+            "image": "https://image.tmdb.org/t/p/w300/aAPo83kOC5mfgcOado49ijWITVo.jpg",
+            "numberEpisode": "E6",
+            "caption": "Bernard pone en marcha un plan para acabar con Knox, Shirley y Walker. Billings se posiciona. Solo le salva la vida a Juliette y quiere algo a cambio."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-7",
+            "title": "La inmersión",
+            "image": "https://image.tmdb.org/t/p/w300/z60fohHAWgfhpVjZRZq4M1Itw7Z.jpg",
+            "numberEpisode": "E7",
+            "caption": "A Lukas se le asigna una misión. Mecánica envía un poderoso mensaje. Juliette inicia un peligroso descenso y se enfrenta a un nuevo peligro."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-8",
+            "title": "El libro de Quinn",
+            "image": "https://image.tmdb.org/t/p/w300/krzYmEQZ3ugR5MFqOMQJrv2pcnh.jpg",
+            "numberEpisode": "E8",
+            "caption": "Juliette descubre que algo le ha ocurrido a Solo. Bernard hace una oferta a Walker. Lukas se reúne con los descendientes de Salvador Quinn."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-9",
+            "title": "El salvoconducto",
+            "image": "https://image.tmdb.org/t/p/w300/aNgT4AEffmGwiabRD03riCz1aWr.jpg",
+            "numberEpisode": "E9",
+            "caption": "La fe de Billings se tambalea. Lukas se dirige a las profundidades. Knox identifica al traidor. Juliette descubre la verdad sobre el pasado de Solo."
+          },
+          {
+            "link": "serie/silo/temporada-2/episodio-10",
+            "title": "En el fuego",
+            "image": "https://image.tmdb.org/t/p/w300/coz4XyEQ59IbkJ3UYB9Nr8UW8ur.jpg",
+            "numberEpisode": "E10",
+            "caption": "Los rebeldes pasan a la acción, y Juliette también."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/silo/temporada-3/episodio-1",
+            "title": "¿Quién eres?",
+            "image": "https://image.tmdb.org/t/p/w300/nIvrv95n7gukebcCEUeZJDy9iEp.jpg",
+            "numberEpisode": "E1",
+            "caption": "La nueva alcaldesa Juliette no recuerda nada de su tiempo en el exterior... ni de su pasado."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-2",
+            "title": "Todo está bien",
+            "image": "https://image.tmdb.org/t/p/w300/u4kB03bgyjnwDEIpBkpjqTvdcbz.jpg",
+            "numberEpisode": "E2",
+            "caption": "Billings investiga una desaparición. Daniel Keene tiene un encontronazo con una reportera."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-3",
+            "title": "Una red oscura",
+            "image": "https://image.tmdb.org/t/p/w300/rlfEJJlIAlFEcw6nNfYpyNUbTPR.jpg",
+            "numberEpisode": "E3",
+            "caption": "Juliette toma las riendas de su recuperación. Helen sufre las consecuencias de su investigación."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-4",
+            "title": "Hagas lo que hagas, no vayas a casa",
+            "image": "https://image.tmdb.org/t/p/w300/pYnJjrdS64krUWUAGB4ckZsqN1r.jpg",
+            "numberEpisode": "E4",
+            "caption": "La huida de Camille conduce a Juliette a un descubrimiento impactante. Daniel busca la ayuda de un amigo."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-5",
+            "title": "Memoria",
+            "image": "https://image.tmdb.org/t/p/w300/zcbjuLkbVPHSphOHClKQM0v1Zjf.jpg",
+            "numberEpisode": "E5",
+            "caption": "Salen a la luz los acontecimientos posteriores al regreso de Juliette... y surgen alianzas inesperadas."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-6",
+            "title": "El disco duro",
+            "image": "https://image.tmdb.org/t/p/w300/hCUVzq1FghJlS75KIG2Ttxua4AL.jpg",
+            "numberEpisode": "E6",
+            "caption": "Billings y Hank tropiezan con un nuevo misterio. Daniel y Helen reciben una propuesta sorprendente."
+          }
+        ]
+      }
+    ],
+    "link": "serie/silo",
+    "updatedAt": "2026-08-11T14:50:58.163Z"
   }
 }

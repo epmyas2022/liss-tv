@@ -1,20 +1,25 @@
-import { chromium } from "playwright";
+import { Browser, chromium } from "playwright";
 import { upsert, get } from "./movie.store";
 
 export const BASE_PATH = "https://sololatino.net/";
 
+let browserInstance: Promise<Browser> | null = null;
+
 export async function getBrowser() {
-  const browser = await chromium.launch({
-    headless: true,
-    proxy: { server: "socks5://127.0.0.1:9050" },
-    args: [
-      "--autoplay-policy=no-user-gesture-required",
-      "--disable-blin k-features=AutomationControlled",
-      "--no-sandbox",
-      "--disable-dev-shm-usage",
-      "-disable-gpu",
-    ],
-  });
+  if (!browserInstance)
+    browserInstance = chromium.launch({
+      headless: false,
+      proxy: { server: "socks5://127.0.0.1:9050" },
+      args: [
+        "--autoplay-policy=no-user-gesture-required",
+        "--disable-blin k-features=AutomationControlled",
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+      ],
+    });
+
+  const browser = await browserInstance;
 
   const context = await browser.newContext({
     viewport: {
@@ -24,6 +29,10 @@ export async function getBrowser() {
     userAgent:
       "Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0",
   });
+
+  setTimeout(async () => {
+    await context.close();
+  }, 30000); // Cierra el contexto después de 30 segundos
 
   const page = await context.newPage();
 
@@ -36,7 +45,7 @@ export async function getUrl(path: string) {
   let resolved = false;
 
   return new Promise(async (resolve) => {
-    const { browser, context, page } = await getBrowser();
+    const { context, page } = await getBrowser();
 
     const videoPromise = new Promise<string>((resolveVideo) => {
       const handler = (response: { url: () => string }) => {
@@ -75,14 +84,12 @@ export async function getUrl(path: string) {
       resolve(await videoPromise);
     } catch (error) {
       console.error("Error occurred while fetching video URL:", error);
-    } finally {
-      await browser.close();
     }
   });
 }
 
 export async function getAll(search?: string, slug: string = "") {
-  const { browser, page } = await getBrowser();
+  const { context, page } = await getBrowser();
 
   await page.route("**/*", (route) => {
     const type = route.request().resourceType();
@@ -120,12 +127,12 @@ export async function getAll(search?: string, slug: string = "") {
       });
     });
 
-    await browser.close();
+    await context.close();
 
     return movies;
   } catch (error) {
     console.error("Error occurred while fetching movies:", error);
-    await browser.close();
+    await context.close();
   }
 }
 
@@ -158,7 +165,7 @@ export async function getMovieDetails(link: string) {
     };
   }
 
-  const { browser, page } = await getBrowser();
+  const { context, page } = await getBrowser();
   try {
     await page.goto(BASE_PATH + link, {
       waitUntil: "domcontentloaded",
@@ -239,7 +246,7 @@ export async function getMovieDetails(link: string) {
       }
     }
 
-    await browser.close();
+    await context.close();
 
     const detail = {
       backgroundImage:
@@ -259,6 +266,6 @@ export async function getMovieDetails(link: string) {
     return detail;
   } catch (error) {
     console.error("Error occurred while fetching movie details:", error);
-    await browser.close();
+    await context.close();
   }
 }
