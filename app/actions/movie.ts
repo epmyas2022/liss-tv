@@ -24,7 +24,7 @@ async function withTimeout<T>(
 }
 
 export async function getMovieUrl(link: string) {
-  return await withTimeout(getUrl(link), 15000, {
+  return await withTimeout(getUrl(link), 20000, {
     error: true,
     message: "El video tardó demasiado en cargar. Intenta de nuevo.",
   });

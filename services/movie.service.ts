@@ -8,7 +8,7 @@ let browserInstance: Promise<Browser> | null = null;
 export async function getBrowser() {
   if (!browserInstance)
     browserInstance = chromium.launch({
-      headless: false,
+      headless: true,
       proxy: { server: "socks5://127.0.0.1:9050" },
       args: [
         "--autoplay-policy=no-user-gesture-required",
@@ -32,7 +32,7 @@ export async function getBrowser() {
 
   setTimeout(async () => {
     await context.close();
-  }, 15000); // Cierra el contexto después de 15 segundos
+  }, 20000); // Cierra el contexto después de 20 segundos
 
   const page = await context.newPage();
 
