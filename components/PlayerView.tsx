@@ -41,7 +41,6 @@ export function PlayerView() {
     });
 
     setTimeout(() => window.location.reload(), 1000);
-
   };
 
   const saveWatchProgress = (currentTime: number, duration: number) => {
@@ -69,13 +68,9 @@ export function PlayerView() {
     const fetchMovieUrl = async () => {
       if (!moviePreview) return setLoading(false);
       try {
-        const content = await getMovieUrl(moviePreview.link) as string | { error: boolean; message: string };
+        const content = await getMovieUrl(moviePreview.link);
 
-        if(typeof content === "object" && content.error) {
-          return setLoading(false);
-        }
-
-        setMovieUrl(content as string);
+        setMovieUrl(content);
       } catch (error) {
         console.error(error);
       } finally {

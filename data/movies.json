@@ -11380,5 +11380,20 @@
     ],
     "link": "serie/chernobil",
     "updatedAt": "2026-08-11T16:06:12.364Z"
+  },
+  "pelicula/the-gates": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/1pI2Crm9YjSDbH75NZaW8FrYjs9.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/dWMiHlKz0OsbVXEEZR3hYyWHcdq.jpg",
+    "title": "The Gates",
+    "year": "2026",
+    "duration": "1h 39m",
+    "rating": "◆ 6.1",
+    "tags": [
+      "Suspense"
+    ],
+    "caption": "Tres jóvenes toman un atajo poco prudente por una urbanización cerrada y remota, donde se quedan atrapados tras sus muros después de presenciar un asesinato. A lo largo de la noche, se ven culpados, perseguidos y divididos por sus propios sistemas de creencias, mientras el autor del crimen emerge como el astuto patriarca que mantiene a toda la comunidad bajo su influencia.",
+    "episodes": [],
+    "link": "pelicula/the-gates",
+    "updatedAt": "2026-08-11T17:50:08.820Z"
   }
 }
