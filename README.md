@@ -46,4 +46,6 @@ docker run --name liss-tv -p 8000:8000 -d epmyas2022/liss-tv:latest
 
 ## Example
 
+Algunas series y películas puede que su url no funcione ya se porque no existe o porque esta caida.
+
 ![alt text](image.png)
