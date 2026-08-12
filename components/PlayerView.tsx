@@ -70,7 +70,7 @@ export function PlayerView() {
       try {
         const content = await getMovieUrl(moviePreview.link);
 
-        setMovieUrl(content);
+        setMovieUrl(content as string);
       } catch (error) {
         console.error(error);
       } finally {
