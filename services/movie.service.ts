@@ -8,7 +8,7 @@ let browserInstance: Promise<Browser> | null = null;
 export async function getBrowser() {
   if (!browserInstance)
     browserInstance = chromium.launch({
-      headless: false,
+      headless: true,
       proxy: { server: "socks5://127.0.0.1:9050" },
       args: [
         "--autoplay-policy=no-user-gesture-required",
@@ -91,70 +91,7 @@ export async function getUrl(path: string) {
   });
 }
 
-export async function getAlternateUrl(path: string) {
-  const { context, page } = await getBrowser();
 
-  context.on("page", async (newPage) => {
-    await newPage.close().catch(() => {});
-  });
-
-  await page.goto(BASE_PATH + path, {
-    waitUntil: "domcontentloaded",
-    timeout: 15000,
-  });
-
-  const serverButton = page
-    .locator("button[data-server-btn]")
-    .filter({ hasText: "FEMBED" })
-    .first();
-
-  await serverButton.waitFor({ timeout: 10000 });
-
-  await serverButton.click();
-  await serverButton.waitFor({
-    state: "attached",
-    timeout: 10000,
-  });
-
-  await page.waitForFunction(
-    (button) => {
-      return button.getAttribute("data-resolved-url");
-    },
-    await serverButton.elementHandle(),
-    { timeout: 10000 },
-  );
-
-  const resolvedUrl = await serverButton.getAttribute("data-resolved-url");
-
-  if (!resolvedUrl) return null;
-
-  await page.goto(resolvedUrl, {
-    waitUntil: "domcontentloaded",
-    timeout: 15000,
-  });
-
-  const vidhide = page.locator("li").filter({ hasText: "vidhide" }).first();
-
-  await vidhide.click();
-
-  const videoPromise = new Promise<string>((resolveVideo) => {
-    const handler = (response: { url: () => string }) => {
-      if (response.url().includes("index") && response.url().includes(".m3u8")) {
-        page.off("response", handler);
-        resolveVideo(response.url());
-      }
-    };
-
-    page.on("response", handler);
-  });
-
-
-  const url = await videoPromise;
-
-  await context.close()
- 
-  return `/api/video?url=${url}`;
-}
 
 export async function getAll(search?: string, slug: string = "") {
   const { context, page } = await getBrowser();

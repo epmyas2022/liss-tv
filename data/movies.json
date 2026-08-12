@@ -11395,5 +11395,2034 @@
     "episodes": [],
     "link": "pelicula/the-gates",
     "updatedAt": "2026-08-11T17:50:08.820Z"
+  },
+  "serie/la-teoria-del-big-bang": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/gMqQY6SwuhKg1LvmiTxKX6YrINr.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/2bDQWCvFxRGhdvThTJvVxueEoLl.jpg",
+    "title": "La Teoría del Big Bang",
+    "year": "Ended",
+    "duration": "2007",
+    "rating": "\n                    TMDB\n                    7.9\n                ",
+    "tags": [
+      "Comedia"
+    ],
+    "caption": "Leonard y Sheldon son dos físicos que comparten trabajo y apartamento. La serie comienza con la mudanza de Penny, su nueva y atractiva vecina, y hace hincapié en la dificultad de los físicos para relacionarse con personas fuera de su entorno para dar lugar a situaciones cómicas.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-1",
+            "title": "Piloto",
+            "image": "https://image.tmdb.org/t/p/w300/l3rRtcQ3hk0JXjhiRqSqImXUBVO.jpg",
+            "numberEpisode": "E1",
+            "caption": "Leonard siente un flechazo por su nueva vecina, pero su torpeza con las mujeres y sus extraños amigos dificultan sus intentos de ser amable con ella."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-2",
+            "title": "La hipótesis del Gran Cerebro",
+            "image": "https://image.tmdb.org/t/p/w300/2OXgMuOqkyjQ19fOrMDGATVCsw1.jpg",
+            "numberEpisode": "E2",
+            "caption": "Leonard intenta impresionar a Penny, pero cuando pide ayuda a Sheldon sus intentos de caballerosidad se tuercen."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-3",
+            "title": "El Corolario de \"Botas Peludas\"",
+            "image": "https://image.tmdb.org/t/p/w300/eDyDC7cwKz9ZTA4CX44eKuHjPgZ.jpg",
+            "numberEpisode": "E3",
+            "caption": "Tras ver a Penny besando a un hombre, Leonard le pide salir a una chica que le rechaza brutalmente. Wolowitz intenta llevar a los chicos a bailar."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-4",
+            "title": "El efecto del pez luminoso",
+            "image": "https://image.tmdb.org/t/p/w300/kKS7oikWCivvrOarkUpH4q1vv2T.jpg",
+            "numberEpisode": "E4",
+            "caption": "El despido de Sheldon le fuerza a explorar la vida exterior a la Física. Leonard debe tomar medidas drásticas para combatir el desánimo de su amigo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-5",
+            "title": "El postulado de la hamburguesa",
+            "image": "https://image.tmdb.org/t/p/w300/zO3CSyb13PQyzWICp4mmZEUeExp.jpg",
+            "numberEpisode": "E5",
+            "caption": "Leonard teme que está perdiendo el tiempo con Penny, así que lo intenta de nuevo con Leslie. Sheldon se enrabieta por cambiar de hamburguesería."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-6",
+            "title": "El paradigma de la Tierra Media",
+            "image": "https://image.tmdb.org/t/p/w300/4P20QdmB6QL8aa0b8dKR8sHK1iW.jpg",
+            "numberEpisode": "E6",
+            "caption": "Penny monta una fiesta de Halloween que pone a prueba las escasas habilidades sociales de Leonard, Sheldon y sus amigos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-7",
+            "title": "La paradoja del Wan-Tun",
+            "image": "https://image.tmdb.org/t/p/w300/4y5rvzPZF5ukM3vtktqWTp9MhyH.jpg",
+            "numberEpisode": "E7",
+            "caption": "Wolowitz se lía con una de las amigas de Penny, por lo que a los chicos les falta un jugador para el juego \"Halo\". Penny decide cubrir su puesto."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-8",
+            "title": "El experimento del Grasshopper",
+            "image": "https://image.tmdb.org/t/p/w300/rbVfuB7vBrrXygo0d8qhk9FhmAd.jpg",
+            "numberEpisode": "E8",
+            "caption": "Raj tiene una cita a ciegas que le han organizado sus padres. Cuando supera su terror a hablar con ella la chica se interesa por Sheldon."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-9",
+            "title": "La polarización Cooper-Hofstadter",
+            "image": "https://image.tmdb.org/t/p/w300/8MvMEvZzZPBkgQZIVk9KvF8nLH5.jpg",
+            "numberEpisode": "E9",
+            "caption": "Sheldon es reacio a compartir con Leonard el reconocimiento de un proyecto conjunto. La intervención conciliadora de Penny empeora la situación."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-10",
+            "title": "La resultante de Loobenfeld",
+            "image": "https://image.tmdb.org/t/p/w300/6dssfbhNv1g3FFqKWKJhNqaqSQH.jpg",
+            "numberEpisode": "E10",
+            "caption": "Leonard y Sheldon mienten para no asistir a un musical en el que canta Penny. Sin embargo, la mentira de Sheldon se complica demasiado."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-11",
+            "title": "La anomalía de la masa de tortitas",
+            "image": "https://image.tmdb.org/t/p/w300/q0E0GNUMHWZDNKbygCjKJGiFc9G.jpg",
+            "numberEpisode": "E11",
+            "caption": "Sheldon enferma y sus amigos le evitan para no enfrentarse a su típico malhumor convaleciente. Penny comienza a cuidarle sin saber en lo que se mete."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-12",
+            "title": "La dualidad de Jerusalén",
+            "image": "https://image.tmdb.org/t/p/w300/wlo6NGvrpo58hnUztkAmdDBPj2D.jpg",
+            "numberEpisode": "E12",
+            "caption": "Sheldon está insoportable desde que conoció a un físico de 15 años más inteligente que él. Los chicos buscan una forma de eliminar el problema."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-13",
+            "title": "La conjetura del Bat-tarro",
+            "image": "https://image.tmdb.org/t/p/w300/w1Et8tW5En8a2ieEWRlolAVkyED.jpg",
+            "numberEpisode": "E13",
+            "caption": "Sheldon es expulsado del equipo, siendo sustituido por Leslie. Para demostrar su superioridad forma su propio equipo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-14",
+            "title": "La aniquilación del paraíso frikinal",
+            "image": "https://image.tmdb.org/t/p/w300/sktEOfZVIBnyW6MeZlGXbcdp6vO.jpg",
+            "numberEpisode": "E14",
+            "caption": "Una desastrosa entrega a domicilio del decorado de \"La máquina del tiempo\" hace que Leonard considere abandonar su coleccionismo obsesivo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-15",
+            "title": "La indeterminación de la costilla de cerdo",
+            "image": "https://image.tmdb.org/t/p/w300/qBlf2PEd6RDGnyOip6ZPJ825AMw.jpg",
+            "numberEpisode": "E15",
+            "caption": "Los chicos se enamoran de la hermana gemela de Sheldon, pero antes de salir con ella tendrán que obtener el beneplácito de su exigente hermano."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-16",
+            "title": "Reacción al cacahuete",
+            "image": "https://image.tmdb.org/t/p/w300/jnI6qR3y9Hfn7hA1uCUJhYMkIAv.jpg",
+            "numberEpisode": "E16",
+            "caption": "Los chicos descubren que se acerca el cumpleaños de Leonard y que su familia nunca lo celebró. Penny decide organizarle una fiesta sorpresa."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-1/episodio-17",
+            "title": "Factor mandarina",
+            "image": "https://image.tmdb.org/t/p/w300/3RCfgXjtRcWRt1ci7RIYi3JzJQ9.jpg",
+            "numberEpisode": "E17",
+            "caption": "La ruptura de Penny con su novio hace que Leonard reúna valor para pedirle una cita. Los dos irán por separado a pedirle consejo a Sheldon."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-1",
+            "title": "El paradigma del pescado malo",
+            "image": "https://image.tmdb.org/t/p/w300/y9cFxQyFRBOewwVvkMl6SaH2om0.jpg",
+            "numberEpisode": "E1",
+            "caption": "Tras su desafortunada cita con Leonard, Penny abre su corazón a Sheldon. Pero Sheldon está más que reacio a convertirse en su confidente."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-2",
+            "title": "La topología de la coquilla",
+            "image": "https://image.tmdb.org/t/p/w300/a9k5gM9GYU4IBW93LJc4IjRbgHI.jpg",
+            "numberEpisode": "E2",
+            "caption": "Cuando Leonard ve a Penny con otro hombre, vuelve por despecho a los brazos de Leslie. cosa que a Sheldon no le hace ninguna gracia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-3",
+            "title": "La sublimación bárbara",
+            "image": "https://image.tmdb.org/t/p/w300/q0bhAlY77x9XwfpHYrDScHZvMQE.jpg",
+            "numberEpisode": "E3",
+            "caption": "Penny se engancha a un juego en internet de Conan el Bárbaro y no deja de atosigar a Sheldon para que le dé consejos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-4",
+            "title": "La equivalencia de Griffin",
+            "image": "https://image.tmdb.org/t/p/w300/AvCiGNJqqaowpZlBdoO6Bp2hIdp.jpg",
+            "numberEpisode": "E4",
+            "caption": "Con la confianza por los cielos tras salir en una revista, Raj empieza a tirarle los trastos a Penny y se vuelve insoportablemente arrogante."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-5",
+            "title": "La alternativa euclidia",
+            "image": "https://image.tmdb.org/t/p/w300/84UnqiLl4J8LCmJXWwTNfne4pWC.jpg",
+            "numberEpisode": "E5",
+            "caption": "Leonard no puede continuar llevando a Sheldon al trabajo, por lo que éste intentará superar su miedo a conducir y se propone sacar el carné de conducir."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-6",
+            "title": "El teorema de Cooper-Nowitzki",
+            "image": "https://image.tmdb.org/t/p/w300/2WAmfZtammDEhuQuDgxqQT7BR9z.jpg",
+            "numberEpisode": "E6",
+            "caption": "Tras un discurso en un seminario de estudiantes, una joven se obsesiona con Sheldon. Pronto la muchacha se convertirá en un verdadero estorbo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-7",
+            "title": "La polarización de la piñata de los pantys",
+            "image": "https://image.tmdb.org/t/p/w300/nBAjkqE9I805f9OCqxZAKVqnJT2.jpg",
+            "numberEpisode": "E7",
+            "caption": "Sheldon expulsa a Penny del apartamento por sus pequeñas infracciones, así que Penny decide tomar represalias."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-8",
+            "title": "La expansión Lagarto-Spock",
+            "image": "https://image.tmdb.org/t/p/w300/AlvHVY7gvBHfQvMLAvB9PODeYQw.jpg",
+            "numberEpisode": "E8",
+            "caption": "La chica a la que adora Wolowitz se enamora de Leonard. Sheldon intenta mejorar el juego de piedra, papel o tijera."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-9",
+            "title": "La triangulación de los espárragos blancos",
+            "image": "https://image.tmdb.org/t/p/w300/f5ls4tc9cY8Zh9998lMyZ3A9E6B.jpg",
+            "numberEpisode": "E9",
+            "caption": "Leonard sale con una chica a la altura de las rígidas expectativas de Sheldon, que está entusiasmado con la relación de su amigo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-10",
+            "title": "El enigma Vartabedian",
+            "image": "https://image.tmdb.org/t/p/w300/uosBIO5639eeocnvjCxqrLl2HEN.jpg",
+            "numberEpisode": "E10",
+            "caption": "Leonard se asusta de lo rápido que va su relación con Stephanie y le pide consejo a Penny. Sheldon está más hipocondríaco de lo normal."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-11",
+            "title": "La hipótesis del regalo de baño",
+            "image": "https://image.tmdb.org/t/p/w300/aUh7k8uTCSjnlFqQZ4HVKZ8N7rA.jpg",
+            "numberEpisode": "E11",
+            "caption": "Sheldon saca de quicio a los demás con su obsesión por un protocolo navideño. Leonard se hunde cuando un compañero suyo empieza a salir con Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-12",
+            "title": "La inestabilidad del robot asesino",
+            "image": "https://image.tmdb.org/t/p/w300/fdo2epxMfOhpAWJ3EWplioQakRK.jpg",
+            "numberEpisode": "E12",
+            "caption": "Wolowitz se deprime por el comentario que hace Penny sobre su vida sentimental, y abandona a sus amigos cuando le requieren para una pelea de robots."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-13",
+            "title": "El algoritmo de la amistad",
+            "image": "https://image.tmdb.org/t/p/w300/9q49iyMGcO9EIk9vWbnBZgfGNSF.jpg",
+            "numberEpisode": "E13",
+            "caption": "Sheldon quiere que Barry Kripke le deje usar su equipo de alta tecnología y desarrolla un proceso científico para hacer amigos que se lo ponga fácil."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-14",
+            "title": "La permeabilidad financiera",
+            "image": "https://image.tmdb.org/t/p/w300/wC2YMYgyCnEixzO1ztYx1LUAndL.jpg",
+            "numberEpisode": "E14",
+            "caption": "Sheldon le presta dinero a Penny para que pague el alquiler. No imagina que todo acabará en un enfrentamiento entre Leonard y el ex de Penny, Kurt."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-15",
+            "title": "La capacitación maternal",
+            "image": "https://image.tmdb.org/t/p/w300/cShchuw3099TXbfav7e9XU6qCoV.jpg",
+            "numberEpisode": "E15",
+            "caption": "La madre de Leonard, la señora Hofstadter, les hace una visita. Aunque resulta ser un desastre, provocará un acercamiento entre Leonard y Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-16",
+            "title": "La saturación del cojín",
+            "image": "https://image.tmdb.org/t/p/w300/egK4v3alm6G7cm0CmMRGR3p8Yx3.jpg",
+            "numberEpisode": "E16",
+            "caption": "Lo que en principio es una simple partida de paintball termina en una batalla campal entre Sheldon y Penny, y en un romance entre Howard y Leslie."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-17",
+            "title": "El desacoplamiento Terminator",
+            "image": "https://image.tmdb.org/t/p/w300/uorhUtKMHkx7EokhUcSBl3q6GRt.jpg",
+            "numberEpisode": "E17",
+            "caption": "La pandilla está emocionada por la llegada de Summer Glau, la atractiva actriz de Las crónicas de Sarah Connor, a un simposio científico."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-18",
+            "title": "El nano-cúmulo de las canciones para trabajar",
+            "image": "https://image.tmdb.org/t/p/w300/fkaYEuDqCyBsODp0XYMAZrLULYs.jpg",
+            "numberEpisode": "E18",
+            "caption": "A Penny se le va de las manos su negocio de vender accesorios para el pelo cuando busca ayuda en Sheldon, que se pasado con la cafeína."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-19",
+            "title": "La yuxtaposicion de la prostituta muerta",
+            "image": "https://image.tmdb.org/t/p/w300/8LL0P42Z8mwyFXfnF3jnaabSZYt.jpg",
+            "numberEpisode": "E19",
+            "caption": "Llega una nueva vecina al edificio. Penny se siente amenazada y no tardará en enfadarse cuando compruebe que los chicos se han fijado en ella."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-20",
+            "title": "El isótopo Hofstadter",
+            "image": "https://image.tmdb.org/t/p/w300/otMgg5qrM4XfHwbGnpWhPy8R2yD.jpg",
+            "numberEpisode": "E20",
+            "caption": "Penny se siente atraída por el dependiente de una tienda de cómics que los chicos frecuentan, y a Leonard no le hará ninguna gracia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-21",
+            "title": "La re-normalización de Las Vegas",
+            "image": "https://image.tmdb.org/t/p/w300/5SRU3ZHSjhdh7MOWHxivvO6p2Xs.jpg",
+            "numberEpisode": "E21",
+            "caption": "Leonard y Raj se llevan a Wolowitz a Las Vegas para que supere su ruptura con Leslie, mientras Sheldon se queda atrapado en el apartamento."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-22",
+            "title": "La turbulencia de la materia secreta",
+            "image": "https://image.tmdb.org/t/p/w300/jNdjEnmBwdJiojaG6weilqZPfOn.jpg",
+            "numberEpisode": "E22",
+            "caption": "Stuart le pide consejo a Leonard para su próxima cita con Penny. Wolowitz descubre un error en los lavabos que ha diseñado para la NASA."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-2/episodio-23",
+            "title": "La expedición monopolar",
+            "image": "https://image.tmdb.org/t/p/w300/5NiLbb4TXeiiAjTPyqP08Swu8w5.jpg",
+            "numberEpisode": "E23",
+            "caption": "Los chicos reciben una oferta para trabajar durante el verano en el Polo Norte. Cuando ve la reacción de Penny, Leonard duda si debe ir o no."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-1",
+            "title": "La fluctuación del abrelatas eléctrico",
+            "image": "https://image.tmdb.org/t/p/w300/4MFmDclUoXHM0se1IM9jKRhHp6n.jpg",
+            "numberEpisode": "E1",
+            "caption": "De vuelta de su expedición en el Ártico, Sheldon se entera de que Leonard, Raj y Howard falsearon los resultados de la investigación. Deshonrado, Sheldon decide volver a su casa de Texas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-2",
+            "title": "Las conjeturas de Jiminy",
+            "image": "https://image.tmdb.org/t/p/w300/xJRmBDoo2MrbYjs91ViaXMUUMru.jpg",
+            "numberEpisode": "E2",
+            "caption": "Leonard confiesa a sus amigos que el sexo con Penny no ha acabado de funcionar. Mientras la pareja busca formas de superar este inconveniente, Howard y Sheldon inician una larga discusión sobre la especie del grillo que lleva cantando un buen rato en el edificio."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-3",
+            "title": "La variante Gothowitz",
+            "image": "https://image.tmdb.org/t/p/w300/8iWdGkONXwKYsv73HZr6p80Csaa.jpg",
+            "numberEpisode": "E3",
+            "caption": "Howard y Raj deciden ir a ligar a un club de góticos. Por otro lado, Penny cada vez pasa más rato en el apartamento de los chicos debido a su relación con Leonard. Cansado de ciertos comportamientos de la joven, Sheldon decide intentar modificarlos utilizando chocolate."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-4",
+            "title": "La solución del pirata",
+            "image": "https://image.tmdb.org/t/p/w300/doGrzGYbdS9HzjkfROUENBv6gpk.jpg",
+            "numberEpisode": "E4",
+            "caption": "Raj será enviado a la India si no encuentra un nuevo trabajo. Sheldon tiene una idea para que su amigo se quede en la ciudad, le ofrece trabajar para él en vez de hacerlo con él como de costumbre. La idea parece genial al joven que así soluciona el problema."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-5",
+            "title": "El teorema del baño de caramelo",
+            "image": "https://image.tmdb.org/t/p/w300/j7HZdRP1eVcnQYGEu9o3TruEKvL.jpg",
+            "numberEpisode": "E5",
+            "caption": "Sheldon se apunta a un torneo de cartas cuando oye que Wil Wheaton también participa. Con Raj como compañero llega a la final contra su enemigo y Stuart. Por su parte, Leonard acepta a regañadientes cumplir con una promesa que le hizo a Howard hace unos años."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-6",
+            "title": "La guerra de las cometas",
+            "image": "https://image.tmdb.org/t/p/w300/ethrkqDoGEbXtmN48IhN9aIESfa.jpg",
+            "numberEpisode": "E6",
+            "caption": "Sheldon, que creció en Texas, enseña a Leonard a entender el fútbol americano para que se integre con los amigos de Penny. Durante un partido que ven todos juntos el joven trata de demostrar su nuevos conocimientos, pero explicaciones quedan demasiado científicas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-7",
+            "title": "La amplificación del guitarrista",
+            "image": "https://image.tmdb.org/t/p/w300/vbpHo8Px5CILtVR9wU3wyPSHn56.jpg",
+            "numberEpisode": "E7",
+            "caption": "La tranquilidad de Sheldon se ver perturbada por una desproporcionada pelea entre Leonard y Penny. El joven revela que de pequeño sus padres se chillaban mucho y discutían a menudo, hecho que le ha marcado en su vida adulta."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-8",
+            "title": "La constante de la fricción en bañeras",
+            "image": "https://image.tmdb.org/t/p/w300/8EbctrCaN3RJXiTKe2a9yebM9rZ.jpg",
+            "numberEpisode": "E8",
+            "caption": "Penny se cae en la ducha y se disloca un hombro, Sheldon oye desde el rellano sus gritos pidiendo ayuda. Debe llevarla a urgencias pero todavía no ha conducido un coche real y las prácticas con el simulador fueron un desastre, aún así, su amiga le necesita y la ayuda."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-9",
+            "title": "La fórmula de la venganza",
+            "image": "https://image.tmdb.org/t/p/w300/x9hd50SQpxiZ1nLXeyhHeeAnT8x.jpg",
+            "numberEpisode": "E9",
+            "caption": "Wolowitz ha salido tres veces con Bernadette y reflexiona sobre la relación que tienen. Mientras tanto, Sheldon es ridiculizado por Barry Kripke en un programa de ciencia de la Radio Pública Nacional. Leonard y Raj convencen a su amigo para que se defienda."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-10",
+            "title": "El experimento gorila",
+            "image": "https://image.tmdb.org/t/p/w300/xUaKd5XBnmqny83essybaiQSICd.jpg",
+            "numberEpisode": "E10",
+            "caption": "Howard y Penny se ponen celosos cuando Bernadette muestra interés por el trabajo de Leonard como físico. Penny decide pedirle a Sheldon que le enseñe algunas cosas sobre la materia ya que siente que nunca puede intervenir en las conversaciones que tienen."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-11",
+            "title": "La congruencia maternal",
+            "image": "https://image.tmdb.org/t/p/w300/kioeIQpVHRmhILyFGHiiebACdX1.jpg",
+            "numberEpisode": "E11",
+            "caption": "La madre de Leonard va a visitar a los chicos por Navidad. El científico se preocupa porque no le ha dicho a su madre que sale con Penny, pero eso parece una tontería cuando descubre que sus padres se van a separar y que su mascota ha muerto y nadie se lo había dicho."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-12",
+            "title": "El vortex psíquico",
+            "image": "https://image.tmdb.org/t/p/w300/5uXitxxXHYVKHrEGmT3ylHRxOjn.jpg",
+            "numberEpisode": "E12",
+            "caption": "Howard y Leonard salen con sus respectivas parejas en una cita doble. Mientras tanto, Raj y Sheldon irán a ligar a una fiesta. Más tarde, Leonard descubre que Penny cree que los adivinos tienen poderes y decide demostrarle que está equivocada."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-13",
+            "title": "La reacción de bozeman",
+            "image": "https://image.tmdb.org/t/p/w300/jLh4QS3YkclWPrioytdMbuVjwXL.jpg",
+            "numberEpisode": "E13",
+            "caption": "Sheldon y Leonard crean un sistema de seguridad para evitar que les vuelvan a entrar a robar. Los chicos prueban estos nuevos dispositivos, un tanto especiales y artísticos, con el resto del grupo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-14",
+            "title": "La aproximación de Einstein",
+            "image": "https://image.tmdb.org/t/p/w300/7tx6fSRlOn6r5HXVOzOjilaqeZI.jpg",
+            "numberEpisode": "E14",
+            "caption": "Sheldon sufre un bloqueo mental y no puede completar una fórmula. Empieza a deprimirse y no consigue hacer nada para encontrar la respuesta correcta. Mientras tanto, comienza a trabajar en la fábrica de quesos junto a Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-15",
+            "title": "La gran colisión de Hadron",
+            "image": "https://image.tmdb.org/t/p/w300/X19dpYs9iBJeiqiqb72STdjCg0.jpg",
+            "numberEpisode": "E15",
+            "caption": "Después de ser invitado a Suiza para ver el Gran Colisionador de Hadrones, Leonard quiere viajar con Penny para celebrar el día de San Valentín. Sheldon no entiende por qué la ha elegido a ella, así que intenta que Leonard cambie de opinión."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-16",
+            "title": "La adquisición excelsior",
+            "image": "https://image.tmdb.org/t/p/w300/6waZYJy3LVmnMO6Im6aFuBTDgJg.jpg",
+            "numberEpisode": "E16",
+            "caption": "Llevando a Penny al hospital semanas atrás, Sheldon se saltó un semáforo. Como consecuencia, acaba de recibir una multa de tráfico y una citación judicial. Pero el mismo día que debe acudir a los tribunales, el dibujante de cómics Stan Lee firma ejemplares."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-17",
+            "title": "Una fragmentación muy valiosa",
+            "image": "https://image.tmdb.org/t/p/w300/qwBvS3JV40nWZQOBhxTMhWoSk0Q.jpg",
+            "numberEpisode": "E17",
+            "caption": "Los chicos encuentran un anillo original de la película \"El señor de los anillos\", pero no saben si quedárselo o venderlo. Finalmente llegan a un acuerdo: coger el anillo todos a la vez y el último que lo suelte será su nuevo dueño."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-18",
+            "title": "La alternativa a los pantalones",
+            "image": "https://image.tmdb.org/t/p/w300/lyAMqIxYBlBNk8Brb6CWceltipC.jpg",
+            "numberEpisode": "E18",
+            "caption": "Sheldon es galardonado por la universidad, pero él quiere rechazar el premio porque ha de hacer en discurso durante el banquete que se celebra con motivo de la entrega del galardón. Sus amigos se ofrecen para ayudarlo a perder el miedo a hablar en público."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-19",
+            "title": "La recurrencia Wheaton",
+            "image": "https://image.tmdb.org/t/p/w300/oHlOeHU6ruNOCE2yvRYG21r0AB5.jpg",
+            "numberEpisode": "E19",
+            "caption": "Una discusión entre Leonard y Penny hace peligrar su relación. Mientras tanto, Sheldon desafiará a Wil Wheaton a una paretida de bolos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-20",
+            "title": "El catalizador de espagueti",
+            "image": "https://image.tmdb.org/t/p/w300/wztaQvhy4aNNgJmJhs201Qv8zXm.jpg",
+            "numberEpisode": "E20",
+            "caption": "Tras la ruptura sentimental de Leonard y Penny, Sheldon no sabe si puede seguir siendo amigo de ella. Al mismo tiempo, Penny y Leonard tienen que aprender a convivir con el hecho de que van a verse muy a menudo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-21",
+            "title": "La estimulación de la doctora Plimpton",
+            "image": "https://image.tmdb.org/t/p/w300/cppyrsh201R39yrlQrBk7ShYpQ3.jpg",
+            "numberEpisode": "E21",
+            "caption": "A Sheldon y a Penny les molesta que Leonard no le quite los ojos de encima a la doctora Plimpton, una prestigiosa científica y amiga de Sheldon que se queda a dormir en casa de ambos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-22",
+            "title": "La implementación de la escalera continua",
+            "image": "https://image.tmdb.org/t/p/w300/cGQf2br0gTknsDtj71CGrrX1Gg6.jpg",
+            "numberEpisode": "E22",
+            "caption": "La discusión entre Sheldon y Leonard obliga a este último a ir a dormir al sofá de Penny. De esta manera, Leonard le cuenta como conoció a Sheldon y, de paso, desvela la historia del ascensor roto."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-3/episodio-23",
+            "title": "La excitación lunar",
+            "image": "https://image.tmdb.org/t/p/w300/7wpXVU3zqGj9QMOtrdLDWRanGxP.jpg",
+            "numberEpisode": "E23",
+            "caption": "Después de tener una cita con Leonard, Penny se da cuenta que ya no puede volver a quedar con chicos de inteligencia limitada, como hacia antes. Mientras tanto, Howard y Raj intentan buscar una cita para Sheldon a través de Internet."
+          }
+        ]
+      },
+      {
+        "season": "4",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-1",
+            "title": "Manipulación robótica",
+            "image": "https://image.tmdb.org/t/p/w300/9Ab7pe6u7bQo55w0BArx11OQ4xI.jpg",
+            "numberEpisode": "E1",
+            "caption": "Leonard y Sheldon regresan con sus genialidades en la cuarta temporada de la comedia estadounidense. Una cita diaria en doble sesión con el humor de este grupo de jóvenes científicos con grandes dificultades para relacionarse."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-2",
+            "title": "La amplificación de verduras",
+            "image": "https://image.tmdb.org/t/p/w300/gbdirXM1Gw9K4NZWhWHV4qjPDbX.jpg",
+            "numberEpisode": "E2",
+            "caption": "Sheldon piensa en la muerte y calcula cual es su esperanza de vida. Entonces se da cuenta que fallecerá antes de que exista una tecnología capaz de descargar sus conocimientos en un robot. Preocupado, buscará soluciones para vivir de forma saludable y segura."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-3",
+            "title": "Una sustitución brillante",
+            "image": "https://image.tmdb.org/t/p/w300/eBLxhs3TDM8d0zlutOGhIfDDVd2.jpg",
+            "numberEpisode": "E3",
+            "caption": "Cuando Sheldon comienza a buscar una alternativa para prescindir de la compañía humana, el resto de la pandilla comienza a preocuparse. Además, Penny comienza a referirse a Sheldon y Amy como Shamey, lo que no le gusta a ninguno de los dos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-4",
+            "title": "La desviación de la troll que estaba como un camión",
+            "image": "https://image.tmdb.org/t/p/w300/isCe5dxkG0Ufi4cNRfmCr2HsoJd.jpg",
+            "numberEpisode": "E4",
+            "caption": "Wolowitz intenta volver con Bernadette y para ello busca la ayuda de Penny, Katie Sackhoff y George Takei. Mientras tanto, Sheldon y Raj se enfrentan a una guerra en la universidad."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-5",
+            "title": "La emanación de la desesperación",
+            "image": "https://image.tmdb.org/t/p/w300/mOhDhRyqDZU5HVHmgypFte7jTAU.jpg",
+            "numberEpisode": "E5",
+            "caption": "Todos atacan a Leonard por no tener novia y llega a un acuerdo con Bernadette para que le presente a una amiga. Por otro lado, Amy le pide a Sheldon que conozca a su madre para que se quede tranquila de que tiene un novio normal."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-6",
+            "title": "La fórmula de pub irlandés",
+            "image": "https://image.tmdb.org/t/p/w300/srBGG50Cw4XOn2f4bZUqtnwznVM.jpg",
+            "numberEpisode": "E6",
+            "caption": "Los chicos reciben la visita de Priya que está de escala en Los Ángeles por un viaje a Toronto. Leonard y ella deciden pasar la noche juntos a pesar de quebrantar la promesa que hicieron él y Howard de que nunca estarían con ella aunque tuvieran la posibilidad."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-7",
+            "title": "La insuficiencia de la disculpa",
+            "image": "https://image.tmdb.org/t/p/w300/jXGtTcqfYmwDdIpkE0nk1l0PgYL.jpg",
+            "numberEpisode": "E7",
+            "caption": "El departamento de defensa contrata a Howard para fabricar un nuevo satélite. El FBI debe aprobar el acuerdo, por lo que entrevista a sus amigos Raj, Leonard y Sheldon para saber más de su vida. Una indiscreción del último puede estropearle el futuro."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-8",
+            "title": "La excitación de 21 segundos",
+            "image": "https://image.tmdb.org/t/p/w300/TxfaPETKaKt5ejJYRKG5zyrJQ9.jpg",
+            "numberEpisode": "E8",
+            "caption": "Sheldon, Leonard y Raj se preparan para ver la versión de la película \"En busca del arca perdida\" de Steven Spielberg con 21 minutos extras de duración. Amy, Bernadette y Penny quedan para hacer una noche de chicas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-9",
+            "title": "La complejidad del novio",
+            "image": "https://image.tmdb.org/t/p/w300/ksiCi17L2Ko4QaB1NBxnYdlYrGV.jpg",
+            "numberEpisode": "E9",
+            "caption": "Penny pide a Leonard que simule que siguen juntos ante su padre. Él piensa que todos los chicos con los que sale son tontos y que el único que vale la pena es Leonard, pero no sabe como decirle que han cortado."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-10",
+            "title": "La hipótesis del parásito alienígena",
+            "image": "https://image.tmdb.org/t/p/w300/pWWRt2BzusW1WPaXs7E8J0fQGqf.jpg",
+            "numberEpisode": "E10",
+            "caption": "Amy se da cuenta de que le gusta el ex de Penny, Zack, cuando lo conoce una noche que sale con Penny y Bernadette. Mientras tanto, Koothrappali y Wolowitz intentan probar quién sería mejor superhéroe de los dos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-11",
+            "title": "La Liga de la Justicia: recombinación",
+            "image": "https://image.tmdb.org/t/p/w300/uUUUozntwqQiivWD7qsuyV8hg2O.jpg",
+            "numberEpisode": "E11",
+            "caption": "Los chicos se sienten mal por haberse metido con Zack y le le invitan a ir con ellos a la tienda de cómics. Allí Sheldon tiene una gran idea: inscribirse al concurso de disfraces anual de fin de año como La liga de la justicia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-12",
+            "title": "La utilización de los pantalones de autobús",
+            "image": "https://image.tmdb.org/t/p/w300/ksC48YK2UFV8GeBETu11fTM7r0a.jpg",
+            "numberEpisode": "E12",
+            "caption": "Penny le enseña a Sheldon a usar el sarcasmo para disculparse con los demás después de que le expulsen del grupo de investigación para la creación de una aplicación para Smartphone que resuelve ecuaciones diferenciales."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-13",
+            "title": "El reemplazo del coche del amor",
+            "image": "https://image.tmdb.org/t/p/w300/dBYcZAs8g77jjvyHGXClQIluFwc.jpg",
+            "numberEpisode": "E13",
+            "caption": "Amy invita a Penny a la conferencia anual de ciencias junto a todo el grupo, pero ella solo acepta a cambio de un balneario gratis. Cuando llegan al hotel Bernadette se encuentra con su exnovio, que es alto y atractivo y Howard siente la necesidad de competir con él."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-14",
+            "title": "El catalizador de actores",
+            "image": "https://image.tmdb.org/t/p/w300/oOd0acUQiDF7CyoJf9z52JyGBA5.jpg",
+            "numberEpisode": "E14",
+            "caption": "Con la esperanza de convertirse en un mejor maestro, Sheldon le pide a Penny que le de clases de interpretación. Por otro lado, Raj Koothrappali fantasea con escenas románticas junto a Bernadette, la novia de su mejor amigo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-15",
+            "title": "El factor benefactor",
+            "image": "https://image.tmdb.org/t/p/w300/mRo77oUOj2kq4DLqOdpXkmtBjOv.jpg",
+            "numberEpisode": "E15",
+            "caption": "Leonard tiene una crisis moral cuando conoce a una viuda rica que está dispuesta a ayudar a la universidad a cambio de sexo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-16",
+            "title": "La fórmula de la cohabitación",
+            "image": "https://image.tmdb.org/t/p/w300/lwHPcYlrCFfRO5UEJ7oFfhg84me.jpg",
+            "numberEpisode": "E16",
+            "caption": "Leonard se entera que la hermana de Raj, Priya, vuelve y retoman la relación. Por su parte, Howard se muda a vivir con Bernardette, pero su complejo de Edipo le hace volver de nuevo con su madre."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-17",
+            "title": "La derivación de un brindis",
+            "image": "https://image.tmdb.org/t/p/w300/WeOnAUVBQn5VrT409KoZUh19HY.jpg",
+            "numberEpisode": "E17",
+            "caption": "Sheldon lucha contra la realidad cuando se da cuenta de que Leonard es el centro del grupo. Pero no se rinde y trata de formar otro equipo con Zack, exnovio de Penny, Stuart y Kripke. Por su parte, Penny trata de superar que Leonard ahora sale con Priya."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-18",
+            "title": "La aproximación a la prestidigitación",
+            "image": "https://image.tmdb.org/t/p/w300/lxpNNW7buxaTnWDtPAnqpc6ly7g.jpg",
+            "numberEpisode": "E18",
+            "caption": "Leonard debe elegir entre la nueva novia, Priya, o su amistad con Penny. Mientras tanto, Howard vuelve loco a Sheldon con un truco de magia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-19",
+            "title": "En guerra con Zarnecki",
+            "image": "https://image.tmdb.org/t/p/w300/zoY6h6LtJCShaLfuPUSnBCNRdHN.jpg",
+            "numberEpisode": "E19",
+            "caption": "Cuando Leonard llega a casa se encuentra con un policía y con Sheldon hiperventilando, ya que alguien ha jaqueado su cuenta de World of Warcraft. Mientras tanto, Penny está furiosa y cuenta a Bernadette y Amy que Priya está aprovechando lo que ella hizo por Leonard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-20",
+            "title": "La germinación de las hierbas de jardín",
+            "image": "https://image.tmdb.org/t/p/w300/nlidiQe6jIloJSrBLxQdPDZuVb5.jpg",
+            "numberEpisode": "E20",
+            "caption": "Sheldon y Amy deciden realizar un nuevo experimento: analizar como funcionan los rumores haciendo correr uno sobre ellos mismos. Mientras, la relación ente Howard y Bernadette es cada día más seria, por lo que el joven está dispuesto a dar un paso más en su noviazgo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-21",
+            "title": "La disección del contrato",
+            "image": "https://image.tmdb.org/t/p/w300/8pkhzxsCYsknfd3gsiGH56yKACs.jpg",
+            "numberEpisode": "E21",
+            "caption": "Leonard infringe uno de los artículos del contrato de compañeros de piso, por lo que Sheldon se dispone a amonestarle. No cae en la cuenta que Priya es abogada e intentará desmontar cada uno de los argumentos que Sheldon proponga."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-22",
+            "title": "La implementación del ñu",
+            "image": "https://image.tmdb.org/t/p/w300/dNJ1kLNhA9dDuGjZIq8OK8l5ROi.jpg",
+            "numberEpisode": "E22",
+            "caption": "Sheldon inventa un ajedrez para que puedan jugar tres personas. Mientras tanto, Raj prueba una nueva droga para incrementar su vida social."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-23",
+            "title": "La reacción al compromiso",
+            "image": "https://image.tmdb.org/t/p/w300/1hlDFTRY9MLfMB3AKhaX0dEEreK.jpg",
+            "numberEpisode": "E23",
+            "caption": "La señora Wolowitz termina en el hospital cuando Howard le comunica que se va a casar con Bernadette. Allí, Sheldon se vuelve completamente paranoico por la presunta presencia de virus."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-4/episodio-24",
+            "title": "La gran transmogrificación",
+            "image": "https://image.tmdb.org/t/p/w300/a3VbByTzFL1ew0gmdQVzFXF9mmz.jpg",
+            "numberEpisode": "E24",
+            "caption": "Cuando Bernadette recibe su título de doctorado, los chicos se burlan de Howard recordándole que es el único que no es doctor. Mientras tanto, Raj se va a vivir con Sheldon después de oír cómo Leonard y Priya comparten una fantasía sexual relacionada con \"Star Trek\"."
+          }
+        ]
+      },
+      {
+        "season": "5",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-1",
+            "title": "Análisis del reflejo de golfa",
+            "image": "https://image.tmdb.org/t/p/w300/kSGRUzwEeW4LMOPuYKQloqCVEhH.jpg",
+            "numberEpisode": "E1",
+            "caption": "La quinta temporada de la serie arranca después de que Penny se acueste con Raj, algo que marcará el discurrir de esta tanda de episodios. Otro de los platos fuertes es la inminente boda entre Wolowitz y Bernadette."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-2",
+            "title": "La teoría de la plaga",
+            "image": "https://image.tmdb.org/t/p/w300/tVqTk7JdBxuI2drlZ2jJ4ICBicl.jpg",
+            "numberEpisode": "E2",
+            "caption": "Sheldon pasa un mal rato al descubrir que la cómoda butaca de Penny fue recogida por ella misma de un cubo de basura. Mientras tanto, Leonard y Priya intentan mantener una relación a distancia, ya que ella ha regresado a India."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-3",
+            "title": "La extrapolación del tirón de ingle",
+            "image": "https://image.tmdb.org/t/p/w300/wEdMYpz2tWAmp626nAWq0l44ltA.jpg",
+            "numberEpisode": "E3",
+            "caption": "Howard intenta convencer a Bernadette para que pase un fin de semana en su casa con su madre, a ver como les va la experiencia. Mientras tanto, Leonard acompaña a Amy a una boda ya que la joven no se lo quería pedir a Sheldon porque cree que es demasiado inmaduro."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-4",
+            "title": "El catalizador del dedo que se menea",
+            "image": "https://image.tmdb.org/t/p/w300/iStKftXNjUbKLjvKAzTXmT3tuZn.jpg",
+            "numberEpisode": "E4",
+            "caption": "Tras una partida a \"Dragones y mazmorras\", Sheldon decide tomar las decisiones triviales de su vida con los dados del juego y así ocupar su mente en cosas más importantes. Por otro lado, Raj conoce a una chica con la que se puede comunicar normalmente."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-5",
+            "title": "La reacción del cohete ruso",
+            "image": "https://image.tmdb.org/t/p/w300/pB5Ia00Um7dbybAUhWQTCV18V4z.jpg",
+            "numberEpisode": "E5",
+            "caption": "Sheldon y Leonard son invitados a una fiesta en la casa de Will Wheaton. Leonard acepta la propuesta con total intención de ir, cosa que deja perplejo a Sheldon, que considera a Leonard amigo y enemigo a la vez hasta que sepa si realmente va o no va a la fiesta."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-6",
+            "title": "La revelación de la rinitis",
+            "image": "https://image.tmdb.org/t/p/w300/1nXbeQy9vdPlvm2Ap97Lhg8suir.jpg",
+            "numberEpisode": "E6",
+            "caption": "La madre de Sheldon, Mary Cooper, hace una visita al piso de los chicos, pero al científico le sienta mal que su madre pase más tiempo con sus amigos que ocupada en atender sus necesidades propias. Después de discutir con ella, va al apartamento de Amy para desahogarse."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-7",
+            "title": "La fluctuación del buen chico",
+            "image": "https://image.tmdb.org/t/p/w300/cUm2yLiZ2QPdSgIdUYiob0ThcDe.jpg",
+            "numberEpisode": "E7",
+            "caption": "Los chicos gastan una broma de Halloween a Sheldon, que enfurecido trama una terrible venganza. Por otro lado, Leonard conoce en la tienda de cómics a una chica muy atractiva que resulta ser una entusiasta de estas publicaciones."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-8",
+            "title": "La permutación del aislamiento",
+            "image": "https://image.tmdb.org/t/p/w300/cH0vx6h3gcuJCVGrgEaxPqiUmbv.jpg",
+            "numberEpisode": "E8",
+            "caption": "Amy se entristece al ver que Penny y Bernardette han comprado vestidos para su boda con Howard sin ella. Sheldon trata de contactar, pero la chica no contesta. Preocupado, decide ir a su casa para ver si está bien."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-9",
+            "title": "La difusión de la ornitofobia",
+            "image": "https://image.tmdb.org/t/p/w300/ibkOlSREPuB4GMOKGhzs2ZIdNZ7.jpg",
+            "numberEpisode": "E9",
+            "caption": "Leonard y Penny intentan salir de nuevo mientras Sheldon se enfrenta a su miedo a las aves cuando un pájaro se posa en la repisa de su ventana permanentemente. Intenta todo lo que se le ocurre para echar al animal, incluso el ruido de una máquina de ultrasonidos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-10",
+            "title": "La adquisición de la escupidera llameante",
+            "image": "https://image.tmdb.org/t/p/w300/sf1FDxLxinOqyY05Uk3MRZzlP1V.jpg",
+            "numberEpisode": "E10",
+            "caption": "Amy tiene una cita con Stuart, lo que provoca que Sheldon se replantee llevar su relación con ella al siguiente nivel. Aparentemente celoso, el científico aparece en medio de la cita y pregunta a la chica si quiere ser su novia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-11",
+            "title": "La recurrencia Speckerman",
+            "image": "https://image.tmdb.org/t/p/w300/7Dn4asZCyq9I0iRtyVCiu9GMhce.jpg",
+            "numberEpisode": "E11",
+            "caption": "Un chico llamado Jimmy Speckerman contacta con Leonard por Facebook con la intención de quedar para tomar algo con él. El joven científico le cuenta a Penny y Sheldon que Jimmy era el matón de su instituto, pero a pesar de lo mal que lo pasó decide quedar con él."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-12",
+            "title": "La maniobra de la baratija brillante",
+            "image": "https://image.tmdb.org/t/p/w300/dHAL94ft1SipqmaHL6uNAsegots.jpg",
+            "numberEpisode": "E12",
+            "caption": "Bernadette dice a Howard que no le gustan los niños y él se desilusiona, ya que su sueño era formar una familia con ella. Por otro lado, Sheldon y Amy discuten cuando ella le comenta que ha escrito en una revista científica y a él no parece importarle."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-13",
+            "title": "La hipótesis de la recombinación",
+            "image": "https://image.tmdb.org/t/p/w300/7GZNVew1Fw24MKcCUKlGuvGJ2LR.jpg",
+            "numberEpisode": "E13",
+            "caption": "Leonard y Penny tienen inesperadamente una cita romántica y se replantean su relación. Bernadette está ilusionada con que la pareja vuelva y le dice a Amy que así podrán salir las dos parejas juntas otra vez. Amy no entiende porque nunca se lo propone a ella."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-14",
+            "title": "Iniciación al test Beta",
+            "image": "https://image.tmdb.org/t/p/w300/dZTRt2pZ2Ty5kka8iPqXocXO779.jpg",
+            "numberEpisode": "E14",
+            "caption": "Raj desarrolla una relación un tanto peculiar con el asistente virtual de su smartphone. Mientras tanto, Penny y Leonard vuelven a salir juntos y él, preocupado por evitar las peleas de la última vez, sugiere apuntar los problemas en una lista en vez de enfadarse."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-15",
+            "title": "La contracción de la amistad",
+            "image": "https://image.tmdb.org/t/p/w300/aTgjYCtHKEoR0meeXcd2tEXdAkl.jpg",
+            "numberEpisode": "E15",
+            "caption": "Howard debe elegir su nombre como astronauta para unirse a una misión en primavera. Por otro lado, Leonard, cansado del acuerdo de compañeros de piso que tiene con Sheldon, activa la cláusula 209, que reduce su relación a meros conocidos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-16",
+            "title": "La solución a las vacaciones",
+            "image": "https://image.tmdb.org/t/p/w300/k6a9X7SdwEwzFlt7mx6gAkjlgTu.jpg",
+            "numberEpisode": "E16",
+            "caption": "Obligado a gastar sus días de vacaciones, Sheldon hace prácticas de biología en el laboratorio de Amy. Por su parte, Bernadette, confiesa a las chicas que su padre quiere que haga con Howard un contrato de separación de bienes antes de casarse con él."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-17",
+            "title": "La desinfectación de Rothman",
+            "image": "https://image.tmdb.org/t/p/w300/bcs07iCu9l2yP6HfjcrPUViXouG.jpg",
+            "numberEpisode": "E17",
+            "caption": "Cuando el desquiciado profesor Rothman es forzado a retirarse, Sheldon y Kripke compiten por hacerse con su despacho. Como el presidente Siebert rechaza resolver el conflicto, Sheldon propone decidirlo jugando un uno contra uno de baloncesto."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-18",
+            "title": "La transformación del hombre lobo",
+            "image": "https://image.tmdb.org/t/p/w300/1gdddSpcbY8Eh98Hg6xCFPoDWpu.jpg",
+            "numberEpisode": "E18",
+            "caption": "A Sheldon Cooper le entra el pánico cuando su peluquero habitual es hospitalizado y no puede cortarle el pelo. Por su parte, Wolowitz se encuentra con ciertas dificultades con el entrenamiento de astronautas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-19",
+            "title": "El vórtice del fin de semana",
+            "image": "https://image.tmdb.org/t/p/w300/gN7RrKwH3pmL8u1sJiOlzChZBAb.jpg",
+            "numberEpisode": "E19",
+            "caption": "Sheldon se encuentra en una posición incómoda al tener que elegir entre acompañar a Amy al cumpleaños de su tía o quedarse todo el fin de semana jugando a los videojuegos con sus amigos. La decisión puede comportar graves consecuencias en su relación con Amy."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-20",
+            "title": "La disfunción del transportador",
+            "image": "https://image.tmdb.org/t/p/w300/wcPVenMYOg1IGGcwgSPzWAjdAkO.jpg",
+            "numberEpisode": "E20",
+            "caption": "Penny regala a Leonard y Sheldon unas figuritas de los personajes de Star Trek. Por otro lado, Raj se enfrenta a una cita a ciegas organizada por sus padres, cosa que en el fondo le hace muy feliz, ya que no tenía pareja para la boda de Howard y Bernadette."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-21",
+            "title": "La excitación de Hawking",
+            "image": "https://image.tmdb.org/t/p/w300/dh75Gnq9vlvTIxvheYo3D86lSnm.jpg",
+            "numberEpisode": "E21",
+            "caption": "Stephen Hawking visita la universidad para participar en diversas conferencias. Howard es el encargado del cuidado de la silla de ruedas del científico. Esta situación ventajosa la utilizará para chantajear a Sheldon."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-22",
+            "title": "La convergencia del macho solitario",
+            "image": "https://image.tmdb.org/t/p/w300/FDRRgbb4PkOljdmEjKawpnyFlK.jpg",
+            "numberEpisode": "E22",
+            "caption": "Howard vive su despedida de soltero junto a sus amigos. Durante la noche, surgen algunos detalles de la anterior vida sexual del joven y alguien los publica inmediatamente en Internet. Este hecho pone en peligro su matrimonio con Bernadette."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-23",
+            "title": "La aceleración del lanzamiento",
+            "image": "https://image.tmdb.org/t/p/w300/aGhOWNabAScjiHEzs1TebXH1kVa.jpg",
+            "numberEpisode": "E23",
+            "caption": "La fecha de la excursión de Howard al espacio se ha fijado para el mismo día de su boda con Bernadette. Por su parte, Amy utiliza técnicas psicológicas para que la relación entre ella y Sheldon sea más cercana."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-5/episodio-24",
+            "title": "La reflexión de la cuenta atrás",
+            "image": "https://image.tmdb.org/t/p/w300/jEvrX87J4tGgbvkePKJzWZJWrZp.jpg",
+            "numberEpisode": "E24",
+            "caption": "Debido a la nueva fecha de la misión espacial, Howard y Bernadette deciden celebrar el enlace antes de la expedición."
+          }
+        ]
+      },
+      {
+        "season": "6",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-1",
+            "title": "La variable de la cita nocturna",
+            "image": "https://image.tmdb.org/t/p/w300/8Ayyn5aUTiWyFe4NpWIlMNloJnk.jpg",
+            "numberEpisode": "E1",
+            "caption": "Sheldon se ve obligado a salir con Amy para celebrar su segundo aniversario y le pide a Raj que les acompañe. Por otra parte, Leonard tiene problemas para quedar con Penny sin preguntarle sobre el futuro de su relación."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-2",
+            "title": "La fluctuación del desacople",
+            "image": "https://image.tmdb.org/t/p/w300/iCabbwLLDz3UeYeBWBLUTofeVKC.jpg",
+            "numberEpisode": "E2",
+            "caption": "El grupo insiste para que Penny se sincere con Leonard. Mientras, Howard es el blanco de todas las bromas en la estación espacial. Por otra parte, Stuart y Raj planean irse de la ciudad."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-3",
+            "title": "La observación del Bosón de Higgs",
+            "image": "https://image.tmdb.org/t/p/w300/aFEMUGUCTecVLXfBkt8bVXA7tqV.jpg",
+            "numberEpisode": "E3",
+            "caption": "Amy está celosa porque Sheldon ha contratado a una estudiante llamada Alex para ayudarle en su proyecto. La joven pide a Penny que les espíe para descubrir qué tipo de relación mantienen. Por otro lado, el regreso de Wolowitz del espacio se retrasa una semana."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-4",
+            "title": "Minimizando la reentrada",
+            "image": "https://image.tmdb.org/t/p/w300/lFDe5o3cJBNGM1dgyl8ODXxrOds.jpg",
+            "numberEpisode": "E4",
+            "caption": "Howard se ofende con la bienvenida que le hacen después de estar en el espacio. No se esperaba tantas sorpresas. Los juegos de la noche van subiendo de tono hasta acabar convirtiéndose en una auténtica batalla entre Penny y Sheldon."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-5",
+            "title": "La excitación holográfica",
+            "image": "https://image.tmdb.org/t/p/w300/zxD6kV0f0hKXELHgfRugzj5mLzA.jpg",
+            "numberEpisode": "E5",
+            "caption": "Todo el grupo va a la fiesta de Halloween de la tienda de cómics de Stuart. Allí, Leonard aprovecha sus conocimientos científicos para seducir a Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-6",
+            "title": "La aniquilación del extracto",
+            "image": "https://image.tmdb.org/t/p/w300/hFo8nKHHdIqnnGaG1tiou6R9lWc.jpg",
+            "numberEpisode": "E6",
+            "caption": "Penny se apunta a clases universitarias a espaldas de Leonard para que no intente ayudarla. Por su parte, el mundo de Sheldon se derrumba cuando el doctor Stephen Hawking se enfada al perder en un juego en red."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-7",
+            "title": "La configuración de la cohabitación",
+            "image": "https://image.tmdb.org/t/p/w300/mwvOUXUJI8Oqa7w1w5GJswESuik.jpg",
+            "numberEpisode": "E7",
+            "caption": "Wolowitz está a punto de tomar una decisión importante. Debe decidir entre quedarse en casa de su madre o irse. Mientras tanto Sheldon se ve envuelto en una discusión entre Amy y Wil Wheaton."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-8",
+            "title": "La peculiaridad del 43",
+            "image": "https://image.tmdb.org/t/p/w300/eFAeunnPvLmHPfxW799YH2gLXgQ.jpg",
+            "numberEpisode": "E8",
+            "caption": "Raj y Howard intentan descubrir por qué Sheldon desaparece todas las tardes a las 2:45. Los celos aparecen entre Penny y Leonard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-9",
+            "title": "Escalada por la plaza de aparcamiento",
+            "image": "https://image.tmdb.org/t/p/w300/ildLJA1MOjw2gISEi6PKWiw1mMS.jpg",
+            "numberEpisode": "E9",
+            "caption": "Cuando la universidad reasigna el lugar de estacionamiento de Sheldon empieza una lucha con Howard. Todo el grupo entra en crisis por culpa de este enfrentamiento por hacerse con la plaza de aparcamiento."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-10",
+            "title": "Extirpando las entrañas de un pez",
+            "image": "https://image.tmdb.org/t/p/w300/b1kSMZm7qsVwKFG6bzFYtFUsKJV.jpg",
+            "numberEpisode": "E10",
+            "caption": "Howard y Bernadette tienen una tensa cena con el padre de ella. Al final, Howard termina yendo de pesca con su suegro. Por su parte, Sheldon se presenta en el apartamento de Amy y se encuentra a su novia enferma. Raj se siente solo ya que todos sus amigos tienen citas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-11",
+            "title": "La simulación Santa Claus",
+            "image": "https://image.tmdb.org/t/p/w300/6HD4K6oZEyd76yyki9wFwGwMlP4.jpg",
+            "numberEpisode": "E11",
+            "caption": "Los chicos organizan una partida de Dragones y Mazmorras en versión navideña, pero no invitan a las chicas, lo que provoca un enfrentamiento. Penny, Amy y Bernadette deciden arreglarse para ir a tomar algo a un bar. Raj, primer eliminado del juego, las acompaña."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-12",
+            "title": "La equivalencia del sándwich vegetal",
+            "image": "https://image.tmdb.org/t/p/w300/syvmicoYIDzmehm7BrKnHSuXNNO.jpg",
+            "numberEpisode": "E12",
+            "caption": "Sheldon reúne a los chicos en el departamento de Recursos Humanos para hablar de Alex y de sus métodos para ligar con Leonard. Por su parte, Penny se muestra incómoda e insegura ante esta situación y no puede evitar sentir celos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-13",
+            "title": "La expedición a Bakersfield",
+            "image": "https://image.tmdb.org/t/p/w300/fGB9j3zU65aJL5btwWH57dKq77r.jpg",
+            "numberEpisode": "E13",
+            "caption": "Los chicos acuden a una convención de cómics en Bakersfield con sus disfraces de \"Star Trek\", pero las cosas no les salen como las tenían planeadas. Mientras, Penny, Bernadette y Amy se dirigen a la tienda de Stuart para averiguar por qué los cómics son tan fascinantes."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-14",
+            "title": "La inversión Cooper-Kripke",
+            "image": "https://image.tmdb.org/t/p/w300/dWDdPEhogoFt9mw8grFaaXL7Fy7.jpg",
+            "numberEpisode": "E14",
+            "caption": "Sheldon se ve obligado a trabajar con su rival Barry Kripke en un proyecto que podría darles una oportunidad de ganar un Nobel. Además, deberá enfrentarse a sus sentimientos por Amy. Mientras, Howard y Raj se gastan 1000 dólares en unas figuras de acción de sí mismos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-15",
+            "title": "La segmentación de los finales desvelados",
+            "image": "https://image.tmdb.org/t/p/w300/iOHlTynlPg2CEcyDsppdzcwpUnw.jpg",
+            "numberEpisode": "E15",
+            "caption": "Tras el enfrentamiento entre Sheldon y Leonard, éste decide irse a vivir a otro lugar. Además, Raj se encargará de cuidar a la señora Wolowitz mientras Howard esté de viaje."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-16",
+            "title": "La prueba tangible del afecto",
+            "image": "https://image.tmdb.org/t/p/w300/u1jD82NzWmOJ3C2Rr4WXEOlPNrV.jpg",
+            "numberEpisode": "E16",
+            "caption": "Leonard, Penny, Howard y Bernadette salen a cenar por el día de San Valentín mientras Sheldon y Amy tratan de encontrar el regalo perfecto para el otro. Stuart y Raj tienen otro plan, acuden a una fiesta en la tienda de cómics para todos aquellos que no tienen pareja."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-17",
+            "title": "El aislamiento del monstruo",
+            "image": "https://image.tmdb.org/t/p/w300/oenhInvrEh4pSA315BctlyBggPh.jpg",
+            "numberEpisode": "E17",
+            "caption": "Raj se siente deprimido después de que su cita se escapara de él. No quiere salir de casa y no se cuida. Los demás se esfuerzan para que recupere el ánimo y vuelva a ser el Raj de siempre."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-18",
+            "title": "La implementación de la obligación contractual",
+            "image": "https://image.tmdb.org/t/p/w300/tjzI8Mr4wMJNsF3VUvleyP2MaQA.jpg",
+            "numberEpisode": "E18",
+            "caption": "Leonard, Sheldon y Howard asisten al instituto con el objetivo de incentivar a las adolescentes para que dediquen su vida a la física. Por su parte, Penny, Amy y Bernadette deciden hacer novillos y viajar hasta Disneyland. Además, Raj tiene su primera cita con Lucy."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-19",
+            "title": "La reconfiguración del armario",
+            "image": "https://image.tmdb.org/t/p/w300/tkeFF4tTKideY2yHuRWGbpe2VrX.jpg",
+            "numberEpisode": "E19",
+            "caption": "Howard se enfrenta a un serio dilema cuando deba decidir si leer o no una carta que le envió su padre hace años y que había dejado sin leer a propósito. Por su parte, Leonard y Penny dan una fiesta \"adulta\" en el piso de sus amigos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-20",
+            "title": "La turbulencia de la permanencia",
+            "image": "https://image.tmdb.org/t/p/w300/f1EjNAr5oQRsFLhx9igoyHWb2wk.jpg",
+            "numberEpisode": "E20",
+            "caption": "Una vacante queda libre en la universidad y Leonard, Sheldon y Raj deciden solicitarla. Empieza una guerra por la plaza donde cada uno de ellos exhibe sus curiosa manera de hacerse valer."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-21",
+            "title": "La alternativa de la finalización",
+            "image": "https://image.tmdb.org/t/p/w300/pNnMlfzNQOuN7Ml26JOCxgzH32W.jpg",
+            "numberEpisode": "E21",
+            "caption": "La curiosidad de Raj sobre su nuevo amor le lleva a cambiar ciertos aspectos de su personalidad para causar una mejor impresión en la gente. Mientras, a Penny le persigue su apatía y Amy intenta curar a Sheldon y su manía enfermiza de finalizarlo todo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-22",
+            "title": "La resurgencia del protón",
+            "image": "https://image.tmdb.org/t/p/w300/db0LtfGVAa2mitePHU7YcyLU4j3.jpg",
+            "numberEpisode": "E22",
+            "caption": "Sheldon y Leonard contratan al profesor Protón, conductor del programa de televisión del barrio donde vivían de pequeños, como actor. Además, a Howard y Bernadette les surgen varios problemas mientras cuidan del perro de Raj."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-23",
+            "title": "El potencial del conjuro de amor",
+            "image": "https://image.tmdb.org/t/p/w300/a1OEeJ7q8tY1PjLBoogyoCZ6w05.jpg",
+            "numberEpisode": "E23",
+            "caption": "Todo el grupo comparte una particular partida de \"Dragones y Mazmorras\" después de que el viaje de las chicas a Las Vegas se arruinara. Por su parte, Raj y Lucy siguen quedando, pero él la empuja a enfrentarse a sus miedos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-6/episodio-24",
+            "title": "La reacción de la despedida",
+            "image": "https://image.tmdb.org/t/p/w300/yLAWYAFkzOFbJdTNb9v7fzC2Ond.jpg",
+            "numberEpisode": "E24",
+            "caption": "Leonard tiene la oportunidad de trabajar con doctor Stephen Hawking pero para ello debe irse cuatro meses fuera. Penny y Sheldon están muy afectados con la noticia e intentan llegar a un acuerdo con sus sentimientos para seguir dando apoyo a Leonard en su decisión."
+          }
+        ]
+      },
+      {
+        "season": "7",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-1",
+            "title": "La insuficiencia Hofstadter",
+            "image": "https://image.tmdb.org/t/p/w300/nf766vILhf88IUK49TE6kzN125n.jpg",
+            "numberEpisode": "E1",
+            "caption": "Mientras Howard intenta ayudar a Raj a superar la ruptura con su ex, Sheldon y Penny comparten íntimos secretos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-2",
+            "title": "La verificación del engaño",
+            "image": "https://image.tmdb.org/t/p/w300/bR3Xk5ZEGDC902HncROZmjdKbGK.jpg",
+            "numberEpisode": "E2",
+            "caption": "La amistad  entre Leonard y Sheldon es puesta a prueba. Mientras, la masculinidad de Howard también estará en duda debido a la estrecha relación con su madre."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-3",
+            "title": "El vórtex de la yincana",
+            "image": "https://image.tmdb.org/t/p/w300/AsjWlSjl6PSwQQy5q8hbNGqAykL.jpg",
+            "numberEpisode": "E3",
+            "caption": "Raj se siente dolido porque nadie del grupo le hizo caso cuando propuso una cena especial. Por ello, diseña una búsqueda del tesoro en que todos los miembros deberán hacer gala de sus habilidades científicas y sociales."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-4",
+            "title": "La minimización del arca perdida",
+            "image": "https://image.tmdb.org/t/p/w300/66MAd0Sos3XnYxpHlKpvYo1nSw0.jpg",
+            "numberEpisode": "E4",
+            "caption": "Sheldon trata de vengarse de Amy, quien le ha hecho ver los fallos de argumento que contiene la película \"Indiana Jones en busca del arca perdida\". Además, Leonard aprovecha el trauma que tiene con su madre para influenciar a Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-5",
+            "title": "La proximidad del lugar de trabajo",
+            "image": "https://image.tmdb.org/t/p/w300/k8atjbd5gAsntuhbPnFpvnvo0qn.jpg",
+            "numberEpisode": "E5",
+            "caption": "Cuando Amy consigue un nuevo trabajo en la misma Universidad en donde trabaja Sheldon, este evaluará la cantidad de tiempo que pasa con su novia. A Howard, por su parte, le tocará dormir en el sofá."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-6",
+            "title": "La resonancia del romance",
+            "image": "https://image.tmdb.org/t/p/w300/y6jm6HlK6b2EaOitYUjapVLDQq0.jpg",
+            "numberEpisode": "E6",
+            "caption": "Cuando Howard intenta cortejar a  Bernadette, Penny tomará la misma iniciativa con Leonard. Más adelante, Sheldon hace un descubrimiento que más que causarle alegría, hará que se sienta culpable."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-7",
+            "title": "El protón desplazado",
+            "image": "https://image.tmdb.org/t/p/w300/j1NUVbJ36CaGqjgFJDi0xR47YON.jpg",
+            "numberEpisode": "E7",
+            "caption": "Sheldon busca venganza cuando Arthur \"Profesor protón\" Jeffries pide ayuda a Leonard para un proyecto en vez de a él."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-8",
+            "title": "La simulación del picor de cerebro",
+            "image": "https://image.tmdb.org/t/p/w300/hHU9wgntzMzHneZ8quyVzAsuMa9.jpg",
+            "numberEpisode": "E8",
+            "caption": "Sheldon pide a Leonard que le compense por un error del pasado. Penny tendrá que enfrentarse a la nueva chica de Raj, Lucy."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-9",
+            "title": "El desacoplamiento de Acción de Gracias",
+            "image": "https://image.tmdb.org/t/p/w300/wz5UxaCaHm7cehjD2uqxHLLI29s.jpg",
+            "numberEpisode": "E9",
+            "caption": "Todo el grupo decide celebrar el día de Acción de Gracias en casa de la familia Wolowitz, pero Sheldon no está nada satisfecho con la localización. Sin embargo, durante el festejo, el drama emerge por culpa de un episodio del pasado de Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-10",
+            "title": "La disipación del descubrimiento",
+            "image": "https://image.tmdb.org/t/p/w300/eNEHrIcKPR62YiXQNxRZ3VRUjIG.jpg",
+            "numberEpisode": "E10",
+            "caption": "Sheldon sufrirá las consecuencias de la fama por su descubrimiento"
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-11",
+            "title": "La extracción de Cooper",
+            "image": "https://image.tmdb.org/t/p/w300/x5IPGYLsPs2XQVi1jzg7Pk6QYE3.jpg",
+            "numberEpisode": "E11",
+            "caption": "Sheldon viaja hasta Texas para asistir al nacimiento del primer hijo de su hermana. Por ello, el resto del grupo imagina cómo habría sido cada una de sus vidas si el excéntrico científico no hubiese formado parte de ellas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-12",
+            "title": "La ramificación de la indecisión",
+            "image": "https://image.tmdb.org/t/p/w300/znhuvcswL1TtQZHMG1OwBEb8IUW.jpg",
+            "numberEpisode": "E12",
+            "caption": "Penny busca consuelo en Leonard después de que su aparición en NCIS no haya salido como ella esperaba."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-13",
+            "title": "La reorganización de la profesión",
+            "image": "https://image.tmdb.org/t/p/w300/6nWIj6pBKcElp8d2XPsBxmh8ICO.jpg",
+            "numberEpisode": "E13",
+            "caption": "Sheldon intenta tranquilizarce después de que es forzado a tomarse unas vacaciones. Leonard intenta ser alguien de apoyo para Penny luego de que ella renuncia a su trabajo y Bernadette busca la ayuda de Stuart para reemplazar una de las historietas de Howard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-14",
+            "title": "El conflicto de la convención",
+            "image": "https://image.tmdb.org/t/p/w300/ogCao2o4NJfNJtU9PRTUSNuVCEk.jpg",
+            "numberEpisode": "E14",
+            "caption": "Trás que los chicos no pueden comprar entradas para la Comic-Con, Sheldon intenta hacer su propia convención y termina pasando la noche con James Earl Jones. Mientras tanto, las chicas ven si pueden actuar como \"adultas\"."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-15",
+            "title": "La manipulación de la locomoción",
+            "image": "https://image.tmdb.org/t/p/w300/rvUHJolWcZjsylolTowKMSMlZPD.jpg",
+            "numberEpisode": "E15",
+            "caption": "Sheldon y Amy van de viaje a la tierra del vino con Howard y Bernadette. Penny y Leonard llevan la perra de Raj al veterinario."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-16",
+            "title": "La polarización de la mesa",
+            "image": "https://image.tmdb.org/t/p/w300/55tDqA5FbYHGVnlIfnMfDsRlu7E.jpg",
+            "numberEpisode": "E16",
+            "caption": "Leonard compra una mesa de comedor y provoca que Sheldon se reevalue los cambios en su vida. Mientras tanto, a Wolowitz le ofrecen la oportunidad de volver al espacio y Bernadette no sabe si apoyarlo o no."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-17",
+            "title": "La turbulencia de la amistad",
+            "image": "https://image.tmdb.org/t/p/w300/A7ciWxOm5ysb5xI8gspY4Q96OJH.jpg",
+            "numberEpisode": "E17",
+            "caption": "Luego de que se insulten, Bernadette intenta hacer las paces entre Wolowitz y Sheldon. Mientras tanto, A Penny le ofrecen un papel muy vergonzoso y Raj le pide a Amy que le escriba de su parte a una mujer."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-18",
+            "title": "Observando a mamá",
+            "image": "https://image.tmdb.org/t/p/w300/xOlmMD8mkSYcZjGDibQ0sglYLl4.jpg",
+            "numberEpisode": "E18",
+            "caption": "Sheldon y Howard realizan un viaje a Texas para visitar a la madre de Sheldon."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-19",
+            "title": "La indecisión de la amalgamación",
+            "image": "https://image.tmdb.org/t/p/w300/xQ2Sa0JlkjR7QMnxGZkNQxjz8PI.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mientras que Raj se llena de culpa cuando intenta salir con dos chicas a la vez, Penny no sabe si actuar en una mala película y Sheldon no puede decidirse entre dos consolas de video juegos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-20",
+            "title": "La disyunción de la relación",
+            "image": "https://image.tmdb.org/t/p/w300/wufZnQDjcK86JqSAcnR1Xowv2KU.jpg",
+            "numberEpisode": "E20",
+            "caption": "Sheldon tiene una crisis personal cuando decide que la teoría de cuerdas es una pérdida de tiempo; mientras tanto una doble cita termina en vergüenza para Howard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-21",
+            "title": "La recurrencia del todo es posible",
+            "image": "https://image.tmdb.org/t/p/w300/gqjU1LjuTzWmQqLp3XCjQ4zhyUX.jpg",
+            "numberEpisode": "E21",
+            "caption": "Sheldon le da una oportunidad a la espontaneidad, lo cual termina en una inesperada fricción entre Penny, Bernadette y Amy. Raj le pide ayuda a Howard para prepararse para una cita con Emily."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-22",
+            "title": "La transmogrificación del protón",
+            "image": "https://image.tmdb.org/t/p/w300/mTOX0QJ4S4XJZRTLgNv7ph1H2Cl.jpg",
+            "numberEpisode": "E22",
+            "caption": "El profesor Protón ayuda a Sheldon a lidiar con el dolor; Leonard se mete en una competencia con Penny; Bernadette y Amy preparan un regalo \"Star Wars Day\" para los chicos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-23",
+            "title": "La disolución del gorila",
+            "image": "https://image.tmdb.org/t/p/w300/zhcQnZ5ZsDlVBHePHnJwYjs3xWt.jpg",
+            "numberEpisode": "E23",
+            "caption": "Un mal día obliga a Penny a reevaluar sus opciones - incluyendo Leonard; Bernadette y Howard tienen que cuidar de la Sra. Wolowitz; Sheldon da a Raj asesoramiento sobre relaciones."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-7/episodio-24",
+            "title": "La combustión del status quo",
+            "image": "https://image.tmdb.org/t/p/w300/zPV7LQqkOR2F479tBCTHvE8oiVR.jpg",
+            "numberEpisode": "E24",
+            "caption": "Ante un futuro incierto, Sheldon considera un cambio importante; Emily y Raj deciden llevar las cosas al siguiente nivel."
+          }
+        ]
+      },
+      {
+        "season": "8",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-1",
+            "title": "La interrupción de la locomoción",
+            "image": "https://image.tmdb.org/t/p/w300/eiknk78qNy9yYtmwjBZYLURhR19.jpg",
+            "numberEpisode": "E1",
+            "caption": "Leonard y Amy hacen un viaje inesperado a Arizona para buscar a Sheldon; Penny hace una entrevista para un trabajo en la compañía de Bernadette; La relación de Stuart con la señora Wolowitz perturba Howard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-2",
+            "title": "La solución del profesor adjunto",
+            "image": "https://image.tmdb.org/t/p/w300/gzDRKQVGyX4FTKv51CWFqVc34TG.jpg",
+            "numberEpisode": "E2",
+            "caption": "Cuando Sheldon debe dar una clase, Howard decide tomarla; Amy se aprovecha de la tensión entre Penny y Bernadette."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-3",
+            "title": "La insuficiencia del primer lanzamiento",
+            "image": "https://image.tmdb.org/t/p/w300/eHuRYLXpxZATwCJrqubQelPEjHs.jpg",
+            "numberEpisode": "E3",
+            "caption": "Wolowitz se siente nervioso cuando se le pide que tire la primera bola en un juego de Los Angeles Angels; Penny y Leonard quieren demostrar a Sheldon que se equivoca después de que él dice que él y Amy son la mejor pareja."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-4",
+            "title": "La reverberación del enrollamiento",
+            "image": "https://image.tmdb.org/t/p/w300/fxyeZcehNMkV7o8qtuv2tMzI2pn.jpg",
+            "numberEpisode": "E4",
+            "caption": "La honestidad de Raj vuelve para atormentarlo cuando su nueva novia es hostil a Penny; los chicos piensan acerca de convertirse en propietarios de parte de la tienda de Stuart."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-5",
+            "title": "La atenuación de la concentración",
+            "image": "https://image.tmdb.org/t/p/w300/hlJaHgvB4vOD5YVX0AXS9B2V0HG.jpg",
+            "numberEpisode": "E5",
+            "caption": "Durante su fin de semana en Las Vegas, Bernadette y Amy acusan a Penny de ser un aguafiestas; los chicos tratan de inventar el próximo gran avance."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-6",
+            "title": "La aproximación de la expedición",
+            "image": "https://image.tmdb.org/t/p/w300/nh5DYUzf3waIHJAO7Ircv7MnMHj.jpg",
+            "numberEpisode": "E6",
+            "caption": "Sheldon y Raj prueban si podrían sobrevivir a una expedición de investigación de materia oscura en una mina de sal mediante la simulación de las condiciones en un profundo túnel subterráneo de vapor. Leonard y Penny, piden consejo a Howard y Bernadette después se que se peleen por el dinero."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-7",
+            "title": "La agitación de la malinterpretación",
+            "image": "https://image.tmdb.org/t/p/w300/34TSv9Gzanl0bnbeAiVBgQ7nAZl.jpg",
+            "numberEpisode": "E7",
+            "caption": "Los chicos tratan de ayudar a Penny con un dilema   incómodo del trabajo, cuando un médico herido aparece en su puerta después de que sus técnicas de venta coquetas funcionan demasiado bien. Mientras tanto, Amy y Bernadette discuten sobre si las científicas deben jugar su sexualidad."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-8",
+            "title": "La equivalencia del baile del instituto",
+            "image": "https://image.tmdb.org/t/p/w300/4j2EMbHRVvimywvBwZQ5q7O3wOS.jpg",
+            "numberEpisode": "E8",
+            "caption": "Cuando la pandilla recrea una noche de graduación de la escuela secundaria en el techo del edificio de apartamentos de los chicos, Sheldon siente la presión de participar en todas las tradiciones románticas típicas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-9",
+            "title": "La desviación del tabique",
+            "image": "https://image.tmdb.org/t/p/w300/ywnhAABDYKUpdxfn9vz1oH4zBee.jpg",
+            "numberEpisode": "E9",
+            "caption": "Leonard y Sheldon terminan en el hospital. Mientras, Raj tiene que lidiar con el divorcio de sus padres."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-10",
+            "title": "La reflexión del champán",
+            "image": "https://image.tmdb.org/t/p/w300/24ShQB4KKIoBy0jIy9pdYt7GnPE.jpg",
+            "numberEpisode": "E10",
+            "caption": "Los chicos buscan algo significativo en la investigación de un profesor fallecido mientras Bernadette averigua qué piensan de ella sus colegas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-11",
+            "title": "La infiltración en la sala blanca",
+            "image": "https://image.tmdb.org/t/p/w300/uQ17cY0WgeDlw4CH0oUiRGtzPC6.jpg",
+            "numberEpisode": "E11",
+            "caption": "Amy acoge en su casa la tracicional cena de navidad, mientras los chicos intentan ahuyentar a un pájaro que se ha colado en la universidad."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-12",
+            "title": "La desintegración de la sonda espacial",
+            "image": "https://image.tmdb.org/t/p/w300/cDT0ktiJ5h7N2LoH4PD7YERuMyp.jpg",
+            "numberEpisode": "E12",
+            "caption": "Raj está preocupado porque ha descubierto que no trabajará en el espacio. Paralelamente, Penny y Amy coactan a Leonard y Sheldon para que les acompañen a ir de compras."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-13",
+            "title": "La optimización de la ansiedad",
+            "image": "https://image.tmdb.org/t/p/w300/wUNvZkQ3i2HhgU3YfoM1FkspOoh.jpg",
+            "numberEpisode": "E13",
+            "caption": "La pandilla trata de ayudar a Sheldon cuando se queda atrapado en una rutina en el trabajo aumentando su nivel de ansiedad. Howard se burla de Raj con un nuevo juego llamado \"Canela o Emily?\""
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-14",
+            "title": "La manifestación del troll",
+            "image": "https://image.tmdb.org/t/p/w300/kRpSOJmWA0ek6Qyua4pn3zYEvfr.jpg",
+            "numberEpisode": "E14",
+            "caption": "Leonard y Sheldon publican un documento que es ampliamente aceptado excepto por los comentarios de un troll de internet. Mientras tanto, las chicas recuerdan incidentes vergonzosos de su pasado."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-15",
+            "title": "La regeneración de la tienda de cómics",
+            "image": "https://image.tmdb.org/t/p/w300/uDHVXadIwiUvYENRrzFyCJoSjFw.jpg",
+            "numberEpisode": "E15",
+            "caption": "En medio de la emoción que vive Stuart con la reapertura de su tienda de cómics, Howard recibe una impactante noticia sobre su madre. Por otra parte, Raj y Leonard se encuentran en el restaurante a un cliente que se parece mucho al actor Nathan Fillion."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-16",
+            "title": "La aceleración de la intimidad",
+            "image": "https://image.tmdb.org/t/p/w300/qfmckms5xxLtjwCbyWCQa5G2gu6.jpg",
+            "numberEpisode": "E16",
+            "caption": "Como broma, Sheldon y Penny intentan un experimento diseñado para hacer que los participantes se enamoren. También, Leonard, Amy, Raj y Emily pasan la noche tratando de escapar de una habitación con un \"zombi\". Y, después de regresar del funeral de la señora Wolowitz, Bernadette y Howard se meten en problemas en el aeropuerto."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-17",
+            "title": "La solicitud de colonización",
+            "image": "https://image.tmdb.org/t/p/w300/6Jh4pXXaagHSb9Ap40rQBDefRFl.jpg",
+            "numberEpisode": "E17",
+            "caption": "Surgen problemas cuando Amy se entera de Sheldon ha solicitado una misión de ida a colonizar Marte. También, un viaje a la tienda de mascotas termina en una pelea por Sheldon y Amy. Leonard sorprende a Penny con una compra muy \"adulta\", y Raj es pillado fisgoneando en el apartamento de Emily."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-18",
+            "title": "La termalización de las sobras",
+            "image": "https://image.tmdb.org/t/p/w300/qRNOiaPWO6m5gR5STlrGjSSS0Cv.jpg",
+            "numberEpisode": "E18",
+            "caption": "La fricción se produce cuando una revista no menciona Leonard en un artículo sobre el artículo que co-escribió con Sheldon. Además, un apagón en casa de la señora Wolowitz lleva a una cena familiar final en su honor."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-19",
+            "title": "La incursión de Skywalker",
+            "image": "https://image.tmdb.org/t/p/w300/6O7dxVBPOFKp2cdfFIl5Lf0mys2.jpg",
+            "numberEpisode": "E19",
+            "caption": "Cuando Leonard y Sheldon son invitados a hablar en la Universidad de Berkeley, toman un desvío para tratar de conocer a un ídolo. Además, cuando Bernadette y Howard pelean por el destino de su TARDIS del Dr. Who, Raj y Amy sugieren resolver la disputa con un juego de ping pong."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-20",
+            "title": "La implementación de la fortificación",
+            "image": "https://image.tmdb.org/t/p/w300/1VqKU1CVOkLDRoYnognbKuXTlBn.jpg",
+            "numberEpisode": "E20",
+            "caption": "Cuando Sheldon y Amy construyen un fuerte de mantas, llegan a una encrucijada importante en su relación. También, Wolowitz se encuentra con el medio-hermano que nunca supo que tenía, y cuando Penny es invitada para que aparezca en el podcast de Wil Wheaton, ella y Leonard tienen una enorme discusión en el aire."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-21",
+            "title": "La degradación de la comunicación",
+            "image": "https://image.tmdb.org/t/p/w300/ApopO3nNzWkFgE7ATs1jMOOaAzF.jpg",
+            "numberEpisode": "E21",
+            "caption": "Cuando le piden a Raj que cree un mensaje en caso de que una misión de la NASA descubra vida extraterrestre, los chicos se pelean por lo que debe hacer. También, Penny se debate entre hacer una audición para una película o mantener su exitoso trabajo de ventas farmacéuticas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-22",
+            "title": "La transmisión de la graduación",
+            "image": "https://image.tmdb.org/t/p/w300/54TfSCfz5kMrQH81oppiCT6dqZl.jpg",
+            "numberEpisode": "E22",
+            "caption": "Wolowitz cuestiona sus habilidades de ingeniería cuando él y Sheldon no puede conseguir que un drone de juguete vuele. Mientras tanto, un vuelo cancelado casi impide que Leonard de el discurso de graduación en su antigua escuela secundaria, y Raj enfrenta a sus padres cuando su padre deja de financiarle."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-23",
+            "title": "La combustión maternal",
+            "image": "https://image.tmdb.org/t/p/w300/yHVsK60TKWghadrtZ2G9MEsqIWd.jpg",
+            "numberEpisode": "E23",
+            "caption": "Las personalidades chocan cuando las madres de Sheldon y Leonard por fin se conocen. Mientras tanto, Howard finalmente decide hacer su parte justa de las tareas del hogar - pero no sin un poco de ayuda de sus amigos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-8/episodio-24",
+            "title": "La determinación del compromiso",
+            "image": "https://image.tmdb.org/t/p/w300/qhmAkhpkWpZnOPzTFbNfuvgot09.jpg",
+            "numberEpisode": "E24",
+            "caption": "Sheldon es la persona que tiene más prisa para que Leonard y Penny establezcan un día para la boda y les presiona para que lo decidan. Además, el científico ve como su relación con Amy sufre una serie de cambios muy importantes."
+          }
+        ]
+      },
+      {
+        "season": "9",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-1",
+            "title": "La inercia matrimonial",
+            "image": "https://image.tmdb.org/t/p/w300/za6BAvh7hGFooEcANqJC5srF1FA.jpg",
+            "numberEpisode": "E1",
+            "caption": "El brillante Sheldon se enfrenta a un misterio del universo que no puede resolver: cuando una mujer se aparta un tiempo para pensar, ¿de cuánto tiempo estamos hablando? y ¿hay forma de acelerar este largo proceso? En Las Vegas, Penny y Leonard se dirigen cerca del pasillo al altar, pero ¿ha superado Penny la infidelidad de Leonard? Y si no es así, ¿estará el dispuesto a todo para que ella lo supere?"
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-2",
+            "title": "La oscilación de la separación",
+            "image": "https://image.tmdb.org/t/p/w300/n0uM0N3qz0kp51ad2lPajyt9Rhm.jpg",
+            "numberEpisode": "E2",
+            "caption": "Leonard se enfrenta a la mujer a la que besó en el Mar del Norte en un intento tranquilizar a Penny. También, Sheldon filma un episodio especial de \"Diversión con Banderas\" después de su ruptura con Amy y Bernadette se siente culpable por haber tenido que ocultar un secreto a Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-3",
+            "title": "La corrosión de la despedida de soltero",
+            "image": "https://image.tmdb.org/t/p/w300/kgCQZJjHWx4nCyjij5cgwnyi7nK.jpg",
+            "numberEpisode": "E3",
+            "caption": "Las habilidades científicas de los chicos se ponen a prueba cuando tienen un pinchazo durante el fin de semana de despedida de soltero de Leonard en México. Además, las chicas obligan a Penny a decirle por fin a su familia que se fugó con Leonard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-4",
+            "title": "La aproximación a 2003",
+            "image": "https://image.tmdb.org/t/p/w300/bvJvnDJRTxJKa0Z2UoZIYDclEdA.jpg",
+            "numberEpisode": "E4",
+            "caption": "Leonard y Penny finalmente van a vivir juntos dejando a Sheldon muy molesto con este gran cambio en su vida y deseando poder volver a un momento en el que no tenía emociones en el año 2003 antes de conocer a Leonard. Raj, Howard y Stuart intentan formar una banda."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-5",
+            "title": "La implementación de la perspiración",
+            "image": "https://image.tmdb.org/t/p/w300/eDOUvJIpKqK276AfbdnzrBC2XJR.jpg",
+            "numberEpisode": "E5",
+            "caption": "Los chicos toman una lección de esgrima de Barry Kripke y Sheldon se encuentra en una posición incómoda cuando Kripke expresa interés por Amy. Además, cuando Stuart se esfuerza por conseguir clientes femeninos en la tienda de cómics, Penny, Amy y Bernadette van a ayudarlo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-6",
+            "title": "La insuficiencia de helio",
+            "image": "https://image.tmdb.org/t/p/w300/tqZH3yGasgJiW9WEuq7AG019Jot.jpg",
+            "numberEpisode": "E6",
+            "caption": "En medio de una escasez de helio en todo el país, Sheldon y Leonard toman medidas desesperadas para obtener los suministros que necesitan. Penny y Bernadette descargan una aplicación de citas en el teléfono de Amy para tratar de encontrarle un nuevo hombre."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-7",
+            "title": "La resonancia de Spock",
+            "image": "https://image.tmdb.org/t/p/w300/4MNxa2TmPwUlU8GYgHGfIkMNmkq.jpg",
+            "numberEpisode": "E7",
+            "caption": "Wil Wheaton entervista a Sheldon para un documental de Star Trek en el que revela el anillo y su plan de declararse a Amy. Bernadette quiere comenzar la renovación de la casa y el tema de formar una familia con Howard es mencionado."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-8",
+            "title": "La observación de la cita misteriosa",
+            "image": "https://image.tmdb.org/t/p/w300/f2kduB25FNPL7V8uuTIdGbT9vaO.jpg",
+            "numberEpisode": "E8",
+            "caption": "Amy tiene una cita formal que Leonard, Penny y Bernadette espían en secreto. Sheldon hace que Howard y Raj le ayuden a encontrar una nueva novia, ya que encontraron Amy para él."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-9",
+            "title": "La permutación platónica",
+            "image": "https://image.tmdb.org/t/p/w300/uYdqPZZGn6bsJMl9ib8NmPlin9z.jpg",
+            "numberEpisode": "E9",
+            "caption": "Es Acción de Gracias. Sheldon y Amy quedan a comer en el acuario como amigos. Howard, Bernadette, Raj y Emily ayudan un comedor social. Leonard y Penny hacen su primera cena de Acción de Gracias como una pareja casada."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-10",
+            "title": "La reverberación de la melodía",
+            "image": "https://image.tmdb.org/t/p/w300/hrvQM75S6sCQDW5PKuadSDkyaBz.jpg",
+            "numberEpisode": "E10",
+            "caption": "Sheldon tiene una epifanía cuando se da cuenta que no puede sacar de su cabeza una canción. Mientras, Amy invita a Dave a cenar, a pesar de su extraña cita anterior. Y Howard y Raj se obsesionan con un de su banda “Footprint on the Moon” (Huellas en la luna)."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-11",
+            "title": "La excitación del estreno",
+            "image": "https://image.tmdb.org/t/p/w300/cBuocsZkWGrIUZgjpBMRJpy94Kv.jpg",
+            "numberEpisode": "E11",
+            "caption": "Leonard, Howard y Raj tienen que decidir a quién le van a dar la entrada que les sobra para el estreno de Star Wars. Mientras tanto, Sheldon tiene previsto algo especial para el cumpleaños de Amy."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-12",
+            "title": "La sublimación de la venta",
+            "image": "https://image.tmdb.org/t/p/w300/4DnDFLbjiljaQuK2u7gv8ZP56lB.jpg",
+            "numberEpisode": "E12",
+            "caption": "Penny consigue más de lo que se proponía, cuando Leonard acepta entrevistarse con una psiquiatra por ella. Mientras, Sheldon y Koothrappali colaboran en un descubrimiento astronómico, y Wolowitz y Bernadette no pueden creer lo que sienten cuando Stuart finalmente se muda de su casa."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-13",
+            "title": "La optimización de la empatía",
+            "image": "https://image.tmdb.org/t/p/w300/ge9x2mL8kKRlAuaULVy5cNS1t98.jpg",
+            "numberEpisode": "E13",
+            "caption": "Después de tener que soportar a un Sheldon enfermo; Leonard, Penny y el resto del grupo intentan disfrutar de un fin de semana libres de Sheldon."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-14",
+            "title": "La materialización de la abuelita",
+            "image": "https://image.tmdb.org/t/p/w300/e4KZVnhg3UyZSAZIB6d3m38ToJz.jpg",
+            "numberEpisode": "E14",
+            "caption": "Sheldon se emociona al enterarse que su Meemaw vendrá a visitarlo, pero su entusiasmo se desvanece rápidamente cuando ella ataca a Amy. Mientras tanto, Raj conoce a una nueva chica en la tienda de cómics, la cual lo hace cuestionar su relación con Emily."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-15",
+            "title": "La inmersión de Valentino",
+            "image": "https://image.tmdb.org/t/p/w300/w93H4gv8LIb9nlITuGpR9ndDUk8.jpg",
+            "numberEpisode": "E15",
+            "caption": "Sheldon y Amy conducen un episodio de San Valentín de ‘Fun with Flags’ transmitido en vivo, Leonard y Penny aprenden a lidiar con la edad, Howard y Bernadette encuentran una sorpresa en su nueva tina de hidromasajes, y Raj se debate entre Emily y la linda chica que conoció en la tienda de cómics."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-16",
+            "title": "La reacción positivo-negativa",
+            "image": "https://image.tmdb.org/t/p/w300/cybOS60LRof6PljKrYXAyCh8637.jpg",
+            "numberEpisode": "E16",
+            "caption": "Bernadette tiene algunas noticias para compartir, pero las reacciones de los demás no son lo que se esperaba."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-17",
+            "title": "La experimentación de la celebración",
+            "image": "https://image.tmdb.org/t/p/w300/aCCxCIQjlFmlS97jCIzd2uameQl.jpg",
+            "numberEpisode": "E17",
+            "caption": "Episodio 200 de la serie en el que después de más de nueve años juntos la banda por fin celebra el cumpleaños de Sheldon y lo sorprende con un invitado muy especial."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-18",
+            "title": "El deterioro de la soledad",
+            "image": "https://image.tmdb.org/t/p/w300/jUOKCbKMhg2jEarqXnuy0rdcLXO.jpg",
+            "numberEpisode": "E18",
+            "caption": "Leonard, Sheldon y Wolowitz se encuentran con un problema cuando presenta una patente para su giroscopio de persistencia infinita. Además, Penny, Amy y Bernadette dan consejos a Raj sobre las citas, cuando Emily intenta acercarse a él luego de su separación."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-19",
+            "title": "La excursión a por soldadura",
+            "image": "https://image.tmdb.org/t/p/w300/kl5SoKzqxhwK9irTvarRHOmTvi6.jpg",
+            "numberEpisode": "E19",
+            "caption": "Amy queda impactada por una revelación de Sheldon, después que ella le regala una nueva laptop. Además, Koothrappali delata a Leonard y Howard, luego que ellos le mienten a sus esposas con el fin de asistir al estreno anticipado de una película."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-20",
+            "title": "La precipitación del oso gigante",
+            "image": "https://image.tmdb.org/t/p/w300/eL2nmkRYtWcvXUVfx4SQGJeDULl.jpg",
+            "numberEpisode": "E20",
+            "caption": "Sheldon revela un secreto de Leonard cuando los dos están en un fin de semana en una cabaña con Penny y Amy. Mientras, cuando Koothrappali se sobrepasa con regalos por el embarazo, Wolowitz y Bernadette deben ponerle un límite."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-21",
+            "title": "La combustión de la fiesta televisiva",
+            "image": "https://image.tmdb.org/t/p/w300/layOKctrtjUcwKZ1ofk1vuF65L5.jpg",
+            "numberEpisode": "E21",
+            "caption": "Todos deberán elegir un bando, cuando una pequeña discusión entre Leonard y Sheldon se transforme en una acalorada pelea, durante una tertulia del grupo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-22",
+            "title": "La fermentación de la bifurcación",
+            "image": "https://image.tmdb.org/t/p/w300/lUwn0Uxldc3B76B26Yd8aIPj4uM.jpg",
+            "numberEpisode": "E22",
+            "caption": "El grupo va a un bar de vino, ahí se encuentran con Zack, el antiguo novio de Penny. Mientras, Bernadette se ve obligada a pasar la noche con Sheldon, al no poder ir a probar vinos con los demás. Y las cosas no salen como había planeado Koothrappali, cuando él presenta a su nueva novia, Claire."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-23",
+            "title": "La solución de la sustitución en la cola",
+            "image": "https://image.tmdb.org/t/p/w300/wFmeHdgLoNVyRYv4omvrSoe9yLO.jpg",
+            "numberEpisode": "E23",
+            "caption": "Sheldon contrata a Stuart para que pase el día con Amy, ya que él prefiere ir al estreno de una película. Además, la madre de Leonard, Beverly, llega a la ciudad y Penny se esfuerza por congeniar con ella."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-9/episodio-24",
+            "title": "La convergencia de la convergencia",
+            "image": "https://image.tmdb.org/t/p/w300/18nmVxxyu7jlKxqwn088P2hkQ4J.jpg",
+            "numberEpisode": "E24",
+            "caption": "Sobreviene el caos, cuando los padres recientemente divorciados de Leonard, Alfred y Beverly, y la madre devota de Sheldon, Mary, llegan a la ciudad. Además, Wolowitz y Koothrappali creen que el gobierno va a por ellos, cuando los contactan acerca de su sistema guía."
+          }
+        ]
+      },
+      {
+        "season": "10",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-1",
+            "title": "La conjetura conyugal",
+            "image": "https://image.tmdb.org/t/p/w300/9DPH88iL7f0GEFq8BggmOc6L0vk.jpg",
+            "numberEpisode": "E1",
+            "caption": "Después que la madre de Sheldon y el padre de Leonard pasan una noche juntos, todos deben lidiar con una mañana extraña el día siguiente. Por otra parte, la familia de Penny llega para la ceremonia nupcial, incluyendo a su angustiada madre, Susan y su hermano vendedor de drogas, Randall."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-2",
+            "title": "La miniaturización militar",
+            "image": "https://image.tmdb.org/t/p/w300/chN747cMwRMuxm1JL1YKsKOsu9O.jpg",
+            "numberEpisode": "E2",
+            "caption": "El coronel Williams, un representante del Departamento de la Comandancia de Materiales de la Fuerza Aérea se sienta a conversar (negociar) con Wolowitz."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-3",
+            "title": "La trascendencia de la dependencia",
+            "image": "https://image.tmdb.org/t/p/w300/sPTHeziA20nRw3NqA9j8FchsVdS.jpg",
+            "numberEpisode": "E3",
+            "caption": "Las tensiones aumentan cuando los muchachos no pueden completar el proyecto en el plazo establecido y Sheldon prueba con una bebida energética para mantenerse despierto. Mientras tanto, Penny y Amy van a una “fiesta” en la casa de Bert, el geólogo; y Kootrhappali descubre los verdaderos sentimientos de Bernadette acerca de su embarazo, cuando están limpiando la futura habitación del bebé."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-4",
+            "title": "La experimentación de la cohabitación",
+            "image": "https://image.tmdb.org/t/p/w300/dUEDKR7xxWcmGeKtfqI7e9fyQAw.jpg",
+            "numberEpisode": "E4",
+            "caption": "Cuando el departamento de Amy sufre una inundación, ella propone un “experimento de cohabitación” con Sheldon. También, Howard y Bernadette se enojan cuando Koothrappali descubre el sexo del bebé antes que ellos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-5",
+            "title": "La contaminación del jacuzzi",
+            "image": "https://image.tmdb.org/t/p/w300/sXpnjSU96ED3yYVrm9BqYhgf4eG.jpg",
+            "numberEpisode": "E5",
+            "caption": "Leonard y Penny deberán mediar en una pelea entre Sheldon y Amy, cuando la convivencia de estos últimos no sale como habían planeado, y Sheldon amenaza romper su relación con Amy, si ella rehúsa cumplir el horario del baño. Mientras, Howard y Bernadette descubren que tienen invitados inesperados, cuando deciden quedarse en casa, en lugar de irse de vacaciones como habían planeado."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-6",
+            "title": "El catalizador de la patada fetal",
+            "image": "https://image.tmdb.org/t/p/w300/yEDSHVRQiHtIWQ3fcLutr2CSgVC.jpg",
+            "numberEpisode": "E6",
+            "caption": "Es una sorpresa para Penny descubrir que tiene fans gracias a su actuación en la película “Serial Ape-ist”, cuando asista a la Comic Con de Van Nuys con Leonard. Mientras tanto, Amy ofrece una cena al estilo de Sheldon en el departamento de Penny. Y Wolowitz realiza una compra impulsiva, al comenzar a agobiarse acerca del bebé en camino."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-7",
+            "title": "La elasticidad de la veracidad",
+            "image": "https://image.tmdb.org/t/p/w300/kj7XGHGwP2rAr9SZQl0361rc1Q8.jpg",
+            "numberEpisode": "E7",
+            "caption": "Para poder seguir viviendo con Sheldon, Amy le miente acerca del avance en las reparaciones de su departamento y ellos graban un episodio de “Diversión con Banderas” en una “locación”, es decir, en el departamento de Penny. Además, Leonard deja que Penny redecore la antigua habitación de Sheldon, luego que él se da cuenta de que ella está llevando secretamente los coleccionables de su esposo a un depósito."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-8",
+            "title": "La incubación del cerebro en un bol",
+            "image": "https://image.tmdb.org/t/p/w300/txfP3RGQrH975I1mVohAUOxYkjh.jpg",
+            "numberEpisode": "E8",
+            "caption": "Luego de un exitoso experimento combinando sus genes, Sheldon no se detendrá ante nada para convencer a Amy de que deben procrear. Mientras, Koothrappali se avergüenza de decirle a sus amigos cómo se gana la vida la nueva mujer con la que ha comenzado a salir."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-9",
+            "title": "La elevación de la geología",
+            "image": "https://image.tmdb.org/t/p/w300/lkrG22IN1cDzQUik3DSE0Gizkro.jpg",
+            "numberEpisode": "E9",
+            "caption": "Cuando Bert, un geólogo de Caltech, gana la beca MacArthur Genius, Sheldon es dominado por los celos. Además, Wolowitz encuentra un viejo control remoto de una figura de acción de Stephen Hawking que había inventado."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-10",
+            "title": "La colisión de la división de la propiedad",
+            "image": "https://image.tmdb.org/t/p/w300/gdmbxOWVmc35uryPjQdGeIFYhbU.jpg",
+            "numberEpisode": "E10",
+            "caption": "Sheldon y Leonard intentan dividir sus pertenencias compartidas, pero no pueden ponerse de acuerdo en nada. Además, Koothrappali y Stuart luchan entre sí por ser el más útil, durante las últimas semanas del embarazo de Bernadette."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-11",
+            "title": "La sincronización del cumpleaños",
+            "image": "https://image.tmdb.org/t/p/w300/3FkVpR8xDoXlJ4E07JpwkTknaWK.jpg",
+            "numberEpisode": "E11",
+            "caption": "Tal como el año pasado, en el cumpleaños de Amy, Sheldon y Amy vuelven a tener su noche “especial”, pero el nacimiento del bebé Howardette podría interponerse en sus planes."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-12",
+            "title": "El resumen de las fiestas",
+            "image": "https://image.tmdb.org/t/p/w300/e0nr2JM5ZgLXtJejueg1uTIti6H.jpg",
+            "numberEpisode": "E12",
+            "caption": "Tras pasar las vacaciones separados, todos se reúnen para hablar sobre sus viajes y sobre los primeros días de Howard y Bernadette como padres."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-13",
+            "title": "La regulación del amor",
+            "image": "https://image.tmdb.org/t/p/w300/yik9SnRIwGbJcbLKDdN64z796rl.jpg",
+            "numberEpisode": "E13",
+            "caption": "Cuando Penny siente que Leonard la está dando por sentado, decide ir a un fin de semana de spa con Amy. Además, Wolowitz y Koothrappali tratan de arreglar una tabla de piso chirriante en la habitación del bebé."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-14",
+            "title": "La automatización de la detección de emociones",
+            "image": "https://image.tmdb.org/t/p/w300/6Dx0gT8VsA9iC9migoWFiepWMQf.jpg",
+            "numberEpisode": "E14",
+            "caption": "Sheldon prueba una versión preliminar de un invento del MIT, tras oír que este le ayudará a interpretar las emociones de las personas. Además, Leonard no puede esconder sus sentimientos cuando Penny le anuncia que su hermano vendrá a la ciudad y Raj invita a sus exnovias para que le den consejos sobre salir en citas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-15",
+            "title": "La reverberación de la locomoción",
+            "image": "https://image.tmdb.org/t/p/w300/xTNAUYH3FVQjdljPhsKWryYYjWW.jpg",
+            "numberEpisode": "E15",
+            "caption": "Leonard y Wolowitz intentan distraer a Sheldon cuando este entorpece el progreso de su sistema guía. Mientras, Penny y Amy se llevan a Bernadette para salir juntas de noche, dejando a Raj y Stuart al cuidado de Halley."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-16",
+            "title": "La evaporación de la asignación",
+            "image": "https://image.tmdb.org/t/p/w300/vu8eDZ7MiefrZxX2OhFbda6noB2.jpg",
+            "numberEpisode": "E16",
+            "caption": "Sheldon y Amy tienen su primera pelea desde que se mudaron juntos y Koothrappali es golpeado por la dura realidad de la independencia financiera luego que deja de recibir el apoyo de su padre."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-17",
+            "title": "El enigma de la Comic-Con",
+            "image": "https://image.tmdb.org/t/p/w300/wv69h7bKeHblo3taVkPhHLnCxk4.jpg",
+            "numberEpisode": "E17",
+            "caption": "El viaje anual de los chicos a la Comic-Con pende de un hilo ya que Raj no puede permitirse ir."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-18",
+            "title": "La identificación de la escotilla de escape",
+            "image": "https://image.tmdb.org/t/p/w300/8ttbTh5tFpDpviwpHfvTzhqB4rJ.jpg",
+            "numberEpisode": "E18",
+            "caption": "Cuando Raj deja su departamento, Leonard y Penny le ofrecen la antigua habitación de Sheldon."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-19",
+            "title": "La fluctuación de la colaboración",
+            "image": "https://image.tmdb.org/t/p/w300/XqD2Q7kM5lrTjDRwkKK7s3OzGz.jpg",
+            "numberEpisode": "E19",
+            "caption": "Leonard, Penny y Raj acuerdan nuevas reglas ahora que viven juntos, y Sheldon se interesa en el trabajo de Amy."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-20",
+            "title": "La disipación de los recuerdos",
+            "image": "https://image.tmdb.org/t/p/w300/rJJ7LLPDRHUQYVaeaxXSrdmWt34.jpg",
+            "numberEpisode": "E20",
+            "caption": "Sheldon llega a su límite cuando colabora en el proyecto con Leonard y Wolowitz, así como con Amy, en el mismo día. Además, la licencia de maternidad de Bernadette llega a su fin y ella debe volver al trabajo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-21",
+            "title": "La agitación de la separación",
+            "image": "https://image.tmdb.org/t/p/w300/jYnc1Ypn8Cdbme8hpe13RLEB0Ud.jpg",
+            "numberEpisode": "E21",
+            "caption": "Howard y Bernadette tienen dificultades para que Halley se quede en la guardería cuando Bernadette debe volver a trabajar. Además, Bert le presenta al grupo a su nueva novia, Rebecca."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-22",
+            "title": "La regeneración de la cognición",
+            "image": "https://image.tmdb.org/t/p/w300/dvyGCnhsCDaMTQl8fLW9hu343iB.jpg",
+            "numberEpisode": "E22",
+            "caption": "Leonard no se emociona demasiado cuando Penny considera tomar un nuevo trabajo, el cual le es ofrecido por su exnovio, Zack. Además, Sheldon decide asumir nuevos retos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-23",
+            "title": "El hundimiento giroscópico",
+            "image": "https://image.tmdb.org/t/p/w300/1iG6nwkQb75R8zxsypJL5xVqpxy.jpg",
+            "numberEpisode": "E23",
+            "caption": "Luego que Leonard, Sheldon y Wolowitz celebran la culminación del proyecto ultrasecreto para la Fuerza Aérea, se llevan una desagradable sorpresa. Además, a Amy le ofrecen un puesto durante el verano como investigadora visitante."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-10/episodio-24",
+            "title": "La disonancia de la larga distancia",
+            "image": "https://image.tmdb.org/t/p/w300/zz9pvqUVLq9OWoei50kYXfVXccH.jpg",
+            "numberEpisode": "E24",
+            "caption": "Cuando el vuelo de Leonard a su antigua universidad se cancela, Leonard intenta usar todos los medios posibles para poder acudir a dar su discurso."
+          }
+        ]
+      },
+      {
+        "season": "11",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-1",
+            "title": "La proposición de la proposición",
+            "image": "https://image.tmdb.org/t/p/w300/oBOVgg2gIryBkWg2XtSr0svsO3a.jpg",
+            "numberEpisode": "E1",
+            "caption": "Amy le da a Sheldon una respuesta a su propuesta, mientras que Howard y Bernadette luchan con algunas noticias inesperadas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-2",
+            "title": "La reacción de la disculpa",
+            "image": "https://image.tmdb.org/t/p/w300/gOObqKqmRoPk6kjuVLDiQbWJ9xv.jpg",
+            "numberEpisode": "E2",
+            "caption": "Leonard se enoja con la universidad y la comunidad física tras dar una embarazosa entrevista radial. En tanto, Bernadette y Amy hablan de su éxito, mientras Penny consuela a su esposo después de la desastrosa entrevista."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-3",
+            "title": "La integración de la relajación",
+            "image": "https://image.tmdb.org/t/p/w300/pf4bEobAIVuud7D36vod8hMU0J3.jpg",
+            "numberEpisode": "E3",
+            "caption": "Como Sheldon se estresa a causa no decidirse por una fecha para la boda, Amy trata de convencerlo de que tiene un lado más relajado. Además, Koothrappali y Stuart compiten para ganarse el corazón de una compañera de trabajo de Bernadette, Ruchi."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-4",
+            "title": "La implosión de la explosión",
+            "image": "https://image.tmdb.org/t/p/w300/zNPtqkWh19br721s6IBwLOaoe22.jpg",
+            "numberEpisode": "E4",
+            "caption": "Wolowitz y Sheldon se sienten más próximos cuando viajan al desierto para lanzar un cohete a escala. Además, cuando la madre de Leonard, Beverly encuentra en Penny a una buena amiga, eso enoja particularmente a Leonard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-5",
+            "title": "La contaminación de la colaboración",
+            "image": "https://image.tmdb.org/t/p/w300/x1vhpdTLxHMFhxYajG0ClfbA61p.jpg",
+            "numberEpisode": "E5",
+            "caption": "Raj y Sheldon no llevan del todo bien que Amy esté trabajando junto a Howard. Mientras tanto, Leonard y Penny aprenden nuevas tácticas para tratar con Sheldon, y para ellos deben recurrir a diversos métodos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-6",
+            "title": "La regeneración de Protón",
+            "image": "https://image.tmdb.org/t/p/w300/57CoA3eyykJU9q0dkOcJ1WkZaKV.jpg",
+            "numberEpisode": "E6",
+            "caption": "Sheldon y Will Wheaton van de cabeza a por el puesto del nuevo profesor Proton. Mientras, Penny cuida de Halley mientras Bernadette y Howard descansan."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-7",
+            "title": "La metodología de la geología",
+            "image": "https://image.tmdb.org/t/p/w300/lM1VwTSFT5IOLqfHBcImibCNDcR.jpg",
+            "numberEpisode": "E7",
+            "caption": "Sheldon y Bert colaboran en un proyecto de investigación, a pesar de que Sheldon está avergonzado. Además, Penny y Bernadette enseñan a Koothrappali cómo manejar su relación con Ruchi."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-8",
+            "title": "El efecto Telsa",
+            "image": "https://image.tmdb.org/t/p/w300/dbQX2a99jcPa1pG9mSIM2D8Wx9u.jpg",
+            "numberEpisode": "E8",
+            "caption": "Leonard y Wolowitz están furiosos cuando se enteran que Sheldon está trabajando con los militares a sus espaldas. Además, mientras Bernadette está en descanso médico, le pide a Raj que investigue porque sospecha que Ruchi está tratando de robarle su trabajo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-9",
+            "title": "El enredo del Bitcoin",
+            "image": "https://image.tmdb.org/t/p/w300/sUeYryl4noJ1ZeoygZki5mVSEAF.jpg",
+            "numberEpisode": "E9",
+            "caption": "Sheldon trata enseñarles a los chicos una lección, después de que lo excluyeron de una inversión en Bitcoin que podría resultar potencialmente valiosa. Además, un video de hace siete años revela un secreto sobre la relación de Leonard y Penny."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-10",
+            "title": "La erosión de la seguridad",
+            "image": "https://image.tmdb.org/t/p/w300/661iWFo3pdIjCRN8iqHTF5UPmNe.jpg",
+            "numberEpisode": "E10",
+            "caption": "Sheldon y Amy tratan de acabar con el estrés de la planificación de la boda aplicando las matemáticas al proceso. Además, Koothrappali “rompe” con Wolowitz, al darse cuenta de que su mejor amigo ha abusado de su confianza."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-11",
+            "title": "La reverberación de la celebración",
+            "image": "https://image.tmdb.org/t/p/w300/pax2p8RTOa1cyOy8RdYBLLvBQcU.jpg",
+            "numberEpisode": "E11",
+            "caption": "Sheldon y Wolowitz planean la celebración de los cumpleaños de Amy y Halley, repectivamente. Además, Leonard recibe una tarjeta navideña de su hermano, lo que lleva a una espiral descendente acerca de su propia falta de logros."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-12",
+            "title": "La métrica matrimonial",
+            "image": "https://image.tmdb.org/t/p/w300/Ak6A2V7tiXV5hU0UIRNupFUyThz.jpg",
+            "numberEpisode": "E12",
+            "caption": "Para descubrir quién sería el más calificado para ser el padrino y la dama de honor en su boda, Sheldon y Amy someten a sus amigos a una serie de experimentos secretos. Además, Penny revela sus verdaderos sentimientos sobre Amy."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-13",
+            "title": "La oscilación de la soledad",
+            "image": "https://image.tmdb.org/t/p/w300/twXUFhbnn9xuoBwzwHZzyi6qAtk.jpg",
+            "numberEpisode": "E13",
+            "caption": "Luego que Sheldon echa a Amy para poder trabajar solo, ella y Leonard se unen para realizar una serie de experimentos científicos. Además, Bert, el geólogo, reemplaza a Wolowitz en la banda “Pisadas en la Luna”, y Sheldon encuentra en Penny una inesperada fuente de insipiración científica."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-14",
+            "title": "La separación de la triangulación",
+            "image": "https://image.tmdb.org/t/p/w300/aKGQFSnqc5r9mWCUcRjWYi5SiWc.jpg",
+            "numberEpisode": "E14",
+            "caption": "Koothrappali se encuentra en medio de un drama doméstico, cuando se entera que la mujer con la cual está saliendo, Nell, tiene un marido muy enojado, Oliver. Además, cuando Sheldon alquila su antigua habitación para tener un lugar tranquilo para trabajar, enloquece a Leonard al ser un inquilino modelo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-15",
+            "title": "La correlación de la novelización",
+            "image": "https://image.tmdb.org/t/p/w300/AnGIz9QR5vd1BvfaLKIavRYVdAx.jpg",
+            "numberEpisode": "E15",
+            "caption": "Cuando Sheldon le pide a Wil Wheaton para aparecer en el nuevo programa del profesor Protón, Wil invita en su lugar a Amy. Además, Penny se enoja cuando cree que la protagonista femenina de la novela de Leonard se basa en ella."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-16",
+            "title": "La nomenclatura neonatal",
+            "image": "https://image.tmdb.org/t/p/w300/y8cPPUKibxpbGlo9feqkWHae4Gk.jpg",
+            "numberEpisode": "E16",
+            "caption": "Cuando Bernadette no rompe aguas para dar a luz, todos sus amigos prueban diferentes tácticas para provocarlo. Por otro lado, Howard discute con Bernadette después de que Amy le cuente accidentalmente que ya ha elegido el nombre de su hijo."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-17",
+            "title": "La reserva del Ateneo",
+            "image": "https://image.tmdb.org/t/p/w300/zDdcH0sQ3cRXbXolXrXpBcRBIv.jpg",
+            "numberEpisode": "E17",
+            "caption": "Leonard lo pasa para asegurarse de que Sheldon y Amy tengan el lugar perfecto para su boda. Además, Bernadette y Wolowitz tienen dificultades para decidir quién debe quedarse en casa con los niños y quién debe volver a trabajar. Los planes para la boda de Sheldon y Amy se frustran por causa de Kripke."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-18",
+            "title": "La excitación por Bill Gates",
+            "image": "https://image.tmdb.org/t/p/w300/eXK5rWsLFCznTnclbcKlhtVYd6Z.jpg",
+            "numberEpisode": "E18",
+            "caption": "Penny tiene la oportunidad de recibir a Bill Gates en el trabajo, cuando la compañía de él quiere asociarse con la farmacéutica de ella. Además, Leonard, Koothrappali y Wolowitz hace todo lo que está a su alcance para conocerlo, mientras Sheldon cree que es víctima de una broma de April Fool."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-19",
+            "title": "La disociación del inquilino",
+            "image": "https://image.tmdb.org/t/p/w300/noQkLOIcY439DTVA1mcqi07B2SW.jpg",
+            "numberEpisode": "E19",
+            "caption": "Cuando Leonard se de entera que Sheldon es el presidente de la asociación de inquilinos, decide postularse en su contra. Además, Bernadette anima a Wolowitz y Koothrappali a encontrar al dueño del dron que cayó en su patio trasero."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-20",
+            "title": "El potencial de la reclusión",
+            "image": "https://image.tmdb.org/t/p/w300/4onNHSndrG9u2DrkFI3Bw5ZEicl.jpg",
+            "numberEpisode": "E20",
+            "caption": "Un brillante pero solitario científico, el Dr. Wolcott, invita a Sheldon a su cabaña en medio de la nada, y Leonard, Raj y Howard lo acompañan en el viaje. Además, Penny y Bernadette derán improvisar."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-21",
+            "title": "La polarización del cometa",
+            "image": "https://image.tmdb.org/t/p/w300/RmDwxVECzVk0iSqqjYcPMrH7sC.jpg",
+            "numberEpisode": "E21",
+            "caption": "La tienda de cómics de Sheldon experimenta cambios cuando el escritor Neil Graham pone la tienda de Stuart en el mapa. Además, Koothrappali se lleva todo el crédito por el descubrimiento astronómico realizado por Penny y las amistades del grupo se ven amenazadas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-22",
+            "title": "La insuficiencia monetaria",
+            "image": "https://image.tmdb.org/t/p/w300/bh6HEOeXk2hCrpt31wudk0wXGJu.jpg",
+            "numberEpisode": "E22",
+            "caption": "Sheldon va a Las Vegas para ganar dinero para la ciencia. Además, Penny y Bernadette lleva a Amy a comprar el vestido de novia, pero su terrible elección las enreda en una telaraña de mentiras."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-23",
+            "title": "La realineación fraternal",
+            "image": "https://image.tmdb.org/t/p/w300/a6wr77OIGHkAPK57HMpALaejKaS.jpg",
+            "numberEpisode": "E23",
+            "caption": "Cuando Sheldon se entera de que su madre no asistirá a su boda a menos que invite a su hermano, Georgie, viajará con Leonard a Texas, para poner fin a una disputa familiar. Además, los niños Wolowitz contagian sin querer a Amy, Bernadette, Wolowitz y Koothrappali con conjuntivitis."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-11/episodio-24",
+            "title": "La asimetría de la pajarita",
+            "image": "https://image.tmdb.org/t/p/w300/gOhiFetvZtTMD9lvyeqmxeDedso.jpg",
+            "numberEpisode": "E24",
+            "caption": "Todo el mundo está concentrado para que la boda salga según el plan... Todos menos la novia y el novio."
+          }
+        ]
+      },
+      {
+        "season": "12",
+        "episodes": [
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-1",
+            "title": "La configuración conyugal",
+            "image": "https://image.tmdb.org/t/p/w300/tH6udsYfheFElUCMtc10PoxzhHH.jpg",
+            "numberEpisode": "E1",
+            "caption": "Después de su boda, Amy y Sheldon se van de luna de miel."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-2",
+            "title": "La transferencia del regalo de boda",
+            "image": "https://image.tmdb.org/t/p/w300/6dkPSJozX9LPiNpv1nUfPSkCCZy.jpg",
+            "numberEpisode": "E2",
+            "caption": "Leonard y Penny le dan a Sheldon y Amy un desconcertante regalo de bodas."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-3",
+            "title": "El cálculo de la procreación",
+            "image": "https://image.tmdb.org/t/p/w300/l44ODD3iKdq06UT3MwVb5eAfgtl.jpg",
+            "numberEpisode": "E3",
+            "caption": "La vida de los Wolowitz se complica cuando Stuart comienza a traer a su nueva novia a casa. Penny y Leonard hablan sobre comenzar una familia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-4",
+            "title": "Las turbulencias de Tam",
+            "image": "https://image.tmdb.org/t/p/w300/llMnVr3aHN87ehC7NjFoXrZJC6u.jpg",
+            "numberEpisode": "E4",
+            "caption": "Sheldon no quiere contar el porqué de su enemistad con Tam y Leonard decide investigar. Bernadette y Penny conocen a la prometida de Raj."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-5",
+            "title": "La colisión planetaria",
+            "image": "https://image.tmdb.org/t/p/w300/uglFferqXxOcIb7jOoFTYzzUGDv.jpg",
+            "numberEpisode": "E5",
+            "caption": "Sheldon intenta que Amy tenga tiempo para trabajar con él, aún saboteando su carrera. Raj no quiere que Howard presente con él en el planetario."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-6",
+            "title": "La perturbación de la imitación",
+            "image": "https://image.tmdb.org/t/p/w300/xo7XJKGKLBcymivyVeRawWDDHtP.jpg",
+            "numberEpisode": "E6",
+            "caption": "Howard lo da todo con su disfraz de este año, lo que desencadena varias discusiones entre los amigos de Pasadena."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-7",
+            "title": "La derivación de la concesión de la beca",
+            "image": "https://image.tmdb.org/t/p/w300/14abiXaAjOnkYMke8WOPYfJb2Ud.jpg",
+            "numberEpisode": "E7",
+            "caption": "Leonard se ve en una encrucijada al tener que repartir dinero extra su su beca. Bernadette convierte la casita del patio en su escondite."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-8",
+            "title": "La desviación de la consumación",
+            "image": "https://image.tmdb.org/t/p/w300/u2Fvvq2DwjnmgCLXM3XKpZHtJUQ.jpg",
+            "numberEpisode": "E8",
+            "caption": "Sheldon intenta crear vínculos con los padres de Amy. Raj y Anu deciden pasar al plano físico por primera vez."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-9",
+            "title": "La negación de la cita",
+            "image": "https://image.tmdb.org/t/p/w300/r7QzKWzJZ5nhRIHy8ffYRAHsSDb.jpg",
+            "numberEpisode": "E9",
+            "caption": "El estudio en el que trabajan Sheldon y Amy queda rebatido. Bernadette pide ayuda a Denise para ganar a Howard en un videojuego."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-10",
+            "title": "La iluminación del video",
+            "image": "https://image.tmdb.org/t/p/w300/ifZjvUR7qrzRFeMidPv3WQIPX0n.jpg",
+            "numberEpisode": "E10",
+            "caption": "Una cinta de VHS del pasado de Sheldon, inspira a Amy y a él. Bernadette convence a Howard para hacer una prueba para un espectáculo de magia."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-11",
+            "title": "La dispersión del paintball",
+            "image": "https://image.tmdb.org/t/p/w300/g9aR3enICwN7QF3RZ8KTgKVhvi3.jpg",
+            "numberEpisode": "E11",
+            "caption": "Penny y Leonard organizan un juego de paintball, pero termina en caos porque Sheldon está celoso de Amy. Y Stuart no quiere mudarse con Denise."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-12",
+            "title": "La proposición de la propagación",
+            "image": "https://image.tmdb.org/t/p/w300/yk9ngrWh99IferzYCzkzgmV4Y8H.jpg",
+            "numberEpisode": "E12",
+            "caption": "El ex novio de Penny se entera de que es estéril y le pide ayuda a Leonard. Raj intenta arreglar las cosas con Anu, su ex prometida Anu."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-13",
+            "title": "La polarización de la confirmación",
+            "image": "https://image.tmdb.org/t/p/w300/ikoSMAv9hEQHnk3dEg3qerNxsso.jpg",
+            "numberEpisode": "E13",
+            "caption": "Cuando dos físicos prueban la teoría de la super asimetría de Sheldon y Amy, se emocionan hasta que intentan echar a Amy de la nominación al Nobel."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-14",
+            "title": "La manifestación del meteorito",
+            "image": "https://image.tmdb.org/t/p/w300/6A3l7dDqA9nA94pZNzJ8Fsv3Bp4.jpg",
+            "numberEpisode": "E14",
+            "caption": "Sheldon descubre que Bernadette y Wolowitz están violando la ley. Y Leonard está decepcionado porque sus amigos lo han excluido de un proyecto."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-15",
+            "title": "La oscilación de la donación",
+            "image": "https://image.tmdb.org/t/p/w300/8ZKXKQvrlWTyjEe6VYjpsHaaOZa.jpg",
+            "numberEpisode": "E15",
+            "caption": "Wolowitz, Bernadette, Anu y Raj convierten la despedida de soltero cancelada de Raj en un viaje de pareja a bordo del \"cometa del vómito\"."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-16",
+            "title": "Dragones y mazmorras",
+            "image": "https://image.tmdb.org/t/p/w300/v9o9lIGgrKn3CVC3VqjXsOxiDBu.jpg",
+            "numberEpisode": "E16",
+            "caption": "Cuando la pandilla descubre que Wil Wheaton es el anfitrión de un famoso juego, se engañarán y se traicionarán para conseguir el único asiento libre."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-17",
+            "title": "La evaluación de la conferencia",
+            "image": "https://image.tmdb.org/t/p/w300/ibeFZjHPpdLLCsM9Ul4QZGU5Bns.jpg",
+            "numberEpisode": "E17",
+            "caption": "Penny y Bernadette acuden a San Diego para una convención de ventas de productos farmacéuticos y Howard queda a cargo de la familia. Por su parte, Sheldon encuentra un libro sobre experimentos infantiles. Este descubrimiento anima a los chicos y a Amy a jugar y ponerlo en práctica con los hijos de Bernadette y Wolowitz durante el fin de semana."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-18",
+            "title": "La acumulación de premiados",
+            "image": "https://image.tmdb.org/t/p/w300/yNLmPBFzi9nGTtBsaQJNnbsDrwx.jpg",
+            "numberEpisode": "E18",
+            "caption": "Sheldon y Amy siguen luchando por el reconocimiento de su teoría. Mientras Bernardette quiere escribir un libro para niños sobre el viaje de Howard."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-19",
+            "title": "La privación de la inspiración",
+            "image": "https://image.tmdb.org/t/p/w300/hX1cQjB1uoCEBveWwx7ArPX2GKB.jpg",
+            "numberEpisode": "E19",
+            "caption": "La presión como mujer que supondría ganar un Premio Nobel hace que Amy tenga una crisis. Mientras, Raj y Wolowitz intentan revivir viejos tiempos."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-20",
+            "title": "La reverberación de la decisión",
+            "image": "https://image.tmdb.org/t/p/w300/6EwGVgvBRPX6huHhj80whNK3aXD.jpg",
+            "numberEpisode": "E20",
+            "caption": "Koothrappali está preocupado de que las personas no lo tomen en serio en su propio campo después de publicar un artículo que sugiere la posibilidad de haber descubierto vida extraterrestre. Por otro lado, Leonard quiere ser el investigador principal en un estudio de física de plasma."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-21",
+            "title": "El cisma del plagio",
+            "image": "https://image.tmdb.org/t/p/w300/Adw0tiCkOOBfQv0DGcxgopuWpYJ.jpg",
+            "numberEpisode": "E21",
+            "caption": "Kripke tiene pruebas de que el Dr. Pemberton plagió su tesis en la universidad, y Sheldon y Amy no están seguros de si deberían entregarlo o no. Además, Wolowitz está felizmente sorprendido de saber que Bernadette no fue la única camarera de Cheesecake Factory que estaba enamorada de él en su día."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-22",
+            "title": "La conclusión maternal",
+            "image": "https://image.tmdb.org/t/p/w300/swB9SAr1YhSPq6MuJTrtLEfhUVf.jpg",
+            "numberEpisode": "E22",
+            "caption": "Leonard se sorprende gratamente cuando Beverly viene de visita y ella es genuinamente amable con él, hasta que descubre la verdadera razón por la que está allí.  Además, Denise y Stuart se quedaron más allá de su bienvenida en la casa de Wolowitz."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-23",
+            "title": "La constante del cambio / El síndrome de Estocolmo",
+            "image": "https://image.tmdb.org/t/p/w300/x422znm59wC6RnRFH8nUxVfbsH2.jpg",
+            "numberEpisode": "E23",
+            "caption": "Una increíble noticia supone enormes cambios para Sheldon y Amy. Pero mientras uno de ellos trata de asimilar la situación, otro quiere que todo siga igual. / Secretos revelados, corazones rotos, declaraciones de sentimientos... En el último episodio de la serie, los protagonistas completan su viaje y vuelven a los orígenes."
+          },
+          {
+            "link": "serie/la-teoria-del-big-bang/temporada-12/episodio-24",
+            "title": "Descubriendo el misterio: la despedida",
+            "image": "https://image.tmdb.org/t/p/w300/eaC2VG6Iy63vIor6mfOfCZTDw3g.jpg",
+            "numberEpisode": "E24",
+            "caption": "Johnny Galecki y Kaley Cuoco guiarán a los fans en un viaje por el camino de los recuerdos, compartiendo algunos de los secretos mejor guardados entre bastidores y anécdotas personales de los últimos 12 años de Big Bang Theory."
+          }
+        ]
+      }
+    ],
+    "link": "serie/la-teoria-del-big-bang",
+    "updatedAt": "2026-08-12T13:31:06.789Z"
   }
 }
