@@ -24,7 +24,6 @@ export function HeroBackdrop({
   caption,
   link,
 }: HeroBackdropProps) {
-  const isMobile_SSR = true; // layout is CSS-driven, no JS needed
 
   return (
     <div className="flex flex-col">

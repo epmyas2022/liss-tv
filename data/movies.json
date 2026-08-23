@@ -13424,5 +13424,289 @@
     ],
     "link": "serie/la-teoria-del-big-bang",
     "updatedAt": "2026-08-12T13:31:06.789Z"
+  },
+  "pelicula/senores-del-caos": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/oaDTXNmyqeNEEBat3h4ijiu27jv.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/5jDShbwEsILXa2AAmAbOLxyNwyq.jpg",
+    "title": "Señores del caos",
+    "year": "2018",
+    "duration": "1h 52m",
+    "rating": "◆ 6.7",
+    "tags": [
+      "Drama",
+      "Terror",
+      "Música",
+      "Suspense"
+    ],
+    "caption": "La historia de un joven que quiere darle un nuevo giro a la escena del black metal en Oslo, Noruega, proyecto que trae fatales consecuencias para todos los involucrados. Biopic de la banda de black metal noruego Mayhem",
+    "episodes": [],
+    "link": "pelicula/senores-del-caos",
+    "updatedAt": "2026-08-23T19:07:11.421Z"
+  },
+  "serie/youjo-senki": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/7JdbxGaZQsIWAG4lHJtab1IKUDK.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/y0NcqaEx6Md4MPcDWHAr8e5CQfF.jpg",
+    "title": "Saga of Tanya The Evil",
+    "year": "Returning Series",
+    "duration": "2017",
+    "rating": "\n                    TMDB\n                    8.2\n                ",
+    "tags": [
+      "Drama",
+      "Animación",
+      "Sci-Fi & Fantasy"
+    ],
+    "caption": "En el frente de la guerra, no es una niña. cabello rubio, ojos azules y piel de porcelana blanca, que le ordena escuadra con voz balbuceante. Su nombre es Tania Degurechaff. Pero, en realidad, ella es una de los asalariados de más élite de Japón, renacidos como una niña después de enojar a un ser misterioso que se llama Dios. Esta niña, que da prioridad a la eficiencia y su propia carrera sobre cualquier otra cosa, se convertirá en el ser más peligroso entre los brujos del ejército imperial.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-1",
+            "title": "El Demonio del Rin",
+            "image": "https://image.tmdb.org/t/p/w300/jDQj52zrqdhOmI1HWjY8irPWRqa.jpg",
+            "numberEpisode": "E1",
+            "caption": "En una cruenta guerra, las fuerzas imperiales se enfrentan al ejército republicano en batallas donde la magia determina la victoria. En este mundo, donde solo el más fuerte sobrevive, se encuentra Tanya, una niña que posee un gran poder destructivo y que será implacable a la hora de lograr sus objetivos."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-2",
+            "title": "Prologo",
+            "image": "https://image.tmdb.org/t/p/w300/bZ4OAX20yrc96Ow97rPkiBlQIaX.jpg",
+            "numberEpisode": "E2",
+            "caption": "Ya sabemos de qué es capaz Tanya Degurechaff en el campo de batalla gracias a su gran poder mágico, pero ¿cómo llegó a ser la terrible maga que es hoy día? Echaremos la mirada atrás para descubrir que la niña esconde más de un secreto, pues en realidad procede de otro mundo."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-3",
+            "title": "Dios lo quiere",
+            "image": "https://image.tmdb.org/t/p/w300/9RBlEegROfMcureAo1odlupmGID.jpg",
+            "numberEpisode": "E3",
+            "caption": "Siguiendo la determinación de su vida anterior, Tanya se ha propuesto vivir una vida tranquila alejada del peligro, aunque solo sea para rebelarse contra la extraña entidad a la que llama \"X\". Sin embargo, los caminos de Dios son misteriosos y su mano puede llegar a muchos sitios."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-4",
+            "title": "Vida universitaria",
+            "image": "https://image.tmdb.org/t/p/w300/fLyxiVTWekRfz1kDxSguIKSnDAL.jpg",
+            "numberEpisode": "E4",
+            "caption": "Tanya lo ha preparado todo para poder vivir una vida universitaria tranquila, alejada del frente. Sin embargo, su gran capacidad táctica y su carácter diligente la harán destacar del resto, algo que llama la atención de los oficiales."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-5",
+            "title": "Mi primer batallón",
+            "image": "https://image.tmdb.org/t/p/w300/sqCcjtzBVEdUfwDZXldN9CfzhmL.jpg",
+            "numberEpisode": "E5",
+            "caption": "El ejército tiene muchas esperanzas en Tanya y no dudan en poner en sus manos su propio batallón, aunque para ello tenga que usar técnicas de entrenamiento realmente duras. Sin embargo, todos parecen respetar su gran poder y el batallón se dirige a la batalla dispuesto a demostrar de lo que es capaz."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-6",
+            "title": "El inicio de la locura",
+            "image": "https://image.tmdb.org/t/p/w300/cx6VpJvhKpfu5oxHMyPOCKv493z.jpg",
+            "numberEpisode": "E6",
+            "caption": "El Imperio debe estar atento a muchos frentes y todo parece indicar que se producirá una guerra mundial. Por eso, el batallón de Tanya se verá envuelto en muchas batallas debido a su efectividad sin igual."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-7",
+            "title": "La batalla del fiordo",
+            "image": "https://image.tmdb.org/t/p/w300/1Xqe499SVeQP3OqmgzEa23Z9SS.jpg",
+            "numberEpisode": "E7",
+            "caption": "El Imperio se siente gastado en una guerra que está durando más de lo que tenía planeado. Por ello, buscan dar un golpe fatal para afianzar su hegemonía territorial. Para eso, necesitarán de la destreza y entereza de Tanya."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-8",
+            "title": "Prueba de Fuego",
+            "image": "https://image.tmdb.org/t/p/w300/nFcxEBQNyAhLIU46ODYRpJCNAgX.jpg",
+            "numberEpisode": "E8",
+            "caption": "El equipo de Tanya se debate entre el deber y lo ético cuando un grupo de civiles afines a la república se revelan contra el Imperio y reciben la orden de acabar con la revuelta a cualquier precio."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-9",
+            "title": "Preparaciones para adelantar",
+            "image": "https://image.tmdb.org/t/p/w300/n7eU7qVjuZCWbbx5pGFaTae1NYZ.jpg",
+            "numberEpisode": "E9",
+            "caption": "El Imperio quiere terminar la guerra cuanto antes cueste lo que cueste, y para ello prepara un plan final con el que engañar al enemigo y lograr la victoria. ¿Será Tanya capaz de sobrevivir hasta el final?"
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-10",
+            "title": "Camino a la victoria",
+            "image": "https://image.tmdb.org/t/p/w300/dcpuzPxU6Y5FyPJeP3hTVlboJiZ.jpg",
+            "numberEpisode": "E10",
+            "caption": "Aunque se lo jugaba todo a una única carta, todo parece salir bien en la Operación Shock y Pavor del Imperio. Así, su gran ejército tiene por fin a la República contra las cuerdas. Pero ¿realmente será el final de la guerra?"
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-11",
+            "title": "Resistencia",
+            "image": "https://image.tmdb.org/t/p/w300/AuTDbAACG6UR6U4BWuQe57w8NSw.jpg",
+            "numberEpisode": "E11",
+            "caption": "Cuando todo parecía a favor del Imperio, la República muestra su as en la manga y Tanya se encontrará con la horma de su zapato. En estas circunstancias, estará por ver si realmente se puede poner fin a la guerra."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-1/episodio-12",
+            "title": "Cómo usar una victoria",
+            "image": "https://image.tmdb.org/t/p/w300/zfs4WaQpSrm8NLNtm9MoLfWV5bt.jpg",
+            "numberEpisode": "E12",
+            "caption": "Definitivamente, la verdad sale a la luz y la República se mueve de nuevo, esta vez bajo el nombre de República Libre y con el apoyo de la Federación del este y los Estados Unificados del oeste. Así, el Imperio deberá volver a las armas, algo que ya vaticinó Tanya."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/youjo-senki/temporada-2/episodio-1",
+            "title": "El Grupo de Combate Salamander",
+            "image": "https://image.tmdb.org/t/p/w300/tVKEO0GgoW5F8X3jIVMHTjDjorV.jpg",
+            "numberEpisode": "E1",
+            "caption": "En el frente de la guerra, no es una niña. cabello rubio, ojos azules y piel de porcelana blanca, que le ordena escuadra con voz balbuceante. Su nombre es Tania Degurechaff. Pero, en realidad, ella es una de los asalariados de más élite de Japón, renacidos como una niña después de enojar a un ser misterioso que se llama Dios. Esta niña, que da prioridad a la eficiencia y su propia carrera sobre cualquier otra cosa, se convertirá en el ser más peligroso entre los brujos del ejército imperial."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-2/episodio-2",
+            "title": "Una amistad peculiar",
+            "image": "https://image.tmdb.org/t/p/w300/4ypWq0pH9r1zrcwKT3eCHNbBCST.jpg",
+            "numberEpisode": "E2",
+            "caption": "En el frente de la guerra, no es una niña. cabello rubio, ojos azules y piel de porcelana blanca, que le ordena escuadra con voz balbuceante. Su nombre es Tania Degurechaff. Pero, en realidad, ella es una de los asalariados de más élite de Japón, renacidos como una niña después de enojar a un ser misterioso que se llama Dios. Esta niña, que da prioridad a la eficiencia y su propia carrera sobre cualquier otra cosa, se convertirá en el ser más peligroso entre los brujos del ejército imperial."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-2/episodio-3",
+            "title": "Mediador de buena fe",
+            "image": "https://image.tmdb.org/t/p/w300/iXnZuqYLfC91mfNifWx62ULsgHq.jpg",
+            "numberEpisode": "E3",
+            "caption": "En el frente de la guerra, no es una niña. cabello rubio, ojos azules y piel de porcelana blanca, que le ordena escuadra con voz balbuceante. Su nombre es Tania Degurechaff. Pero, en realidad, ella es una de los asalariados de más élite de Japón, renacidos como una niña después de enojar a un ser misterioso que se llama Dios. Esta niña, que da prioridad a la eficiencia y su propia carrera sobre cualquier otra cosa, se convertirá en el ser más peligroso entre los brujos del ejército imperial."
+          },
+          {
+            "link": "serie/youjo-senki/temporada-2/episodio-4",
+            "title": "La Operación Martillo",
+            "image": "https://image.tmdb.org/t/p/w300/3WTeA4WXsSa81J0UDgmaAfnsmAe.jpg",
+            "numberEpisode": "E4",
+            "caption": "En el frente de la guerra, no es una niña. cabello rubio, ojos azules y piel de porcelana blanca, que le ordena escuadra con voz balbuceante. Su nombre es Tania Degurechaff. Pero, en realidad, ella es una de los asalariados de más élite de Japón, renacidos como una niña después de enojar a un ser misterioso que se llama Dios. Esta niña, que da prioridad a la eficiencia y su propia carrera sobre cualquier otra cosa, se convertirá en el ser más peligroso entre los brujos del ejército imperial."
+          }
+        ]
+      }
+    ],
+    "link": "serie/youjo-senki",
+    "updatedAt": "2026-08-23T19:18:29.702Z"
+  },
+  "pelicula/hell-house-llc-lineage": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/lKGUaVHu6QX4vnfjxXIWcogeUR1.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/vFZo2cUEF16gsY5lhewOLFA7CBC.jpg",
+    "title": "Hell House LLC: Linaje",
+    "year": "2025",
+    "duration": "1h 48m",
+    "rating": "◆ 4.7",
+    "tags": [
+      "Terror",
+      "Misterio"
+    ],
+    "caption": "La popular serie de películas de Halloween regresa con la que podría ser su última entrega, profundizando en las historias de varios personajes de la franquicia, al tiempo que introducirá nuevos personajes y tramas.",
+    "episodes": [],
+    "link": "pelicula/hell-house-llc-lineage",
+    "updatedAt": "2026-08-23T21:43:37.893Z"
+  },
+  "pelicula/kissing-is-the-easy-part": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/7yuHdP85F2ZxhKbSoPgCBT9uJT3.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/yztYRGaObp3w4coUmvCYzxEvoWn.jpg",
+    "title": "Kissing Is the Easy Part",
+    "year": "2026",
+    "duration": "1h 41m",
+    "rating": "◆ 7.2",
+    "tags": [
+      "Comedia",
+      "Romance"
+    ],
+    "caption": "Sean, uno de los mejores estudiantes, acepta ser tutor de la rebelde Flora para obtener una carta de recomendación universitaria. Su creciente atracción complica más que solo sus metas académicas.",
+    "episodes": [],
+    "link": "pelicula/kissing-is-the-easy-part",
+    "updatedAt": "2026-08-23T21:43:39.227Z"
+  },
+  "serie/el-resto-bien": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/cdvqBBumHLsHNlTTj9BO00XUrwl.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/12Rlo30B7NPm3Ynz5KeCHP3pjVV.jpg",
+    "title": "So Far, So Good",
+    "year": "Returning Series",
+    "duration": "2026",
+    "rating": "\n                    TMDB\n                    0.0\n                ",
+    "tags": [
+      "Drama",
+      "Comedia"
+    ],
+    "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/lqD0nrSojjATmtTBGOQ3DkdvNHZ.jpg",
+            "numberEpisode": "E1",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/qamNueCnahvz02g6knkzO6VPOUJ.jpg",
+            "numberEpisode": "E2",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/35qjKQPkW0EyN2frTH2cY1I4r0W.jpg",
+            "numberEpisode": "E3",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/gTRkyDZFe449st7GnP7Uh7NqM3z.jpg",
+            "numberEpisode": "E4",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-5",
+            "title": "Episodio 5",
+            "image": "https://image.tmdb.org/t/p/w300/oTKxn9mOlwREnV2aJkYKvzDI7RT.jpg",
+            "numberEpisode": "E5",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-6",
+            "title": "Episodio 6",
+            "image": "https://image.tmdb.org/t/p/w300/8ur1DBL3GgKtrBfpWIV8Do1HCQh.jpg",
+            "numberEpisode": "E6",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-7",
+            "title": "Episodio 7",
+            "image": "https://image.tmdb.org/t/p/w300/dTyvvbFHPF0mrwP5dCqR39YABz7.jpg",
+            "numberEpisode": "E7",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          },
+          {
+            "link": "serie/el-resto-bien/temporada-1/episodio-8",
+            "title": "Episodio 8",
+            "image": "https://image.tmdb.org/t/p/w300/86reRV9rYaK4sbMNMOFNb5OhMSq.jpg",
+            "numberEpisode": "E8",
+            "caption": "Un dibujante de 50 años con cinco hijos y padres ancianos se enfrenta a una crisis de mediana edad, complicada por una hernia. Sus límites físicos lo obligan a reflexionar sobre la libertad, los deberes familiares y lo que más le importa."
+          }
+        ]
+      }
+    ],
+    "link": "serie/el-resto-bien",
+    "updatedAt": "2026-08-23T21:44:44.056Z"
+  },
+  "pelicula/animales": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/3jgATRIFenOrgNKEC9bFv5QqKGf.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/9fbZdiOI9fRinl44mNm3CYgEtYR.jpg",
+    "title": "Animals",
+    "year": "2026",
+    "duration": "es",
+    "rating": "◆ 5.8",
+    "tags": [
+      "Comedia",
+      "Suspense"
+    ],
+    "caption": "Un grupo de amigos que se conocen de toda la vida descubre que hay puertas que nunca se deben de abrir. Lo que empieza como un juego de deseo se convierte en una espiral de celos, mentiras y traiciones que arrasa con sus relaciones. Muy pronto entenderán que todos tenemos un lado animal.",
+    "episodes": [],
+    "link": "pelicula/animales",
+    "updatedAt": "2026-08-23T21:47:03.507Z"
   }
 }

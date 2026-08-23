@@ -1,15 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useFocusable } from "@noriginmedia/norigin-spatial-navigation-react";
 
 import WatchButton from "./ui/WatchButton";
-
+import { useRouter } from "next/navigation";
 import type { Movie } from "@/types/movie";
+import { FocusableComponentLayout } from "@noriginmedia/norigin-spatial-navigation-core";
 
 export function MovieCard({ movie }: { movie: Movie }) {
+  const router = useRouter();
+
+  const { ref, focused } = useFocusable({
+    onFocus: (layout: FocusableComponentLayout) => {
+      if (!layout.node) return;
+
+      layout.node.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+    },
+
+    onEnterPress: () => {
+      router.push(movie.link);
+    },
+  });
+
   return (
     <Link
       href={movie.link}
       className="group relative block rounded-xl overflow-hidden bg-[#070707] cursor-pointer"
+      style={{ ...(focused && { outline: "3px solid #fff" }) }}
+      ref={ref}
     >
       {/* Poster */}
       <div className="relative aspect-[2/3] w-full">
