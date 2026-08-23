@@ -10637,7 +10637,7 @@
   },
   "serie/silo": {
     "backgroundImage": "https://image.tmdb.org/t/p/w1280/uTWhbLc7Bj4qNSdW3ZvZKL8cOHv.jpg",
-    "image": "https://image.tmdb.org/t/p/w500/8gjKCC85lHIGer9q6duOcVR1PVm.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/ak7NFISSaROyoWjSOIjamhpt1LB.jpg",
     "title": "Silo",
     "year": "Returning Series",
     "duration": "2023",
@@ -10842,12 +10842,26 @@
             "image": "https://image.tmdb.org/t/p/w300/hCUVzq1FghJlS75KIG2Ttxua4AL.jpg",
             "numberEpisode": "E6",
             "caption": "Billings y Hank tropiezan con un nuevo misterio. Daniel y Helen reciben una propuesta sorprendente."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-7",
+            "title": "Radio",
+            "image": "https://image.tmdb.org/t/p/w300/hT47PUyS6fQrmukmbyXrL9nBgKc.jpg",
+            "numberEpisode": "E7",
+            "caption": "Juliette envía a Lukas y Kennedy a una misión, mientras una desesperada Camille amenaza a Robert para que diga la verdad."
+          },
+          {
+            "link": "serie/silo/temporada-3/episodio-8",
+            "title": "Masa gris",
+            "image": "https://image.tmdb.org/t/p/w300/qZiRIiFbjCSttNe3uNHsi6hoxWV.jpg",
+            "numberEpisode": "E8",
+            "caption": "Gus, el padre de Knox, confiesa un secreto. Charlotte toma una decisión que le cambiará la vida."
           }
         ]
       }
     ],
     "link": "serie/silo",
-    "updatedAt": "2026-08-11T14:50:58.163Z"
+    "updatedAt": "2026-08-23T23:10:07.612Z"
   },
   "serie/breaking-bad": {
     "backgroundImage": "https://image.tmdb.org/t/p/w1280/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
@@ -13708,5 +13722,1614 @@
     "episodes": [],
     "link": "pelicula/animales",
     "updatedAt": "2026-08-23T21:47:03.507Z"
+  },
+  "serie/expediente-x": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/w00lfexrsOeR25dO4hsWhbcUnmD.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/73FcOklRmfmf76WflkeVTO1MAwJ.jpg",
+    "title": "Los Expedientes Secretos X",
+    "year": "Ended",
+    "duration": "1993",
+    "rating": "\n                    TMDB\n                    8.4\n                ",
+    "tags": [
+      "Crimen",
+      "Misterio",
+      "Sci-Fi & Fantasy"
+    ],
+    "caption": "Fox Mulder y Dana Scully son dos investigadores del FBI que investigan casos sin resolución ni explicación, ya sea por razones paranormales (espíritus, criaturas extrañas, aliens...) ya porque el gobierno se ha encargado de ocultar todo tipo de pruebas. Cuando Mulder tenía doce años, su hermana pequeña fue secuestrada por unos desconocidos, aunque él cree que, en realidad, fue abducida por extraterrestres. Tras acabar sus estudios en la universidad de Oxford, ingresó en la Academia de Quantico, donde se ganó el apodo de \"siniestro\".",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-1",
+            "title": "Piloto",
+            "image": "https://image.tmdb.org/t/p/w300/5H8BYhG68jKYm8BAFm2ufYq9jJ9.jpg",
+            "numberEpisode": "E1",
+            "caption": "La Dra. Scully recibe la misión de vigilar las actividades del Agente Fox Mulder y decidir si su trabajo tiene valor para el FBI. El la lleva para investigar el asesinato de varios compañeros de clase de una escuela secundaria en Oregon quienes el cree han sido parte de un experimento hecho por extraterrestres."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-2",
+            "title": "Garganta profunda",
+            "image": "https://image.tmdb.org/t/p/w300/tkUkVV3D9zHJ974CqsL7gA5vhOV.jpg",
+            "numberEpisode": "E2",
+            "caption": "Mulder y Scully se dirigen a la Base Aerea Ellens en Idaho, a pesar de las advertencias de gente poderosa y misteriosa. La investigación se inicia con la desaparición de un piloto de pruebas y conduce a una posible implicación de militares que posiblemente estan experimentando con OVNIs."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-3",
+            "title": "El escurridizo",
+            "image": "https://image.tmdb.org/t/p/w300/erm5VZNZSgP1lPLXyKMGQqt5aca.jpg",
+            "numberEpisode": "E3",
+            "caption": "Un horrendo asesinato sin motivo, claro M.O., y un punto de entrada indeterminado marcan resemblanza a un asesino de los expedientes X. Como quiera, el expediente X se sitúa entre 1933 y 1963. Mulder y Scully deben seguir y detener a este asesino de 100 años de edad."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-4",
+            "title": "Enlace",
+            "image": "https://image.tmdb.org/t/p/w300/3yHb7M1qW5WXyLIO7WGhV5c2dlb.jpg",
+            "numberEpisode": "E4",
+            "caption": "La hija adolescente de una mujer que dice haber visto un OVNI cuando niña, ha desaparecido cuando estaba en un campamento. Las sospechas indican que hay extraterrestres involucrados. Pero la clave para resolver el misterio podría ser el hijo de esta mujer en vez de la desaparecida hija."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-5",
+            "title": "El demonio de Jersey",
+            "image": "https://image.tmdb.org/t/p/w300/1qKBNUxM7WnBwvotq9akrjuMcdU.jpg",
+            "numberEpisode": "E5",
+            "caption": "El descubrimiento de un cuerpo humano canibalizado en New Jersey State Park envia a Mulder y Scully a Atlantic City. A pesar de en cubrimientos policiales obvios, Mulder continua su investigación de lo que podria ser un vínculo faltante en la evolución humana. Mientras tanto, Scully va a la fiesta de cumpleaños de su ahijado, que la conduce a reflexionar acerca de sus planes sociales futuros."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-6",
+            "title": "Sombras",
+            "image": "https://image.tmdb.org/t/p/w300/d6KqR9m8h0AbUlWiWQod8KmHKhT.jpg",
+            "numberEpisode": "E6",
+            "caption": "Cuando dos cadaveres muy inusuales aparecen en Philadelphia, Mulder y Scully son requeridos para que los investiguen. La investigación conduce a una secretaria cuyo jefe recientemente se suicidó y una fuerza extraña parece protegerla."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-7",
+            "title": "El fantasma de la máquina",
+            "image": "https://image.tmdb.org/t/p/w300/sG9siczFVzLXxwp7Jol2qGCxNVr.jpg",
+            "numberEpisode": "E7",
+            "caption": "Investigando la electrocutación del CEO de una compañia de computadoras, el antiguo compañero de Mulder pide ayuda para este caso. Con el consejo de Garganta Profunda, Mulder y Scully deben detener al asesino, todo mientras peleándose entre el departamento de defensa y el edificio mismo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-8",
+            "title": "Hielo",
+            "image": "https://image.tmdb.org/t/p/w300/hKDJ74jDKzXxR82TyqG4auJRLEH.jpg",
+            "numberEpisode": "E8",
+            "caption": "Cuando la última transmisión de el Proyecto Nuclear Polo Artico es la de un científico desquiciado diciendo “No somos quienes somos,” Mulder y Scully se hacen parte de un equipo de investigación que es enviado al lugar en Alaska. Cuando llegan, descubren que el descubrimiento de un parásito extraterrestre podría significar peligro para ellos tambien."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-9",
+            "title": "Espacio",
+            "image": "https://image.tmdb.org/t/p/w300/2eohAbyWVmDb9RIRbONMsdRqKJt.jpg",
+            "numberEpisode": "E9",
+            "caption": "Despues que el lanzamiento de un transbordador espacial es abortado y se encuentra evidencia de un sabotaje bizarro, un trabajador de la NASA le pide a Mulder y Scully que se den una vuelta. Mientras tanto, el ex-astronauta que esta a cargo de la misión esta aparentemente embrujado por algo que encontró durante una caminata espacial en una misión previa."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-10",
+            "title": "Ángel caído",
+            "image": "https://image.tmdb.org/t/p/w300/ctoUjgabLV826j3XNUURHZVyPRx.jpg",
+            "numberEpisode": "E10",
+            "caption": "Mulder pone en riesgo el futuro de los Expedientes X cuando se dirige al lugar donde se ha estrellado un ovni que rápidamente es cubierto por los militares."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-11",
+            "title": "Eva",
+            "image": "https://image.tmdb.org/t/p/w300/qqwItc4NvitPy5sJpGv98uZPz98.jpg",
+            "numberEpisode": "E11",
+            "caption": "Cuando dos padres en lados diferentes del país son inexplicablemente asesinados de la misma forma en el mismo momento, Mulder y Scully son avisados para investigarlo. Cuando descubren que las hijas de ambos son gemelas idénticas de ocho años, se dan cuenta de que ocurre algo aún más extraño."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-12",
+            "title": "Fuego",
+            "image": "https://image.tmdb.org/t/p/w300/69pfKNTJJ3kcPqyjqx3LQa0n92y.jpg",
+            "numberEpisode": "E12",
+            "caption": "Una antigua novia de Oxford de Mulder le pide que la ayude en un caso internacional que involucra la muerte inexplicable de varios dignatarios británicos y encuentran a un asesino que puede producir fuego con sus propias manos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-13",
+            "title": "Más allá del mar",
+            "image": "https://image.tmdb.org/t/p/w300/eapOgdorPohapBrgNZhVH37ruOr.jpg",
+            "numberEpisode": "E13",
+            "caption": "Scully tiene un acercamiento con los fenómenos paranormales cuando su padre recién fallecido se le aparece en una visión. Mientras, Mulder se vuelve escéptico cuando un condenado a muerte al que ayudó a enviar a prisión dice poder ver el futuro y le ofrece a los agentes llevarlos hasta un asesino en serie."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-14",
+            "title": "Cambio de sexo",
+            "image": "https://image.tmdb.org/t/p/w300/dH0XqNs1nirHxno91jjZcaADvjM.jpg",
+            "numberEpisode": "E14",
+            "caption": "Mulder y Scully investigan una serie de asesinatos donde el sospechoso parece ser tanto hombre como mujer. Su investigación los lleva a un pequeño pueblo en Steveston (Massachusetts), donde un grupo de menonitas llamado Kindred ha establecido un asentamiento en los bosques."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-15",
+            "title": "Lázaro",
+            "image": "https://image.tmdb.org/t/p/w300/scGryoYG1HqizuMvExLjQDbS0XT.jpg",
+            "numberEpisode": "E15",
+            "caption": "Cuando el agente especial Jack Willis recibe un disparo durante el robo de un banco, la agente Scully intenta por todos los medios salvarle la vida mientras el ladrón del banco, Warren Dupre, muere en el hospital. Después, el agente Willis comienza a mostrar un raro comportamiento parecido al de Dupre."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-16",
+            "title": "Joven de espíritu",
+            "image": "https://image.tmdb.org/t/p/w300/dw0jJAECkvl9PqdejdoAKbcCshZ.jpg",
+            "numberEpisode": "E16",
+            "caption": "Mulder se convierte en el objetivo de alguien de su pasado, John Barnett, un asesino y ladrón de joyerías que Mulder envió a prisión al poco tiempo de entrar al FBI. El único problema es que Barnett murió hace cuatro años."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-17",
+            "title": "Ente Biológico Extraterrestre (E.B.E.)",
+            "image": "https://image.tmdb.org/t/p/w300/wzqbbpP7ICnb9JKlI8NSOk2pAqm.jpg",
+            "numberEpisode": "E17",
+            "caption": "Mulder y Scully reciben información de Garganta Profunda sobre un ovni que fue derribado en Irak y ha sido transportado en secreto a los Estados Unidos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-18",
+            "title": "Hombre de los milagros",
+            "image": "https://image.tmdb.org/t/p/w300/8zN68WpNL24ic0bCQR566t7lFLq.jpg",
+            "numberEpisode": "E18",
+            "caption": "Un joven que tiene el poder de curar a la gente con sólo tocarla, comienza a cuestionar su don cuando la gente comienza a morir después de que supuestamente los haya curado."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-19",
+            "title": "Formas",
+            "image": "https://image.tmdb.org/t/p/w300/gQqk4rFAiGRjf9Bx1NDGf0vPIwR.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder y Scully viajan a una reserva de Nativos Americanos para investigar la muerte de un nativo que fue confundido por un animal salvaje y tal vez sea el legendario Manitou, un hombre que puede convertirse en una bestia."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-20",
+            "title": "Cae en la oscuridad",
+            "image": "https://image.tmdb.org/t/p/w300/qpfuxir12Ur5jcpWGmgGpnWD4zD.jpg",
+            "numberEpisode": "E20",
+            "caption": "Cuando un grupo de leñadores del Bosque Nacional del Estado de Washington desaparece de la misma forma que desapareció otro grupo hace 50 años. Mulder y Scully acuden a investigarlo y terminan atrapados en una cabaña rodeados de insectos sumamente peligrosos que sólo atacan en la más absoluta oscuridad."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-21",
+            "title": "Tooms",
+            "image": "https://image.tmdb.org/t/p/w300/ll0L0wNGoDyGSU1kcat5Wrl9MuM.jpg",
+            "numberEpisode": "E21",
+            "caption": "Eugene Tooms, detenido por Mulder y Scully (capítulo Squeeze (1x03)), es liberado del instituto mental y Mulder se involucra personalmente para asegurarse de que sea atrapado antes de conseguir el último hígado humano que necesita para una hibernación de otros 30 años."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-22",
+            "title": "Nacido de nuevo",
+            "image": "https://image.tmdb.org/t/p/w300/oqx338bB3BgA3Ez03JKY8ipSeuh.jpg",
+            "numberEpisode": "E22",
+            "caption": "Después de que un detective y su antiguo compañero mueran en circunstancias inexplicables, se sospecha que los incidentes están relacionados con una niña que presenció ambas muertes y que Mulder cree que tal vez sea la reencarnación de un policía asesinado por sus colegas."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-23",
+            "title": "Roland",
+            "image": "https://image.tmdb.org/t/p/w300/s6R5CmoMSEsUiTiqSWyCM1daRkF.jpg",
+            "numberEpisode": "E23",
+            "caption": "Cuando ocurre una serie de asesinatos en un grupo de científicos que trabajan en tecnología de propulsión avanzada, Mulder y Scully son enviados a investigar. Toda la evidencia parece apuntar al portero Roland, que sufre un retraso mental."
+          },
+          {
+            "link": "serie/expediente-x/temporada-1/episodio-24",
+            "title": "El matraz de Erlenmeyer",
+            "image": "https://image.tmdb.org/t/p/w300/dHWlTbE7K7p1uLlotc5yBP9ifHX.jpg",
+            "numberEpisode": "E24",
+            "caption": "Siguiendo un escueto dato de Garganta Profunda, Mulder y Scully descubren un proyecto secreto del Gobierno bajo el nombre en clave \"Control de Pureza\", y encuentran a los sujetos de prueba del proyecto. Mulder es secuestrado y Scully tiene que acudir a Garganta Profunda para rescatarlo. Al final, el informante muere para salvar a Mulder y los Expedientes X son cancelados."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-1",
+            "title": "Pequeño hombre verde",
+            "image": "https://image.tmdb.org/t/p/w300/mC1mqxfdxhFHJCKIpvtoJAzCSTT.jpg",
+            "numberEpisode": "E1",
+            "caption": "Con los Expedientes X cerrados, Scully ha sido asignada como instructora en la Academia del FBI mientras Mulder hace tediosos trabajos de vigilancia. Después de una reunión con el Senador Matheson, uno de sus informantes y mecenas en lo que concierne a los Expedientes, Mulder desobedece órdenes y se dirige a Arecibo (Puerto Rico), donde un mecanismo de búsqueda de vida alienígena se ha activado inexplicablemente."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-2",
+            "title": "El anfitrión",
+            "image": "https://image.tmdb.org/t/p/w300/kBYtUteLlq6OyQgRfgkD2mQ3Maj.jpg",
+            "numberEpisode": "E2",
+            "caption": "El Director Adjunto del FBI Skinner envía a Mulder a investigar un cuerpo que ha aparecido en las cloacas de Nueva Jersey. Mulder cree que la asignación es un castigo, pero con el propio permiso de Skinner descubre que es un verdadero Expediente X."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-3",
+            "title": "Sangre",
+            "image": "https://image.tmdb.org/t/p/w300/pnsx89GvShnklaA3ENtxHqCEz17.jpg",
+            "numberEpisode": "E3",
+            "caption": "Cuando varias muertes en una pequeño pueblo están conectadas con la destrucción de aparatos electrónicos, Mulder cree que la gente está siendo manejada para matar con mensajes subliminales a través de los aparatos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-4",
+            "title": "Insomnio",
+            "image": "https://image.tmdb.org/t/p/w300/v4bcnYmWBFofZgKM14elvY0vt5g.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mulder, desconfiado como siempre, acepta a regañadientes un nuevo compañero, el Agente Alex Krycek. Ambos investigan la muerte de varios Boinas Verdes que participaron en un experimento de privación del sueño durante la Guerra de Vietnam. Mulder conoce a un nuevo informante, el Sr. X."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-5",
+            "title": "Duane Barry",
+            "image": "https://image.tmdb.org/t/p/w300/xixG5HKDFdVbAbMcK9wZdrNvgBs.jpg",
+            "numberEpisode": "E5",
+            "caption": "Mulder es llamado a una crisis de rehenes que involucra a Duane Barry, un ex agente del FBI que dice ser abduccido por extraterrestres en varias ocasiones, y quiere volver al lugar de la abducción con alguien para entregar en su lugar. Desafortunadamente, a quien elige es a Scully."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-6",
+            "title": "Ascensión",
+            "image": "https://image.tmdb.org/t/p/w300/d7yrbhv3xgOxNpWjCkpGHnPqnHf.jpg",
+            "numberEpisode": "E6",
+            "caption": "Cuando Mulder descubre que Scully ha sido secuestrada por Barry, él se arriesga a enfrentar la ira de sus superiores y acude con Krycek en su búsqueda; hará lo que haga falta con tal de encontrar a su compañera. Pero descubre que Krycek reporta todo lo que hace al Fumador. Ni rastro de Scully."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-7",
+            "title": "Los tres",
+            "image": "https://image.tmdb.org/t/p/w300/8loJvgBxMqYeyZE8fG6oOqLbn1A.jpg",
+            "numberEpisode": "E7",
+            "caption": "Mulder, de vuelta en los Expedientes X pero solo, investiga una serie de asesinatos vampíricos en Los Ángeles y acaba enamorándose de la mujer que puede ser la principal sospechosa. Es evidente que extraña a la Dra. Scully."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-8",
+            "title": "Un respiro",
+            "image": "https://image.tmdb.org/t/p/w300/jnxgdXZAn8xrxYriMkfV66c8XbF.jpg",
+            "numberEpisode": "E8",
+            "caption": "Scully aparece misteriosamente en un hospital en Washington, viva pero en coma, y Mulder debe luchar para mantenerla viva y saber qué le sucedió. Mientras, Scully lucha su propia batalla personal al decidir si quedarse o pasar a la otra vida."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-9",
+            "title": "El volcán",
+            "image": "https://image.tmdb.org/t/p/w300/4RgbXvj0EhjvvtdTw2BoQsVfbcT.jpg",
+            "numberEpisode": "E9",
+            "caption": "Mulder y Scully, reunidos de nuevo, se dirigen a un volcán activo debajo de un estudio geológico y encuentran una forma de vida mortal que puede sobrevivir en el magma del cráter y está matando a científicos para evitar ser descubierto."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-10",
+            "title": "Museo rojo",
+            "image": "https://image.tmdb.org/t/p/w300/gBNwu5mRnI4QfsTxNTtGUGvAVrr.jpg",
+            "numberEpisode": "E10",
+            "caption": "En un pueblo rural, varios adolescentes desaparecen, para luego reaparecer a las pocas horas, desorientados, en ropa interior y sin recuerdos de qué les ocurrió. Mientras investigan la conexión entre estos secuestros y un culto religioso rural, Mulder y Scully descubren una prueba secreta realizada en niños usando el \"Control de Pureza\" del ADN extraterrestre que obtuvieron en \"The Erlenmeyer Flask (1x24)\", lo que conduce a Mulder a enfrentarse al asesino de Garganta Profunda."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-11",
+            "title": "Excelsius dei",
+            "image": "https://image.tmdb.org/t/p/w300/eA1jQfxME7BA75lyh5GEr2JAf8t.jpg",
+            "numberEpisode": "E11",
+            "caption": "Mulder y Scully descubren extraños hechos en un asilo de ancianos cuando una enfermera es atacada por una fuerza invisible que ella afirma es uno de los residentes, un hombre de 90 años."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-12",
+            "title": "Aubrey",
+            "image": "https://image.tmdb.org/t/p/w300/xYLndvM3WDJhbi2aTeiwkl9kJu.jpg",
+            "numberEpisode": "E12",
+            "caption": "Cuando una detective descubre misteriosamente los restos de un agente del FBI quien desapareció en los años 40 mientras investigaba un asesinato similar al que ella investiga en el presente, Mulder y Scully creen que el asesino original pasó su rastro genético a su nieta."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-13",
+            "title": "Irresistible",
+            "image": "https://image.tmdb.org/t/p/w300/j2BssZynaJ0HZ7jdPOAqantmQS9.jpg",
+            "numberEpisode": "E13",
+            "caption": "Un trabajador del cementerio al que le gusta coleccionar cabello y uñas de las manos de los muertos comienza a matar prostitutas para aumentar su colección. Acaba intentando atacar a Scully aprovechando que se ve particularmente afectada por el caso."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-14",
+            "title": "La mano que mata",
+            "image": "https://image.tmdb.org/t/p/w300/uiCbTtE5EER0BcucPYrk28xOkDi.jpg",
+            "numberEpisode": "E14",
+            "caption": "El asesinato ritual de varios adolescentes atrapa a Mulder y Scully en una práctica oculta dentro de la Asociación de Padres de Alumnos de la escuela local y una maestra sustituta con extraños poderes."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-15",
+            "title": "Huesos frescos",
+            "image": "https://image.tmdb.org/t/p/w300/kV8K5jEsZ1MTdPy5zbUPWlEB3uq.jpg",
+            "numberEpisode": "E15",
+            "caption": "Mientras investigan varias muertes en un campo de refugiados haitianos, Mulder y Scully quedan atrapados en medio de una guerra personal entre el Coronel encargado del lugar y un maestro del Vudú."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-16",
+            "title": "Colonización",
+            "image": "https://image.tmdb.org/t/p/w300/zjgkyfcIYXPVdhNLat4RVqQsO3g.jpg",
+            "numberEpisode": "E16",
+            "caption": "Mulder recibe por correo electrónico las esquelas de tres hombres y un agente de la CIA contacta con él para informarle de un espía ruso enviado a eliminar evidencia de clones rusos de la era de la Guerra Fría que se habían infiltrado en el establecimiento médico estadounidense."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-17",
+            "title": "Fin del juego",
+            "image": "https://image.tmdb.org/t/p/w300/AbuynTGmk81iaRIIAR9nheKirZk.jpg",
+            "numberEpisode": "E17",
+            "caption": "El mercenario alienígena secuestra a Scully y quiere intercambiarla por la hermana de Mulder, quien revela ser un clon. Después de un intercambio fallido Mulder descubre la verdad sobre Samantha y sigue al alienígena hasta su nave enterrada en el hielo para preguntarle por su verdadera hermana."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-18",
+            "title": "Terrible simetría",
+            "image": "https://image.tmdb.org/t/p/w300/dFA6e6Z6LpxX9ePU2DJWqLYrdfd.jpg",
+            "numberEpisode": "E18",
+            "caption": "Mulder y Scully investigan extraños ataques de animales invisibles dentro de un zoológico que está cerca de un conocido punto caliente de ovnis."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-19",
+            "title": "Muerte en Kalm",
+            "image": "https://image.tmdb.org/t/p/w300/oZtgo6rRut8MiBQX9aV6ukA713Q.jpg",
+            "numberEpisode": "E19",
+            "caption": "Cuando la mitad de la tripulación de un barco militar es rescatada en un bote habiendo envejecido misteriosamente, Mulder sugiere que el barco está atrapado en un campo de tiempo que acelera su envejecimiento. Pronto experimentará sus efectos, junto con su colega."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-20",
+            "title": "El embuste",
+            "image": "https://image.tmdb.org/t/p/w300/kq5mk6NP6KvqZ11WgRiyfIWoVn6.jpg",
+            "numberEpisode": "E20",
+            "caption": "Mulder y Scully viajan a Gibsonton (Florida), un pueblo construido y poblado por artistas de circo para investigar la muerte de Jerald Glazebrook, el Hombre Lagarto. Mientras buscan pistas del asesino, los agentes se cruzan a muchos \"fenómenos de circo\" incluyendo al comisario local, que de joven era conocido como \"Jim-Jim, el Chico Cara de Perro\"."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-21",
+            "title": "Los Calusari",
+            "image": "https://image.tmdb.org/t/p/w300/avtaSY15gHzrSCnXc4nDBy7QTza.jpg",
+            "numberEpisode": "E21",
+            "caption": "Las circunstancias sospechosas de la muerte de un niño pequeño, conducen a Mulder y Scully dentro de un ritual exorcista rumano que involucra a un niño poseído por su gemelo no-nato."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-22",
+            "title": "F. Emasculata",
+            "image": "https://image.tmdb.org/t/p/w300/AsAKVypnCVIhHQK9fJHhdHxQwe2.jpg",
+            "numberEpisode": "E22",
+            "caption": "Cuando una enfermedad altamente contagiosa mata a 10 hombres dentro de una prisión de máxima seguridad, Scully trata de acceder al recinto en cuarentena y descubre la causa y el origen del contagio. Mientras Mulder y un grupo de policías intentan localizar a dos prófugos que pueden estar infectados."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-23",
+            "title": "Luz tenue",
+            "image": "https://image.tmdb.org/t/p/w300/iYzfC421VH592GEnDB5Juz6fhtr.jpg",
+            "numberEpisode": "E23",
+            "caption": "Un experimento sobre la materia oscura accidentalmente convierte la sombra de un científico en un arma mortal que puede reducir el cuerpo de una persona a pura energía si lo toca."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-24",
+            "title": "Nuestro pueblo",
+            "image": "https://image.tmdb.org/t/p/w300/pLahrpkogJSneGYZnG8n6ofWdk.jpg",
+            "numberEpisode": "E24",
+            "caption": "Tras varias desapariciones en un pequeño pueblo, Mulder y Scully investigan y encuentran cientos de huesos humanos en el río y descubren que el hombre detrás de la mayor fortuna del pueblo (una planta procesadora de pollos) ha encontrado una forma de prolongar su vida a través del canibalismo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-2/episodio-25",
+            "title": "Anasazi",
+            "image": "https://image.tmdb.org/t/p/w300/q8Z4f7ssRDoqPEdaaokMOlhH6hv.jpg",
+            "numberEpisode": "E25",
+            "caption": "Un hacker entrega a Mulder los documentos MJ del Ministerio de Defensa de los EEUU que contienen información sobre el conocimiento del gobierno de vida extraterrestre, lo que podría llevarlo más cerca de la verdad que nunca. Pero los enemigos de Mulder se aseguran de que aprenda que hay un gran precio que pagar por su búsqueda de la verdad."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-1",
+            "title": "Camino bendito",
+            "image": "https://image.tmdb.org/t/p/w300/A50DhyYLqoZXC1qaD6PrCv1VOs0.jpg",
+            "numberEpisode": "E1",
+            "caption": "Mulder vuelve a la vida tras ser rescatado por unos indios y gracias a un ritual navajo. Se aclara, en parte, la implicación del padre de Mulder en el experimento de genética extraterrestre, mientras que asesinan a la hermana de Scully por una importantísima cinta con información cifrada."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-2",
+            "title": "Operación pisapapeles",
+            "image": "https://image.tmdb.org/t/p/w300/qd73sr2V1MAiWVtyVFMGaFZ2DMm.jpg",
+            "numberEpisode": "E2",
+            "caption": "Mulder y Scully averiguan un complot, después de la II Guerra Mundial, de unos científicos -algunos nazis- para realizar un inmenso programa de control genético aprovechando una campaña de vacunación contra la viruela."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-3",
+            "title": "D.P.O.",
+            "image": "https://image.tmdb.org/t/p/w300/soDX7uqIDg7ZfZxKhMQoqc37nGK.jpg",
+            "numberEpisode": "E3",
+            "caption": "El FBI sospecha que un chico puede atraer rayos de una tormenta y matar a otras personas con ellos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-4",
+            "title": "El descanso final de Clyde Bruckman",
+            "image": "https://image.tmdb.org/t/p/w300/pMLKqE2dmty8QMV7fSbYPXMCYWP.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mulder y Scully recurren a un medium llamado Clyde para que les ayude a descifrar por qué han aparecido varios videntes asesinados, y con sus cuerpos abiertos en canal."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-5",
+            "title": "La lista",
+            "image": "https://image.tmdb.org/t/p/w300/vpgycTbaA74xk75RemzyUQiAvWw.jpg",
+            "numberEpisode": "E5",
+            "caption": "Antes de morir, un condenado a muerte dice que van a morir cinco personas después de su día final. Sus previsiones empiezan a cumplirse..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-6",
+            "title": "Demasiado tímido",
+            "image": "https://image.tmdb.org/t/p/w300/yudbhQt72lkYvUWHC2uhTmpHRNb.jpg",
+            "numberEpisode": "E6",
+            "caption": "Un criminal asesina a varias mujeres a las que seduce, en principio, con la ayuda del correo electrónico. Mulder y Scully piensan que se enfrentan a un mutante."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-7",
+            "title": "El paseo",
+            "image": "https://image.tmdb.org/t/p/w300/sJfvIsLNLJg9O4mHh3WxEeuke6B.jpg",
+            "numberEpisode": "E7",
+            "caption": "Un ex combatiente de la guerra de Vietnam, sin brazos ni piernas, consigue utilizar poderes sobrenaturales para asesinar a familiares y amigos de los superiores que le mandaron a la guerra."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-8",
+            "title": "El calabozo",
+            "image": "https://image.tmdb.org/t/p/w300/hGk9INsSgGfbuF1AsOZn8w0oNps.jpg",
+            "numberEpisode": "E8",
+            "caption": "Los agentes especiales podrán seguir la pista de un secuestrador gracias a los poderes de una niña que antes estuvo en su poder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-9",
+            "title": "Nisei",
+            "image": "https://image.tmdb.org/t/p/w300/18jCaHflHnOWPDZQS5Fe4RCgYkf.jpg",
+            "numberEpisode": "E9",
+            "caption": "Mulder recibe unas imágenes en las que un equipo de médicos japoneses operan a un extraterrestre. Mientras él investiga si es cierto, Scully recupera algunos recuerdos del tiempo en el que fue abducida."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-10",
+            "title": "731",
+            "image": "https://image.tmdb.org/t/p/w300/to5SVGuKzelP4D21swTJuIgJE2i.jpg",
+            "numberEpisode": "E10",
+            "caption": "Scully recuerda que el vagón de tren pudo ser el lugar en el que la retuvieron durante su abducción... pero sospecha que, en realidad, todo forma parte de experimentos gubernamentales. Sin embargo, Mulder aparecerá con nuevas revelaciones..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-11",
+            "title": "Revelaciones",
+            "image": "https://image.tmdb.org/t/p/w300/5rQ0faW7CVDxclQ49u4Fn9BxYgQ.jpg",
+            "numberEpisode": "E11",
+            "caption": "Un joven de Ohio aparece con estigmas en sus manos, lo que le convertirá en potencial víctima de un asesino que busca a estigmatizados (falsos, eso sí)."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-12",
+            "title": "La guerra de los coprófagos",
+            "image": "https://image.tmdb.org/t/p/w300/hk2Din83d2HXpUZfgeYlm4wAx3z.jpg",
+            "numberEpisode": "E12",
+            "caption": "De repente, empieza a morir gente en un pueblo norteamericano, con los cuerpos cubiertos de cucarachas. Y en ese lugar, el gobierno hizo experimentos para erradicar el insecto que puede haber causado tanto mal."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-13",
+            "title": "Syzygy: Conjunción Cósmica",
+            "image": "https://image.tmdb.org/t/p/w300/hIHFyKmqM8ppffVlNfk4x4V2KdE.jpg",
+            "numberEpisode": "E13",
+            "caption": "Dos adolescentes son los sospechosos de varias muertes en un pueblo llamado Comity, coincidiendo con una extraña alineación de planetas."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-14",
+            "title": "Grotesco",
+            "image": "https://image.tmdb.org/t/p/w300/jCzSz63gILPD6pzUtPsgzoOeBkR.jpg",
+            "numberEpisode": "E14",
+            "caption": "El FBI detiene a un presunto asesino que mutila en sus víctimas. Una vez en la cárcel, siguen los crímenes, y en las mismas circunstancias..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-15",
+            "title": "Piper Maru",
+            "image": "https://image.tmdb.org/t/p/w300/2elXO4D5dY3EDNAACZmOeWT6h3P.jpg",
+            "numberEpisode": "E15",
+            "caption": "El barco Piper Maru encuentra, durante una exploración en el Océano Atlántico, un avión hundido... con alguien vivo dentro. La cinta con datos secretos que perdieron Mulder y Scully parece ser la clave."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-16",
+            "title": "Apócrifo",
+            "image": "https://image.tmdb.org/t/p/w300/uOG3jR2KWAmo1jWN33UZRsIXn53.jpg",
+            "numberEpisode": "E16",
+            "caption": "Mientras Mulder sigue buscando al alienígena localizado -y luego perdido- en el Piper Maru, Skinner sufre el ataque de un asesino -aunque sobrevivirá-."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-17",
+            "title": "El embaucador",
+            "image": "https://image.tmdb.org/t/p/w300/AlMMgGBEG5S7qim0dOOjtfYq5NO.jpg",
+            "numberEpisode": "E17",
+            "caption": "Un asesino en serie confiesa sin problemas haber sido el responsable de catorce asesinatos que parecían, en principio, suicidios, ya que éste les sugestionaba hasta tal punto que decidían acabar con su vida. Y Mulder y Scully corren el riesgo de ser los próximos..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-18",
+            "title": "Teso Dos Bichos",
+            "image": "https://image.tmdb.org/t/p/w300/qYIyPKigYnpmuK9HX7ddYS4NJDb.jpg",
+            "numberEpisode": "E18",
+            "caption": "Los miembros de una expedición arqueológica mueren después de profanar la tumba de una sacerdotisa precolombina. Todo apunta a una legendaria maldición..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-19",
+            "title": "Dinero del infierno",
+            "image": "https://image.tmdb.org/t/p/w300/tQiTquNF89AxnSDRqgD1vFwM46V.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder y Scully llegan a Chinatown para investigar la muerte de un inmigrante chino. La pareja de agentes va a descubrir todo un mundo de truculentas sorpresas."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-20",
+            "title": "«El espacio exterior» de Jose Chung",
+            "image": "https://image.tmdb.org/t/p/w300/z0gaEmSTlJwKdzuEOrd7GNVIGaf.jpg",
+            "numberEpisode": "E20",
+            "caption": "Jose Chung prepara un libro sobre abducciones, entrando en un mundo en el que el gobierno puede decir mucho y, sobre todo, callar. Scully será uno de sus principales contactos"
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-21",
+            "title": "Avatar",
+            "image": "https://image.tmdb.org/t/p/w300/1CYSfNXegvMyHttz9q12Ag2S1jd.jpg",
+            "numberEpisode": "E21",
+            "caption": "Skinner aparece en la cama junto a una prostituta que acaba de morir. La teoría de Mulder es que Skinner sufre la maldición de un espíritu de tiempos de la Edad Media."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-22",
+            "title": "En el atolladero",
+            "image": "https://image.tmdb.org/t/p/w300/LvpAcNC3HQXU0frccBhahyK9Gj.jpg",
+            "numberEpisode": "E22",
+            "caption": "Mulder tiene que investigar la muerte de un agente federal que ha aparecido a orillas de un lago, en el que encuentran miembros humanos mutilados. La teoría del lugar apunta a una criatura sobrenatural, pero Mulder se inclina por la autoría de un asesino en serie."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-23",
+            "title": "Vídeodemencia",
+            "image": "https://image.tmdb.org/t/p/w300/8Yievlov9NkvlrpXQF0XdMQz7JD.jpg",
+            "numberEpisode": "E23",
+            "caption": "De repente, varias personas se convierten en homicidas maniacos, con la única conexión de que eran teleadictos. Scully sospecha que precisamente ahí, en la televisión, está la causa de sus males."
+          },
+          {
+            "link": "serie/expediente-x/temporada-3/episodio-24",
+            "title": "Talitha Cumi",
+            "image": "https://image.tmdb.org/t/p/w300/jXHJkAqGxIXkeObFiK3X4seBT2t.jpg",
+            "numberEpisode": "E24",
+            "caption": "Un misterioso individuo, llamado Jeremiah Smith, cura a los heridos de un tiroteo sólo con las manos. Al final, tendrá la solución para salvar la vida de Mulder, afectada por un ataque al corazón."
+          }
+        ]
+      },
+      {
+        "season": "4",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-1",
+            "title": "El pueblo elegido",
+            "image": "https://image.tmdb.org/t/p/w300/u3RFyOXvh91HDa4vO1GfALWg1J7.jpg",
+            "numberEpisode": "E1",
+            "caption": "Jeremiah Smith y Mulder están en la búsqueda del Cazador Extraterrestre, y Smith lleva a Mulder a una pequeña granja atendida por niños idénticos y las niñas son clones exactos de su hermana de pequeña. Mulder se prepara para llevar a Jeremiah y uno de los clones a ver a su madre en el hospital pero el Cazador los encuentra y mata a Jeremiah. Mientras, el Sindicato sospecha que hay un traidor entre ellos y preparan un plan que termina con X siendo ejecutado."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-2",
+            "title": "El hogar",
+            "image": "https://image.tmdb.org/t/p/w300/ndFuInz0QaactpDQnhjONmxaLZZ.jpg",
+            "numberEpisode": "E2",
+            "caption": "Un bebé es encontrado enterrado vivo en la tierra y parece tener defectos de nacimiento resultantes de generaciones de endogamia, llevando a Mulder y Scully a una familia oculta que tiene una historia de hijos incestuosos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-3",
+            "title": "Teliko",
+            "image": "https://image.tmdb.org/t/p/w300/z1GNUyk2EpvHSrYK0fm89Xdv1uq.jpg",
+            "numberEpisode": "E3",
+            "caption": "El Centro de Control de Plagas llama a Scully para que investigue el cadáver de un hombre de raza negra que ha perdido su pigmentación. Cuando Mulder se une a la investigación, aporta la teoría de la magia negra."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-4",
+            "title": "Unruhe: Angustia",
+            "image": "https://image.tmdb.org/t/p/w300/y2TtEDoz906XAjVXHTcndbWizUp.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mulder y Scully investigan la desaparición de una joven cuyo novio ha sido asesinado. La clave puede estar en unas terroríficas fotos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-5",
+            "title": "El campo donde morí",
+            "image": "https://image.tmdb.org/t/p/w300/zvB2jR5yxAfCRUhOcrgx4d7cmi.jpg",
+            "numberEpisode": "E5",
+            "caption": "Mulder y Scully tiene que investigar a la secta del Templo de las Siete Estrellas, sospechosa de tráfico de armas y abusos a menores. Mulder localizará más tarde al líder en un búnker, lavando el cerebro de sus esposas para que suiciden... y una de ellas le resulta familiar a Mulder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-6",
+            "title": "Sanguinario",
+            "image": "https://image.tmdb.org/t/p/w300/nsajAVssCALZEtCaqLnrvGaGN01.jpg",
+            "numberEpisode": "E6",
+            "caption": "Una clínica especializada en cirugía estética sufre varias muertes. Mulder descubre un misterioso pentagrama en uno de los quirófanos, el mismo que aparece en el cuerpo de uno de los fallecidos. Todo a punta a magia negra y rituales satánicos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-7",
+            "title": "Meditaciones de un fumador",
+            "image": "https://image.tmdb.org/t/p/w300/fy5Y14BuShdJWlJTsOFYkUSehq6.jpg",
+            "numberEpisode": "E7",
+            "caption": "Los Tiradores Solitarios desvelan a Mulder y Scully nuevos descubrimientos sobre la vida y obra de El Fumador, que le implican en asesinatos célebres como los de Kennnedy y Luther King."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-8",
+            "title": "Tunguska",
+            "image": "https://image.tmdb.org/t/p/w300/iGgOd4kjMUWNOau9bOa0AMC8HPb.jpg",
+            "numberEpisode": "E8",
+            "caption": "Un laboratorio descubre restos de vida en un meteorito, y poco después, un científico entra en coma, en principio, por la misma sustancia que afectó a los marineros del 'Piper Maruy' y la que estaba en un extraño objeto que cayó en la taiga siberiana."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-9",
+            "title": "Terma",
+            "image": "https://image.tmdb.org/t/p/w300/jMuPDh4oWg0rgTrC1Q3plSSC0Nk.jpg",
+            "numberEpisode": "E9",
+            "caption": "Mulder visita Tunguska para comprobar si hay signos de vida extraterrestre. Las cosas se tuercen y acaba en una especie de campo de concentración, expuesto a un mal llamado 'cáncer negro', de posible origen extraterrestre."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-10",
+            "title": "Corazones de papel",
+            "image": "https://image.tmdb.org/t/p/w300/7ujkomjgeMEkuM5Ejy1ijQATJ9Y.jpg",
+            "numberEpisode": "E10",
+            "caption": "Roch, un asesino de niñas, acaba en la cárcel capturado por Mulder. Roch aprovechará que parece tener información sobre su hermana para que le saque de la cárcel."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-11",
+            "title": "El mundo gira",
+            "image": "https://image.tmdb.org/t/p/w300/r8NcU39F0Tll4CZFyMSaEGvJSxx.jpg",
+            "numberEpisode": "E11",
+            "caption": "En el Valle de San Joaquín, California, aparece una trabajadora del lugar brutalmente asesinada. Todos piensan en una criatura llamada 'El chupacabras', aunque otros apuntan a un culpable menos ultraterrenal."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-12",
+            "title": "Leonard Betts",
+            "image": "https://image.tmdb.org/t/p/w300/5n53yGjZD9v3Z0oHCrYNnNUxf0w.jpg",
+            "numberEpisode": "E12",
+            "caption": "El cuerpo decapitado de un hombre desaparece del depósito de cadáveres de un hospital. Mulder hace un insólito descubrimiento en el malatero del coche de Betts."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-13",
+            "title": "Nunca otra vez",
+            "image": "https://image.tmdb.org/t/p/w300/iwAySEjBayXB1GdXgjfqZb3DUAD.jpg",
+            "numberEpisode": "E13",
+            "caption": "Scully vuelve a estar en serio peligro de muerte en una de sus investigaciones. Esta vez, el sospechoso es Ed Jerse, que tiene un tatuaje que, en un momento dado, parece tener vida propia..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-14",
+            "title": "Memento mori",
+            "image": "https://image.tmdb.org/t/p/w300/xoWytAsDzBwbu5FKdV197Ioe0hw.jpg",
+            "numberEpisode": "E14",
+            "caption": "Cuando a Scully le diagnostican un cáncer, Mulder descubre que otras personas abducidas pasan por lo mismo después de haber sufrido los mismos implantes en la nuca."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-15",
+            "title": "Reminiscencia de muerte",
+            "image": "https://image.tmdb.org/t/p/w300/wBnCJ30HSA3Xl2HDyBfKW2GoqEM.jpg",
+            "numberEpisode": "E15",
+            "caption": "Unos fanáticos asesinan a un judío ortodoxo, en lo que será el principio de una serie de sucesos increíbles..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-16",
+            "title": "No corresponde",
+            "image": "https://image.tmdb.org/t/p/w300/ggslIacOA5TUw7EyAksPaCMqTRK.jpg",
+            "numberEpisode": "E16",
+            "caption": "Un veterano de la guerra del Vietnam, dado por muerto, aparece en una ceremonia conmemorativa con la intención de matar a varios altos cargos militares."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-17",
+            "title": "Fuga de tiempo",
+            "image": "https://image.tmdb.org/t/p/w300/mmGXysmz2TXWmro6AYKAY5ZUYQ4.jpg",
+            "numberEpisode": "E17",
+            "caption": "Un supuesto abducido muere al estrellarse el avión en el que viajaba. Cuando escucha la grabación de la 'caja negra', Mulder detecta que el avió fue interceptado por algo procedente del exterior."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-18",
+            "title": "Max",
+            "image": "https://image.tmdb.org/t/p/w300/uiaYlcxE6k9JGdhpqa02x5oQebE.jpg",
+            "numberEpisode": "E18",
+            "caption": "Mulder sigue investigando el insólito accidente en el que murió Max Fenning. Cuando llega a la caravana en la que vivía, descubre que tenía material que incriminaba al gobierno en tramas relacionadas con tecnología extraterrestre..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-19",
+            "title": "Sincronía",
+            "image": "https://image.tmdb.org/t/p/w300/ojbtMfakjghLUYd5OWoZciIMQaj.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder y Scully tienen que desvelar las causas de las muertes de unos empleados del prestigioso MIT (Instituto Tecnológico de Massachussetts). La causa parece ser un misterioso líquido congelante."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-20",
+            "title": "Pequeñeces",
+            "image": "https://image.tmdb.org/t/p/w300/72zNeN27IlnAZIwIYPy8o2XnnDC.jpg",
+            "numberEpisode": "E20",
+            "caption": "Cinco mujeres coinciden en tener hijos con rabo, atribuidos a una paternidad extraterrestre y atendidas por el mismo ginecólogo. Mulder no tarda en encontrar al principal sospechoso, que le deparará una nueva sorpresa en su larga carrera de investigaciones paranormales."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-21",
+            "title": "Suma cero",
+            "image": "https://image.tmdb.org/t/p/w300/OakU1pHPBw000IlEBJ4sYCfssC.jpg",
+            "numberEpisode": "E21",
+            "caption": "De nuevo aparecen insectos en los misterios investigados por Mulder y Scully, esta vez con la participación del agente Skinner, que descubre la causa de la muerte de una empleada de Correos: unas abejas que pueden estar siendo utilizadas como medio de contagio de una viruela mortal."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-22",
+            "title": "Elegía",
+            "image": "https://image.tmdb.org/t/p/w300/zAtlyR1KD3TqQfPyRSHkRbRgu72.jpg",
+            "numberEpisode": "E22",
+            "caption": "Scully sospecha del empleado de una bolera, perturbado mental, como asesino de varias mujeres que tratan de comunicarse con los vivos antesa de que, por fin, aparezcan sus cuerpos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-23",
+            "title": "Demonios",
+            "image": "https://image.tmdb.org/t/p/w300/aeUIAlIdrJ0z9GpJwKo9PuAf3jo.jpg",
+            "numberEpisode": "E23",
+            "caption": "Mulder se ve implicado en un doble asesinato. Tendrá difícil su defensa, porque sufre amnesia, hasta que Scully interviene para ayudar a su compañero."
+          },
+          {
+            "link": "serie/expediente-x/temporada-4/episodio-24",
+            "title": "Gethsemane",
+            "image": "https://image.tmdb.org/t/p/w300/5hYN41ELiTZoJLdOr1tDwRHXzS6.jpg",
+            "numberEpisode": "E24",
+            "caption": "Scully tiene que ir al apartamento de Mulder para identificar su cuerpo, con una herida de bala en la cabeza..."
+          }
+        ]
+      },
+      {
+        "season": "5",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-1",
+            "title": "Redux I",
+            "image": "https://image.tmdb.org/t/p/w300/ebjbgotTCHPMYAYtrEH5cY0CoAE.jpg",
+            "numberEpisode": "E1",
+            "caption": "Scully ayuda a Mulder a fingir su muerte para que pueda entrar sin problemas en el Departamento de Defensa y descubra las repuestas a sus nuevas preguntas sobre el complot del gobierno alrededor de la existencia de vida extraterrestre. Mientras, en una reunión entre el FBI y el Departamento de Defensa, el intento de Scully por desvelar al informante de la conspiración es detenido mientras su cáncer empeora."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-2",
+            "title": "Redux II",
+            "image": "https://image.tmdb.org/t/p/w300/r4Ll0EvzgJe5N3v1ZpTv5d6Vo6M.jpg",
+            "numberEpisode": "E2",
+            "caption": "El Fumador ayuda a Mulder a obtener la cura para Scully y le deja ver a su verdadera hermana que resulta no estar tan feliz de verle. A cambio, el Fumador le pide que renuncie al FBI y trabaje para él en el Sindicato donde tendría poder y respeto, pero él lo rechaza, decidiendo quedarse en el lado de la justicia. Mientras la cura para Scully parece funcionar, el Fumador enfrenta a sus propios enemigos y muere."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-3",
+            "title": "Sospechosos inusuales",
+            "image": "https://image.tmdb.org/t/p/w300/lj8e7hA8QykXHxiWjQzhjZ87hlx.jpg",
+            "numberEpisode": "E3",
+            "caption": "Un equipo de las fuerzas especiales irrumpe en un oscuro almacén lleno de charcos de sangre en 1989. Los oficiales Langly, Frohike y Byers encuentran a Mulder desnudo en el suelo. Byers cuenta los hechos que les llevaron al almacén. Byers acude a una feria de informática en un centro de convenciones, donde conoce a una bella mujer llamada Holly, quien afirma que su ex novio ha secuestrado a su hija. Tras identificar al agente Mulder como su ex novio en el centro de convenciones, Holly desaparece."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-4",
+            "title": "Desvío",
+            "image": "https://image.tmdb.org/t/p/w300/mJF3K9dfgwyJtu7Q3ZgocKrhhB8.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mientras se dirigen a la ponencia de un grupo de agentes del FBI, Mulder y Scully sufren un accidente en una área forestal de Florida, donde tres hombres han desaparecido recientemente."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-5",
+            "title": "El Prometeo posmoderno",
+            "image": "https://image.tmdb.org/t/p/w300/lJtdXn595DCiSOFbItTssAHncG6.jpg",
+            "numberEpisode": "E5",
+            "caption": "Filmado en un artístico blanco y negro y con un peculiar estilo narrativo, este episodio aborda el mito de Frankenstein de forma humorística, cuando Mulder y Scully quedan atrapados en un pueblo donde los habitantes viven viendo episodios de Jerry Springer y le temen a un monstruo de dos caras. Sin duda se trata de un peculiar experimento personal de Chris Carter."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-6",
+            "title": "Cuento de Navidad",
+            "image": "https://image.tmdb.org/t/p/w300/cAcrO3NJzTbsFlPwNhIqH5zLnGS.jpg",
+            "numberEpisode": "E6",
+            "caption": "En sus vacaciones navideñas con la familia de su hermano, Scully recibe una misteriosa llamada de una voz familiar que le dice \"Ella necesita tu ayuda. Ve con ella\". La llamada lleva a Scully a un caso de asesinato donde la hija adoptiva de la víctima, de 3 años, se parece mucho a su hermana Melissa, a su edad. Scully cree que su hermana tuvo un bebé mientras viajó por el país y trata de adoptarla, sabiendo que cuidarla le cambiará la vida."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-7",
+            "title": "Emily",
+            "image": "https://image.tmdb.org/t/p/w300/fMkXnNMUhIb5Oyo8maHCdpucNQr.jpg",
+            "numberEpisode": "E7",
+            "caption": "Una prueba de ADN revela que Emily es en realidad la hija de Scully y Mulder la ayuda a averiguar cómo y dónde nació la niña, mientras Scully trata de ayudar a la niña con su propia enfermedad, una rara forma de anemia."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-8",
+            "title": "Kitsunegari",
+            "image": "https://image.tmdb.org/t/p/w300/nmZLodjOAQaavDSe89Le8ct8pZj.jpg",
+            "numberEpisode": "E8",
+            "caption": "Robert Patrick Modell escapa del psiquiátrico; Mulder y Scully se lanzan a su captura antes de que tome venganza contra su objetivo favorito: Mulder. Mientras se desarrolla el operativo, Mulder descubre la posibilidad de que Modell en realidad pueda estar tratando de protegerlo de alguien más."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-9",
+            "title": "Agonía esquizofrénica",
+            "image": "https://image.tmdb.org/t/p/w300/205ACU3GR8bCpDpmTbYTnzoXenY.jpg",
+            "numberEpisode": "E9",
+            "caption": "Un terapeuta que trabaja con niños maltratados resulta estar implantándoles con sus propios recuerdos de maltrato de sus padres."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-10",
+            "title": "Chinga",
+            "image": "https://image.tmdb.org/t/p/w300/5hHU6M6E0VopPnr89ybaEyKEP4K.jpg",
+            "numberEpisode": "E10",
+            "caption": "La primera contribución de Stephen King muestra a Scully tomándose unas tranquilas vacaciones que terminan mal y la llevan a un pequeño pueblo de Maine donde la muñeca de una niña parece tener terribles poderes."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-11",
+            "title": "Interruptor asesino",
+            "image": "https://image.tmdb.org/t/p/w300/lUTZl5uwYglhRiDCp3Ju8YSqui.jpg",
+            "numberEpisode": "E11",
+            "caption": "Un virus informático se pierde en Internet y comienza a multiplicarse, llegando a matar a su propio creador cuando intenta desactivarlo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-12",
+            "title": "Mala sangre",
+            "image": "https://image.tmdb.org/t/p/w300/3feTkIekj02lSuQaTiFdLnLaCt4.jpg",
+            "numberEpisode": "E12",
+            "caption": "Una siniestra criatura ataca a un adolescente, Ronnie Strickland, en pleno campo de Texas. Los agentes Mulder y Scully llegan poco después y Fox Mulder abre la boca del muchacho descubriendo dos colmillos, similares a los de un vampiro. Los agentes regresan a la oficina, comentan los hechos que les llevaron al lugar del crimen y examinan muestras de ganado, víctimas del ataque de vampiros en un pueblo de Texas."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-13",
+            "title": "Paciente X",
+            "image": "https://image.tmdb.org/t/p/w300/nsUAWfFeNqi7DZ7J7IJK1hnAemY.jpg",
+            "numberEpisode": "E13",
+            "caption": "Mulder y Scully conocen a Cassandra Spender, una mujer que dice haber sido abduccida en múltiples ocasiones y quiere entregar un mensaje positivo sobre los alienígenas. Mulder, ahora excéptico sobre la actividad extraterrestre, cree que el Gobierno es el responsable de las abducciones y se sorprende cuando Scully crea un lazo afectivo con la mujer."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-14",
+            "title": "El rojo y el negro",
+            "image": "https://image.tmdb.org/t/p/w300/5uzxjWNnZhk40j9vEqKkVNOsXbV.jpg",
+            "numberEpisode": "E14",
+            "caption": "Después de encuentrar el lugar de una abducción donde todos han sido incinerados, Cassandra Spender desaparece y Mulder es culpado por su hijo, Jeffrey, que trabaja en el FBI realizando un trabajo opuesto al de Mulder. Mientras, el Sindicato continúa sus pruebas para crear una vacuna para el Cáncer negro y Marita Covarrubias es tomada como sujeto de pruebas."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-15",
+            "title": "Viajeros",
+            "image": "https://image.tmdb.org/t/p/w300/xiWstruztlrh859LrK9hfNdHO7A.jpg",
+            "numberEpisode": "E15",
+            "caption": "En 1990 el agente Mulder visita a Arthur Dales, un ex-agente del FBI, y escucha la historia de unos agentes asignados a una investigación paranormal durante la Guerra Fría en los años 50 que parece estar relacionada con el padre de Mulder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-16",
+            "title": "El ojo de la mente",
+            "image": "https://image.tmdb.org/t/p/w300/p1rlygVrE9uFbHsEga0gtDfje9R.jpg",
+            "numberEpisode": "E16",
+            "caption": "Mulder y Scully tratan de obtener respuestas de una mujer ciega encontrada en la escena de un crimen que quizás tenga la habilidad de ver a través de los ojos del asesino."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-17",
+            "title": "Todas las almas",
+            "image": "https://image.tmdb.org/t/p/w300/j6YX45qnH2fy9B1cSTXpe2sHeRD.jpg",
+            "numberEpisode": "E17",
+            "caption": "Scully y su fe Católica deben enfrentarse a la pérdida de su hija Emily cuando acude a investigar el caso de niña asesinada."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-18",
+            "title": "La variante de Pine Bluff",
+            "image": "https://image.tmdb.org/t/p/w300/rB2wnoV5LvTgHaZoW1KfzjZeZto.jpg",
+            "numberEpisode": "E18",
+            "caption": "Scully teme que Mulder se haya pasado al bando enemigo cuando le ve ayudando a un sospechoso federal para escapar de su custodia."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-19",
+            "title": "Locura de dos",
+            "image": "https://image.tmdb.org/t/p/w300/kGHcmMhfAphEe4xBGZvgmj1Y1F6.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder es secuestrado en un edificio de oficinas por un hombre que dice que su jefe es un monstruo y ha nublado todas sus mentes mientras los convierte en zombies uno por uno."
+          },
+          {
+            "link": "serie/expediente-x/temporada-5/episodio-20",
+            "title": "El final",
+            "image": "https://image.tmdb.org/t/p/w300/e0LXCKUsG7ZMDFTpE3yJhnTnb8h.jpg",
+            "numberEpisode": "E20",
+            "caption": "El Fumador, que resulta no haber muerto, reaparece mientras Mulder investiga el intento de asesinato de un niño prodigio del ajedrez (Gibson Price) que parece tener poderes psíquicos y supondría la prueba que validaría el trabajo de Mulder."
+          }
+        ]
+      },
+      {
+        "season": "6",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-1",
+            "title": "El comienzo",
+            "image": "https://image.tmdb.org/t/p/w300/oDzsxra5iV0viAjlPKdhurQg7W1.jpg",
+            "numberEpisode": "E1",
+            "caption": "La oficina de Conducta Profesional se niega a reasignar a Mulder y Scully a los Expedientes X debido a que los agentes Spender y Fowley han tomado sus lugares. Cuando Gibson Praise reaparece y les pide ayuda, Mulder y Scully intentan continuar con su misión, esta vez con menos amigos y acceso que nunca."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-2",
+            "title": "El viaje",
+            "image": "https://image.tmdb.org/t/p/w300/soqwy0IxGmA2pWA41rPje0RlhNV.jpg",
+            "numberEpisode": "E2",
+            "caption": "Mulder se queda atrapado en un coche junto a un hombre que ha desarrollado una seria enfermedad en el oído interno que solo puede controlarse yendo hacia el oeste a alta velocidad. Mientras Scully trata de encontrar la causa y cura del problema, Mulder y el hombre se acercan más y más hacia el Océano."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-3",
+            "title": "Triángulo",
+            "image": "https://image.tmdb.org/t/p/w300/xfd4lYVSos4XsXc5OaTj57KC0AY.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mulder investiga la desaparición de un barco en el famoso 'Triángulo de la Bermudas'. Naufraga, y le recoge un barco tripulado por... personas que pertenecen al pasado."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-4",
+            "title": "El mundo de los sueños (I)",
+            "image": "https://image.tmdb.org/t/p/w300/7t5jvxAcZ7As4wHhFFVbihWv5Sc.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mulder y Scully aparecen en el desierto de Nevada después de una misteriosa llamada, Una vez allí, presencian el vuelo de un artefacto. Poco después, la experiencia cambiará sus vidas y las de un policía de una base militar quie estaba con ellos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-5",
+            "title": "El mundo de los sueños (II)",
+            "image": "https://image.tmdb.org/t/p/w300/9nzbTxJi7NdRYTXsA88Pvbd5orz.jpg",
+            "numberEpisode": "E5",
+            "caption": "Los agentes sufren las consecuencias del incidente del desierto de Nevada, aunque hacen lo posible para que sus vidas no queden afectadas para siempre."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-6",
+            "title": "Cómo el fantasma robó la Navidad",
+            "image": "https://image.tmdb.org/t/p/w300/4MpBcMbZDDv0uJWtZJLl33rwkCN.jpg",
+            "numberEpisode": "E6",
+            "caption": "Mulder y Scully están juntos, el día de Nochebuena, en una supuesta mansión encantada en la que no tardan en suceder cosas, todo tipo de cosas, relacionadas con dos espíritus con ganas de hacer pasar un mal rato a la pareja de agentes."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-7",
+            "title": "Términos cariñosos",
+            "image": "https://image.tmdb.org/t/p/w300/mYO7TayBEjA8oHCfdgwD6dn0K8I.jpg",
+            "numberEpisode": "E7",
+            "caption": "Un pareja recibe la noticia, en plena ecografía, de que el bebé esperan llega con todo tipo de malformaciones. Poco después, en la cama, ella dice sufrir el ataque de una presencia demoniaca que se lleva a su hijo. Será el comienzo de una diabólica trama que, al final, resolverán Mulder y Scully."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-8",
+            "title": "El rey de la lluvia",
+            "image": "https://image.tmdb.org/t/p/w300/r01crS9anDkVOlRWP58yo5dwf30.jpg",
+            "numberEpisode": "E8",
+            "caption": "Mulder y Scully investigan a una persona que vive en un pueblo de Kansas y que, presuntamente, puede influir en el clima. Será el comienzo de un enredo de amores, desamores y celos en el que, involuntariamente, se verá mezclado Mulder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-9",
+            "title": "El decreto 189",
+            "image": "https://image.tmdb.org/t/p/w300/vbxk86BUNLxKxNX4B1JFG1r8zOC.jpg",
+            "numberEpisode": "E9",
+            "caption": "Skinner muere ante unas enfermeras que se quedan asombradas por el tono que adquiere su piel. Todo parece relacionado con una investigación suya sobre una resolución del Senado sobre el envío de tecnología a países del Tercer Mundo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-10",
+            "title": "Tithonus",
+            "image": "https://image.tmdb.org/t/p/w300/wKOVz9U9dCeyj693QGQfwzYJpPd.jpg",
+            "numberEpisode": "E10",
+            "caption": "Scully investiga a Alfred Felling, un asesino que fotografía a sus víctimas para enviarle las imágenes a la policía... y que tiene el mismo aspecto que en 1964. La agente investiga un caso en el que no puede intervenir Mulder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-11",
+            "title": "Dos padres",
+            "image": "https://image.tmdb.org/t/p/w300/cq3LOgIZTFWY5ozXbgSrfnnhkJF.jpg",
+            "numberEpisode": "E11",
+            "caption": "De nuevo, vuelve a aparecer un vagón con un quirófano dentro, en lo que será un experimento de extratrerrestres con la intención de controlar el universo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-12",
+            "title": "Un hijo",
+            "image": "https://image.tmdb.org/t/p/w300/4Vyk3mbac6uO5ZtLPB5YhIHMczJ.jpg",
+            "numberEpisode": "E12",
+            "caption": "Los miembros del Sindicato Elder 3 piensan que hay que eliminar a Cassandra, pero El Fumador no está dispuesto a aceptarlo. Mientras tanto, Mulder vuelve a sufrir chantaje a costa de su hermana y Scully investiga la vida de Fowley, que puede ser clave en todo el asunto de los híbridos y de los palnes alienígenas por controlar el universo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-13",
+            "title": "Agua Mala",
+            "image": "https://image.tmdb.org/t/p/w300/g8Extd61H2e8KyRYuQoEYXTKcLS.jpg",
+            "numberEpisode": "E13",
+            "caption": "En pleno huracán en la costa de Florida, una madre y su hijo sufren las consecuencias de lo que puede ser un monstruo marino, el mismo que ella dice que hizo desaparecer a su marido. El creador de los Expedientes X les encarga a Mulder y Scully que investiguen el caso."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-14",
+            "title": "Lunes",
+            "image": "https://image.tmdb.org/t/p/w300/4xjCh4s2ZbgluIkeoutRya2OQhA.jpg",
+            "numberEpisode": "E14",
+            "caption": "Mulder y Scully tienen que intentar resolver un caso en el que el tiempo se repite una y otra vez, personificado en una mujer implicada en el atraco a un banco."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-15",
+            "title": "Arcadia",
+            "image": "https://image.tmdb.org/t/p/w300/vJfpcoF61uDxTY9rw6oQn7YOHiP.jpg",
+            "numberEpisode": "E15",
+            "caption": "Un matrimonio que parece llevar una vida perfecta en el modélico barrio de Arcadia, San Diego, mueren asesinados tras recibir un extraño paquete en su correo. Los agentes Mulder y Scully deciden instalarse en la casa y no tardan en comprobar que nada es lo que parece a primera vista..."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-16",
+            "title": "Alfa",
+            "image": "https://image.tmdb.org/t/p/w300/A5sz5iOFkvkn8urDrlrnKd0jTDF.jpg",
+            "numberEpisode": "E16",
+            "caption": "Dos marinos viajan en la bodega de un barco que lleva, entre otros muchos objetos, una jaula con un animal dentro. Poco después, Mulder y Scully indagan sobre la misteriosa muerte de los marinos, en lo que parece ser el ataque de una criatura asiática que se supone extinguida hace ciento cincuenta años."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-17",
+            "title": "Trevor",
+            "image": "https://image.tmdb.org/t/p/w300/g6T6uglABcy4uYWCyiEFSgqvbmH.jpg",
+            "numberEpisode": "E17",
+            "caption": "En el estado de Mississippi, un preso recluido en una celda de castigo desaparece y, además, el alcaide aparece partido en dos. El preso, en realidad, no está vivo, y pretende saldar cuentas pendientes."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-18",
+            "title": "Milagro",
+            "image": "https://image.tmdb.org/t/p/w300/br5WMAYoDJ2XC9EYf9RH1pkVqUi.jpg",
+            "numberEpisode": "E18",
+            "caption": "Una trama de asesinatos, en las que los cuerpos aparecen sin corazón, parecen apuntar a un escritor, vecino de Mulder y enamorado de Scully."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-19",
+            "title": "El sobrenatural",
+            "image": "https://image.tmdb.org/t/p/w300/kDpTV5YL6UKtBm6CqiXaM5wIdLJ.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder investiga datos sobre un extraño caso sucedido en 1947 en Rosswell, Nuevo México, el mismo lugar que se ha hecho célebre por la simulación de visita alienígena. Los hechos que estudia Mulder sucedieron durante un partido de béisbol entre un equipo de raza blanca y otro de raza negra."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-20",
+            "title": "Tres de la especie",
+            "image": "https://image.tmdb.org/t/p/w300/kHTxQkVKtgbAu1cReA93J3Wy8zE.jpg",
+            "numberEpisode": "E20",
+            "caption": "cully se ve envuelta en una trama de información confidencial sobre tecnologías avanzadas, con riesgo para su vida y las de losque le acompañan."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-21",
+            "title": "Viaje al campo",
+            "image": "https://image.tmdb.org/t/p/w300/4hjYdYuLN2ps5dN50jYWVtfsu3Q.jpg",
+            "numberEpisode": "E21",
+            "caption": "Una pareja vuelve a su motel después de pasar un día de excursión. Después de una experiencia misteriosa, aparecen sus esqueletos en el monte. Encargado de la investigación, Mulder analiza los cadáveres y no tarda en relacionarlos con unos sucesos extraños que pasarón tiempo atrás."
+          },
+          {
+            "link": "serie/expediente-x/temporada-6/episodio-22",
+            "title": "Biogénesis",
+            "image": "https://image.tmdb.org/t/p/w300/6FwPzOQmFsyMT9yzaBvfyzzHjcE.jpg",
+            "numberEpisode": "E22",
+            "caption": "En una playa africana, aparece una pieza de metal repleta de misteriosos símbolos. Un científico que se encarga de investigarlo muere poco después doctor fallece, y en el mismo riesgo van a caer Mulder, Scully y Skinner, encargados de saber qué pasa con un objeto tan extraño."
+          }
+        ]
+      },
+      {
+        "season": "7",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-1",
+            "title": "La sexta extinción I",
+            "image": "https://image.tmdb.org/t/p/w300/gijG2QsEocC1QVox6S0VL78lKcF.jpg",
+            "numberEpisode": "E1",
+            "caption": "Mientras Scully viaja a África para poder descifrar el significado de los símbolos de una nave enterrada en una playa de Costa de Marfil, Mulder padece de una frenética actividad cerebral. Logra darle un mensaje a Skinner quien encuentra a Kritschgau y juntos tratan de entender qué le sucede a Mulder antes de que sea demasiado tarde."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-2",
+            "title": "La sexta extinción II: Amor Fati",
+            "image": "https://image.tmdb.org/t/p/w300/toJPULIEBpThC143kxdiLPug4dM.jpg",
+            "numberEpisode": "E2",
+            "caption": "Scully busca desesperadamente la manera de ayudar a su enfermo compañero sin tener nadie a quien recurrir, mientras los sueños de un Mulder catatónico le llevan lejos de los Expedientes X, donde cree encontrar una vida mejor."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-3",
+            "title": "Hambriento",
+            "image": "https://image.tmdb.org/t/p/w300/6hZApcrIWmcAKf0UHP9Ysgpil03.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mulder y Scully llegan a un restaurante para investigar el asesinato en el que el criminal había absorbido el cerebro de la víctima a través de un agujero en el cráneo. No tardarán en encontrarse con Rob Roberts, el principal sospechoso."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-4",
+            "title": "Milenio",
+            "image": "https://image.tmdb.org/t/p/w300/qmJRvf3bavJbCkkMTp53VErEmnO.jpg",
+            "numberEpisode": "E4",
+            "caption": "Skinner le habla a Mulder y Scully del ouroboro, la serpiente que se muerde la cola del Grupo Millennium, antiguos agentes del FBI que ya no trabajan allí. Las pistas le conducrirán a Frank Black, un agente que les introducirá en una siniestra investigación relacionada con el final del milenio, necromancia, el final de los tiempos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-5",
+            "title": "Aceleración",
+            "image": "https://image.tmdb.org/t/p/w300/uRWMOecnsQV4tVi2tL0BV8zOmf1.jpg",
+            "numberEpisode": "E5",
+            "caption": "Scully investiga la muerte de un oficial de policía a manos de un asesino 'invisible' en Pittsfield, Virginia, en un bosque que parece ocultar poderes especiales. Las pesquisas de Mulder y Scully apuntan a dos jóvenes del lugar."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-6",
+            "title": "La variante Goldberg",
+            "image": "https://image.tmdb.org/t/p/w300/zcV5bvDNkMwl5r7GR30BtYS8xyd.jpg",
+            "numberEpisode": "E6",
+            "caption": "Mulder y Scully se quedan atrapados en la teoría de Rube Goldberg cuando conocen a Henry Weems, que quizás sea el hombre más afortunado del mundo, salvo porque los que le rodean no tienen tanta suerte."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-7",
+            "title": "Orison",
+            "image": "https://image.tmdb.org/t/p/w300/g9769MSHPcQiGrn1tFjJlbV7gjE.jpg",
+            "numberEpisode": "E7",
+            "caption": "El Reverendo Orison espera salvar el alma de Donnie Pfaster ayudándole a escapar de prisión. Su equivocación queda clara cuando Donnie trata de encontrar a su última víctima: Scully."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-8",
+            "title": "El gran Maleeni",
+            "image": "https://image.tmdb.org/t/p/w300/dEPlAWlaAQZlwdvIRelQfcEIcZX.jpg",
+            "numberEpisode": "E8",
+            "caption": "Cuando un mago realiza un truco donde parece dar la vuelta a su cabeza y es encontrado decapitado en su camioneta, Mulder y Scully piensan que fue asesinado por un intrincado plan elaborado por otros dos magos para robar un banco."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-9",
+            "title": "Señales y milagros",
+            "image": "https://image.tmdb.org/t/p/w300/lCaWr3ogKiVKOsAU3XodFwdu55L.jpg",
+            "numberEpisode": "E9",
+            "caption": "Diversos \"pecadores\" empiezan a ser asesinados por serpientes, pero Mulder y Scully dudan que se trate de un caso de castigo Divino."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-10",
+            "title": "El ser y tiempo",
+            "image": "https://image.tmdb.org/t/p/w300/uRcocgrNTTE67n8EbQoihpa1acz.jpg",
+            "numberEpisode": "E10",
+            "caption": "Una niña desaparece de su casa y Mulder pide el caso a pesar de no ser un Expediente X. Cuando logra convencer a los padres de la niña de que su hija será encontrada viva, Scully teme que se involucra demasiado debido a la abducción de su hermana."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-11",
+            "title": "Conclusión",
+            "image": "https://image.tmdb.org/t/p/w300/3K837toPkhNvuwU5p2P1UDbU6gU.jpg",
+            "numberEpisode": "E11",
+            "caption": "Después de arrestar al asesino de Amber-Lynn LaPierre y descubrir una tumba común con los cadáveres de docenas de niños desaparecidos, un hombre acude a Mulder diciendo tener visiones de otras víctimas que no fueron enterradas allí. A pesar de las objeciones de Scully, lleva a Mulder a un viaje que le revelará lo que le sucedió a su hermana."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-12",
+            "title": "Policías X",
+            "image": "https://image.tmdb.org/t/p/w300/Amq8NslCMIwlq69OXHp8Y8aXatR.jpg",
+            "numberEpisode": "E12",
+            "caption": "Un oficial de policía de los Los Ángeles que estaba siendo grabado para el programa COPS es atacado por un monstruo y Mulder y Scully investigan el caso. Scully es reacia a aparecer en la televisión nacional pero a Mulder le agrada la publicidad."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-13",
+            "title": "El primero que dispare",
+            "image": "https://image.tmdb.org/t/p/w300/21XZsRmzcUHXED3LbdrEFrwm2lL.jpg",
+            "numberEpisode": "E13",
+            "caption": "Los Pistoleros Solitarios llaman a Mulder y Scully para que acudan a un laboratorio de desarrollo de realidad virtual cuando descubren que uno de los creadores fue asesinado dentro del videojuego y el único indicio es la imagen de una mujer. Mulder entra al juego para combatir a la mujer pero Scully deberá hacer lo mismo para salvarle."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-14",
+            "title": "Ladrón",
+            "image": "https://image.tmdb.org/t/p/w300/ktd09j69qbUJSVVCwfXqvHyZ6J1.jpg",
+            "numberEpisode": "E14",
+            "caption": "Mulder y Scully sospechan que un brujo sea el responsable de las amenazas a la familia de un médico."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-15",
+            "title": "Un amigo",
+            "image": "https://image.tmdb.org/t/p/w300/n7tmkplTLGDyBvqit8XgLAb3udq.jpg",
+            "numberEpisode": "E15",
+            "caption": "El Fumador le ofrece a Scully la cura para todas las enfermedades si viaja con él, pero con una condición: Mulder no debe saber nada."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-16",
+            "title": "Quimera",
+            "image": "https://image.tmdb.org/t/p/w300/mY6I9ClIk55BGL89hqrzaDuXi37.jpg",
+            "numberEpisode": "E16",
+            "caption": "Cuando Mulder investiga el caso de un desaparecido y su única pista es un cuervo amenazante, aprende a disfrutar de las comodidades del hogar de un monstruo mientras Scully debe ayudarle en una situación incómoda."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-17",
+            "title": "Todas las cosas",
+            "image": "https://image.tmdb.org/t/p/w300/gm3Bc4QMUUTkFU4KSeklgtgUyDW.jpg",
+            "numberEpisode": "E17",
+            "caption": "Una serie de coincidencias llevan a Scully a un hombre casado con quien tuvo un romance en la Facultad de Medicina pero tuvo que dejarlo por su familia."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-18",
+            "title": "Marca X",
+            "image": "https://image.tmdb.org/t/p/w300/z4sP7uDlcXFNTYmPzZGX3qSuyik.jpg",
+            "numberEpisode": "E18",
+            "caption": "Cuando un empleado de Morley Tobacco Co. es asesinado, Mulder sospecha que los insectos encontrados en la escena del crimen estaban en sus pulmones y que entraron a través del humo de los cigarillos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-19",
+            "title": "El director de Hollywood",
+            "image": "https://image.tmdb.org/t/p/w300/pVouTIhY2Rf9RIxyaJfbmEFwbZl.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder y Scully acuden al estreno de una película donde son los protagonistas y acaban disgustados por el resultado. Recuerdan como 18 meses antes fueron acompañados por un productor de Hollywood mientras investigaban un caso relacionado con \"La Vasija de Lázaro\", una vasija bíblica en la que parecen estar grabadas las palabras que dijo Jesucristo al resucitar a Lázaro."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-20",
+            "title": "El club de lucha",
+            "image": "https://image.tmdb.org/t/p/w300/4o0szPLcvTffIwTrhh909kLjckr.jpg",
+            "numberEpisode": "E20",
+            "caption": "Mulder y Scully se cruzan en el camino de dos mujeres idénticas que se han perseguido por 17 de los Estados Unidos durante tres años causando caos y destrucción a su paso."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-21",
+            "title": "Yo deseo",
+            "image": "https://image.tmdb.org/t/p/w300/js5zm39ElougXamcknctVoNf1tD.jpg",
+            "numberEpisode": "E21",
+            "caption": "Mulder y Scully descrubren una genio que, después de 500 años de conceder deseos, llega a la conclusión de que la humanidad no ha mejorado en vanidad y egoísmo como siempre y sabotea los deseos que concede si no son suficientemente \"específicos\"."
+          },
+          {
+            "link": "serie/expediente-x/temporada-7/episodio-22",
+            "title": "Réquiem",
+            "image": "https://image.tmdb.org/t/p/w300/4GTf8mtgpSREWX0tqhFJ2i3Z4g3.jpg",
+            "numberEpisode": "E22",
+            "caption": "Mulder y Scully regresan al lugar de su primer caso en los Expedientes X para investigar una nave que se estrelló en el bosque. El Fumador arregla todo para que Alex Krycek salga de prisión y pueda ponerse en contacto con los extraterrestres y reconstruir \"El Proyecto\"."
+          }
+        ]
+      },
+      {
+        "season": "8",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-1",
+            "title": "Con",
+            "image": "https://image.tmdb.org/t/p/w300/rWKJET290z3UFxA7EUmHWTzaUtP.jpg",
+            "numberEpisode": "E1",
+            "caption": "El Agente Especial John Doggett es asignado como compañero de Scully para ayudarla en sus casos y en la búsqueda de Mulder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-2",
+            "title": "Sin",
+            "image": "https://image.tmdb.org/t/p/w300/jbjap6ZYSNwEhiTgX93dJdsQL0P.jpg",
+            "numberEpisode": "E2",
+            "caption": "Cuando la búsqueda de Mulder se intensifica en el desierto de Arizona, Gibson Praise le dice a Scully que se está acercando a su objetivo. Mientras, el Director Adjunto Kersh informa al Agente Doggett de que ha sido asignado como sucesor de Mulder en los Expedientes X."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-3",
+            "title": "Paciencia",
+            "image": "https://image.tmdb.org/t/p/w300/4qRuehUs8o656Sl30EJicLy3mne.jpg",
+            "numberEpisode": "E3",
+            "caption": "Los agentes Scully y Doggett deberán investigar unas extrañas mordeduras que sufren los habitantes de un pequeño pueblo de Ohio."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-4",
+            "title": "Roadrunners",
+            "image": "https://image.tmdb.org/t/p/w300/tIKOOHamVCvdqFKJ5DqoTkQgxnD.jpg",
+            "numberEpisode": "E4",
+            "caption": "Scully se adentra en el mundo de las sectas cuando, tras rechazar la ayuda de Doggett, se desplaza sola a Utah para invetigar una extraña muerte."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-5",
+            "title": "Invocación",
+            "image": "https://image.tmdb.org/t/p/w300/xcjZ8aM9wL02ZmhqxW5nvCqwAOe.jpg",
+            "numberEpisode": "E5",
+            "caption": "En 1990 un niño desapareción del patio de su colegio. Diez años después parece haber regresado a casa por fin, pero el problema es que está exactamente igual que el día que desapareció: no ha crecido."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-6",
+            "title": "Nemirc",
+            "image": "https://image.tmdb.org/t/p/w300/k8Qg6CpYCnhR81TzbHdzgUN4dc7.jpg",
+            "numberEpisode": "E6",
+            "caption": "Un abogado despierta en prisión a muy poco tiempo de ser ejecutado como sentencia por el asesinato de su esposa. Aunque no recuerda nada, el tiempo empieza a retroceder para él dándole la oportunidad de enmendar sus acciones."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-7",
+            "title": "Vía negativa",
+            "image": "https://image.tmdb.org/t/p/w300/lE6GHf2t1ReRKSo4iL4ds37gcNW.jpg",
+            "numberEpisode": "E7",
+            "caption": "Trabajando sin ayuda de Scully, Doggett y Skinner investigan los misteriosos asesinatos de un líder cultista, para descubrir que tiene la capacidad de entrar en la mente de las personas que conoce para matarlas mientras duermen."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-8",
+            "title": "Erradicación total",
+            "image": "https://image.tmdb.org/t/p/w300/xs7vMLfyRXv7GCtmPy80jOdlgog.jpg",
+            "numberEpisode": "E8",
+            "caption": "Un agente estatal es asesinado dentro de una celda por un disparo a través del techo. Las pistas conducen a Scully y Doggett a dos exterminadores de insectos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-9",
+            "title": "Desguace",
+            "image": "https://image.tmdb.org/t/p/w300/jwOU9pHW7FD7thyWklFJZwIC5Yl.jpg",
+            "numberEpisode": "E9",
+            "caption": "Un hombre cuya sangre se está convirtiendo en metal a causa de un experimento decide vengarse de los culpables de su extraña enfermedad."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-10",
+            "title": "Badlaa",
+            "image": "https://image.tmdb.org/t/p/w300/bNztUuhWaPVVLJGnnLIzBWNSRzV.jpg",
+            "numberEpisode": "E10",
+            "caption": "Un Indio cuyo hijo murió en un accidente en una planta química viaja a los Estados Unidos para vengarse."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-11",
+            "title": "El don",
+            "image": "https://image.tmdb.org/t/p/w300/etBB1vA9jfq9x5FswobIFDKuxpv.jpg",
+            "numberEpisode": "E11",
+            "caption": "Doggett descubre un antiguo caso que Mulder le ocultó a Scully y continúa su investigación, confiando poder encontrar alguna conexión con la desaparición de Mulder."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-12",
+            "title": "Medusa",
+            "image": "https://image.tmdb.org/t/p/w300/ftY1kB0aC1Tc0UWlOnhdAVWuppd.jpg",
+            "numberEpisode": "E12",
+            "caption": "Scully y Doggett deben luchar contra reloj para encontrar y erradicar una enfermedad contagiosa de los túneles del metro de Boston."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-13",
+            "title": "Reproduccion asistida",
+            "image": "https://image.tmdb.org/t/p/w300/mwoz0vUM77w9J6bGp77LQsq6NjT.jpg",
+            "numberEpisode": "E13",
+            "caption": "Un hombre se contacta con Scully y Doggett para decirles que su esposa fue asesinada después de dar a luz a un bebé alienígena. Scully comienza a investigar sobre la fertilización extraterrestre en humanos y llega a cuestionarse la naturaleza de su propio embarazo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-14",
+            "title": "No puede estar pasando esto",
+            "image": "https://image.tmdb.org/t/p/w300/m957ZgmKbQdS1OWFtEYXdFUNpm6.jpg",
+            "numberEpisode": "E14",
+            "caption": "Tras el paso de un misterioso OVNI, Teresa Hoese aparece al borde de la muerte. Su inexplicable estado y su posterior desaparición del hospital llevan a Scully, Doggett y Skinner a investigar a un hombre, Absalom, quien cree que la invasión a manos de seres extraterrestres es inminente."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-15",
+            "title": "Muerto vivo",
+            "image": "https://image.tmdb.org/t/p/w300/n9lnbGixjGjoZvvaCR7Q1QkEwht.jpg",
+            "numberEpisode": "E15",
+            "caption": "Tres meses después del funeral de Mulder, un barco pesquero encuentra el cuerpo de Billy Miles. Pero un descubrimiento increíble llevará a Doggett a levantarse temprano para ir junto a Skinner al lugar que menos imagina, a hacer algo todavía más increíble."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-16",
+            "title": "Tres palabras",
+            "image": "https://image.tmdb.org/t/p/w300/hHOm1Q36Rmb2011JupFVOVUAWyV.jpg",
+            "numberEpisode": "E16",
+            "caption": "El FBI no acepta la petición de Mulder de ser reasignado a los Expedientes X, e incluso sugieren que tal vez debería dejar la agencia. Por otro lado, un asesinato en la Casa Blanca hace que Mulder comience a investigar."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-17",
+            "title": "Empédocles",
+            "image": "https://image.tmdb.org/t/p/w300/vBUVJN9YipBqgbdjjXy9vxOr4rD.jpg",
+            "numberEpisode": "E17",
+            "caption": "Mulder y Scully están pasando una agradable velada cuando ella sufre un desmayo. En el hospital, el agente no podrá acompañar a su amiga porque sólo pueden pasar los familiares, pero se encontrará con Doggett, que está preocupado por su compañera."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-18",
+            "title": "Vienen",
+            "image": "https://image.tmdb.org/t/p/w300/o0IEbCSuEWywfUeLdTFA2KTWgAL.jpg",
+            "numberEpisode": "E18",
+            "caption": "Doggett es enviado a una plataforma petrolera para investigar la muerte de un trabajador mexicano, pero Mulder cree que lo que ocurrió fue culpa de la exposición al oro negro."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-19",
+            "title": "Solo",
+            "image": "https://image.tmdb.org/t/p/w300/wilJuFsk4pHbu2dZThz6l6s02Yv.jpg",
+            "numberEpisode": "E19",
+            "caption": "Comienza la baja por embarazo de Scully y Doggett tiene una nueva y poco experimentada compañera llamada Leyla Harrison. El entusiasmo incial de la joven desaparecerá cuando se enfrente a su primer caso y Mulder y Scully tendrán que acudir en su ayuda."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-20",
+            "title": "Esencia",
+            "image": "https://image.tmdb.org/t/p/w300/wywWSQTDWQk2L6nfrLfxwEooGu.jpg",
+            "numberEpisode": "E20",
+            "caption": "Mulder y Doggett investiga el incendio de un laboratorio de genética donde fue asesiando uno de los doctores que investigaba la fertilización alienígena. Allí encuentran a Billy Miles, que ha sido cambiado por una réplica tras ser abducido y trata de hacer desaparecer las pruebas. Cuando descubren que una mujer que ayuda Scully forma parte de la conspiración, los agentes, con Monica Reyes y Alex Krycek, se ocupan de proteger Scully y a su bebé."
+          },
+          {
+            "link": "serie/expediente-x/temporada-8/episodio-21",
+            "title": "Existencia",
+            "image": "https://image.tmdb.org/t/p/w300/7Qv2agcOigRDTq9FJNaAhocC8hf.jpg",
+            "numberEpisode": "E21",
+            "caption": "Mulder, Doggett y Skinner tratan de poner al descubierto la conspiración que los replicantes ocultan tras la fachada del FBI mientras Reyes y Scully se ocultan en una granja donde la agente dará a luz a su bebé."
+          }
+        ]
+      },
+      {
+        "season": "9",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-1",
+            "title": "Hoy no pasó nada importante (I)",
+            "image": "https://image.tmdb.org/t/p/w300/bovifX8kuUdCTYDPJ60ZavOPVs4.jpg",
+            "numberEpisode": "E1",
+            "caption": "El agente Doggett investiga la muerte de un oficial tras haber recogido a una mujer en su coche. Para resolver este caso pide ayuda a la agente Scully, que ha vuelto a su puesto de instructora en la Academia del FBI en Quantico"
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-2",
+            "title": "Hoy no pasó nada importante (II)",
+            "image": "https://image.tmdb.org/t/p/w300/cyqQrH6u7Gaa2bzxEQpHcJd5nLT.jpg",
+            "numberEpisode": "E2",
+            "caption": "Doggett encuentra a Shannon McMahon, la mujer que el oficial recogió en su coche antes de morir. Ella confiesa ser una super-soldado y denuncia que que la gente que ha matado estaba preparando un abastecimiento de agua peligroso. Ahora quiere que Doggett descubra la verdad."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-3",
+            "title": "Daemonicus",
+            "image": "https://image.tmdb.org/t/p/w300/1OAiR7RUm9n2PZYn1PrOsIHmJZQ.jpg",
+            "numberEpisode": "E3",
+            "caption": "Doggett y Reyes investigan el asesinato de una pareja en el sur de Virginia, que tiene todos los indicios de ser un ritual satánico. Ellos asocian el asesinato a un doctor encarcelado en un instituto mental, y Doggett se convence de que el doctor organiza los crímenes desde el interior del hospital."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-4",
+            "title": "4D",
+            "image": "https://image.tmdb.org/t/p/w300/h2fGRvQ50ni6LCGQ0JaW3L4rpcc.jpg",
+            "numberEpisode": "E4",
+            "caption": "Un cruel asesino amenaza a Doggett y Reyes y se desvanece. Doggett recibe un disparo y Follmer descubre que Reyes fue la persona que le disparó. ¿Lo fue? Lo único seguro es que alguien está yendo un paso por delante del resto."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-5",
+            "title": "El señor de las moscas",
+            "image": "https://image.tmdb.org/t/p/w300/s8dlt67q5XuuhgLTiTmzhEyuYHq.jpg",
+            "numberEpisode": "E5",
+            "caption": "Cuando una demostración en un 'reality show' de una televisión local acaba con la vida de un hombre, Doggett y Reyes deciden investigar el caso. Pero cuando empiezan a brotar moscas de los ojos de las víctimas acuden a Scully para que les ayude con su experiencia en la investigación."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-6",
+            "title": "No confíes en nadie",
+            "image": "https://image.tmdb.org/t/p/w300/8hOgRXL9JRhmDvURHcyMCRrHLst.jpg",
+            "numberEpisode": "E6",
+            "caption": "Scully tiene esperanzas de reunirse con Mulder cuando un completo desconocido le ofrece nueva información acerca de lo que le llevó a la clandestinidad. Sin embargo, su confianza en el extraño puede poner a Mulder en peligro."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-7",
+            "title": "John Doe",
+            "image": "https://image.tmdb.org/t/p/w300/rFYjvPMtEqe4dEsg8rwn5wzXbbn.jpg",
+            "numberEpisode": "E7",
+            "caption": "Sin conocimiento de su identidad o su pasado, Doggett se despierta en medio de una polvorienta ciudad de México. Mientra trata de unir sus recuerdos para recuperar la memoria, se ve en medio de una trama de contrabando. Scully y Reyes deberán cruzar la frontera para encontrarle."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-8",
+            "title": "Camino al infierno",
+            "image": "https://image.tmdb.org/t/p/w300/hbkFDYaFYlIi5Cq8gQXmuBncclp.jpg",
+            "numberEpisode": "E8",
+            "caption": "Reyes toma la iniciativa mientras investiga un Expediente X en relación a un hombre que ha sido degollado vivo. Cuando descubre que él había tenido visiones de cosas parecidas, requiere de la experta ayuda de Scully avanzar en la investigación."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-9",
+            "title": "Procedencia",
+            "image": "https://image.tmdb.org/t/p/w300/ko7suo55e0bqlUtVoRm1S3zSCN9.jpg",
+            "numberEpisode": "E9",
+            "caption": "Cuando los restos de una nave espacial son encontrados, el FBI deja fuera de la investigación a los Expedientes X. Mientras tanto, Scully se ve obligada a tomar medidas drásticas para velar por la seguridad de su hijo William."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-10",
+            "title": "Providencia",
+            "image": "https://image.tmdb.org/t/p/w300/doxFfLJ9tB0lHc7qY5DMlrKppnC.jpg",
+            "numberEpisode": "E10",
+            "caption": "Desconfiando tanto de Skinner como de Follmer, Scully ignora al FBI para investigar por su cuenta con la ayuda de Reyes y Los Pistoleros Solitarios. Sus temores aumentan cuando se entera de que Mulder podría estar muerto, y William es secuestrado por una secta que adorador a los extraterrestres."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-11",
+            "title": "Audrey Pauley",
+            "image": "https://image.tmdb.org/t/p/w300/8jlxYQAZRdHtgmqe6Zy4bGRKCsn.jpg",
+            "numberEpisode": "E11",
+            "caption": "Un coche atropella a la agente Reyes dejándola en estado comatoso. Con ese último recuerdo se despierta en un extraño hospital donde la única compañía es un invividuo que piensa que está en una sala de espera antes de pasar a la otra vida. Tendrá que luchar por despertarse a sí misma antes de que su tarjeta de donante de órganos tome la decisión por ella. Su único vínculo con el mundo exterior será una mujer autista llamada Audrey Pauley. Mientras, Doggett y Scully comienzan a sospechar que fuerzas externas pueden estar conspirando para poner fin a la vida de Reyes."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-12",
+            "title": "Debajo",
+            "image": "https://image.tmdb.org/t/p/w300/6ONSEpqYqP8rhmIBEXLtXAvkCO4.jpg",
+            "numberEpisode": "E12",
+            "caption": "Doggett está decidido a encontrar un error en las pruebas de ADN que han dejado en libertad a un asesino que atrapó trece años antes. Pero después de que el caso tome diversos rumbos, Scully y Reyes perecen estar en desacuerdo con su teoría."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-13",
+            "title": "Improbable",
+            "image": "https://image.tmdb.org/t/p/w300/wZYIwle1C3GZms4tcskMtoq4ysv.jpg",
+            "numberEpisode": "E13",
+            "caption": "En la carrera para capturar a un asesino en serie, Scully y Reyes se tienen que ayudar de la numerología, sus poderes de deducción, y un misterioso jugador de damas. Mientras tanto Doggett se alia con la policía para investigar el caso, y descubre que los Expedientes X han cambiado su criterio."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-14",
+            "title": "Monstruos",
+            "image": "https://image.tmdb.org/t/p/w300/b4Sz5CZt6FR3VTxLb8Ln7Sv3rH6.jpg",
+            "numberEpisode": "E14",
+            "caption": "Reyes y Doggett viajan a las montañas, después de que una mujer se apuñale varias veces, y su viudo marido se niege a permitir que nadie vea a su hijo. Cuando la Agente Harrison (joven admiradora de los Expedientes X) acompaña a Scully a ayudar a Doggett y Reyes, descubre que los monstruos de debajo de la cama pueden ser algo más que el producto de la imaginación de un niño."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-15",
+            "title": "Atrapa al tiburón",
+            "image": "https://image.tmdb.org/t/p/w300/p219qcDzck296jqBOkLcvRzxMkk.jpg",
+            "numberEpisode": "E15",
+            "caption": "Cuando Morris Fletcher acude a los agentes con información relacionada con supersoldados, llega a la vez que Los Pistoleros Solitarios. Pero los Pistoleros y Jimmy ya están metidos hasta el cuello en el caso de un complot bioterrorista que pretende liberar una toxina mortal."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-16",
+            "title": "William",
+            "image": "https://image.tmdb.org/t/p/w300/8nQEl4dsfEY1dG1DR7WlJMQ5M4F.jpg",
+            "numberEpisode": "E16",
+            "caption": "Doggett encuentra un extraño hombre desfigurado en la oficina de lso Expedientes X y, como capricho de Scully, le realiza una prueba de ADN. Pero las sorprendentes respuestas que encontrarán resultan aún más sorprendentes cuando la vida de William depende de ellas."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-17",
+            "title": "Despedida",
+            "image": "https://image.tmdb.org/t/p/w300/bu84zWQu41ZAX4GDKxIhfQRlvJJ.jpg",
+            "numberEpisode": "E17",
+            "caption": "Cuando uno de los estudiantes de Scully muestra una enorme capacidad para trazar el perfil de asesinos en serie, Doggett decide utilizarle y reabrir el caso del asesinato de su hijo."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-18",
+            "title": "Días de sol",
+            "image": "https://image.tmdb.org/t/p/w300/2BmRs3FbORa0hTTqDHfcrGlw5YH.jpg",
+            "numberEpisode": "E18",
+            "caption": "Doggett, Reyes, Scully y Skinner tropiezan con el extraño caso de un asesinato en que el principal sospechoso es un hombre con una obsesión poco común por La tribu de los Brady. Al margen de la investigación descubren que el hombre posee habilidades como telequinesia, lo que supondrá la prueba innegable que otorgue validez a los años de trabajo en los Expedientes X."
+          },
+          {
+            "link": "serie/expediente-x/temporada-9/episodio-19",
+            "title": "La verdad I",
+            "image": "https://image.tmdb.org/t/p/w300/9BytnKF7NB0JWzJB1920E7Z08HE.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mulder es puesto bajo arresto militar y necesitará toda la ayuda que puedan proporcionarle el Director Adjunto Kersh (sorprendentemente), Skinner, Scully, Reyes, Doggett, Marita Covarrubias, Gibson Praise y Jeffrey Spender para escapar. Mulder y Scully huyen a Nuevo México, donde los helicópteros negros van a destruir un poblado y al Fumador."
+          }
+        ]
+      },
+      {
+        "season": "10",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-10/episodio-1",
+            "title": "Mi lucha",
+            "image": "https://image.tmdb.org/t/p/w300/qETUneUP7SqSAlINGQhAJX4w5H9.jpg",
+            "numberEpisode": "E1",
+            "caption": "Trece años después de los últimos acontecimientos, Tad O'Malley, un popular teórico de las conspiraciones, acude a Fox Mulder y Dana Scully en busca de ayuda para lo que cree es una enorme conspiración del gobierno."
+          },
+          {
+            "link": "serie/expediente-x/temporada-10/episodio-2",
+            "title": "La mutación del fundador",
+            "image": "https://image.tmdb.org/t/p/w300/nKsC1VjynnF15lmZ1LZUsaHgK43.jpg",
+            "numberEpisode": "E2",
+            "caption": "Cuando un científico se suicida de repente, Mulder y Scully investigan qué fuerza invisible le puede haber conducido a ello. Lo que descubren es un laboratorio donde la experimentación genética extrema ha estado sucediendo desde hace décadas, criando pacientes que poseen poderes inesperados y peligrosos - y que albergan resentimientos profundos."
+          },
+          {
+            "link": "serie/expediente-x/temporada-10/episodio-3",
+            "title": "Mulder y Scully conocen al hombre monstruo",
+            "image": "https://image.tmdb.org/t/p/w300/pi59AMbwY2ByHmrj4NfbrjLwwb8.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mulder cuestiona su fe en lo inexplicable. Se trata de tener las pruebas de la existencia de la nueva criatura que él y Scully investigan antes de sacar conclusiones."
+          },
+          {
+            "link": "serie/expediente-x/temporada-10/episodio-4",
+            "title": "En casa de nuevo",
+            "image": "https://image.tmdb.org/t/p/w300/jxtDAgBNDx6I1x16I6RPKjtbOFJ.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mulder y Scully son enviados a investigar el asesinato de un funcionario de la ciudad, que parece que ningún ser humano pudo haber cometido."
+          },
+          {
+            "link": "serie/expediente-x/temporada-10/episodio-5",
+            "title": "Babilonia",
+            "image": "https://image.tmdb.org/t/p/w300/3eGYnq8ZYKalYOolLQvXQb6HZat.jpg",
+            "numberEpisode": "E5",
+            "caption": "Cuando una galeria con arte potencialmente ofensivo es bombardeada, Mulder y Scully intentan encontrar alguna manera de comunicarse con el que puso la bomba, quien se encuentra en coma, para prevenir un futuro ataque."
+          },
+          {
+            "link": "serie/expediente-x/temporada-10/episodio-6",
+            "title": "Mi lucha II",
+            "image": "https://image.tmdb.org/t/p/w300/icn9kRtElIjrwdzhCQnqmHpLFsd.jpg",
+            "numberEpisode": "E6",
+            "caption": "Mulder y Scully descubren una verdad inesperada e impactante que tendrá ramificaciones globales."
+          }
+        ]
+      },
+      {
+        "season": "11",
+        "episodes": [
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-1",
+            "title": "Mi lucha III",
+            "image": "https://image.tmdb.org/t/p/w300/ktITqCAJ5XTGQKY1dRHn5Q9VHpb.jpg",
+            "numberEpisode": "E1",
+            "caption": "Retomando la trama del último episodio de la temporada anterior, Mulder y Scully descubren que no son los únicos que buscan desesperadamente a su hijo perdido, William. El destino mismo del mundo puede depender de ello."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-2",
+            "title": "Ésta",
+            "image": "https://image.tmdb.org/t/p/w300/uAnbfwHs5pN95FY5FXJDPpfwtCD.jpg",
+            "numberEpisode": "E2",
+            "caption": "Un viejo amigo se acerca a Mulder y Scully, de una forma aparentemente imposible, para revelar un secreto escalofriante."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-3",
+            "title": "Más uno",
+            "image": "https://image.tmdb.org/t/p/w300/xBNEqiOd1O38mxaTPxxQD3fXChR.jpg",
+            "numberEpisode": "E3",
+            "caption": "Una oleada de muertes, en la que las víctimas fueron atacadas por sus propios doppelgangers, lleva a Mulder y Scully hasta un par de gemelos que juegan un juego peligroso."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-4",
+            "title": "El perdido arte del sudor en la frente",
+            "image": "https://image.tmdb.org/t/p/w300/p7hDX4HNn1oVTJyz0aQdhpMDdFf.jpg",
+            "numberEpisode": "E4",
+            "caption": "Explorando la idea del Efecto Mandela, en el que grandes grupos de personas recuerdan una historia alternativa, Mulder y Scully descubren cómo se pueden haber originado los Expedientes X."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-5",
+            "title": "Ghouli",
+            "image": "https://image.tmdb.org/t/p/w300/5bRvRJPDDqmuov2HXdF4mYRmGid.jpg",
+            "numberEpisode": "E5",
+            "caption": "Tras la pelea de dos adolescentes que se acusan de ser monstruos, Mulder y Scully descubren que la investigación podría conducirlos a su hijo perdido, William."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-6",
+            "title": "Gatito",
+            "image": "https://image.tmdb.org/t/p/w300/7UoUoj8f5klvqObI0yy0TD5ZHyr.jpg",
+            "numberEpisode": "E6",
+            "caption": "Skinner desaparece sin avisar cuando su pasado regresa para perseguirlo. Mientras Mulder y Scully intentan localizarlo, su creciente desconfianza hacia él alcanza su punto culminante."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-7",
+            "title": "Rm9sbG93ZXJz",
+            "image": "https://image.tmdb.org/t/p/w300/wHp2eWcdavBWAGqxxf0DSITPBbE.jpg",
+            "numberEpisode": "E7",
+            "caption": "En un mundo donde la inteligencia artificial está cada vez más presente, Mulder y Scully se convierten en el blanco de un juego mortal del gato y el ratón."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-8",
+            "title": "Familiar",
+            "image": "https://image.tmdb.org/t/p/w300/fGv4wYVoUokVy2texcl64k7OUvT.jpg",
+            "numberEpisode": "E8",
+            "caption": "Mulder y Scully investigan el terrible ataque de un animal a un niño pequeño en Connecticut, aunque sospechan que hay fuerzas más oscuras involucradas detrás del incidente."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-9",
+            "title": "Nada dura eternamente",
+            "image": "https://image.tmdb.org/t/p/w300/i65v9MvdYBU329XILPBX1s8geyS.jpg",
+            "numberEpisode": "E9",
+            "caption": "Mientras investigan el robo de órganos humanos, Mulder y Scully descubren un culto misterioso repleto de rituales macabros."
+          },
+          {
+            "link": "serie/expediente-x/temporada-11/episodio-10",
+            "title": "Mi lucha IV",
+            "image": "https://image.tmdb.org/t/p/w300/1jCRR1msHiLIrkhDicjZ4wbeoA0.jpg",
+            "numberEpisode": "E10",
+            "caption": "Mulder y Scully se apresuran a buscar a William mientras el Fumador avanza con su último plan."
+          }
+        ]
+      }
+    ],
+    "link": "serie/expediente-x",
+    "updatedAt": "2026-08-23T22:06:59.350Z"
+  },
+  "pelicula/un-talento-unico": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/sT5Inhc0aaReSZoufWgfJTQUbKp.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/xIRryl8bWHFaMDssKFcPAXhfrRB.jpg",
+    "title": "El Afinador",
+    "year": "2026",
+    "duration": "1h 49m",
+    "rating": "◆ 7.2",
+    "tags": [
+      "Drama",
+      "Crimen",
+      "Suspense"
+    ],
+    "caption": "Las meticulosas habilidades de un talentoso afinador de pianos le llevan a descubrir una inesperada aptitud para abrir cajas fuertes, lo que pone su vida patas arriba.",
+    "episodes": [],
+    "link": "pelicula/un-talento-unico",
+    "updatedAt": "2026-08-23T23:00:28.671Z"
   }
 }

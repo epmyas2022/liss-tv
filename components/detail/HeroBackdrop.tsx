@@ -1,5 +1,6 @@
 import Image from "next/image";
 import WatchButton from "@/components/ui/WatchButton";
+import FocusElementProvider from '../providers/FocusElementProvider';
 
 interface HeroBackdropProps {
   backgroundImage: string;
@@ -24,14 +25,15 @@ export function HeroBackdrop({
   caption,
   link,
 }: HeroBackdropProps) {
-
   return (
     <div className="flex flex-col">
-
       {/* ── MOBILE LAYOUT ── */}
       <div className="md:hidden">
         {/* Backdrop hero — title overlaid at bottom */}
-        <div className="relative w-full" style={{ height: "56vw", minHeight: 200, maxHeight: 320 }}>
+        <div
+          className="relative w-full"
+          style={{ height: "56vw", minHeight: 200, maxHeight: 320 }}
+        >
           {backgroundImage && (
             <Image
               src={backgroundImage}
@@ -54,7 +56,10 @@ export function HeroBackdrop({
           <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
             <h1
               className="font-poppins text-white font-bold leading-tight"
-              style={{ fontSize: "clamp(1.4rem, 6vw, 2rem)", textShadow: "0 2px 16px rgba(0,0,0,0.9)" }}
+              style={{
+                fontSize: "clamp(1.4rem, 6vw, 2rem)",
+                textShadow: "0 2px 16px rgba(0,0,0,0.9)",
+              }}
             >
               {title}
             </h1>
@@ -68,12 +73,17 @@ export function HeroBackdrop({
             {rating && (
               <span
                 className="font-bold px-2.5 py-0.5 rounded-full text-white text-xs"
-                style={{ background: "#EA1C25", boxShadow: "0 2px 8px rgba(234,28,37,0.5)" }}
+                style={{
+                  background: "#EA1C25",
+                  boxShadow: "0 2px 8px rgba(234,28,37,0.5)",
+                }}
               >
                 ★ {rating.trim()}
               </span>
             )}
-            {year && <span className="text-gray-300 text-sm">{year.trim()}</span>}
+            {year && (
+              <span className="text-gray-300 text-sm">{year.trim()}</span>
+            )}
             {duration && (
               <>
                 <span className="text-gray-600 text-sm">·</span>
@@ -103,7 +113,9 @@ export function HeroBackdrop({
 
           {/* Synopsis */}
           {caption && (
-            <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">{caption}</p>
+            <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+              {caption}
+            </p>
           )}
 
           {/* CTA — full width on mobile */}
@@ -142,26 +154,29 @@ export function HeroBackdrop({
         <div className="relative z-10 flex flex-row items-start gap-8 px-6 pt-36 pb-16 max-w-5xl mx-auto w-full">
           {/* Poster */}
           {image && (
-            <div
-              className="shrink-0 rounded-xl overflow-hidden shadow-2xl"
-              style={{
-                width: 180,
-                aspectRatio: "2/3",
-                boxShadow: "0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(234,28,37,0.25)",
-              }}
-            >
-              <Image
-                src={image}
-                alt={title || ""}
-                width={180}
-                height={270}
-                className="object-cover w-full h-full"
-                // ponytail: same name formula as MovieCard so the browser morphs them
+            <FocusElementProvider className="rounded-xl" >
+              <div
+                className="shrink-0 rounded-xl overflow-hidden shadow-2xl"
                 style={{
-                  viewTransitionName: `poster-${link.replace(/\//g, "-").replace(/^-/, "")}`,
+                  width: 180,
+                  aspectRatio: "2/3",
+                  boxShadow:
+                    "0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(234,28,37,0.25)",
                 }}
-              />
-            </div>
+              >
+                <Image
+                  src={image}
+                  alt={title || ""}
+                  width={180}
+                  height={270}
+                  className="object-cover w-full h-full"
+                  // ponytail: same name formula as MovieCard so the browser morphs them
+                  style={{
+                    viewTransitionName: `poster-${link.replace(/\//g, "-").replace(/^-/, "")}`,
+                  }}
+                />
+              </div>
+            </FocusElementProvider>
           )}
 
           {/* Info */}
@@ -177,7 +192,10 @@ export function HeroBackdrop({
               {rating && (
                 <span
                   className="font-bold px-2.5 py-0.5 rounded-full text-white text-xs"
-                  style={{ background: "#EA1C25", boxShadow: "0 2px 12px rgba(234,28,37,0.5)" }}
+                  style={{
+                    background: "#EA1C25",
+                    boxShadow: "0 2px 12px rgba(234,28,37,0.5)",
+                  }}
                 >
                   ★ {rating.trim()}
                 </span>
@@ -210,7 +228,9 @@ export function HeroBackdrop({
             )}
 
             {caption && (
-              <p className="text-gray-300 text-sm leading-relaxed max-w-xl">{caption}</p>
+              <p className="text-gray-300 text-sm leading-relaxed max-w-xl">
+                {caption}
+              </p>
             )}
 
             {link.includes("pelicula") && (
@@ -223,7 +243,6 @@ export function HeroBackdrop({
           </div>
         </div>
       </div>
-
     </div>
   );
 }

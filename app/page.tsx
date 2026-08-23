@@ -6,12 +6,9 @@ import { FloatingNav } from "@/components/FloatingNav";
 import { Movie } from "../types/movie";
 import { useEffect, useState } from "react";
 import { getAllMovies } from "@/app/actions/movie";
-import {
-  FocusContext,
-  useFocusable,
-} from "@noriginmedia/norigin-spatial-navigation-react";
 
 import { useSearchParams } from "next/navigation";
+import FocusContextProvider from "@/components/providers/FocusContextProvider";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -22,18 +19,23 @@ export default function Home() {
   const [movies, setMovies] = useState<Movie[] | undefined>([]);
   const [loading, setLoading] = useState(true);
 
-  const { ref, focusKey, focusSelf } = useFocusable();
-
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       const movies = await getAllMovies(search, filter);
       setLoading(false);
       setMovies(movies);
-      focusSelf();
     };
     fetchMovies();
-  }, [search, filter, focusSelf]);
+  }, [search, filter]);
+
+  /*   useEffect(() => {
+  if (!loading && movies && movies.length > 0) {
+    requestAnimationFrame(() => {
+      focusSelf();
+    });
+  }
+}, [loading, movies, focusSelf]); */
 
   return (
     <main
@@ -41,8 +43,8 @@ export default function Home() {
       style={{ background: "#070707" }}
     >
       <FloatingNav />
-      <FocusContext.Provider value={focusKey}>
-        <div ref={ref} className="mt-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+      <FocusContextProvider condition={!loading && movies && movies.length > 0}>
+        <div className="mt-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
           {loading ? (
             <MovieCardSkeleton />
           ) : (
@@ -51,7 +53,7 @@ export default function Home() {
             ))
           )}
         </div>
-      </FocusContext.Provider>
+      </FocusContextProvider>
     </main>
   );
 }

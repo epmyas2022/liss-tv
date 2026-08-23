@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import type { Movie } from "@/types/movie";
 
 import { useMovieStore } from "../../store/useMovieStore";
+import FocusElementProvider from "../providers/FocusElementProvider";
 
 export default function WatchButton({
   moviePreview,
@@ -33,20 +34,22 @@ export default function WatchButton({
     router.push(`/${moviePreview.link}/player`);
   }
   return (
-    <button
-      onClick={handleClick}
-      className="cursor-pointer relative flex justify-center items-center gap-2 w-full bg-[#EA1C25] hover:bg-[#c8151c] active:bg-[#a01018] text-white font-bold rounded-lg transition-colors duration-200"
-      style={{
-        height: "clamp(2.25rem, 5vw, 2.75rem)",
-        fontSize: "clamp(0.8rem, 2vw, 0.9rem)",
-      }}
-    >
-      <>
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-          <polygon points="4,2 14,8 4,14" />
-        </svg>
-        Watch Now
-      </>
-    </button>
+    <FocusElementProvider className="rounded-lg" onEnterPress={() => handleClick()}>
+      <button
+        onClick={handleClick}
+        className="cursor-pointer relative flex justify-center items-center gap-2 w-full bg-[#EA1C25] hover:bg-[#c8151c] active:bg-[#a01018] text-white font-bold rounded-lg transition-colors duration-200"
+        style={{
+          height: "clamp(2.25rem, 5vw, 2.75rem)",
+          fontSize: "clamp(0.8rem, 2vw, 0.9rem)",
+        }}
+      >
+        <>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <polygon points="4,2 14,8 4,14" />
+          </svg>
+          Watch Now
+        </>
+      </button>
+    </FocusElementProvider>
   );
 }

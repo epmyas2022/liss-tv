@@ -1,8 +1,8 @@
-
 import { getMovieDetails } from "@/services/movie.service";
 import { FloatingNav } from "@/components/FloatingNav";
 import { HeroBackdrop } from "@/components/detail/HeroBackdrop";
 import { EpisodeList } from "@/components/detail/EpisodeList";
+import FocusContextProvider from "@/components/providers/FocusContextProvider";
 
 export default async function SerieDetailPage({
   params,
@@ -30,20 +30,28 @@ export default async function SerieDetailPage({
   const seasons = movie.episodes ?? [];
 
   return (
-    <main className="pb-16 sm:pb-0" style={{ background: "#070707", minHeight: "100vh" }}>
+    <main
+      className="pb-16 sm:pb-0"
+      style={{ background: "#070707", minHeight: "100vh" }}
+    >
       <FloatingNav />
-      <HeroBackdrop
-        backgroundImage={movie.backgroundImage}
-        image={movie.image}
-        title={movie.title}
-        year={movie.year}
-        duration={movie.duration}
-        rating={movie.rating}
-        tags={movie.tags}
-        caption={movie.caption}
-        link={`serie/${slug}`}
-      />
-      {seasons.length > 0 && <EpisodeList title={movie.title} seasons={seasons} />}
+
+      <FocusContextProvider condition={movie !== null}>
+        <HeroBackdrop
+          backgroundImage={movie.backgroundImage}
+          image={movie.image}
+          title={movie.title}
+          year={movie.year}
+          duration={movie.duration}
+          rating={movie.rating}
+          tags={movie.tags}
+          caption={movie.caption}
+          link={`serie/${slug}`}
+        />
+        {seasons.length > 0 && (
+          <EpisodeList title={movie.title} seasons={seasons} />
+        )}
+      </FocusContextProvider>
     </main>
   );
 }
