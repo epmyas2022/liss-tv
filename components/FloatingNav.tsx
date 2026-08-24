@@ -55,14 +55,10 @@ export function FloatingNav() {
           className="flex items-center gap-1 px-3 py-3 rounded-full"
           style={glassStyle}
         >
-          <FocusElementProvider
-            className="rounded-full"
-            strokeSize={0}
-            styleFocus={{ backgroundColor: "rgba(255,255,255,0.17)" }}
-          >
+          <FocusElementProvider className="rounded-full group" strokeSize={0}>
             <Link
               href="/"
-              className="font-poppins px-6 text-white text-2xl font-bold shrink-0"
+              className="font-poppins px-6 text-white text-2xl font-bold shrink-0 rounded-lg group-[.focus-active]:shadow-[0_20px_32px_-12px_rgba(234,28,37,0.4)]"
             >
               Liss <span className="text-[#EA1C25]">TV</span>
             </Link>
@@ -71,29 +67,26 @@ export function FloatingNav() {
           {NAV_ITEMS.map(({ label, href, icon: Icon }) => (
             <FocusElementProvider
               key={label}
-              className="rounded-full"
+              className="rounded-full group "
               strokeSize={0}
               styleFocus={{
                 background: "rgba(234,28,37,0.85)",
-                color: "#fff",
-                boxShadow: "0 2px 12px rgba(234,28,37,0.4)",
               }}
               onEnterPress={() => router.push(href)}
             >
               <Link
                 href={href}
                 onClick={() => setActive(label)}
-                className="relative flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200"
-                style={{
-                  color: active === label ? "#fff" : "rgba(255,255,255,0.65)",
-                  background:
-                    active === label ? "rgba(234,28,37,0.85)" : "transparent",
-                  boxShadow:
+                className={`relative focus-within:outline-none hover:bg-white/15  hover:text-white ${active === label ? "text-white" : "text-[rgba(255,255,255,0.65)]"} group-[.focus-active]:text-white flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200`}
+                style={
+                  {
+                    /*  boxShadow:
                     active === label
                       ? "0 2px 12px rgba(234,28,37,0.4)"
-                      : "none",
-                }}
-                onMouseEnter={(e) => {
+                      : "none", */
+                  }
+                }
+                /* onMouseEnter={(e) => {
                   if (active !== label) {
                     (e.currentTarget as HTMLElement).style.color = "#fff";
                     (e.currentTarget as HTMLElement).style.background =
@@ -107,7 +100,7 @@ export function FloatingNav() {
                     (e.currentTarget as HTMLElement).style.background =
                       "transparent";
                   }
-                }}
+                }} */
               >
                 <Icon size={16} />
                 {label}
@@ -116,19 +109,23 @@ export function FloatingNav() {
           ))}
 
           <div className="px-3 relative">
-            <input
-              type="text"
-              placeholder="Search..."
-              defaultValue={searchParams.get("search") ?? ""}
-              className="px-3 py-2 font-poppins rounded-full text-sm bg-transparent text-white placeholder-gray-400 focus:outline-none transition-all duration-200"
-              style={{
-                border: pending
-                  ? "2px solid #EA1C25"
-                  : "2px solid rgba(209,213,219,0.6)",
-                boxShadow: pending ? "0 0 0 2px rgba(234,28,37,0.25)" : "none",
-              }}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
+            <FocusElementProvider className="rounded-full">
+              <input
+                type="text"
+                placeholder="Search..."
+                defaultValue={searchParams.get("search") ?? ""}
+                className="px-3 py-2 font-poppins rounded-full text-sm bg-transparent text-white placeholder-gray-400 focus:outline-none transition-all duration-200"
+                style={{
+                  border: pending
+                    ? "2px solid #EA1C25"
+                    : "2px solid rgba(209,213,219,0.6)",
+                  boxShadow: pending
+                    ? "0 0 0 2px rgba(234,28,37,0.25)"
+                    : "none",
+                }}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </FocusElementProvider>
             {pending && (
               <span
                 className="absolute right-5 top-1/2 -translate-y-1/2 block w-3.5 h-3.5 rounded-full border-2 border-transparent"

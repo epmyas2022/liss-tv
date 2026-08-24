@@ -20,9 +20,9 @@ export default function FocusElementProvider({
   return (
     <div
       ref={ref}
-      className={className}
+      className={`${focused ? "focus-active" : ""} ${className}`}
       style={{
-        outline: focused ? `${strokeSize}px solid white` : "none",
+        outline: focused ? `${strokeSize !== 0 ? `${strokeSize}px solid white` : "none"}` : "none",
         ...(focused && styleFocus),
       }}
     >
