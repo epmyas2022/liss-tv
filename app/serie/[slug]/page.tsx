@@ -34,7 +34,8 @@ export default async function SerieDetailPage({
       className="pb-16 sm:pb-0"
       style={{ background: "#070707", minHeight: "100vh" }}
     >
-      <FloatingNav />
+     
+        <FloatingNav />
 
       <FocusContextProvider condition={movie !== null}>
         <HeroBackdrop

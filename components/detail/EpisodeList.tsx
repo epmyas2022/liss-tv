@@ -95,7 +95,6 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
 
       {/* Episode rows */}
 
-      <FocusContextProvider condition={current.episodes.length > 0}>
         <ol className="flex flex-col gap-2">
           {current.episodes.map((ep) => (
             <li key={ep.link + ep.numberEpisode}>
@@ -113,7 +112,6 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
             </li>
           ))}
         </ol>
-      </FocusContextProvider>
     </section>
   );
 }
