@@ -9,11 +9,18 @@ import { useEffect } from "react";
 export default function FocusContextProvider({
   children,
   condition,
+  trackChildren,
+  isFocusBoundary,
 }: {
   children: React.ReactNode;
   condition?: boolean;
+  trackChildren?: boolean;
+  isFocusBoundary?: boolean;
 }) {
-  const { ref, focusKey, focusSelf } = useFocusable();
+  const { ref, focusKey, focusSelf } = useFocusable({
+    trackChildren,
+    isFocusBoundary,
+  });
 
   useEffect(() => {
     if (!condition) return;

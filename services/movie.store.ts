@@ -32,3 +32,5 @@ export function get(link: string): StoredMovie | undefined {
 export function getAll(): StoredMovie[] {
   return Object.values(read());
 }
+
+

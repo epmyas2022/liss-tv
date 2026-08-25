@@ -98,8 +98,8 @@ export function PlayerView() {
     );
 
   return (
-    <div className="h-screen bg-black flex flex-col justify-center px-4 py-2 relative">
-      <div className="absolute top-0 left-0 w-full bg-black opacity-80 z-20 p-5">
+    <div className="h-dvh bg-black flex flex-col justify-center px-2 py-2 relative">
+      <div className="absolute top-0 left-0 w-full  z-20 p-5">
         <button
           onClick={() => router.back()}
           className="cursor-pointer flex items-center gap-2 text-white font-bold"

@@ -5,7 +5,9 @@ import { Trash2, Play, Clock } from "lucide-react";
 import { useMovieStore } from "@/store/useMovieStore";
 import { FloatingNav } from "@/components/FloatingNav";
 import type { ContinueWatching } from "@/types/movie";
-import { useRouter  } from "next/navigation";
+import { useRouter } from "next/navigation";
+import FocusContextProvider from "@/components/providers/FocusContextProvider";
+import FocusElementProvider from "@/components/providers/FocusElementProvider";
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -105,8 +107,10 @@ function ContinueWatchingCard({
       <div className="px-3 pt-2.5 pb-3 space-y-2">
         <ProgressBar current={item.currentTime} duration={item.duration} />
 
-        <div className="flex items-center justify-evenly
-         gap-2">
+        <div
+          className="flex items-center justify-evenly
+         gap-2"
+        >
           <p className="text-white text-sm font-semibold leading-tight line-clamp-1 font-poppins flex-1">
             {item.title || item.link}
           </p>
@@ -144,7 +148,7 @@ export default function ContinueWatchingPage() {
       startTime: item.currentTime,
     });
 
-    router.push(`${item.link.split("/").slice(0,2).join("/")}/player`);
+    router.push(`${item.link.split("/").slice(0, 2).join("/")}/player`);
   };
 
   return (
@@ -171,16 +175,24 @@ export default function ContinueWatchingPage() {
         {continueWatching.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {continueWatching.map((item) => (
-              <a key={item.link} onClick={() => handleCardClick(item)}>
-                <ContinueWatchingCard
-                  item={item}
-                  onRemove={removeFromContinueWatching}
-                />
-              </a>
-            ))}
-          </div>
+          <FocusContextProvider>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {continueWatching.map((item) => (
+                <a key={item.link} onClick={() => handleCardClick(item)}>
+                  <FocusElementProvider
+                    onEnterPress={() => handleCardClick(item)}
+                    strokeSize={3}
+                    className="rounded-xl"
+                  >
+                    <ContinueWatchingCard
+                      item={item}
+                      onRemove={removeFromContinueWatching}
+                    />
+                  </FocusElementProvider>
+                </a>
+              ))}
+            </div>
+          </FocusContextProvider>
         )}
       </div>
     </main>

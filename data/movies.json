@@ -21205,5 +21205,41 @@
     ],
     "link": "serie/el-senor-de-los-cielos",
     "updatedAt": "2026-08-24T02:23:49.626Z"
+  },
+  "pelicula/obex": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/77aCeoWOA5toCWk67lTAzrfW92Y.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/ouY8g06DSEhRIhju2lgW5NudTNk.jpg",
+    "title": "OBEX",
+    "year": "2026",
+    "duration": "1h 31m",
+    "rating": "◆ 5.8",
+    "tags": [
+      "Terror",
+      "Aventura",
+      "Fantasía"
+    ],
+    "caption": "Conor Marsh lleva una vida retirada con su perra, Sandy, hasta que un día empieza a jugar a OBEX, un nuevo juego de ordenador de última generación. Cuando Sandy desaparece, la línea entre la realidad y el juego se difumina y Conor debe aventurarse en el extraño mundo de OBEX para traerla a casa.",
+    "episodes": [],
+    "link": "pelicula/obex",
+    "updatedAt": "2026-08-25T01:45:11.786Z",
+    "movieUrl": "https://www.mediafire.com/file/6h08l6iezik1q57"
+  },
+  "pelicula/sudor-frio": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/uG2DYUcV8Ga5wp6AGyNONa1l1ZJ.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/8ik0YexoLU5ZjCMrpsLvNkSis5A.jpg",
+    "title": "Cold Sweat",
+    "year": "2010",
+    "duration": "1h 20m",
+    "rating": "◆ 4.9",
+    "tags": [
+      "Acción",
+      "Terror",
+      "Suspense"
+    ],
+    "caption": "Un joven en busca de su novia desaparecida. Una amiga incondicional dispuesta a todo para descubrir la verdad. Una investigación que culmina en una antigua casa. En su interior los esperan dos asesinos brutales, armados con veinticinco cajas de explosivos que estuvieron perdidos desde la última dictadura militar.",
+    "episodes": [],
+    "link": "pelicula/sudor-frio",
+    "updatedAt": "2026-08-25T01:08:21.607Z",
+    "movieUrl": "https://www.mediafire.com/file/du7z48rbwe9ax0t"
   }
 }

@@ -63,3 +63,35 @@ export async function attempts<T>(actions: Action<T>[]): Promise<T> {
 
   throw new Error("Todas las acciones fallaron después de todos los intentos");
 }
+
+export async function getLinkMediafire(url: string) {
+  try {
+    const result = await fetch(url, {
+      method: "GET",
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+    });
+
+    if (!result.ok) throw new Error(`HTTP error! status: ${result.status}`);
+
+    const html = await result.text();
+    const regexLink = /https:\/\/download[^\s"'><]+mediafire\.com[^\s"'><]+/i;
+
+    if (!regexLink.test(html)) {
+      console.warn(
+        "No se encontró un enlace de descarga en la página de Mediafire.",
+      );
+      return null;
+    }
+
+    const match = html.match(regexLink);
+
+    return match ? match[0] : "";
+    
+  } catch (error) {
+    console.error("❌ Error al obtener el enlace de Mediafire:", error);
+    return null;
+  }
+}

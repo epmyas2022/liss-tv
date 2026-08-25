@@ -1,5 +1,6 @@
 import { Browser, chromium } from "playwright";
 import { upsert, get } from "./movie.store";
+import { getLinkMediafire } from "@/utils/utils";
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -30,17 +31,27 @@ export async function getBrowser() {
       "Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0",
   });
 
-   setTimeout(async () => {
+  setTimeout(async () => {
     await context.close();
-  }, 20000);  // Cierra el contexto después de 20 segundos
+  }, 20000); // Cierra el contexto después de 20 segundos
 
   const page = await context.newPage();
 
   return { browser, context, page };
 }
 
+
+
 export async function getUrl(path: string) {
   // ponytail: cache-first — skip scrape if URL already stored
+
+  const cached = get(path);
+
+  const linkCached = cached?.movieUrl
+    ? await getLinkMediafire(cached.movieUrl)
+    : null;
+
+  if (linkCached) return linkCached;
 
   let resolved = false;
 
@@ -84,14 +95,21 @@ export async function getUrl(path: string) {
 
       Promise.race([clickLoop(), videoPromise]);
 
-      resolve(await videoPromise);
+      const url = await videoPromise;
+
+      const extractNameUrl = (url: string) => {
+        const match = url.match(/[^/]+(?=\/[^/]+$)/);
+        return match ? `https://www.mediafire.com/file/${match[0]}` : "";
+      };
+
+      upsert(path, { movieUrl: extractNameUrl(url) });
+
+      resolve(url);
     } catch (error) {
       console.error("Error occurred while fetching video URL:", error);
     }
   });
 }
-
-
 
 export async function getAll(search?: string, slug: string = "") {
   const { context, page } = await getBrowser();
