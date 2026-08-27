@@ -1,6 +1,6 @@
 import { Browser, chromium } from "playwright";
 import { upsert, get } from "./movie.store";
-import { getLinkMediafire } from "@/utils/utils";
+import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -60,7 +60,7 @@ export async function getUrl(path: string) {
 
     const videoPromise = new Promise<string>((resolveVideo) => {
       const handler = (response: { url: () => string }) => {
-        if (response.url().includes(".bin")) {
+        if (response.url().includes(".bin") || isUrlMediafire(response.url())) {
           resolved = true;
           page.off("response", handler); // Limpiamos el listener en cuanto lo encontramos
           resolveVideo(response.url());

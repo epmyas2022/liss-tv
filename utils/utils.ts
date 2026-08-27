@@ -64,6 +64,11 @@ export async function attempts<T>(actions: Action<T>[]): Promise<T> {
   throw new Error("Todas las acciones fallaron después de todos los intentos");
 }
 
+
+export function isUrlMediafire(url: string): boolean {
+  const mediafireRegex =  /https:\/\/download[^\s"'><]+mediafire\.com[^\s"'><]+/i;
+  return mediafireRegex.test(url);
+}
 export async function getLinkMediafire(url: string) {
   try {
     const result = await fetch(url, {
