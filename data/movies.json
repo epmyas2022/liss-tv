@@ -21241,5 +21241,42 @@
     "link": "pelicula/sudor-frio",
     "updatedAt": "2026-08-25T01:08:21.607Z",
     "movieUrl": "https://www.mediafire.com/file/du7z48rbwe9ax0t"
+  },
+  "pelicula/grand-theft-auto-vi-una-mirada-extendida": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/oDp9Yvvi2mRHXxPh6E2wi9ybhtK.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/32scX7wVONMtuQpnPkJjS72MUEI.jpg",
+    "title": "Una mirada extendida a Grand Theft Auto VI",
+    "year": "2026",
+    "duration": "0h 27m",
+    "rating": "◆ 9.0",
+    "tags": [
+      "Acción",
+      "Animación",
+      "Aventura",
+      "Crimen"
+    ],
+    "caption": "Descubre la nueva evolución de la revolucionaria saga de Grand Theft Auto.",
+    "episodes": [],
+    "link": "pelicula/grand-theft-auto-vi-una-mirada-extendida",
+    "updatedAt": "2026-08-29T19:00:19.741Z"
+  },
+  "pelicula/josee-el-tigre-y-los-peces": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/521koHpCyK6ZeNpEAvPAuC75cJ5.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/buF1mmMRAiJZMOK5Qg3DBTtZ5XO.jpg",
+    "title": "Josee, el Tigre y el Pez",
+    "year": "2020",
+    "duration": "1h 38m",
+    "rating": "◆ 8.3",
+    "tags": [
+      "Drama",
+      "Animación",
+      "Romance",
+      "Anime"
+    ],
+    "caption": "Tsuneo es un estudiante que trabaja medio tiempo en un salón de Mah-Jong. Últimamente, los clientes hablan de una anciana que empuja una misteriosa carreola en las calles. Un día, descubre que es una joven parapléjica llamada Kumiko quien está allí y que se hace llamar Josee en referencia a su libro favorito. Entre ellos se desarrolla una amistad que poco a poco se convierte en amor.",
+    "episodes": [],
+    "link": "pelicula/josee-el-tigre-y-los-peces",
+    "updatedAt": "2026-08-29T19:11:23.299Z",
+    "movieUrl": "https://www.mediafire.com/file/u5os8y0hurz7c1f"
   }
 }

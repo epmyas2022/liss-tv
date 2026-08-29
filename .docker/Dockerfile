@@ -46,4 +46,6 @@ ENV PORT=8000
 
 EXPOSE $PORT
 
+VOLUME [ "/data" ]
+
 CMD ["sh", "-c", "tor & HOSTNAME=0.0.0.0 PORT=$PORT node server.js"]
