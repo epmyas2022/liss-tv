@@ -3,11 +3,12 @@
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useMovieStore } from "../store/useMovieStore";
 import { useEffect, useRef, useState } from "react";
 import { getMovieUrl } from "@/app/actions/movie";
 import { type MediaPlayerInstance } from "@vidstack/react";
 import NextEpisode from "./ui/NextEpisode";
+import { useMovie } from "@/hooks/useMovie";
+import { Spinner } from "./ui/Spinner";
 
 const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
   ssr: false,
@@ -20,7 +21,13 @@ const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
 
 export function PlayerView() {
   const router = useRouter();
-  const store = useMovieStore();
+  const {
+    syncToPocketBase,
+    syncToLocal,
+    syncInitEventListener,
+    handleNextEpisodeClick,
+    store,
+  } = useMovie();
 
   const [movieUrl, setMovieUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,37 +39,18 @@ export function PlayerView() {
 
   const { moviePreview } = store;
 
-  const handleNextEpisodeClick = async () => {
-    if (!moviePreview?.next) return;
-
-    store.setMovieData({
-      ...moviePreview.next,
-      startTime: 0,
-    });
-
-    setTimeout(() => window.location.reload(), 1000);
-  };
-
   const saveWatchProgress = (currentTime: number, duration: number) => {
-    if (!moviePreview) return;
-
-    if (duration - currentTime < THRESHOLD_PROGRESS_SECONDS) {
-      if (moviePreview.next)
-        store.addToContinueWatching({
-          ...moviePreview.next,
-          currentTime: 0,
-          duration: 0,
-        });
-
-      return store.removeFromContinueWatching(moviePreview.link);
-    }
-
-    if (currentTime - lastSavedTimeRef.current < 20) return;
-
-    store.addToContinueWatching({ ...moviePreview, currentTime, duration });
-
-    lastSavedTimeRef.current = currentTime;
+    return syncToLocal({
+      currentTime,
+      duration,
+      threshold: THRESHOLD_PROGRESS_SECONDS,
+      lastSavedTimeRef,
+    });
   };
+
+  useEffect(() => {
+    return syncInitEventListener();
+  }, [syncInitEventListener]);
 
   useEffect(() => {
     const fetchMovieUrl = async () => {
@@ -84,7 +72,7 @@ export function PlayerView() {
   if (loading || !moviePreview)
     return (
       <div className="flex items-center justify-center h-screen text-white bg-black">
-        <p className="text-lg font-semibold">Cargando video...</p>
+        <Spinner size="lg"></Spinner>
       </div>
     );
 
@@ -112,6 +100,7 @@ export function PlayerView() {
         handleTimeUpdate={(detail, nativeEvent) =>
           saveWatchProgress(detail.currentTime, nativeEvent.target.duration)
         }
+        handlePause={() => syncToPocketBase()}
         startTime={moviePreview.startTime}
         src={movieUrl}
         title={moviePreview.title}

@@ -2,6 +2,8 @@ import { ContinueWatching, MoviePreview, MovieState } from "@/types/movie";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+
+
 export const useMovieStore = create<MovieState>()(
   persist(
     (set) => ({
@@ -23,11 +25,26 @@ export const useMovieStore = create<MovieState>()(
           return { continueWatching: [...state.continueWatching, movie] };
         }),
 
-      removeFromContinueWatching: (link: string) =>
+      syncContinueWatching: (movies: ContinueWatching[]) =>
+        set((state) => {
+          const newMovies = [...state.continueWatching];
+          movies.forEach((m) => {
+            const existingIndex = newMovies.findIndex((ex) => ex.link === m.link);
+            if (existingIndex !== -1) {
+              newMovies[existingIndex] = m;
+            } else {
+              newMovies.push(m);
+            }
+          });
+          return { continueWatching: newMovies };
+        }),
+
+      removeFromContinueWatching: async (link: string) =>
         set((state) => ({
           continueWatching: state.continueWatching.filter(
             (m) => m.link !== link,
           ),
+
         })),
 
       // Función para guardar los datos (la usarás antes de navegar a esta página)
@@ -42,3 +59,6 @@ export const useMovieStore = create<MovieState>()(
     },
   ),
 );
+
+
+

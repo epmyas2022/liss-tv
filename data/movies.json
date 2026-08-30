@@ -21278,5 +21278,855 @@
     "link": "pelicula/josee-el-tigre-y-los-peces",
     "updatedAt": "2026-08-29T19:11:23.299Z",
     "movieUrl": "https://www.mediafire.com/file/u5os8y0hurz7c1f"
+  },
+  "serie/volver-a-caer": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/s6Vd7c1k405DBtJxzyVbHXcWJrY.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/esXkEJVabYCvl15jAvzYkBB4gyT.jpg",
+    "title": "Volver a caer",
+    "year": "Ended",
+    "duration": "2023",
+    "rating": "\n                    TMDB\n                    6.9\n                ",
+    "tags": [
+      "Drama"
+    ],
+    "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/volver-a-caer/temporada-1/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/xCEpRaxIsolArHwwWHGpk4Mq18o.jpg",
+            "numberEpisode": "E1",
+            "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse."
+          },
+          {
+            "link": "serie/volver-a-caer/temporada-1/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/qT0WTVCJR3ZDLBBpAWmNlfXEw7b.jpg",
+            "numberEpisode": "E2",
+            "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse."
+          },
+          {
+            "link": "serie/volver-a-caer/temporada-1/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/cN2Vx5YmyY8ZyCasApUG8xiRHly.jpg",
+            "numberEpisode": "E3",
+            "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse."
+          },
+          {
+            "link": "serie/volver-a-caer/temporada-1/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/pJyMdfqloOvNgpvAI4RGiHxUvEC.jpg",
+            "numberEpisode": "E4",
+            "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse."
+          },
+          {
+            "link": "serie/volver-a-caer/temporada-1/episodio-5",
+            "title": "Episodio 5",
+            "image": "https://image.tmdb.org/t/p/w300/lABEvbQIWMWgJfUeb337GK8EEa3.jpg",
+            "numberEpisode": "E5",
+            "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse."
+          },
+          {
+            "link": "serie/volver-a-caer/temporada-1/episodio-6",
+            "title": "Episodio 6",
+            "image": "https://image.tmdb.org/t/p/w300/1yRz2kr3Ov7qzJeoOkFmd0grHW9.jpg",
+            "numberEpisode": "E6",
+            "caption": "Anna viaja a San Gabriel para ayudar a su hermano con su matrimonio. Al llegar conoce a Vico, un joven músico con quien parece destinada a encontrarse."
+          }
+        ]
+      }
+    ],
+    "link": "serie/volver-a-caer",
+    "updatedAt": "2026-08-29T23:40:36.688Z"
+  },
+  "serie/volver-a-caer/temporada-1/episodio-1": {
+    "movieUrl": "https://www.mediafire.com/file/vudodg0ghlx64ef",
+    "link": "serie/volver-a-caer/temporada-1/episodio-1",
+    "updatedAt": "2026-08-29T23:41:18.534Z"
+  },
+  "pelicula/amor-es-amor": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/8fN4YSYUOAlYmUcqzGCuztaXms6.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/klwPK4U79XyZxfUJmXmqsK4ppor.jpg",
+    "title": "Love is Love",
+    "year": "2026",
+    "duration": "1h 31m",
+    "rating": "◆ 8.4",
+    "tags": [
+      "Comedia",
+      "Romance"
+    ],
+    "caption": "Amor es amor es una película mexicana dirigida por Rob Schneider.",
+    "episodes": [],
+    "link": "pelicula/amor-es-amor",
+    "updatedAt": "2026-08-30T01:02:57.682Z",
+    "movieUrl": "https://www.mediafire.com/file/bybqamvjpyq2dqx"
+  },
+  "serie/las-finest-policias-de-los-angeles": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/ojSWom4hbO8RAhMem8jITICrKlD.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/pecfFki7ADklKNuqMrcBD7U9lWc.jpg",
+    "title": "L.A.'s Finest: Policías de Los Ángeles",
+    "year": "Canceled",
+    "duration": "2019",
+    "rating": "\n                    TMDB\n                    6.9\n                ",
+    "tags": [
+      "Drama",
+      "Crimen"
+    ],
+    "caption": "Spin-off de la franquicia «Bad Boys», protagonizado esta vez por dos mujeres, en la que dos agentes del Cuerpo Especial Antidroga comparten aventuras de toda índole.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-1",
+            "title": "Piloto",
+            "image": "https://image.tmdb.org/t/p/w300/fDxeKmc1jJ9456NHxcYpguv3iTY.jpg",
+            "numberEpisode": "E1",
+            "caption": "Cuando un muchacho es blanco de un poderoso cartel, dos detectives con pasados complejos corren contrarreloj para mantenerlo a salvo, pero cuando la búsqueda personal de justicia de Syd amenaza sus esfuerzos, la pareja debe decidir a quién realmente sirven y protegen."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-2",
+            "title": "Desafío",
+            "image": "https://image.tmdb.org/t/p/w300/wzjNW71laUmqfa1E1YLtJvkB7rJ.jpg",
+            "numberEpisode": "E2",
+            "caption": "Rastrear a un asesino en serie que atrae a sus víctimas a áreas aisladas antes de matarlas en vivo en las redes sociales; Syd tiene un secreto peligroso que choca con el complicado pasado de McKenna."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-3",
+            "title": "Con Air",
+            "image": "https://image.tmdb.org/t/p/w300/lwSn0JNfm0RSJMGyFDcRq3PDtNJ.jpg",
+            "numberEpisode": "E3",
+            "caption": "Un cuerpo cae repentinamente en una calle concurrida, aparentemente cayendo directamente del cielo, y nuestro equipo se queda para juntar las pistas. Mientras tanto, Syd y McKenna se dan cuenta de que necesitan confiar la una en la otra si quieren escapar de los fantasmas de su pasado."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-4",
+            "title": "Déjà Vu",
+            "image": "https://image.tmdb.org/t/p/w300/3GveImJlBxJpXZ7Uj3CzKSwPtcD.jpg",
+            "numberEpisode": "E4",
+            "caption": "Se acabó el tiempo: Syd y McKenna necesitan poner el fentanilo de Knox bajo custodia policial sin dejar rastro de su propia participación. Pero, ¿pueden lograrlo cuando McKenna está distraída por el extraño comportamiento de Izzy y un fantasma del pasado de Syd regresa para perseguirla?"
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-5",
+            "title": "Despedida…",
+            "image": "https://image.tmdb.org/t/p/w300/5n94XV1zMOjJ4mYu6gHk9vJLZyA.jpg",
+            "numberEpisode": "E5",
+            "caption": "Nuestro equipo de LAPD trabaja para resolver el misterio detrás de la brutal muerte de una mujer trans, mientras que Syd y McKenna están enredados en sus propias complicaciones personales. A medida que la búsqueda de Knox se intensifica, Syd se ve obligada a enfrentar su pasado traumático y complicado de frente cuando una vieja llama se transfiere a la policía de Los Ángeles. Mientras tanto, McKenna ayuda a Izzy a procesar el dolor del fatal accidente automovilístico de su madre."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-6",
+            "title": "… Mi encantadora",
+            "image": "https://image.tmdb.org/t/p/w300/ikjV0kQtmyOUYCBJlWvAWowWyo9.jpg",
+            "numberEpisode": "E6",
+            "caption": "Con Dante de vuelta en su vida, es imposible para McKenna seguir ocultando la verdad sobre la muerte de su madre a Syd. Al mismo tiempo, Syd está en un lío mientras Arlo conspira contra sus seres queridos. Como si esto no fuera suficiente en el plato de Syd y McKenna, nuestro equipo continúa buscando respuestas en el asesinato de la mujer trans y su prometido."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-7",
+            "title": "Libro de los secretos",
+            "image": "https://image.tmdb.org/t/p/w300/84J8UAFT5DFQPibZnY488W1pSBt.jpg",
+            "numberEpisode": "E7",
+            "caption": "La búsqueda personal de Syd y McKenna por Gabriel Knox aumenta cuando dejan entrar a los Bens en su búsqueda del esquivo Arlo. Mientras tanto, un Syd en conflicto debe lidiar con una crisis familiar, mientras que McKenna tiene una difícil elección entre su pasado y su futuro."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-8",
+            "title": "Los hombres muertos no cuentan cuentos",
+            "image": "https://image.tmdb.org/t/p/w300/9sWrCYJPbBpyY9jzP4mC258IMMi.jpg",
+            "numberEpisode": "E8",
+            "caption": "McKenna se ve obligada a revelar su pasado a su esposo, y tanto ella como Syd intentan convencerlo de que doblegue el estado de derecho para salvar una vida. Mientras tanto, nuestro equipo se encuentra siguiendo a un grupo de ladrones que lograron robar diamantes imposibles de rastrear por valor de millones de dólares."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-9",
+            "title": "Mentes peligrosas",
+            "image": "https://image.tmdb.org/t/p/w300/cFYUrHo7fInSEAICa8MNIt9C9s6.jpg",
+            "numberEpisode": "E9",
+            "caption": "Nuestro equipo de detectives continúan investigando el caso de los diamantes perdidos, y el equipo ejecuta una importante redada de drogas. Con el trato de Knox inminente, tanto Syd como McKenna deben confrontar algunos de sus secretos más profundos hasta el momento."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-10",
+            "title": "Enemigo del Estado",
+            "image": "https://image.tmdb.org/t/p/w300/cHXCFVY0AHLtQ8KSBMg848yc668.jpg",
+            "numberEpisode": "E10",
+            "caption": "Mientras su pasado continúa chocando con el presente, Syd y McKenna descubren que un jugador desconocido los ha estado manipulando todo el tiempo. Mientras tanto, la búsqueda de los diamantes que faltan continúa, así como McKenna se enfrenta a una elección imposible; su hermano o su futuro."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-11",
+            "title": "Ladrón",
+            "image": "https://image.tmdb.org/t/p/w300/aBirzwHJqxi9gvHvnYjJCyb6YCS.jpg",
+            "numberEpisode": "E11",
+            "caption": "Después de un descubrimiento sorprendente, Syd y McKenna debaten en quién pueden confiar para seguir adelante mientras también investigan una muerte que tuvo lugar en un pintoresco parque de Los Ángeles."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-12",
+            "title": "Armageddon",
+            "image": "https://image.tmdb.org/t/p/w300/1mSs32uvs1g69GEV74EXI3Wn4cd.jpg",
+            "numberEpisode": "E12",
+            "caption": "Cuando Syd y McKenna finalmente se acercan a Gabriel Knox, una revelación impactante hace que su pelea sea más personal que nunca."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-13",
+            "title": "Chicas malas",
+            "image": "https://image.tmdb.org/t/p/w300/owgLUyfbvSl9k5J4kRACFG94Biy.jpg",
+            "numberEpisode": "E13",
+            "caption": "Syd, McKenna y el equipo se unen mientras compiten contra el reloj para salvar a uno de los suyos, y finalmente se enfrentan cara a cara con su mayor enemigo."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-1",
+            "title": "La maldición de la Perla Negra",
+            "image": "https://image.tmdb.org/t/p/w300/2wBgV8IlTce0aSoOFh8HRGZrCiI.jpg",
+            "numberEpisode": "E1",
+            "caption": "Con la ayuda de McKenna, Syd busca al asesino de Jen mientras lamenta la pérdida de su amigo. Mientras tanto, la muerte de una leyenda de Koreatown tiene a la comunidad indignada preguntándose quién podría ser responsable."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-2",
+            "title": "El Llanero Solitario",
+            "image": "https://image.tmdb.org/t/p/w300/oiHKtQcuILgY0eDJZptG3Y0QQgO.jpg",
+            "numberEpisode": "E2",
+            "caption": "Mientras nuestro equipo busca al culpable detrás de la oleada de crímenes en Koreatown, McKenna sufre a causa de los recuerdos de su experiencia en Irak."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-3",
+            "title": "Ladrona de corazones",
+            "image": "https://image.tmdb.org/t/p/w300/BHlQtu3s8KcyZ9bUUcspvaRfyU.jpg",
+            "numberEpisode": "E3",
+            "caption": "Tras enfrentarse a uno de los antiguos clientes de Jen, Syd y McKenna creen que están en el camino correcto, pero sus vidas se ven inesperadamente amenazadas."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-4",
+            "title": "Policías de Beverly Hills",
+            "image": "https://image.tmdb.org/t/p/w300/zdVWAKO6Um5fXPALOuNd7gQTsQW.jpg",
+            "numberEpisode": "E4",
+            "caption": "Con el culpable de los asesinatos ocurridos en Koreatown encarcelado, nuestro equipo descubre un nuevo caso cuando encuentran el cuerpo sin vida de nadador universitario."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-5",
+            "title": "Desaparecido en 60 segundos",
+            "image": "https://image.tmdb.org/t/p/w300/iFmCwuAOAcmaor1a8pQzTj9WYlC.jpg",
+            "numberEpisode": "E5",
+            "caption": "Cuando hallan relación entre una nueva aplicación de móvil y una serie de crímenes, nuestro equipo descubre que la ola de asesinatos está lejos de terminar. Mientras tanto, Syd descubre información impactante sobre quién era Jen realmente."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-6",
+            "title": "Maverick",
+            "image": "https://image.tmdb.org/t/p/w300/s6WCBsNrWCcOVhQrNpIxuTwzJS7.jpg",
+            "numberEpisode": "E6",
+            "caption": "En medio del caos de investigar un caso que involucra a Nico, McKenna también está comenzando una terapia familiar, y Syd tiene malas noticias para la familia de Jen."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-7",
+            "title": "Marchar o morir",
+            "image": "https://image.tmdb.org/t/p/w300/6eLfe0WPWtAqEiT3rCzCtT9fB97.jpg",
+            "numberEpisode": "E7",
+            "caption": "Después de compartir la verdad sobre la muerte de Jen con su familia, Syd recibe ayuda inesperada con el caso. Mientras tanto, McKenna y Patrick deben tomar una decisión difícil."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-8",
+            "title": "Malas compañías",
+            "image": "https://image.tmdb.org/t/p/w300/mEaVtPEcwYP9sNBUoW85OZvnne3.jpg",
+            "numberEpisode": "E8",
+            "caption": "El equipo de LAPD corre a contra reloj para rescatar a uno de los suyos."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-9",
+            "title": "Canguro Jack",
+            "image": "https://image.tmdb.org/t/p/w300/wIgCDezwwQ2OpL4f9wJwYYwix0G.jpg",
+            "numberEpisode": "E9",
+            "caption": "Syd descubre que el crimen en Koreatown está obligando a la gente a salir de sus hogares, lo que llama la atención de Ricky Leon. Mientras tanto, la policía de Los Ángeles está buscando a los responsables de un robo mortal."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-10",
+            "title": "Líbranos del mal",
+            "image": "https://image.tmdb.org/t/p/w300/akV73ILfBOXs5GWwmgVPjEAXWaI.jpg",
+            "numberEpisode": "E10",
+            "caption": "Cuando Emma desaparece, Syd hará cualquier cosa para llevarla a casa con su familia. Mientras tanto, McKenna se encuentra en una misión encubierta que podría llevar a la revelación de los criminales en el caso de Koreatown."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-11",
+            "title": "Rafferty y las Gemelas Doradas",
+            "image": "https://image.tmdb.org/t/p/w300/VDe2IKsTl3KwpgxeIjMGmYJgx.jpg",
+            "numberEpisode": "E11",
+            "caption": "Syd y Baines están amenazados por una investigación interna sobre la muerte de Beverly Gamles. McKenna y Walker interrogan a Ingram, lo que lleva al equipo a un traficante de armas inesperado."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-12",
+            "title": "El Bar Coyote",
+            "image": "https://image.tmdb.org/t/p/w300/x5IucBcmDK5Uh4mX68jPEIb6iuS.jpg",
+            "numberEpisode": "E12",
+            "caption": "Mientras Patrick espera el resultado de las elecciones, el equipo trabaja incansablemente para encontrar a Malcolm Ward, un asesino libre. Syd se ofrece a decir la verdad sobre lo que pasó en el depósito de chatarra."
+          },
+          {
+            "link": "serie/las-finest-policias-de-los-angeles/temporada-2/episodio-13",
+            "title": "De por vida",
+            "image": "https://image.tmdb.org/t/p/w300/88WKnXHf7Q1XUYdIQAAa6Jj0jwj.jpg",
+            "numberEpisode": "E13",
+            "caption": "McKenna lamenta la muerte de uno de sus seres queridos con Syd a su lado. Los detectives de LAPD están trabajando como una fuerza unificada para poner fin a Lustrum Holdings y restaurar la paz en Koreatown."
+          }
+        ]
+      }
+    ],
+    "link": "serie/las-finest-policias-de-los-angeles",
+    "updatedAt": "2026-08-30T02:13:32.572Z"
+  },
+  "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-1": {
+    "movieUrl": "https://www.mediafire.com/file/8usift53l36kxfb",
+    "link": "serie/las-finest-policias-de-los-angeles/temporada-1/episodio-1",
+    "updatedAt": "2026-08-30T02:14:05.323Z"
+  },
+  "serie/visitantes-2022": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/cPdPETvloWg95sQEb7rU8Ku907J.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/oYTetO99XH19bEA39KjuYeujuhM.jpg",
+    "title": "Visitantes",
+    "year": "Ended",
+    "duration": "2022",
+    "rating": "\n                    TMDB\n                    6.5\n                ",
+    "tags": [
+      "Comedia",
+      "Sci-Fi & Fantasy"
+    ],
+    "caption": "Un policía novato y sus amigos quedan en medio de una guerra entre facciones alienígenas rivales.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/azCmg2Dgt700iWpYTsZGz8QlOK.jpg",
+            "numberEpisode": "E1",
+            "caption": "Es el primer día de Richard como policía. Al caer la noche, dos extrañas luces chocan en el cielo…"
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/tBLkr5p6qRCjJjypsFYbcRyAmgZ.jpg",
+            "numberEpisode": "E2",
+            "caption": "Richard se vuelve el hazmerreír del pueblo al tratar de investigar el misterioso accidente. Después, tiene un extraño encuentro."
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/vbfW5mAz3YPR5qgsbPhYHYPfCXf.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mientras empiezan a ocurrir extrañas desapariciones, Fred le explica más al grupo sobre la amenaza a la que se enfrentan."
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/vnX1ykuto5XMm2Gu9VNwAdV3fiS.jpg",
+            "numberEpisode": "E4",
+            "caption": "Tras la desaparición de Mitch, el equipo se propone salvarlo."
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-5",
+            "title": "Episodio 5",
+            "image": "https://image.tmdb.org/t/p/w300/6TGz3bFPyCHTtQVDHANtyTeiNwO.jpg",
+            "numberEpisode": "E5",
+            "caption": "En la antigua base militar de Pointe-Claire, Richard descubre el origen de las desapariciones misteriosas que han estado ocurriendo en el pueblo."
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-6",
+            "title": "Episodio 6",
+            "image": "https://image.tmdb.org/t/p/w300/7fifaH0Wmob8fJeu6I1nOo9Qmit.jpg",
+            "numberEpisode": "E6",
+            "caption": "Un archive confidencial del abuelo de Richard desvela los extraños sucesos que ocurrieron hace 34 años."
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-7",
+            "title": "Episodio 7",
+            "image": "https://image.tmdb.org/t/p/w300/6KAvVn0bASz0O4VZh5cbnxqEzD5.jpg",
+            "numberEpisode": "E7",
+            "caption": "Tras pasar la noche bebiendo, los agentes Muller y Scolla llevan a cabo un duro interrogatorio para tratar de esclarecer los sucesos de la noche."
+          },
+          {
+            "link": "serie/visitantes-2022/temporada-1/episodio-8",
+            "title": "Episodio 8",
+            "image": "https://image.tmdb.org/t/p/w300/a9mn5TA1FtNH8Mwy0btGjhBuJ9g.jpg",
+            "numberEpisode": "E8",
+            "caption": "Con la amenaza inminente, recuerdos del pasado resurgen y se revela lo oculto, pero quizá sea demasiado tarde…"
+          }
+        ]
+      }
+    ],
+    "link": "serie/visitantes-2022",
+    "updatedAt": "2026-08-30T04:00:50.276Z"
+  },
+  "pelicula/susurran-tu-nombre": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/wHWJ1d9hqZ2iY0057xoLm3I3m8r.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/l8Pi5oRhV14ARUTHrPhFtUg6lP6.jpg",
+    "title": "Susurran tu nombre",
+    "year": "2026",
+    "duration": "1h 51m",
+    "rating": "◆ 4.2",
+    "tags": [
+      "Drama",
+      "Crimen",
+      "Suspense"
+    ],
+    "caption": "Tras la desaparición de su hijo, un viudo recurre a la ayuda de su padre ausente: un detective retirado que, años atrás, encarceló al asesino serial vinculado con este caso.",
+    "episodes": [],
+    "link": "pelicula/susurran-tu-nombre",
+    "updatedAt": "2026-08-30T04:02:46.517Z",
+    "movieUrl": "https://www.mediafire.com/file/6pd7m357r0jhzao"
+  },
+  "serie/cementerio": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/p22xaH2ZpxhdJa1ZFF528Yk7AWc.jpg",
+    "title": "Cementerio",
+    "year": "Returning Series",
+    "duration": "2022",
+    "rating": "\n                    TMDB\n                    7.3\n                ",
+    "tags": [
+      "Drama",
+      "Crimen",
+      "Misterio"
+    ],
+    "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/cementerio/temporada-1/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/hR4ewJSR2mrxVQqkwJmlZqsdeZ5.jpg",
+            "numberEpisode": "E1",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-1/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/iGZyAobVJVmSKLRDYl2s3SdF7H1.jpg",
+            "numberEpisode": "E2",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-1/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/lebFDHnri801bmRoQIpApgbw7eR.jpg",
+            "numberEpisode": "E3",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-1/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/hoe65WbMEYq28SYx1J7o4NElR25.jpg",
+            "numberEpisode": "E4",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/cementerio/temporada-2/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/rz6KoE25FnyCqgeOAIfMDt9CJGr.jpg",
+            "numberEpisode": "E1",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/eOZSYZ666cTr5nNATJh8TEYdgZ8.jpg",
+            "numberEpisode": "E2",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/6MBpUXFFQxZ5M29mKMkYsBSUHQq.jpg",
+            "numberEpisode": "E3",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/u5XSnYaczUMppkqYqD8JXfcq4Ut.jpg",
+            "numberEpisode": "E4",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-5",
+            "title": "Episodio 5",
+            "image": "https://image.tmdb.org/t/p/w300/l6h0oyjGhVZSR9kaqA0XtZRfg8N.jpg",
+            "numberEpisode": "E5",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-6",
+            "title": "Episodio 6",
+            "image": "https://image.tmdb.org/t/p/w300/5Viq0mMMpWKeq7HtTusnhT1NDVH.jpg",
+            "numberEpisode": "E6",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-7",
+            "title": "Episodio 7",
+            "image": "https://image.tmdb.org/t/p/w300/yCvXTDDM6FjnpOjMCYZ1uBSQap4.jpg",
+            "numberEpisode": "E7",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          },
+          {
+            "link": "serie/cementerio/temporada-2/episodio-8",
+            "title": "Episodio 8",
+            "image": "https://image.tmdb.org/t/p/w300/B6XrQp4gKmgyXywJcr2j9HvnXH.jpg",
+            "numberEpisode": "E8",
+            "caption": "En un sótano oscuro, donde una unidad especial trabaja para resolver asesinatos de mujeres sin resolver, el Comisario Önem, tendrá que luchar contra los prejuicios masculinos que sustentan la violencia machista."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/cementerio/temporada-3/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E1",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E2",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E3",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E4",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-5",
+            "title": "Episodio 5",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E5",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-6",
+            "title": "Episodio 6",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E6",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-7",
+            "title": "Episodio 7",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E7",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          },
+          {
+            "link": "serie/cementerio/temporada-3/episodio-8",
+            "title": "Episodio 8",
+            "image": "https://image.tmdb.org/t/p/w300/g9Qn9LBk9fKKgxHtPFqkKnglsm8.jpg",
+            "numberEpisode": "E8",
+            "caption": "La capitana Önem dirige una unidad de investigación especial que resuelve casos difíciles de violencia contra las mujeres."
+          }
+        ]
+      }
+    ],
+    "link": "serie/cementerio",
+    "updatedAt": "2026-08-30T17:14:54.649Z"
+  },
+  "serie/cementerio/temporada-1/episodio-2": {
+    "movieUrl": "https://www.mediafire.com/file/u9on9ljcgs7rxzu",
+    "link": "serie/cementerio/temporada-1/episodio-2",
+    "updatedAt": "2026-08-30T17:15:55.808Z"
+  },
+  "serie/upright": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/iCelwQYTBpKewyEEwhUU7pahYz6.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/x8wY8wtQsjuajH1kyx5EISwF5JI.jpg",
+    "title": "Upright",
+    "year": "Ended",
+    "duration": "2019",
+    "rating": "\n                    TMDB\n                    8.1\n                ",
+    "tags": [
+      "Drama",
+      "Comedia"
+    ],
+    "caption": "Cuando la familia marginada Lucky Flynn se entera de que su madre está muriendo, decide conducir al otro lado de Australia para verla, empacando nada más que un piano vertical para el viaje. Pero sus planes pronto se ponen patas arriba cuando conoce a la adolescente fugitiva Meg, que está lidiando con algunos demonios familiares.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/upright/temporada-1/episodio-1",
+            "title": "Día Uno",
+            "image": "https://image.tmdb.org/t/p/w300/40hj8Qt94AzJ861K07PdpQzMrcV.jpg",
+            "numberEpisode": "E1",
+            "caption": "Lucky Flynn no ha hablado con su familia en años. Cuando se entera de que a su madre solo le quedan unos días de vida, Lucky parte en un coche de alquiler para recorrer los 4.000 km de Sydney a Perth para despedirse."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-2",
+            "title": "Día Dos",
+            "image": "https://image.tmdb.org/t/p/w300/diZ4T6XvY1LQJfpQgMu6g6ona6d.jpg",
+            "numberEpisode": "E2",
+            "caption": "Lucky está desesperado por ver a un médico después de perder sus pastillas por su ansiedad. Pero Meg tiene otras ideas."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-3",
+            "title": "Día Tres",
+            "image": "https://image.tmdb.org/t/p/w300/7J62dJXViK46jrzRRiK0G0fcmMc.jpg",
+            "numberEpisode": "E3",
+            "caption": "Meg está fuera de sí cuando pierde todo su dinero y el de Lucky. Para empeorar las cosas, luego se quedan sin gasolina."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-4",
+            "title": "Día Cuatro",
+            "image": "https://image.tmdb.org/t/p/w300/7O4U8d70XjhE3Fe3spnAvBzEcwh.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mientras esperan que se repare su ute, Meg y Lucky se unen a una fiesta en un campamento en la Gran Bahía Australiana, pero la noche da un giro desagradable cuando Lucky descubre una nota de suicidio."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-5",
+            "title": "Día Cinco",
+            "image": "https://image.tmdb.org/t/p/w300/cgvG3b249NhAVtliJTMcvyAha3i.jpg",
+            "numberEpisode": "E5",
+            "caption": "Lucky comienza a pensar que debería darse por vencido cuando Meg se va con su piano. Entonces, una mordedura de serpiente le da la llamada de atención que necesita."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-6",
+            "title": "Día Seis",
+            "image": "https://image.tmdb.org/t/p/w300/oQLdCMA2Nj7jyd4qLWZEOQGftkj.jpg",
+            "numberEpisode": "E6",
+            "caption": "Un Lucky transformado se prepara para hacer un gran sacrificio. Pero no pasa mucho tiempo antes de que una mala noticia lo lleve a la desesperación."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-7",
+            "title": "Día Siete",
+            "image": "https://image.tmdb.org/t/p/w300/yodl7u62SV0BBiQA5v3ZV8OsKvZ.jpg",
+            "numberEpisode": "E7",
+            "caption": "Lucky se encuentra pagando el precio de los delitos menores de Meg. Pero eso es solo el comienzo, las cosas están a punto de empeorar mucho."
+          },
+          {
+            "link": "serie/upright/temporada-1/episodio-8",
+            "title": "Día Ocho",
+            "image": "https://image.tmdb.org/t/p/w300/3yuMdBqkqQ2bJPATqnZYzQQ63Q6.jpg",
+            "numberEpisode": "E8",
+            "caption": "Hay tensión cuando Lucky se reúne con su hermano. Mientras Meg intenta suavizar las cosas, descubre por qué Lucky tuvo que traer el piano."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/upright/temporada-2/episodio-1",
+            "title": "Episodio 1",
+            "image": "https://image.tmdb.org/t/p/w300/gMhPulqKqFQUgim8lSUmuYUb72j.jpg",
+            "numberEpisode": "E1",
+            "caption": "Lucky y Meg se embarcan en una nueva misión y cambian el desierto por la tropical Far North Queensland."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-2",
+            "title": "Episodio 2",
+            "image": "https://image.tmdb.org/t/p/w300/QVXmCPhohinibQw10K9cUjdORe.jpg",
+            "numberEpisode": "E2",
+            "caption": "Comenzando la búsqueda de la madre de Meg en Queensland, Lucky batalla con la relación que dejó en casa y Meg es sorprendida por alguien que los ha seguido desde Karingunna."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-3",
+            "title": "Episodio 3",
+            "image": "https://image.tmdb.org/t/p/w300/esRTdekXlbRCqITUSSV67wnlMK9.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mientras Meg continúa buscando a su madre en Cairns, Lucky intenta mantener un perfil para evitar su pasado cuestionable."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-4",
+            "title": "Episodio 4",
+            "image": "https://image.tmdb.org/t/p/w300/sn3A2y5ufCV7yxSI9e0M2LBtlJS.jpg",
+            "numberEpisode": "E4",
+            "caption": "Lucky y Meg se marchan de Cairns, pero el pasado de Lucky consigue alcanzarlo."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-5",
+            "title": "Episodio 5",
+            "image": "https://image.tmdb.org/t/p/w300/4OvyHIzwP8n7kMowcuvim9bCtvs.jpg",
+            "numberEpisode": "E5",
+            "caption": "Herido en medio de la selva tropical, Lucky intenta desesperadamente regresar a la civilización, pero Meg quiere continuar con la búsqueda de su madre."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-6",
+            "title": "Episodio 6",
+            "image": "https://image.tmdb.org/t/p/w300/11UmVyzMa9MCxvLHCTlJOi3Ophl.jpg",
+            "numberEpisode": "E6",
+            "caption": "Meg y Lucky llegan por fin a la Comuna Wellfulness, pero no reciben la bienvenida que estaban esperando."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-7",
+            "title": "Episodio 7",
+            "image": "https://image.tmdb.org/t/p/w300/2Y8fWr5L2gINveoEIM5SzSbjkBM.jpg",
+            "numberEpisode": "E7",
+            "caption": "Atrapados en la Comuna Wellfulness, Lucky comienza a revelar sus secretos mientras Meg consigue una oportunidad de hablar con su madre."
+          },
+          {
+            "link": "serie/upright/temporada-2/episodio-8",
+            "title": "Episodio 8",
+            "image": "https://image.tmdb.org/t/p/w300/nWf7qjvvTFECaveKjYUhq6zy3cw.jpg",
+            "numberEpisode": "E8",
+            "caption": "Tras escapar de la comuna, Lucky y Meg se apresuran en regresar a Sydney con la esperanza de poder llegar a tiempo para despedir a Billie en el aeropuerto."
+          }
+        ]
+      }
+    ],
+    "link": "serie/upright",
+    "updatedAt": "2026-08-30T17:38:34.403Z"
+  },
+  "serie/upright/temporada-1/episodio-2": {
+    "movieUrl": "https://www.mediafire.com/file/w6fr439taev0pl8",
+    "link": "serie/upright/temporada-1/episodio-2",
+    "updatedAt": "2026-08-30T17:39:06.858Z"
+  },
+  "serie/cementerio/temporada-1/episodio-1": {
+    "movieUrl": "https://www.mediafire.com/file/hwsnuv16ee2oz3q",
+    "link": "serie/cementerio/temporada-1/episodio-1",
+    "updatedAt": "2026-08-30T18:30:36.835Z"
+  },
+  "serie/planners": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/nXb4IpTXKwXx7pzRq2IwHOc29j1.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/wsGfLMmHtDesMdAAqe8UyEumuIU.jpg",
+    "title": "Planners",
+    "year": "Returning Series",
+    "duration": "2023",
+    "rating": "\n                    TMDB\n                    8.3\n                ",
+    "tags": [
+      "Drama",
+      "Comedia"
+    ],
+    "caption": "Malena Carregal es una mujer de 37 años que se acaba de divorciar de Marcos Gutiérrez, dueño de una reconocida agencia de eventos en la cual trabajaban juntos. En ese contexto llega Cali, una mujer llena de energía y deseos de cambio, y juntas arman su propia agencia de eventos y aprenderán a sortear dificultades, trabajar en equipo y el valor de la confianza.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/planners/temporada-1/episodio-1",
+            "title": "No confiemos",
+            "image": "https://image.tmdb.org/t/p/w300/8NaPOfudE3H7Cs9BhDtnRJe7ko8.jpg",
+            "numberEpisode": "E1",
+            "caption": "Malena ordena su vida tras divorciarse de Marcos. Su exmarido se convierte en el único propietario de la agencia en la que Malena ha trabajado los últimos 15 años y de la que se marcha solo con el finiquito. Con dificultad para adaptarse a una casa vacía y un futuro incierto, Malena conecta al instante con Cali, una mujer energética, fresca y con una oferta laboral."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-2",
+            "title": "Hurra",
+            "image": "https://image.tmdb.org/t/p/w300/9awc6BbrZtBnol96prwu5crLSAi.jpg",
+            "numberEpisode": "E2",
+            "caption": "Cali propone un evento para el lanzamiento de un vodka ruso.  Los proyectos de Malena van cogiendo fuerza y su casa se empieza a transformar en su nueva base de operaciones. A Marcos le preocupa que eso afecte al tiempo que pasa con su hijo, Javi. Más tarde, Malena acude a su amigo Ray en busca de apoyo técnico y emocional."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-3",
+            "title": "A Marcos le va a encantar",
+            "image": "https://image.tmdb.org/t/p/w300/qIwX9K8519eAvJffBg2yJLxn3wl.jpg",
+            "numberEpisode": "E3",
+            "caption": "La cancelación imprevista de un evento coge por sorpresa a Malena y Cali. Aunque surge la organización de un velatorio, sumiendo a Malena en una dramática ceremonia con aventuras ocultas y encuentros impulsivos. Mientras tanto, Cali debe encargarse de un asunto sin resolver de su pasado y contacta con su exmarido. Además, el equipo elige un nombre para la agencia."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-4",
+            "title": "Qué gran día",
+            "image": "https://image.tmdb.org/t/p/w300/nBMg7OL4WaPMZ3NcgHtxnD4iy8k.jpg",
+            "numberEpisode": "E4",
+            "caption": "La boda de la hija de un magnate ganadero se convierte en la prioridad de la agencia. El gran día se ve enturbiado por una serie de accidentes provocados por los desacuerdos entre padre e hija y Malena pierde el control del evento. Javi rompe con su novia, Ray renuncia a su trabajo con Marcos y el marido de Cali anuncia que vuelve a Argentina."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-5",
+            "title": "Todo controlado",
+            "image": "https://image.tmdb.org/t/p/w300/gCDzGwQfTaNslnvigf97oLVx2Yx.jpg",
+            "numberEpisode": "E5",
+            "caption": "La boda acaba perfectamente cuando Cali consigue reconciliar a la novia con su padre. Malena, Andy y Cali están que se salen después de otro evento triunfal, pero una emergencia de fontanería les obliga a buscar otra oficina de urgencia. Malena descubre que está compitiendo contra Marcos por un potencial proyecto. Cali recibe malas noticias de su marido."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-6",
+            "title": "Te lo digo como me sale",
+            "image": "https://image.tmdb.org/t/p/w300/wQeAn7tb0X7hhNLRBZMIbaI8P6t.jpg",
+            "numberEpisode": "E6",
+            "caption": "A la vez que el trabajo en la agencia aumenta, Malena se distancia de Javi. Tras una discusión, Javi decide irse a vivir con su padre. Este le lleva a una fiesta de divorcio que se desmadra. Como resultado, la prensa involucra a Malena de forma equivocada. Andy pasa más tiempo con su hija y Malena conoce a un hombre atractivo."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-7",
+            "title": "Acá no hay oxígeno",
+            "image": "https://image.tmdb.org/t/p/w300/kalBchoSXCoAlpOw27IMDa0cGpK.jpg",
+            "numberEpisode": "E7",
+            "caption": "Javi tiene problemas en el instituto, lo que provoca más tensión entre sus padres. Malena, viendo que Cali está muy despistada, intenta brindarle su apoyo. Malena consigue tomar las riendas de un bar mitzvah especialmente exigente y deja satisfechos a los anfitriones e invitados, aunque acaba con un desagradable cierre por una urgencia médica."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-8",
+            "title": "¿Podemos hablar?",
+            "image": "https://image.tmdb.org/t/p/w300/uEINGmTb5u6IbCyfRgvTxXOmQoo.jpg",
+            "numberEpisode": "E8",
+            "caption": "Imara, la hija de Andy, y Malena llegan al hospital donde está ingresado Andy tras un trasplante de riñón. Andy recibe la visita inesperada de Julio, padre de Imara y expareja. La comida familiar para celebrar el cumpleaños de Javier se ve arruinada, al menos para Malena, por la llegada sorpresa de Marcos. Cali desaparece en misteriosas circunstancias."
+          },
+          {
+            "link": "serie/planners/temporada-1/episodio-9",
+            "title": "Canal 1 liberado",
+            "image": "https://image.tmdb.org/t/p/w300/3SeIrUo3R8DtiV9Mo8aV37aGNS5.jpg",
+            "numberEpisode": "E9",
+            "caption": "Malena se ve obligada a salir de un evento cuando Javi tiene un problema con el coche de su padre. Unidos por su hijo, Malena y Marcos consiguen firmar una tregua y aunar fuerzas. La desaparición de Cali junto con el vaciamiento de las cuentas de la agencia hacen peligrar la organización de un gran evento. Malena se encuentra en una situación conocida cuando Cali reaparece intentando arreglar las cosas."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/planners/temporada-2/episodio-1",
+            "title": "Las Segundas Partes...",
+            "image": "https://image.tmdb.org/t/p/w300/jVNXw9Jeatyet6wrHR5O8VjOZrC.jpg",
+            "numberEpisode": "E1",
+            "caption": "Malena Carregal es una mujer de 37 años que se acaba de divorciar de Marcos Gutiérrez, dueño de una reconocida agencia de eventos en la cual trabajaban juntos. En ese contexto llega Cali, una mujer llena de energía y deseos de cambio, y juntas arman su propia agencia de eventos y aprenderán a sortear dificultades, trabajar en equipo y el valor de la confianza."
+          },
+          {
+            "link": "serie/planners/temporada-2/episodio-2",
+            "title": "Inmersivo",
+            "image": "https://image.tmdb.org/t/p/w300/wz1WaQjIM2eO2rPF4M7TN2hzxNu.jpg",
+            "numberEpisode": "E2",
+            "caption": "Malena Carregal es una mujer de 37 años que se acaba de divorciar de Marcos Gutiérrez, dueño de una reconocida agencia de eventos en la cual trabajaban juntos. En ese contexto llega Cali, una mujer llena de energía y deseos de cambio, y juntas arman su propia agencia de eventos y aprenderán a sortear dificultades, trabajar en equipo y el valor de la confianza."
+          },
+          {
+            "link": "serie/planners/temporada-2/episodio-3",
+            "title": "Contracciones",
+            "image": "https://image.tmdb.org/t/p/w300/fV6Zp7etxmmuMGKpPtw7XQesN9E.jpg",
+            "numberEpisode": "E3",
+            "caption": "Malena Carregal es una mujer de 37 años que se acaba de divorciar de Marcos Gutiérrez, dueño de una reconocida agencia de eventos en la cual trabajaban juntos. En ese contexto llega Cali, una mujer llena de energía y deseos de cambio, y juntas arman su propia agencia de eventos y aprenderán a sortear dificultades, trabajar en equipo y el valor de la confianza."
+          },
+          {
+            "link": "serie/planners/temporada-2/episodio-4",
+            "title": "El Fin Del Mundo",
+            "image": "https://image.tmdb.org/t/p/w300/oNhlsjtlUsFPa6K9HCCLTUOVuZM.jpg",
+            "numberEpisode": "E4",
+            "caption": "Malena Carregal es una mujer de 37 años que se acaba de divorciar de Marcos Gutiérrez, dueño de una reconocida agencia de eventos en la cual trabajaban juntos. En ese contexto llega Cali, una mujer llena de energía y deseos de cambio, y juntas arman su propia agencia de eventos y aprenderán a sortear dificultades, trabajar en equipo y el valor de la confianza."
+          }
+        ]
+      }
+    ],
+    "link": "serie/planners",
+    "updatedAt": "2026-08-30T18:43:12.053Z"
+  },
+  "serie/planners/temporada-1/episodio-1": {
+    "movieUrl": "https://www.mediafire.com/file/iaqtku3ee2ayqmx",
+    "link": "serie/planners/temporada-1/episodio-1",
+    "updatedAt": "2026-08-30T18:43:34.633Z"
+  },
+  "serie/planners/temporada-1/episodio-2": {
+    "movieUrl": "https://www.mediafire.com/file/tmx27jzq491ov5z",
+    "link": "serie/planners/temporada-1/episodio-2",
+    "updatedAt": "2026-08-30T18:44:59.030Z"
   }
 }

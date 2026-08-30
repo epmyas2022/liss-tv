@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   MediaPlayer,
@@ -38,6 +38,7 @@ export interface VideoPlayerProps {
     detail: MediaTimeUpdateEventDetail,
     nativeEvent: MediaTimeUpdateEvent,
   ) => void;
+  handlePause?: (nativeEvent: Event) => void;
   title: string;
   startTime: number;
   poster?: string;
@@ -55,6 +56,7 @@ export default function VideoPlayer({
   startTime,
   textTracks = [],
   handleTimeUpdate,
+  handlePause,
 }: VideoPlayerProps) {
   const [isFullScreenIOS, setIsFullScreenIOS] = useState(false);
 
@@ -118,6 +120,7 @@ export default function VideoPlayer({
           poster={poster}
           currentTime={startTime}
           onTimeUpdate={handleTimeUpdate}
+          onPause={handlePause}
           className="w-full h-full"
         >
           <MediaProvider>

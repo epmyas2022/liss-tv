@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Trash2, Play, Clock } from "lucide-react";
-import { useMovieStore } from "@/store/useMovieStore";
+import { Trash2, Play, Clock, CloudOff } from "lucide-react";
 import { FloatingNav } from "@/components/FloatingNav";
 import type { ContinueWatching } from "@/types/movie";
 import { useRouter } from "next/navigation";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
 import FocusElementProvider from "@/components/providers/FocusElementProvider";
+import { Spinner } from "@/components/ui/Spinner";
+import { pb, response } from "@/hooks/useAuth";
+import { useMovie } from "@/hooks/useMovie";
+import { useState, useEffect, useMemo } from "react";
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -36,9 +39,12 @@ function ProgressBar({
 function ContinueWatchingCard({
   item,
   onRemove,
+  isLocalOnly,
 }: {
   item: ContinueWatching;
   onRemove: (link: string) => void;
+  isLocalOnly?: boolean;
+  isCloudOnly?: boolean;
 }) {
   const pct =
     item.duration > 0
@@ -58,7 +64,7 @@ function ContinueWatchingCard({
           className="object-cover transition-transform duration-500 group-hover:scale-100"
         />
 
-        {/* Dark gradient — intensifies on hover */}
+        {/* Dark gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
 
         {/* Play button overlay */}
@@ -92,25 +98,37 @@ function ContinueWatchingCard({
           <Trash2 size={13} className="text-white/80" />
         </button>
 
-        {/* Progress pct badge */}
-        {pct > 0 && (
-          <span
-            className="absolute top-2 left-2 text-[10px] font-bold text-white/80 px-1.5 py-0.5 rounded-md"
-            style={{ background: "rgba(0,0,0,0.6)" }}
-          >
-            {Math.round(pct)}%
-          </span>
-        )}
+        {/* Badges (Top Left) */}
+        <div className="absolute top-2 left-2 flex flex-col gap-1.5 items-start z-10 pointer-events-none">
+          {pct > 0 && (
+            <span
+              className="text-[10px] font-bold text-white px-2 py-0.5 rounded shadow-sm backdrop-blur-md"
+              style={{ background: "rgba(229, 9, 20, 0.9)" }}
+            >
+              {Math.round(pct)}%
+            </span>
+          )}
+          {isLocalOnly && (
+            <span
+              className="flex items-center gap-1 text-[10px] font-bold text-amber-500 px-2 py-0.5 rounded shadow-sm backdrop-blur-md"
+              style={{
+                background: "rgba(0,0,0,0.65)",
+                border: "1px solid rgba(245, 158, 11, 0.25)",
+              }}
+              title="Guardado sólo en este dispositivo"
+            >
+              <CloudOff size={10} strokeWidth={2.5} />
+              Local
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* Bottom info + progress */}
+      {/* Bottom info */}
       <div className="px-3 pt-2.5 pb-3 space-y-2">
         <ProgressBar current={item.currentTime} duration={item.duration} />
 
-        <div
-          className="flex items-center justify-evenly
-         gap-2"
-        >
+        <div className="flex items-center justify-evenly gap-2">
           <p className="text-white text-sm font-semibold leading-tight line-clamp-1 font-poppins flex-1">
             {item.title || item.link}
           </p>
@@ -118,7 +136,7 @@ function ContinueWatchingCard({
           {remaining > 0 && (
             <span className="flex items-center gap-1 text-white/50 text-[11px] shrink-0">
               <Clock size={11} />
-              {formatTime(remaining)} left
+              {formatTime(remaining)}
             </span>
           )}
         </div>
@@ -139,8 +157,59 @@ function EmptyState() {
 
 export default function ContinueWatchingPage() {
   const router = useRouter();
-  const { continueWatching, removeFromContinueWatching, setMovieData } =
-    useMovieStore();
+
+  const { store } = useMovie();
+  const {
+    continueWatching: localContinueWatching,
+    removeFromContinueWatching: removeLocal,
+    setMovieData,
+  } = store;
+
+  const [pbWatching, setPbWatching] = useState<ContinueWatching[]>([]);
+  const [loadingPb, setLoadingPb] = useState(true);
+
+  const fetchPbWatching = async function fetchPbWatching() {
+    const userId = pb.authStore?.record?.id;
+    setLoadingPb(true);
+
+    if (!userId) return setLoadingPb(false);
+
+    const res = await response(
+      async () =>
+        await pb
+          .collection("users")
+          .getOne(userId, { fields: "continueWatching" }),
+    );
+
+    if (res.status === 200) {
+      const data = res.data as { continueWatching: ContinueWatching[] };
+      setPbWatching(data.continueWatching);
+    }
+
+    setLoadingPb(false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      await fetchPbWatching();
+    })();
+  }, []);
+
+  const displayList = useMemo(() => {
+    if (pbWatching.length === 0) {
+      return localContinueWatching.map((item) => ({
+        ...item,
+        isLocalOnly: true,
+      }));
+    }
+
+    const pbLinks = new Set(pbWatching.map((i) => i.link));
+    const onlyLocal = localContinueWatching
+      .filter((i) => !pbLinks.has(i.link))
+      .map((i) => ({ ...i, isLocalOnly: true }));
+
+    return [...pbWatching, ...onlyLocal];
+  }, [pbWatching, localContinueWatching]);
 
   const handleCardClick = (item: ContinueWatching) => {
     setMovieData({
@@ -150,6 +219,36 @@ export default function ContinueWatchingPage() {
 
     router.push(`${item.link.split("/").slice(0, 2).join("/")}/player`);
   };
+
+  const handleRemove = async (
+    item: ContinueWatching & { isLocalOnly?: boolean },
+  ) => {
+    const userId = pb.authStore?.record?.id;
+
+    if (item.isLocalOnly || !userId) {
+      return removeLocal(item.link);
+    }
+
+    removeLocal(item.link);
+
+    const data = pbWatching.filter((m) => m.link !== item.link);
+    setPbWatching(data);
+
+    await response(
+      async () =>
+        await pb.collection("users").update(userId, {
+          continueWatching: data,
+        }),
+    );
+  };
+
+  if (loadingPb) {
+    return (
+      <main className="min-h-screen pt-20 px-4 bg-[#070707] flex items-center justify-center">
+        <Spinner size="lg" />
+      </main>
+    );
+  }
 
   return (
     <main
@@ -161,23 +260,23 @@ export default function ContinueWatchingPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="my-7">
-          <h1 className="text-white text-2xl sm:text-3xl font-bold font-poppins">
+          <h1 className="text-white text-2xl sm:text-3xl font-bold font-poppins flex items-center gap-3">
             Continue <span className="text-[#EA1C25]">Watching</span>
           </h1>
-          {continueWatching.length > 0 && (
+          {displayList.length > 0 && (
             <p className="text-white/40 text-sm mt-1">
-              {continueWatching.length} title
-              {continueWatching.length !== 1 ? "s" : ""} in progress
+              {displayList.length} title
+              {displayList.length !== 1 ? "s" : ""} in progress
             </p>
           )}
         </div>
 
-        {continueWatching.length === 0 ? (
+        {displayList.length === 0 ? (
           <EmptyState />
         ) : (
           <FocusContextProvider>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {continueWatching.map((item) => (
+              {displayList.map((item) => (
                 <a key={item.link} onClick={() => handleCardClick(item)}>
                   <FocusElementProvider
                     onEnterPress={() => handleCardClick(item)}
@@ -186,7 +285,10 @@ export default function ContinueWatchingPage() {
                   >
                     <ContinueWatchingCard
                       item={item}
-                      onRemove={removeFromContinueWatching}
+                      onRemove={() => handleRemove(item)}
+                      isLocalOnly={
+                        (item as { isLocalOnly?: boolean }).isLocalOnly
+                      }
                     />
                   </FocusElementProvider>
                 </a>

@@ -22,7 +22,7 @@ export async function withTimeout<T>(
 }
 
 export async function tryCatch<T>(
-  promise: Promise<T>,
+  promise: T,
   onError?: (error: unknown) => void,
 ): Promise<T | null> {
   try {
@@ -64,9 +64,9 @@ export async function attempts<T>(actions: Action<T>[]): Promise<T> {
   throw new Error("Todas las acciones fallaron después de todos los intentos");
 }
 
-
 export function isUrlMediafire(url: string): boolean {
-  const mediafireRegex =  /https:\/\/download[^\s"'><]+mediafire\.com[^\s"'><]+/i;
+  const mediafireRegex =
+    /https:\/\/download[^\s"'><]+mediafire\.com[^\s"'><]+/i;
   return mediafireRegex.test(url);
 }
 export async function getLinkMediafire(url: string) {
@@ -94,7 +94,6 @@ export async function getLinkMediafire(url: string) {
     const match = html.match(regexLink);
 
     return match ? match[0] : "";
-    
   } catch (error) {
     console.error("❌ Error al obtener el enlace de Mediafire:", error);
     return null;

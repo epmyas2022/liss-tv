@@ -58,12 +58,13 @@ export interface MoviePreview {
 }
 
 
-export type ContinueWatching = (MoviePreview & { currentTime: number, duration: number });
+export type ContinueWatching = (MoviePreview & { currentTime: number, duration: number, id?: string });
 export interface MovieState {
   continueWatching: ContinueWatching[];
   moviePreview: MoviePreview | null;
   setMovieData: (preview: MoviePreview) => void;
   clearMovieData: () => void;
   addToContinueWatching: (movie: ContinueWatching) => void;
+  syncContinueWatching: (movies: ContinueWatching[]) => void;
   removeFromContinueWatching: (link: string) => void;
 }

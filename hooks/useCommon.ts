@@ -17,6 +17,9 @@ export function useCommon() {
     return !isMobile() && !isSmartTV();
   };
 
+
+  
+
   return {
     isMobile,
     isSmartTV,

@@ -4,11 +4,21 @@ const nextConfig: NextConfig = {
   experimental: {},
   output: "standalone",
   images: {
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "**",
+      },
+      {
         protocol: "https",
-        hostname: "image.tmdb.org",
-        pathname: "/t/p/**",
+        hostname: "**",
+      },
+
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "8090",
       },
     ],
   },

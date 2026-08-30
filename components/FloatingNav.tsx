@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Popcorn, Clapperboard, Eye, Search, X } from "lucide-react";
+import { Popcorn, Clapperboard, Eye, Search, X, User } from "lucide-react";
 import FocusContextProvider from "./providers/FocusContextProvider";
 import FocusElementProvider from "./providers/FocusElementProvider";
+import { pb } from "@/hooks/useAuth";
+import NextImage from "next/image";
+import { useAuthentication } from "./providers/context/AuthContext";
+import dynamic from "next/dynamic";
+
+const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"), { ssr: false });
 
 const NAV_ITEMS = [
   { label: "Movies", href: "/?filter=peliculas", icon: Popcorn },
@@ -23,10 +29,12 @@ const glassStyle = {
 } as React.CSSProperties;
 
 export function FloatingNav() {
+  const { user } = useAuthentication();
   const [active, setActive] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const router = useRouter();
+  const [searchOpen, setSearchOpen] = useState(false);
+
   const searchParams = useSearchParams();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,7 +66,7 @@ export function FloatingNav() {
           <FocusElementProvider className="rounded-full group" strokeSize={0}>
             <Link
               href="/"
-              className="font-poppins px-6 text-white text-2xl font-bold shrink-0 rounded-lg group-[.focus-active]:shadow-[0_20px_32px_-12px_rgba(234,28,37,0.4)]"
+              className="font-poppins px-6 text-white text-2xl font-bold shrink-0 rounded-lg"
             >
               Liss <span className="text-[#EA1C25]">TV</span>
             </Link>
@@ -136,6 +144,21 @@ export function FloatingNav() {
               />
             )}
           </div>
+          <div className="flex items-center pl-1 pr-3 border-l border-white/10 ml-1">
+            <FocusElementProvider
+              className="rounded-full group"
+              strokeSize={0}
+              onEnterPress={() => router.push("/profile")}
+            >
+              <Link
+                href="/profile"
+                className="flex items-center ml-1 hover:border-3 justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors focus-within:outline-none group-[.focus-active]:bg-[#EA1C25] group-[.focus-active]:text-white text-white/70 overflow-hidden"
+                aria-label="Perfil"
+              >
+                <UserAvatar user={user} size={35} />
+              </Link>
+            </FocusElementProvider>
+          </div>
         </nav>
       </div>
 
@@ -148,7 +171,7 @@ export function FloatingNav() {
           Liss <span className="text-[#EA1C25]">TV</span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {/* ponytail: inline expand — no modal, no extra state complexity */}
           {searchOpen ? (
             <div className="flex items-center gap-2">
@@ -158,7 +181,7 @@ export function FloatingNav() {
                   type="text"
                   placeholder="Search..."
                   defaultValue={searchParams.get("search") ?? ""}
-                  className="w-44 px-3 py-1.5 font-poppins rounded-full text-sm bg-white/10 text-white placeholder-gray-400 focus:outline-none"
+                  className="w-40 sm:w-44 px-3 py-1.5 font-poppins rounded-full text-sm bg-white/10 text-white placeholder-gray-400 focus:outline-none"
                   style={{
                     border: pending
                       ? "2px solid #EA1C25"
@@ -184,12 +207,22 @@ export function FloatingNav() {
               </button>
             </div>
           ) : (
-            <button
-              onClick={openSearch}
-              className="text-white/70 hover:text-white p-1"
-            >
-              <Search size={20} />
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={openSearch}
+                className="text-white/70 hover:text-white p-1"
+              >
+                <Search size={20} />
+              </button>
+
+              <Link
+                href="/profile"
+                className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 border border-white/20 hover:border-[#EA1C25] text-white/80 hover:text-white transition-colors overflow-hidden"
+                aria-label="Perfil"
+              >
+                <UserAvatar user={user} size={32} />
+              </Link>
+            </div>
           )}
         </div>
       </div>
