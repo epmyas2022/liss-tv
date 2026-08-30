@@ -244,7 +244,7 @@ export default function ContinueWatchingPage() {
 
   if (loadingPb) {
     return (
-      <main className="md:min-h-screen pt-20 px-4 bg-[#070707] flex items-center justify-center">
+      <main className="min-h-screen pt-20 px-4 bg-[#070707] flex items-center justify-center">
         <Spinner size="lg" />
       </main>
     );
