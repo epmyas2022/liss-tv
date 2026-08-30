@@ -22128,5 +22128,189 @@
     "movieUrl": "https://www.mediafire.com/file/tmx27jzq491ov5z",
     "link": "serie/planners/temporada-1/episodio-2",
     "updatedAt": "2026-08-30T18:44:59.030Z"
+  },
+  "serie/operativo-lioness": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/r0Zg70jpcDAD7IMDhVqajSnG9vb.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/d0r0rxI9UjMVvD5Krc5oET2O0gU.jpg",
+    "title": "Operativo: Lioness",
+    "year": "Returning Series",
+    "duration": "2023",
+    "rating": "\n                    TMDB\n                    8.0\n                ",
+    "tags": [
+      "Drama",
+      "War & Politics"
+    ],
+    "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-1",
+            "title": "Soldados sacrificados",
+            "image": "https://image.tmdb.org/t/p/w300/nmQp2GT1T2mK4YoLWcMl1FsoZC.jpg",
+            "numberEpisode": "E1",
+            "caption": "Las cosas salen mal para Joe y su equipo durante una misión en el campo. Joe queda devastado. A su regreso a casa, la vida familiar de Joe presenta sus propios desafíos. Cruz intenta escapar de una situación peligrosa. Joe debe elegir un agente."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-2",
+            "title": "La paliza",
+            "image": "https://image.tmdb.org/t/p/w300/efD2aug7QpeGYkz7gIK5OVjWVU8.jpg",
+            "numberEpisode": "E2",
+            "caption": "Joe continua entrenando a Cruz; Cruz empieza a establecer una relación con Aaliyah."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-3",
+            "title": "Moratones como puños",
+            "image": "https://image.tmdb.org/t/p/w300/aCl27BO3UUJwEoEQruZsZnidlkC.jpg",
+            "numberEpisode": "E3",
+            "caption": "Cruz pasa tiempo con Aaliyah; Joe mantiene a Kaitlyn informada; Kyle acude a Joe en busca de ayuda."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-4",
+            "title": "La elección del fracaso",
+            "image": "https://image.tmdb.org/t/p/w300/kJS9ycUt3hzBahLcrFhNxp76wAp.jpg",
+            "numberEpisode": "E4",
+            "caption": "Cruz se encuentra en una posición comprometida mientras está con Aaliyah y sus amigos en los Hamptons, lo que hace que Joe y Kaitlyn duden de ella. Kaitlyn y Westfield confrontan a Kyle por lo que sucedió en la frontera, lo que complica aún más las cosas para Joe y su equipo."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-5",
+            "title": "La verdad es la mentira más astuta",
+            "image": "https://image.tmdb.org/t/p/w300/sh4bjty4YACVogQUOVWbZCUVA15.jpg",
+            "numberEpisode": "E5",
+            "caption": "Joe y Neal afrontan las consecuencias del accidente de Kate. Westfield y Kaitlyn envían al equipo de Joe para someter una amenaza terrorista. La tapadera de Cruz puede estar en peligro."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-6",
+            "title": "La mentira es la verdad",
+            "image": "https://image.tmdb.org/t/p/w300/jIEF60suH4Cg7iZEC0ze7b7pKBk.jpg",
+            "numberEpisode": "E6",
+            "caption": "Aaliyah se une a Cruz durante un día de spa. Bobby, Tex, Two Cups, Randy y Tucker enfrentan una amenaza en Safe House. Kaitlyn y Joe son regañados por la misión de San Antonio en un informe."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-7",
+            "title": "Deseo que la pelea desaparezca",
+            "image": "https://image.tmdb.org/t/p/w300/v7IY9eLPc2c9N0MYSppFTO7COZk.jpg",
+            "numberEpisode": "E7",
+            "caption": "Mientras compran en Manhattan para la boda, Aaliyah y Cruz se acercan más. Kate regresa a casa sólo para despedirse de su madre una vez más. Joe guía a Cruz a través de luchas internas y dudas para completar la misión."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-1/episodio-8",
+            "title": "Atrás quedó la ilusión del orden",
+            "image": "https://image.tmdb.org/t/p/w300/3ndiiSM8sWMclfS123YaVIBOtsw.jpg",
+            "numberEpisode": "E8",
+            "caption": "Circunstancias imprevistas ponen la misión en peligro. Un Ehsan sospechoso se enfrenta a Cruz antes del día de su boda. Joe y el equipo se preparan para lo peor."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-1",
+            "title": "Cuidado con el viejo soldado",
+            "image": "https://image.tmdb.org/t/p/w300/xfTEeyc39CyhbkKy6Demb5m92Tm.jpg",
+            "numberEpisode": "E1",
+            "caption": "El secuestro de un funcionario al sur de la frontera fuerza una liberación rápida."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-2",
+            "title": "Amo a mi país",
+            "image": "https://image.tmdb.org/t/p/w300/qmXB4BcpWeEB8IOT0CDt7O9izRb.jpg",
+            "numberEpisode": "E2",
+            "caption": "Tras seleccionar a una nueva integrante, Joe y su equipo se disponen a viajar a Iraq."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-3",
+            "title": "La hora de la araña",
+            "image": "https://image.tmdb.org/t/p/w300/xt50ehEdhGI21BJxcRc3VqXWM9K.jpg",
+            "numberEpisode": "E3",
+            "caption": "Kaitlyn consigue apoyos para su plan; Josie empieza a entrenarse como parte del Operativo Lioness."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-4",
+            "title": "500 niños",
+            "image": "https://image.tmdb.org/t/p/w300/nIKMf8djtsIYBtBCtKhHjTEo17G.jpg",
+            "numberEpisode": "E4",
+            "caption": "El equipo, que cuenta con nuevas incorporaciones, lleva a cabo un golpe con resultados imprevistos."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-5",
+            "title": "Destruir la luna",
+            "image": "https://image.tmdb.org/t/p/w300/w1vnsU60PRL69oXPckv0ndErq0C.jpg",
+            "numberEpisode": "E5",
+            "caption": "El descubrimiento del almacén perturba al equipo; Joe se debate entre dos misiones urgentes."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-6",
+            "title": "2831",
+            "image": "https://image.tmdb.org/t/p/w300/shHXnFf1tqxqzMgYUAmsZM3eJG1.jpg",
+            "numberEpisode": "E6",
+            "caption": "Los acontecimientos se precipitan en la finca de los Carrillo; Josie lleva a cabo su jugada."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-7",
+            "title": "El diablo tiene ases",
+            "image": "https://image.tmdb.org/t/p/w300/o9DNUy0EaoM2YslSXBq9yLnH5jH.jpg",
+            "numberEpisode": "E7",
+            "caption": "A pesar del debilitado estado de Joe, el equipo se dirige a Iraq para demostrar su valía."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-2/episodio-8",
+            "title": "La brújula apunta a casa",
+            "image": "https://image.tmdb.org/t/p/w300/9xEd84PanI9fulF0P23fTC8gBT4.jpg",
+            "numberEpisode": "E8",
+            "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/operativo-lioness/temporada-3/episodio-1",
+            "title": "The Spider and the Fly",
+            "image": "https://image.tmdb.org/t/p/w300/kxn57dtM7rNrvL8LzSvWL5bguoG.jpg",
+            "numberEpisode": "E1",
+            "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-3/episodio-2",
+            "title": "No Sorrow Like the Survivor",
+            "image": "https://image.tmdb.org/t/p/w300/r0Zg70jpcDAD7IMDhVqajSnG9vb.jpg",
+            "numberEpisode": "E2",
+            "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-3/episodio-3",
+            "title": "The Bear Is Infected",
+            "image": "https://image.tmdb.org/t/p/w300/osT904IAfFIZtXDOxv0yT9j2BEy.jpg",
+            "numberEpisode": "E3",
+            "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-3/episodio-4",
+            "title": "Murder Hornets",
+            "image": "https://image.tmdb.org/t/p/w300/zgd0o2GBZYawaId7cGIzVRbfZxN.jpg",
+            "numberEpisode": "E4",
+            "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado."
+          },
+          {
+            "link": "serie/operativo-lioness/temporada-3/episodio-5",
+            "title": "The Idiot Army",
+            "image": "https://image.tmdb.org/t/p/w300/5PtGJ1GZnzOHGwUekKpzDP5a9rr.jpg",
+            "numberEpisode": "E5",
+            "caption": "Joe intenta equilibrar su vida personal y profesional como punta de lanza de la CIA en la guerra contra el terrorismo. El Programa Lioness recluta a Cruz para que opere de incógnito junto a Joe entre los poderosos del terrorismo de Estado."
+          }
+        ]
+      }
+    ],
+    "link": "serie/operativo-lioness",
+    "updatedAt": "2026-08-30T19:46:51.597Z"
+  },
+  "serie/operativo-lioness/temporada-1/episodio-1": {
+    "movieUrl": "https://www.mediafire.com/file/ekl7mq3gcnxdc3g",
+    "link": "serie/operativo-lioness/temporada-1/episodio-1",
+    "updatedAt": "2026-08-30T19:47:10.615Z"
   }
 }

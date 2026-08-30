@@ -183,7 +183,7 @@ export default function ContinueWatchingPage() {
 
     if (res.status === 200) {
       const data = res.data as { continueWatching: ContinueWatching[] };
-      setPbWatching(data.continueWatching);
+      setPbWatching(data.continueWatching || []);
     }
 
     setLoadingPb(false);
@@ -196,7 +196,7 @@ export default function ContinueWatchingPage() {
   }, []);
 
   const displayList = useMemo(() => {
-    if (pbWatching.length === 0) {
+    if (pbWatching?.length === 0) {
       return localContinueWatching.map((item) => ({
         ...item,
         isLocalOnly: true,
