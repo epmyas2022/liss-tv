@@ -43,9 +43,11 @@ COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
 
 ENV PORT=8000
 
+ENV NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
 
 EXPOSE $PORT
 
+
 VOLUME [ "/data" ]
 
-CMD ["sh", "-c", "tor & HOSTNAME=0.0.0.0 PORT=$PORT node server.js"]
+CMD ["sh", "-c", "tor & HOSTNAME=0.0.0.0 NEXT_PUBLIC_POCKETBASE_URL=$NEXT_PUBLIC_POCKETBASE_URL PORT=$PORT node server.js"]
