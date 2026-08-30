@@ -13,7 +13,6 @@ ENV NEXT_PUBLIC_POCKETBASE_URL=$NEXT_PUBLIC_POCKETBASE_URL
 
 RUN npm run build
 
-
 FROM node:24.19.0-slim  AS runner
 
 WORKDIR /app
