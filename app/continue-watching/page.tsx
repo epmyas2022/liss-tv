@@ -201,8 +201,7 @@ export default function ContinueWatchingPage() {
   const localList = useMemo(() => {
     const pbLinks = new Set(pbWatching.map((i) => i.link));
     return localContinueWatching
-      .filter((i) => !pbLinks.has(i.link))
-      .map((i) => ({ ...i, isLocalOnly: true }));
+      .filter((i) => !pbLinks.has(i.link));
   }, [pbWatching, localContinueWatching]);
 
   const displayList = activeTab === "cloud" ? cloudList : localList;
@@ -269,7 +268,10 @@ export default function ContinueWatchingPage() {
               }`}
             >
               <Cloud size={18} />
-              Cloud <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">{cloudList.length}</span>
+              Cloud{" "}
+              <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">
+                {cloudList.length}
+              </span>
               {activeTab === "cloud" && (
                 <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
               )}
@@ -283,7 +285,10 @@ export default function ContinueWatchingPage() {
               }`}
             >
               <Smartphone size={18} />
-              Local <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">{localList.length}</span>
+              Local{" "}
+              <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">
+                {localList.length}
+              </span>
               {activeTab === "local" && (
                 <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
               )}
@@ -307,8 +312,11 @@ export default function ContinueWatchingPage() {
           </div>
         ) : (
           <FocusContextProvider>
-            <div key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-tab-content">
-              {displayList.map((item) => (
+            <div
+              key={activeTab}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-tab-content"
+            >
+              {displayList.map((item, i) => (
                 <a key={item.link} onClick={() => handleCardClick(item)}>
                   <FocusElementProvider
                     onEnterPress={() => handleCardClick(item)}
@@ -318,9 +326,7 @@ export default function ContinueWatchingPage() {
                     <ContinueWatchingCard
                       item={item}
                       onRemove={() => handleRemove(item)}
-                      isLocalOnly={
-                        (item as { isLocalOnly?: boolean }).isLocalOnly
-                      }
+                      isLocalOnly={activeTab === "local"}
                     />
                   </FocusElementProvider>
                 </a>

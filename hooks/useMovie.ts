@@ -1,3 +1,4 @@
+import { ContinueWatching } from "@/types/movie";
 import { pb, response } from "./useAuth";
 
 import { useMovieStore } from "@/store/useMovieStore";
@@ -5,13 +6,22 @@ import { useMovieStore } from "@/store/useMovieStore";
 export function useMovie() {
   const store = useMovieStore();
   const syncToPocketBase = async () => {
-    const userId = pb?.authStore?.record?.id;
+    const user = pb?.authStore?.record as
+      | { id: string; continueWatching?: ContinueWatching[] }
+      | undefined;
 
-    if (!userId) return;
+    if (!user) return;
+
+    const continueWatching = user.continueWatching || [];
 
     await response(() =>
-      pb.collection("users").update(userId, {
-        continueWatching: store.continueWatching,
+      pb.collection("users").update(user.id, {
+        continueWatching: [
+          ...continueWatching.filter(
+            (i) => !store.continueWatching.some((j) => j.link === i.link),
+          ),
+          ...store.continueWatching,
+        ],
       }),
     );
   };

@@ -53,7 +53,7 @@ export default function VideoPlayer({
   title,
   poster,
   thumbnails,
-  startTime,
+  startTime = 0,
   textTracks = [],
   handleTimeUpdate,
   handlePause,
