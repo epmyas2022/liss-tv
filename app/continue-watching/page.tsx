@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Trash2, Play, Clock, CloudOff } from "lucide-react";
+import { Trash2, Play, Clock, CloudOff, Cloud, Smartphone } from "lucide-react";
 import { FloatingNav } from "@/components/FloatingNav";
 import type { ContinueWatching } from "@/types/movie";
 import { useRouter } from "next/navigation";
@@ -88,7 +88,7 @@ function ContinueWatchingCard({
             e.stopPropagation();
             onRemove(item.link);
           }}
-          className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"
+          className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 z-10"
           style={{
             background: "rgba(0,0,0,0.7)",
             border: "1px solid rgba(255,255,255,0.15)",
@@ -167,6 +167,7 @@ export default function ContinueWatchingPage() {
 
   const [pbWatching, setPbWatching] = useState<ContinueWatching[]>([]);
   const [loadingPb, setLoadingPb] = useState(true);
+  const [activeTab, setActiveTab] = useState<"cloud" | "local">("cloud");
 
   const fetchPbWatching = async function fetchPbWatching() {
     const userId = pb.authStore?.record?.id;
@@ -195,21 +196,16 @@ export default function ContinueWatchingPage() {
     })();
   }, []);
 
-  const displayList = useMemo(() => {
-    if (pbWatching?.length === 0) {
-      return localContinueWatching.map((item) => ({
-        ...item,
-        isLocalOnly: true,
-      }));
-    }
+  const cloudList = useMemo(() => pbWatching || [], [pbWatching]);
 
+  const localList = useMemo(() => {
     const pbLinks = new Set(pbWatching.map((i) => i.link));
-    const onlyLocal = localContinueWatching
+    return localContinueWatching
       .filter((i) => !pbLinks.has(i.link))
       .map((i) => ({ ...i, isLocalOnly: true }));
-
-    return [...pbWatching, ...onlyLocal];
   }, [pbWatching, localContinueWatching]);
+
+  const displayList = activeTab === "cloud" ? cloudList : localList;
 
   const handleCardClick = (item: ContinueWatching) => {
     setMovieData({
@@ -263,19 +259,55 @@ export default function ContinueWatchingPage() {
           <h1 className="text-white text-2xl sm:text-3xl font-bold font-poppins flex items-center gap-3">
             Continue <span className="text-[#EA1C25]">Watching</span>
           </h1>
-          {displayList.length > 0 && (
-            <p className="text-white/40 text-sm mt-1">
-              {displayList.length} title
-              {displayList.length !== 1 ? "s" : ""} in progress
-            </p>
-          )}
+          <div className="mt-6 flex items-center gap-8 border-b border-white/10">
+            <button
+              onClick={() => setActiveTab("cloud")}
+              className={`pb-4 text-base font-medium transition-all relative flex items-center gap-2 ${
+                activeTab === "cloud"
+                  ? "text-white"
+                  : "text-white/50 hover:text-white/80"
+              }`}
+            >
+              <Cloud size={18} />
+              Cloud <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">{cloudList.length}</span>
+              {activeTab === "cloud" && (
+                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab("local")}
+              className={`pb-4 text-base font-medium transition-all relative flex items-center gap-2 ${
+                activeTab === "local"
+                  ? "text-white"
+                  : "text-white/50 hover:text-white/80"
+              }`}
+            >
+              <Smartphone size={18} />
+              Local <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">{localList.length}</span>
+              {activeTab === "local" && (
+                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
+              )}
+            </button>
+          </div>
         </div>
 
+        <style>{`
+          @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-tab-content {
+            animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          }
+        `}</style>
+
         {displayList.length === 0 ? (
-          <EmptyState />
+          <div key={`empty-${activeTab}`} className="animate-tab-content">
+            <EmptyState />
+          </div>
         ) : (
           <FocusContextProvider>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-tab-content">
               {displayList.map((item) => (
                 <a key={item.link} onClick={() => handleCardClick(item)}>
                   <FocusElementProvider
