@@ -254,7 +254,7 @@ export default function ContinueWatchingPage() {
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="my-7">
+        <div className="my-7 md:my-10">
           <h1 className="text-white text-2xl sm:text-3xl font-bold font-poppins flex items-center gap-3">
             Continue <span className="text-[#EA1C25]">Watching</span>
           </h1>
