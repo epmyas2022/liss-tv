@@ -25,24 +25,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     pb.authStore.clear();
+    document.cookie = "pb_auth=; Max-Age=0; path=/";
+    setUser(null);
   };
 
   useEffect(() => {
     // Suscribirse en tiempo real a los cambios del AuthStore (Login, Logout, tokens expirados)
-    const unsubscribe = pb.authStore.onChange((token, record) => {
-      // Actualizar la cookie dinámicamente para que sea visible en el Middleware / Server Components de Next.js
-      if (typeof document !== "undefined") {
-        document.cookie = pb.authStore.exportToCookie({
-          httpOnly: false,
-          secure: process.env.NODE_ENV === "production",
-        });
-      }
-      setIsLoading(false);
+    const syncCookie = () => {
+      document.cookie = pb.authStore.exportToCookie({
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+      });
+    };
 
-      setUser(record);
+    const initialize = async () => {
+      try {
+        if (pb.authStore.isValid) {
+          await pb.collection("users").authRefresh();
+        }
+      } catch (error) {
+        console.error("Error refreshing auth:", error);
+        pb.authStore.clear();
+      }
+
+      syncCookie();
+      setUser(pb.authStore.record);
+      setIsLoading(false);
+    };
+
+    const unsubscribe = pb.authStore.onChange(() => {
+      syncCookie();
+      setUser(pb.authStore.record);
     });
 
-    return () => unsubscribe();
+    initialize();
+
+    return unsubscribe;
   }, []);
 
   return (

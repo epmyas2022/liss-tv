@@ -3,9 +3,10 @@
 import NextImage from "next/image";
 import { User } from "lucide-react";
 import { pb } from "@/hooks/useAuth";
+import { RecordModel } from "pocketbase";
 
 interface UserAvatarProps {
-  user: any;
+  user: RecordModel | null;
   size?: number;
 }
 

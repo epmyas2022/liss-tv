@@ -19,19 +19,16 @@ export default function FocusElementProvider({
   const { isMobile } = useCommon();
   const { ref, focused } = useFocus({ onEnterPress: onEnterPress });
 
-  if (isMobile()) {
-    return <>{children}</>;
-  }
-
   return (
     <div
       ref={ref}
-      className={`${focused ? "focus-active" : ""} ${className}`}
+      className={`${focused && !isMobile() ? "focus-active" : ""} ${isMobile() ? "" : className}`}
       style={{
-        outline: focused
-          ? `${strokeSize !== 0 ? `${strokeSize}px solid white` : "none"}`
-          : "none",
-        ...(focused && styleFocus),
+        outline:
+          focused && !isMobile()
+            ? `${strokeSize !== 0 ? `${strokeSize}px solid white` : "none"}`
+            : "none",
+        ...(focused && !isMobile() && styleFocus),
       }}
     >
       {children}

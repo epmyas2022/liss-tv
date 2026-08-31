@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PocketBase, { ClientResponseError } from "pocketbase";
-
+import { redirect } from "next/navigation";
 // 1. Inicialización de la instancia de PocketBase
 export const pb = new PocketBase(
   process.env.NEXT_PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090",
@@ -11,14 +11,13 @@ export const pb = new PocketBase(
 // Deshabilitar la cancelación automática para evitar conflictos de peticiones simultáneas en React
 pb.autoCancellation(false);
 
-// 2. Cargar inmediatamente la sesión del almacenamiento en cookies (Evita el "auth" vacío en SSR/Hydration)
-if (typeof window !== "undefined") {
-  pb.authStore.loadFromCookie(document.cookie);
-}
+
 
 // 3. Helper unificado para manejar las respuestas y capturar errores de PocketBase de forma segura
 export const response = async <T>(callback: () => Promise<T>) => {
+  
   try {
+    
     // La operación asíncrona se ejecuta de forma segura dentro de este bloque
     const res = await callback();
     return {

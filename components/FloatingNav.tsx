@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Popcorn, Clapperboard, Eye, Search, X, User } from "lucide-react";
+import { Popcorn, Clapperboard, Eye, Search, X } from "lucide-react";
 import FocusContextProvider from "./providers/FocusContextProvider";
 import FocusElementProvider from "./providers/FocusElementProvider";
-import { pb } from "@/hooks/useAuth";
-import NextImage from "next/image";
+
 import { useAuthentication } from "./providers/context/AuthContext";
 import dynamic from "next/dynamic";
 

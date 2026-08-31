@@ -5,7 +5,6 @@ import {
   useFocusable,
 } from "@noriginmedia/norigin-spatial-navigation-react";
 import { useEffect } from "react";
-import { useCommon } from "../../hooks/useCommon";
 export default function FocusContextProvider({
   children,
   condition,
@@ -17,22 +16,16 @@ export default function FocusContextProvider({
   trackChildren?: boolean;
   isFocusBoundary?: boolean;
 }) {
-  const { isMobile } = useCommon();
-
   const { ref, focusKey, focusSelf } = useFocusable({
     trackChildren,
     isFocusBoundary,
   });
 
   useEffect(() => {
-    if (!condition || isMobile()) return;
+    if (!condition) return;
 
     focusSelf();
-  }, [condition, focusSelf, isMobile]);
-
-  if (isMobile()) {
-    return <>{children}</>;
-  }
+  }, [condition, focusSelf]);
 
   return (
     <>
