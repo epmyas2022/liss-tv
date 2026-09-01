@@ -27,9 +27,13 @@ export default function NetflixSearch({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      // Si el elemento ya no está en el DOM (ej: SVG path que se re-renderizó), ignoramos.
+      if (!document.contains(target)) return;
+      
       if (
         containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
+        !containerRef.current.contains(target)
       ) {
         if (!value) {
           setIsOpen(false);
@@ -113,17 +117,6 @@ export default function NetflixSearch({
             className={`font-poppins text-[15px] tracking-wide bg-transparent text-white placeholder-white/30 focus:outline-none transition-all duration-500 ${
               isOpen ? "w-full opacity-100 pr-2" : "w-0 opacity-0"
             }`}
-            onBlur={() => {
-              setTimeout(() => {
-                if (
-                  !value &&
-                  document.activeElement !== inputRef.current &&
-                  !containerRef.current?.contains(document.activeElement)
-                ) {
-                  setIsOpen(false);
-                }
-              }, 100);
-            }}
           />
 
           {isOpen && pending && (
