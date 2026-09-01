@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Popcorn, Clapperboard, Eye, Search, X } from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Popcorn, Clapperboard, Eye } from "lucide-react";
 import FocusContextProvider from "./providers/FocusContextProvider";
 import FocusElementProvider from "./providers/FocusElementProvider";
 
 import { useAuthentication } from "./providers/context/AuthContext";
 import dynamic from "next/dynamic";
+import NetflixSearch from "./ui/NetflixSearch";
 
 const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"), { ssr: false });
 
@@ -30,29 +31,7 @@ const glassStyle = {
 export function FloatingNav() {
   const { user } = useAuthentication();
   const [active, setActive] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
   const router = useRouter();
-  const [searchOpen, setSearchOpen] = useState(false);
-
-  const searchParams = useSearchParams();
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  // ponytail: pending covers debounce gap only — loading.tsx handles the rest
-  function handleSearch(value: string) {
-    if (value.trim() === "") return;
-    setPending(true);
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      setPending(false);
-      router.push(`/?search=${encodeURIComponent(value.trim())}`);
-    }, 1000);
-  }
-
-  function openSearch() {
-    setSearchOpen(true);
-    setTimeout(() => inputRef.current?.focus(), 50);
-  }
 
   return (
     <FocusContextProvider condition={true}>
@@ -115,33 +94,8 @@ export function FloatingNav() {
             </FocusElementProvider>
           ))}
 
-          <div className="px-3 relative">
-            <FocusElementProvider className="rounded-full">
-              <input
-                type="text"
-                placeholder="Search..."
-                defaultValue={searchParams.get("search") ?? ""}
-                className="px-3 py-2 font-poppins rounded-full text-sm bg-transparent text-white placeholder-gray-400 focus:outline-none transition-all duration-200"
-                style={{
-                  border: pending
-                    ? "2px solid #EA1C25"
-                    : "2px solid rgba(209,213,219,0.6)",
-                  boxShadow: pending
-                    ? "0 0 0 2px rgba(234,28,37,0.25)"
-                    : "none",
-                }}
-                onChange={(e) => handleSearch(e.target.value)}
-              />
-            </FocusElementProvider>
-            {pending && (
-              <span
-                className="absolute right-5 top-1/2 -translate-y-1/2 block w-3.5 h-3.5 rounded-full border-2 border-transparent"
-                style={{
-                  borderTopColor: "#EA1C25",
-                  animation: "spin 0.6s linear infinite",
-                }}
-              />
-            )}
+          <div className="px-3 relative flex items-center justify-center">
+            <NetflixSearch />
           </div>
           <div className="flex items-center pl-1 pr-3 border-l border-white/10 ml-1">
             <FocusElementProvider
@@ -171,58 +125,15 @@ export function FloatingNav() {
         </Link>
 
         <div className="flex items-center gap-3">
-          {/* ponytail: inline expand — no modal, no extra state complexity */}
-          {searchOpen ? (
-            <div className="flex items-center gap-2">
-              <div className="relative">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Search..."
-                  defaultValue={searchParams.get("search") ?? ""}
-                  className="w-40 sm:w-44 px-3 py-1.5 font-poppins rounded-full text-sm bg-white/10 text-white placeholder-gray-400 focus:outline-none"
-                  style={{
-                    border: pending
-                      ? "2px solid #EA1C25"
-                      : "2px solid rgba(209,213,219,0.5)",
-                  }}
-                  onChange={(e) => handleSearch(e.target.value)}
-                />
-                {pending && (
-                  <span
-                    className="absolute right-3 top-1/2 -translate-y-1/2 block w-3 h-3 rounded-full border-2 border-transparent"
-                    style={{
-                      borderTopColor: "#EA1C25",
-                      animation: "spin 0.6s linear infinite",
-                    }}
-                  />
-                )}
-              </div>
-              <button
-                onClick={() => setSearchOpen(false)}
-                className="text-white/70 hover:text-white"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <button
-                onClick={openSearch}
-                className="text-white/70 hover:text-white p-1"
-              >
-                <Search size={20} />
-              </button>
-
-              <Link
-                href="/profile"
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 border border-white/20 hover:border-[#EA1C25] text-white/80 hover:text-white transition-colors overflow-hidden"
-                aria-label="Perfil"
-              >
-                <UserAvatar user={user} size={32} />
-              </Link>
-            </div>
-          )}
+          <NetflixSearch isMobile />
+          
+          <Link
+            href="/profile"
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 border border-white/20 hover:border-[#EA1C25] text-white/80 hover:text-white transition-colors overflow-hidden shrink-0"
+            aria-label="Perfil"
+          >
+            <UserAvatar user={user} size={32} />
+          </Link>
         </div>
       </div>
 
