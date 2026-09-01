@@ -279,7 +279,7 @@ export async function getMovieDetails(link: string) {
       title: title?.trim() ?? "",
       year: year ?? "",
       duration: duration ?? "",
-      rating: rating ?? "",
+      rating: rating?.replace(/TMDB\s+([0-9.]+)/, "TMDB $1") ?? "",
       tags: tags ?? [],
       caption: caption ?? "",
       episodes: seasonsData,

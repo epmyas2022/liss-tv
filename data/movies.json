@@ -22324,7 +22324,7 @@
     "title": "The Good Doctor",
     "year": "Ended",
     "duration": "2017",
-    "rating": "\n                    TMDB\n                    8.5\n                ",
+    "rating": "TMDB 8.5",
     "tags": [
       "Drama"
     ],
@@ -23249,11 +23249,6 @@
       }
     ],
     "link": "serie/el-buen-doctor",
-    "updatedAt": "2026-09-01T15:11:19.114Z"
-  },
-  "serie/el-buen-doctor/temporada-1/episodio-1": {
-    "movieUrl": "https://www.mediafire.com/file/819imnmfun0beb4",
-    "link": "serie/el-buen-doctor/temporada-1/episodio-1",
-    "updatedAt": "2026-09-01T15:27:50.630Z"
+    "updatedAt": "2026-09-01T15:47:13.102Z"
   }
 }
