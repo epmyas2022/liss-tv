@@ -22317,5 +22317,943 @@
     "movieUrl": "https://www.mediafire.com/file/ddlyogiuk4k148q",
     "link": "serie/operativo-lioness/temporada-1/episodio-2",
     "updatedAt": "2026-08-30T19:51:13.292Z"
+  },
+  "serie/el-buen-doctor": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/f3cin9kOz4nOrlYEMxGFQhv4bdN.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/hnrzBrLKekwmSNPL4cJXzhdCX0k.jpg",
+    "title": "The Good Doctor",
+    "year": "Ended",
+    "duration": "2017",
+    "rating": "\n                    TMDB\n                    8.5\n                ",
+    "tags": [
+      "Drama"
+    ],
+    "caption": "La serie sigue a Shaun Murphy, un joven cirujano con autismo y síndrome del sabio de una pequeña ciudad, donde tuvo una infancia problemática. Él se traslada para unirse al prestigioso departamento de cirugía en San José St. Bonaventure Hospital.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-1",
+            "title": "Comida quemada",
+            "image": "https://image.tmdb.org/t/p/w300/eeNYnyVdAGdBzVDCIspxlFHNAtb.jpg",
+            "numberEpisode": "E1",
+            "caption": "Un joven cirujano con autismo y Síndrome de Savant se traslada de Wyoming a California para completar su formación médica y confía en sus extraordinarias habilidades para refutar el escepticismo de sus colegas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-2",
+            "title": "Monte Rushmore",
+            "image": "https://image.tmdb.org/t/p/w300/1g3CuVBgFOOH12Sth6UjLInF2CK.jpg",
+            "numberEpisode": "E2",
+            "caption": "Cuando los prejuicios sobre su autismo obligan a Shaun a mantenerse al margen en el St. Bonaventure, sus colegas no dudan en atribuirse el mérito de sus ideas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-3",
+            "title": "Oliver",
+            "image": "https://image.tmdb.org/t/p/w300/tmqwU2w2K6013xPkowDx4I0FFM5.jpg",
+            "numberEpisode": "E3",
+            "caption": "Mientras Shaun y Claire improvisan para conservar un hígado para un trasplante, Andrews recibe presión para que colabore con Melendez en una cirugía de rutina de un paciente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-4",
+            "title": "Tuberías",
+            "image": "https://image.tmdb.org/t/p/w300/fVjVylVNKoWENfT33mpB6fhuAFm.jpg",
+            "numberEpisode": "E4",
+            "caption": "El Dr. Neil Meléndez y el equipo tienen que navegar en aguas legales cuando una pareja tiene que tomar una decisión que cambie su vida sobre su hijo a punto de nacer. Mientras tanto, el Dr. Shaun Murphy se esfuerza por adaptarse a su nuevo entorno en casa y da un gran paso adelante con sus colegas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-5",
+            "title": "Uno coma tres por ciento",
+            "image": "https://image.tmdb.org/t/p/w300/MzfgLX9JNTKWVvWRFC2kgjB2xz.jpg",
+            "numberEpisode": "E5",
+            "caption": "Después de conocer a un paciente, Shaun sospecha que ha sido diagnosticado erroneamente con un tumor cerebral. Una reacción alérgica de un paciente mayor, revela una serie de problemas que tiene con su hijo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-6",
+            "title": "De mentira no",
+            "image": "https://image.tmdb.org/t/p/w300/s8GYwVwdLtKI1bAVJnJ68SJOgaz.jpg",
+            "numberEpisode": "E6",
+            "caption": "Un accidente de autobús pone a prueba a Shaun y a sus compañeros en su primera noche en Urgencias."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-7",
+            "title": "22 pasos",
+            "image": "https://image.tmdb.org/t/p/w300/aj1VKYlk0FjLNH2ViWG7kzgsLT9.jpg",
+            "numberEpisode": "E7",
+            "caption": "Melendez se ve en una situación comprometida cuando los padres de un niño autista rehúsan que Shaun opere a su hijo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-8",
+            "title": "Manzana",
+            "image": "https://image.tmdb.org/t/p/w300/pwYRmXPu2MHXDYizfE9JNEUXi4A.jpg",
+            "numberEpisode": "E8",
+            "caption": "Mientras Shaun trata a una mujer herida por un disparo, Claire se niega a tratar al autor del crimen por sus comentarios racistas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-9",
+            "title": "Intangibles",
+            "image": "https://image.tmdb.org/t/p/w300/qTy5ccl2GOAXENEMGjV9C2qTpqq.jpg",
+            "numberEpisode": "E9",
+            "caption": "Shaun y Melendez trabajan juntos para operar a un niño africano muy grave."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-10",
+            "title": "Sacrificio",
+            "image": "https://image.tmdb.org/t/p/w300/vCS4jTC0zJinFJy1Y5gHuw32esN.jpg",
+            "numberEpisode": "E10",
+            "caption": "Mientras Shaun lucha por ser escuchado cuando sospecha que Melendez está pasando por alto el problema de un paciente, Claire se enfrenta al acoso sexual de un doctor muy respetado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-11",
+            "title": "Islas: Primera parte",
+            "image": "https://image.tmdb.org/t/p/w300/9szrl9sxMictoWjo7SlbvX2qcvh.jpg",
+            "numberEpisode": "E11",
+            "caption": "Shaun se une a Lea para un viaje improvisado. Melendez y Claire se enfrentan a un transplante entre dos hermanos siameses."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-12",
+            "title": "Islas: Segunda parte",
+            "image": "https://image.tmdb.org/t/p/w300/skCS4v00DeeePf2hBYN3UFvAVlw.jpg",
+            "numberEpisode": "E12",
+            "caption": "Mientras Shaun hace una revelación importante después de su viaje con Lea, el transplante entre los gemelos siameses se complica y pone en una situación compremetida a la madre y al equipo quirúrgico."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-13",
+            "title": "Siete razones",
+            "image": "https://image.tmdb.org/t/p/w300/ql96ISN6nrRQsz9lxQ62zfFaH60.jpg",
+            "numberEpisode": "E13",
+            "caption": "Shaun sospecha que las quemaduras que presentan los pulmones de un paciente, las causaron sustancias químicas utilizadas para fabricar bombas y Claire cuestiona los motivos que llevan a una mujer a rechazar la operación que salvaría la vida de su marido."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-14",
+            "title": "Ella",
+            "image": "https://image.tmdb.org/t/p/w300/izihXlq8haa5wTtFFII8XAkYuDV.jpg",
+            "numberEpisode": "E14",
+            "caption": "Mientras Shaun y Jared debaten cómo tratar el cáncer de una niña transgénero de doce años, Claire y una nueva residente competitiva deben trabajar juntas para salvar a un padre soltero de un parásito súper resistente a los medicamentos."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-15",
+            "title": "De corazón",
+            "image": "https://image.tmdb.org/t/p/w300/cuic2bVKE5BT66yYMtHiPZclCoG.jpg",
+            "numberEpisode": "E15",
+            "caption": "Una operación para corregir el defecto cardíaco de un adolescente pone en desacuerdo a Shaun y al Dr. Morgan. La experiencia de un nuevo residente como agente de policía lo lleva a dudar de los motivos de un asesino preso por querer ser un donante de órganos."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-16",
+            "title": "Dolor",
+            "image": "https://image.tmdb.org/t/p/w300/rMli43YcMKvlRLYize0XIjSoDKZ.jpg",
+            "numberEpisode": "E16",
+            "caption": "La repentina sensibilidad en las piernas de un hombre paralizado hace que Melendez sospeche que puede volver a caminar. Andrews debe deshacer una cirugía estética que salió mal para salvar la vida de una mujer."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-17",
+            "title": "Sonrisa",
+            "image": "https://image.tmdb.org/t/p/w300/6KABs1NArkaKKtUFiUjcLSm30LS.jpg",
+            "numberEpisode": "E17",
+            "caption": "Claire y Morgan no están de acuerdo sobre cómo tratar a un paciente que descubren que está utilizando una tarjeta de seguro robada. Shaun conecta una paciente adolescente que se prepara para una cirugía que le permitirá sonreír la primera vez."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-1/episodio-18",
+            "title": "Más",
+            "image": "https://image.tmdb.org/t/p/w300/9DxI3ECB5aMI0SScQvWttaqZz9V.jpg",
+            "numberEpisode": "E18",
+            "caption": "El equipo del hospital necesita descubrir la verdad sobre las inexplicables heridas que sufre un joven estudiante antes de que su situación empeore. Mientras tanto, las distracciones de Shaun durante una cirugía podrían acabar con su privilegiada posición en el trabajo."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-1",
+            "title": "Hola",
+            "image": "https://image.tmdb.org/t/p/w300/9ZglVukhrTwm1RH0LkO6ROYv3wa.jpg",
+            "numberEpisode": "E1",
+            "caption": "El tratamiento propuesto por Shaun para un indigente lo coloca a él y a Jared en el punto de mira de Andrews. Claire intenta convencer a Melendez de que ue debe hacer una arriesgada operación cardíaca. Glassman se enfrenta a una decisión difícil sobre su estado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-2",
+            "title": "Zona Intermedia",
+            "image": "https://image.tmdb.org/t/p/w300/2Zx9JcW2xMU4yQoP1XllMgK3sdU.jpg",
+            "numberEpisode": "E2",
+            "caption": "Mientras Shaun se enfrenta a Meléndez para tratar a un conserje del hospital gravemente enfermo, Lim se arriesga a una demanda por intentar reparar la circuncisión ritual de una adolescente. Glassman elige exhaustivamente un médico para su cirugía cerebral."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-3",
+            "title": "36 horas",
+            "image": "https://image.tmdb.org/t/p/w300/30UtIcRk4lVhA7LvXYsM4cYvYfV.jpg",
+            "numberEpisode": "E3",
+            "caption": "Al Dr. Meléndez, la Dr. Brown y el Dr. Park le han dado a una pareja joven de casados dos opciones sobre su futuro: salvar la vida de la mujer o su capacidad futura de formar una familia. Mientras tanto, cuando la Dra. Lim tiene que ocuparse de algunos asuntos personales, deja la supervisión de la sala de emergencias al Dr. Murphy y a la Dr. Reznick; y la recuperación postoperatoria del Dr. Glassman lo deja luchando por conseguir el descanso que necesita para recuperarse y también por confrontar su relación con su hija."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-4",
+            "title": "Plántale cara",
+            "image": "https://image.tmdb.org/t/p/w300/pnib9F3EN6c2owmvmDM1AfMuayK.jpg",
+            "numberEpisode": "E4",
+            "caption": "Shaun recuerda su propio pasado para ayudar a un adolescente con discapacidad intelectual a enfrentar la separación de su madre, mientras que Claire se encuentra entre un adolescente escalador herido y sus preocupados padre. Mientras tanto, las alucinaciones postoperatorias de Glassman lo obligan a enfrentar una tragedia personal."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-5",
+            "title": "Zanahorias",
+            "image": "https://image.tmdb.org/t/p/w300/tNx2eyqe89VuwOdVO9uEkY27giR.jpg",
+            "numberEpisode": "E5",
+            "caption": "Cuando una paciente que sufre anorexia no puede ganar el peso necesario para sobrevivir a una cirugía cardíaca, Claire sugiere que realicen una cirugía experimental a la que Meléndez se opone firmemente. A Shaun le preocupa que la negativa de Glassman a caminar por el suelo del hospital evite que sea dado de alta y trata de persuadirlo de que se mueva. Mientras tanto, Shaun y Lea cambian los términos de su relación actual."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-6",
+            "title": "De doble capa (o no de doble capa)",
+            "image": "https://image.tmdb.org/t/p/w300/rYySW84keeCSMfhieUBxUVwB38D.jpg",
+            "numberEpisode": "E6",
+            "caption": "La indecisión de Morgan y Shaun sobre cómo tratar a una joven violinista que visita la sala de emergencias con un dedo infectado podría afectar a su futuro en más de un sentido. Mientras tanto, Lim, Claire y Park no pueden averiguar si su joven paciente está realmente enferma o si solo busca atención."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-7",
+            "title": "Hubert",
+            "image": "https://image.tmdb.org/t/p/w300/xvPkfgJHpZdzkDoradB3edVmprb.jpg",
+            "numberEpisode": "E7",
+            "caption": "El Dr. Shaun Murphy y la Dr. Morgan Reznick deben lidiar con dos hermanos que están negociando sobre la vida y la muerte. Mientras tanto, una amiga de la Dra. Claire Brown que se está muriendo de cáncer le pide algo que no cree que pueda darle; y el Dr. Aaron Glassman está lidiando con los efectos de su tratamiento."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-8",
+            "title": "Historias",
+            "image": "https://image.tmdb.org/t/p/w300/7k0AYaJxys9k2M18oEAHQzdZK6s.jpg",
+            "numberEpisode": "E8",
+            "caption": "El Dr. Murphy, la Dra. Lim y la Dra. Brown se ven obligados a revelar un secreto al esposo de una paciente después de que su tratamiento se complique. Mientras tanto, el Dr. Meléndez, la Dra. Reznick y el Dr. Park luchan por un paciente cuyos padres no creen en las vacunas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-9",
+            "title": "Empatía",
+            "image": "https://image.tmdb.org/t/p/w300/9LMfoGDqSqMsNFp7t0ewbk4oN50.jpg",
+            "numberEpisode": "E9",
+            "caption": "El Dr. Meléndez, la Dra. Reznick y la Dra. Brown lidian con el deseo de un paciente de realizar una operación que evite que actúe de acuerdo con sus impulsos pedófilos. El Dr. Murphy aprende una lección sobre la empatía."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-10",
+            "title": "Cuarentena (1ª parte)",
+            "image": "https://image.tmdb.org/t/p/w300/2i4oeJ5xK2iwXLQK5p3tqfgoUEM.jpg",
+            "numberEpisode": "E10",
+            "caption": "El Dr. Shaun Murphy y el Dr. Alex Park tratan a dos pacientes que se colapsan en el aeropuerto local y cuyos síntomas apuntan a una infección que puede transmitirse por el aire. Lo que desencadena en una cuarentena hospitalaria durante las vacaciones."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-11",
+            "title": "Cuarentena (2ª parte)",
+            "image": "https://image.tmdb.org/t/p/w300/mZQtq2nq9KpBZfUKOXOZkZkzcnV.jpg",
+            "numberEpisode": "E11",
+            "caption": "Con un médico agotado y recursos limitados, Shaun y Morgan se hacen cargo de urgencias en cuarentena. Andrews ayuda a Melendez y a Claire a realizar una extracción de médula improvisada en un intento por salvar la vida de su paciente con leucemia."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-12",
+            "title": "El día después",
+            "image": "https://image.tmdb.org/t/p/w300/nz5c2HNi8cCMPVvVEjv71ztvWDj.jpg",
+            "numberEpisode": "E12",
+            "caption": "Tras la traumática cuarentena, los residentes pasan un día fuera del hospital para desahogarse. De vuelta, Andrews evita a un funcionario del departamento de salud."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-13",
+            "title": "Xin",
+            "image": "https://image.tmdb.org/t/p/w300/47sASSrkQfJ5TbmPbla9z6cH2QE.jpg",
+            "numberEpisode": "E13",
+            "caption": "Mientras tratan quirúrgicamente a un paciente con Trastorno del Espectro Autista, Shaun y Morgan se interesan por su \"relación\" con su compañero de habitación.\n\nMelendez, Claire y Park trabajan para salvar la vida de una mujer con un corazón mecánico, por lo que requieren ingeniería y experiencia médica a partes iguales."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-14",
+            "title": "Caras",
+            "image": "https://image.tmdb.org/t/p/w300/r53Egw7b19g05Vf04jnmdxNB7XF.jpg",
+            "numberEpisode": "E14",
+            "caption": "El Dr. Andrews intenta convencer a una familia de luto para que done la cara de su hija adolescente a otra chica cuyo rostro quedó horriblemente desfigurado en un accidente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-15",
+            "title": "Riesgo y reconocimiento",
+            "image": "https://image.tmdb.org/t/p/w300/oUttc8Yz384YCsm98Mgh6y4v9DK.jpg",
+            "numberEpisode": "E15",
+            "caption": "La dura honestidad de Shaun con una madre consternada a causa de su bebé en estado crítico coloca al nuevo jefe de cirugía (Daniel Dae Kim) en una delicada situación, planteándose la posibilidad de mantenerlo como residente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-16",
+            "title": "Cree",
+            "image": "https://image.tmdb.org/t/p/w300/vkRtaPQuLYDYTiyu6P2xQv1zTvX.jpg",
+            "numberEpisode": "E16",
+            "caption": "El nuevo jefe de cirugía, el Doctor Jackson Han (Daniel Dae Kim), cree que el Doctor Shaun Murphy es un lastre e intenta mantenerlo fuera de la sala de operaciones permanentemente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-17",
+            "title": "Crisis",
+            "image": "https://image.tmdb.org/t/p/w300/9iy4jWhd1sZNUiDJ2HuHf9VplFQ.jpg",
+            "numberEpisode": "E17",
+            "caption": "El Doctor Shaun Murphy está desesperado por unirse al equipo involucrado en un complicado proceso para eliminar el tumor de un paciente. Sin embargo, habiendo sido apartado del equipo de cirugía por el Doctor Jackson Han (Daniel Dae Kim), Shaun debe usar su talento para descubrir la causa de las lesiones de su bebé."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-2/episodio-18",
+            "title": "Trampolín",
+            "image": "https://image.tmdb.org/t/p/w300/yqTwIiuCTjcdIyppV8MGqjWVJOj.jpg",
+            "numberEpisode": "E18",
+            "caption": "Mientras que una pelea de bar envía al Doctor Shaun Murphy a buscar un tratamiento al San Bonaventure, el Doctor Park y la Doctora Lim están en desacuerdo con los síntomas postoperatorios de una mujer mayor. Por otra parte, el Doctor Meléndez y la Doctora Lim hacen pública su relación, y el Doctor Glassman continúa buscando la forma de continuar la relación con un buen amigo."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-1",
+            "title": "Desastre",
+            "image": "https://image.tmdb.org/t/p/w300/bRvMRjxMQRs1gbn9XObAsXXf4BG.jpg",
+            "numberEpisode": "E1",
+            "caption": "Tras la desastrosa primera cita entre Carly y Shaun Murphy, el doctor propone una cirugía radical para salvar la vida de una mujer recién casada. Mientras tanto, la nueva jefa de cirugía, la Doctora Audrey Lim, anuncia que los residentes pueden dirigir cirugías, por lo que la Doctora Morgan Reznick y el Doctor Alex Park compiten por conseguir la operación de un paciente de edad avanzada al que se le ha diagnosticado cáncer."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-2",
+            "title": "Deudas",
+            "image": "https://image.tmdb.org/t/p/w300/tckW2kXaUbin3mSKvBhbsMgK5Q7.jpg",
+            "numberEpisode": "E2",
+            "caption": "El Dr. Marcus Andrews intentará ayudar a un buen samaritano que ha resultado herido tras intentar detener una agresión sexual. Mientras, la Dra. Audrey Lim tendrá que enfrentarse a una decisión muy difícil: los padres de un joven paciente sospechan que el Dr. Neil Melendez ha cometido un terrible error y tendrá que tomar cartas sobre el asunto."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-3",
+            "title": "Claire",
+            "image": "https://image.tmdb.org/t/p/w300/xM9NM136u1NUkHD1vMdPxfn5XCa.jpg",
+            "numberEpisode": "E3",
+            "caption": "La Dra. Claire Brown se enfrenta a varias complicaciones en casa y en el trabajo mientras se prepara para dirigir su primera cirugía. Mientras tanto, un accidente de pesca deportiva desafía al resto del personal, ya que buscan tratar las lesiones del pescador sin dañar el premio capturado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-4",
+            "title": "Coge mi mano",
+            "image": "https://image.tmdb.org/t/p/w300/bOjLyaf1CFrMNQG5EN22yKc3U2s.jpg",
+            "numberEpisode": "E4",
+            "caption": "Un teórico conspiracionista cuestiona al Dr. Neil Meléndez el daño que sufre en el hígado. La doctora Claire Brown trata a una mujer cuya incapacidad para sentir dolor es una amenaza tanto en su matrimonio como en su vida. Mientras tanto, el Dr. Shaun Murphy y el Dr. Aaron Glassman se enfrentan a una crisis en sus relaciones románticas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-5",
+            "title": "Primer caso, segunda base",
+            "image": "https://image.tmdb.org/t/p/w300/u9qobQlMlKrNed6ejeuoV6LlRTB.jpg",
+            "numberEpisode": "E5",
+            "caption": "Shaun lidera su primera cirugía, pero no va todo lo bien que se esperaba. Claire, Morgan y Melendez tratan a un hombre que parece haber recaído en el alcohol, pero que la inestimable fe de su mujer en él finalmente le salva la vida."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-6",
+            "title": "Ángulo de 45 grados",
+            "image": "https://image.tmdb.org/t/p/w300/s8B8KPPlW9mgA5UfG29vwfucXfN.jpg",
+            "numberEpisode": "E6",
+            "caption": "Mientras está realizando su primera cirugía en solitario, el Dr. Shaun le pide a una enfermera que salga del quirófano. No sabe cómo comunicarse y esto pone en peligro su residencia en el hospital. También en este episodio, el Dr. Neil Meléndez no está de acuerdo con que la Dra. Audrey Lim realice una cirugía arriesgada y la Dra. Claire Brown tendrá un comportamiento autodestructivo causando ambiente en el lugar de trabajo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-7",
+            "title": "DAEF",
+            "image": "https://image.tmdb.org/t/p/w300/9sldAOBfQmZsXsYWPHzLwrOnKIC.jpg",
+            "numberEpisode": "E7",
+            "caption": "La capacidad única del Dr. Shaun Murphy de relacionarse con un paciente aislado por una inmunodeficiencia produce un resultado inesperado. Mientras tanto, la Dra. Claire Browne, la Dra. Morgan Reznick y el Dr. Marcus Andrews tratan a un paciente de 12 años que está a punto de quedarse ciego, y la tensión aumenta entre el Dr. Neil Melendez y la Dra. Audrey Lim."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-8",
+            "title": "Lanzamiento a la Luna",
+            "image": "https://image.tmdb.org/t/p/w300/l2lr119HgjtxJJOm3lezrdCFciJ.jpg",
+            "numberEpisode": "E8",
+            "caption": "La frustración de Carly sigue en aumento tras no conseguir intimar con Shaun todo lo que le gustaría. Mientras tanto, Lim y Melendez trabajan para conseguir separar su vida laboral de la personal."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-9",
+            "title": "Incompleto",
+            "image": "https://image.tmdb.org/t/p/w300/uNdE6iIceSkkY9wvBk58A3PSl5p.jpg",
+            "numberEpisode": "E9",
+            "caption": "Shaun está listo para el siguiente paso en su relación con Carly; sin embargo, él continúa luchando a medida que se acercan y se vuelven más íntimos, y recibe noticias preocupantes sobre un tema profundamente personal. Mientras tanto, una paciente joven debe decidir un tratamiento que pueda salvar su vida o posiblemente destruir su matrimonio."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-10",
+            "title": "Amigos y familia",
+            "image": "https://image.tmdb.org/t/p/w300/e3XFLZwQteHLJCMsnDjCqHWMQns.jpg",
+            "numberEpisode": "E10",
+            "caption": "Shaun visita a su padre en su lecho de muerte y la reunión familiar revela resultados inesperados. Meléndez, Park, Reznick y Claire tratan a una estrella lesionada de la NFL con daño espinal severo. Claire aborda su salud mental."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-11",
+            "title": "Fracturado",
+            "image": "https://image.tmdb.org/t/p/w300/rNZqJT5AQWynJujcDLAsUMaoEt2.jpg",
+            "numberEpisode": "E11",
+            "caption": "Mientras Shaun trata de equilibrar sus sentimientos hacia Carly y Lea, Claire busca en su pasado para conectar con un paciente problemático. Andrews debe averiguar cómo operar a una mujer que rechaza la anestesia."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-12",
+            "title": "Mutaciones",
+            "image": "https://image.tmdb.org/t/p/w300/v1VVZEt7hO2dyQ8O1xXPwwqbcvM.jpg",
+            "numberEpisode": "E12",
+            "caption": "Los médicos deben tratar a un corredor de 25 años que sufre una hinchazón severa. Dos pacientes con cáncer de 16 años están luchando contra él. Shaun y Carly siguen esforzándose por reforzar su relación."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-13",
+            "title": "Sexo y muerte",
+            "image": "https://image.tmdb.org/t/p/w300/zenYa5rbRJF7LxAnnvIoKB3erbN.jpg",
+            "numberEpisode": "E13",
+            "caption": "Crece la tensión familiar tras la llegada de la madre de Morgan a Ventura, mientras Shaun descubre que aún le quedan cosas por hacer con Carly."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-14",
+            "title": "Influencia",
+            "image": "https://image.tmdb.org/t/p/w300/xR00XdgbhNn6VALVJXqq46gYc2r.jpg",
+            "numberEpisode": "E14",
+            "caption": "Después de que Shaun trata a una paciente influencer, tiene que lidiar con atención no deseada. Además, los esfuerzos de Carly para separar a Shaun de Lea son desafiados."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-15",
+            "title": "Lo que no se dice",
+            "image": "https://image.tmdb.org/t/p/w300/fmOtYFJ1fBJdCpRz3Gj7WsyUR1B.jpg",
+            "numberEpisode": "E15",
+            "caption": "A pesar de las dudas de todos los demás, Shaun tiene la esperanza de que a Carly le parezca bien su amistad con Lea. El equipo trata a un niño nacido sin una tráquea completamente formada e incapaz de hablar, y que puede ser un buen candidato para un procedimiento experimental."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-16",
+            "title": "Autopsia",
+            "image": "https://image.tmdb.org/t/p/w300/ulAq86H8sdSl3ZdZjtmRajspLRO.jpg",
+            "numberEpisode": "E16",
+            "caption": "Cuando el Dr. Shaun Murphy hace una confesión emocional, el resultado puede no ser el deseado. Mientras tanto, se obsesiona con realizar una autopsia en una Jane Doe, lo que desafía sus relaciones en el hospital. La Dra. Claire Browne, la Dra. Morgan Reznick y el Dr. Marcus Andrews tratan a un estudiante universitario con un misterioso trastorno de doble personalidad."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-17",
+            "title": "Fijación",
+            "image": "https://image.tmdb.org/t/p/w300/fYH8ki5p0JXGzLab06cNNe4S08n.jpg",
+            "numberEpisode": "E17",
+            "caption": "Una paciente con una enfermedad misteriosa y no diagnosticada que ha desconcertado a otros médicos durante años obliga a Shaun y al equipo a correr grandes riesgos. Claire y Melendez continúan navegando con cautela sus sentimientos mutuos como compañeros y amigos."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-18",
+            "title": "Desamor",
+            "image": "https://image.tmdb.org/t/p/w300/ujSK9Y2Jp2SLc5LULkCJInCMRJl.jpg",
+            "numberEpisode": "E18",
+            "caption": "Claire y Shaun tratan a un paciente con una forma rara de enanismo. Reznick, Lim y Park tratan a un joven al que le arrancaron los brazos en un accidente agrícola anterior. Shaun reacciona a una situación emocional."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-19",
+            "title": "Rescate",
+            "image": "https://image.tmdb.org/t/p/w300/5IIUBAcngWNFxNb813Lms0CZ65Q.jpg",
+            "numberEpisode": "E19",
+            "caption": "La ciudad de San José se ve sacudida por un terremoto masivo que pone al personal del Hospital St. Bonaventure en alerta máxima mientras compiten para evaluar el daño y dar cuenta de la seguridad de sus colegas y amigos. Mientras tanto, el Dr. Neil Meléndez y el Dr. Aaron Glassman asisten a un evento de caridad cuando sus vidas se ven amenazadas por el terremoto."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-3/episodio-20",
+            "title": "Te quiero",
+            "image": "https://image.tmdb.org/t/p/w300/bbV4bHdzLZ7jp3z9aWvVLFPSAAu.jpg",
+            "numberEpisode": "E20",
+            "caption": "El personal del Hospital St. Bonaventure trabaja contrarreloj y por la propia seguridad personal para salvar la vida de quienes los rodean."
+          }
+        ]
+      },
+      {
+        "season": "4",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-1",
+            "title": "Primera línea (1ª parte)",
+            "image": "https://image.tmdb.org/t/p/w300/bUq4aNotfqlrZ2galZ6aWoE75pI.jpg",
+            "numberEpisode": "E1",
+            "caption": "El Dr. Murphy trata a un paciente que tiene una enfermedad que no solo es de naturaleza impredecible, sino también diferente a todo lo que él o el equipo hayan visto antes. Claire continúa procesando su luto, aún recuperándose de la muerte de Melendez."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-2",
+            "title": "Primera línea (2ª parte)",
+            "image": "https://image.tmdb.org/t/p/w300/oncm0Ae5dOAyjkseCZ8mPEh1Ejp.jpg",
+            "numberEpisode": "E2",
+            "caption": "El Dr. Shaun Murphy y el Dr. Marcus Andrews determinan que su paciente ha sido infectado por el COVID-19. Mientras luchan por comprender y adelantarse a un virus en constante evolución, Shaun lidia con sus temores y preocupaciones sobre poner en peligro la salud de Lea."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-3",
+            "title": "Novatos",
+            "image": "https://image.tmdb.org/t/p/w300/4ic5zBy0YQqxFKsby6uZaoepnFl.jpg",
+            "numberEpisode": "E3",
+            "caption": "Con varios candidatos compitiendo por la residencia en St. Bonaventure, la Jefa de Cirugía, la Dra. Audrey Lim, encarga al Dr. Shaun Murphy, a la Dr. Claire Browne y al Dr. Alex Park que asesoren a los principales candidatos residentes de primer año. Mientras sus aprendices los siguen durante el día, Shaun y Park se reúnen con Andrews para discutir una cirugía difícil programada para una menor."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-4",
+            "title": "No es lo mismo",
+            "image": "https://image.tmdb.org/t/p/w300/bupCPJ08QBV0GsRwZOvFLga6G1d.jpg",
+            "numberEpisode": "E4",
+            "caption": "La paciente embarazada de gemelos de Morgan y Shaun sufre tanto dolor que los doctores se ven forzados a lidiar con una decisión que nadie quiere tomar."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-5",
+            "title": "Culpa",
+            "image": "https://image.tmdb.org/t/p/w300/nvn4vDgKMkbl4iRNDvnsApVkC8F.jpg",
+            "numberEpisode": "E5",
+            "caption": "El Dr. Shaun Murphy cuestiona su decisión de dar autonomía a los nuevos residentes cuando uno de los diagnósticos erróneos de un paciente por parte de su interno tiene graves consecuencias. Mientras tanto, la Dra. Claire Browne, el Dr. Alex Park y el Dr. Jordan Allen tratan a una paciente con un quiste roto que afecta funciones clave de su cerebro. Y en otros lugares, el Dr. Morgan Reznick y Park se unen por relaciones fallidas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-6",
+            "title": "Lim",
+            "image": "https://image.tmdb.org/t/p/w300/cUT8Ri3O6taiADvNtAGWTWo7Rev.jpg",
+            "numberEpisode": "E6",
+            "caption": "Como Jefa de Cirugía, Audrey Lim lucha para hacer frente al trauma emocional residual del COVID-19, se encuentra con un joven veterano de guerra luchando contra el debilitante TEPT. Después de discutir su caso con el equipo, la Dra. Claire Browne sugiere un tratamiento radical para ayudarlo. Mientras tanto, aún conmovido por la reciente pérdida del paciente de su pupilo, el Dr. Shaun Murphy declara que ya no quiere enseñar a los nuevos residentes. Y en otro lugar, una paciente excéntrica mantiene al equipo entretenido."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-7",
+            "title": "El principio de la incertidumbre",
+            "image": "https://image.tmdb.org/t/p/w300/lvNf1V5mlIpXuC6Iu5zT0eK0Wc4.jpg",
+            "numberEpisode": "E7",
+            "caption": "Shaun descubre de forma accidental que Lea ha estado casada. Por otra parte, Enrique, uno de los nuevos internos, le pide una cita a Claire."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-8",
+            "title": "Ser padres",
+            "image": "https://image.tmdb.org/t/p/w300/zR7TIsjaL9YrcLUMbVWC1OB2Cd5.jpg",
+            "numberEpisode": "E8",
+            "caption": "Mientras Shaun se prepara para conocer a los padres de Lea, el equipo de St. Bonaventure trata a una gimnasta de élite y a su entrenador, que también es su padre."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-9",
+            "title": "Hábitos irresponsables en el bufé de ensaladas",
+            "image": "https://image.tmdb.org/t/p/w300/qmcLFjECfYc3KgZly7LzoAcvrGA.jpg",
+            "numberEpisode": "E9",
+            "caption": "Lim se enfrenta a las circunstancias únicas que rodean a un paciente embarazado con un tumor agresivo. En otra parte, después de diagnosticar erróneamente a un paciente, Claire hace un descubrimiento desconcertante sobre ciertas prácticas en el hospital."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-10",
+            "title": "Desencríptalo",
+            "image": "https://image.tmdb.org/t/p/w300/hbZAeZGKsUiobMMbQuE2cN0ICOR.jpg",
+            "numberEpisode": "E10",
+            "caption": "Cuando el hospital se ve afectado por un ciberataque que amenaza con apagar las máquinas que salvan vidas, Lea acepta el desafío y busca ser más astuta que los piratas informáticos para demostrar su valía. Mientras tanto, el equipo trata a un inspirador superviviente de cáncer convertido en exitoso filántropo que alberga un oscuro secreto."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-11",
+            "title": "Todos estamos locos a veces",
+            "image": "https://image.tmdb.org/t/p/w300/q3sdkJoHUZWX7LzmSvtf19sD7DG.jpg",
+            "numberEpisode": "E11",
+            "caption": "Glassman diseña un procedimiento novedosos para la columna vertebral gravemente deformada de un joven. Mientras tanto, Shaun y Morgan deben decidir cómo actuar cuando un paciente en coma recupera la conciencia"
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-12",
+            "title": "Ojitos azules",
+            "image": "https://image.tmdb.org/t/p/w300/uyK2T4iqe5KfraV9jRjOZbSmLDW.jpg",
+            "numberEpisode": "E12",
+            "caption": "Cuando un cirujano de renombre llega a St. Bonaventure para recibir tratamiento, el entusiasmo del equipo se ve rápidamente eclipsado por el comportamiento del médico. Después de estudiar su caso, el Dr. Shaun Murphy ve un patrón que reconoce. Mientras tanto, Shaun y Lea se ven obligados a tomar una decisión que les cambiará la vida y que alterará el curso de su relación."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-13",
+            "title": "Hecho está",
+            "image": "https://image.tmdb.org/t/p/w300/zzFtXFFyoi6M7NJvbscJX5xAjGG.jpg",
+            "numberEpisode": "E13",
+            "caption": "Claire queda sorprendida cuando su padre ausente aparece en su puerta. Mientras tanto, Shaun se siente desconectado de Lea, lo que provoca tensión en su relación."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-14",
+            "title": "Sabemos el sexo",
+            "image": "https://image.tmdb.org/t/p/w300/qgscjUNDrFFHHbbFkavLc2fAcu1.jpg",
+            "numberEpisode": "E14",
+            "caption": "Después de descubrir el sexo de su futuro hijo, el entusiasmo de Lea impulsa a Shaun a hacer un esfuerzo por ser una pareja más comprensiva. Mientras tanto, el equipo trata a una piloto de la marina cuyo diagnóstico erróneo del médico anterior compromete sus posibilidades de recuperarse por completo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-15",
+            "title": "La espera",
+            "image": "https://image.tmdb.org/t/p/w300/zxkygcwq1rSI3YnNbiwOFeXftbC.jpg",
+            "numberEpisode": "E15",
+            "caption": "Después de que una protesta se vuelve violenta, el equipo corre para salvar a dos jóvenes víctimas de disparos."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-16",
+            "title": "Dr. Peluche",
+            "image": "https://image.tmdb.org/t/p/w300/1HbbdnnxnalxWJ70NQLOwREu8oX.jpg",
+            "numberEpisode": "E16",
+            "caption": "Mientras los problemas con el embarazo de Lea son un desafío para Shaun, Asher lucha por honrar los últimos deseos de un paciente anciano."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-17",
+            "title": "Aceptándolo",
+            "image": "https://image.tmdb.org/t/p/w300/AdO7hgfzEMScfWokzIUfljn1KDV.jpg",
+            "numberEpisode": "E17",
+            "caption": "Claire y el equipo deben enfrentar duras verdades sobre las líneas que están dispuestas a cruzar cuando uno de los ídolos de Claire se convierte en su paciente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-18",
+            "title": "Perdona u olvida",
+            "image": "https://image.tmdb.org/t/p/w300/mZ2fazdYSCUeyNZrIMYZwBq7szt.jpg",
+            "numberEpisode": "E18",
+            "caption": "Shaun y Lea se van de acampada para distraerse de su dolor por su aborto espontáneo. Mientras tanto, Morgan y Park discuten sobre el mejor tratamiento para su paciente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-19",
+            "title": "Venga",
+            "image": "https://image.tmdb.org/t/p/w300/mFkj1IyjFDhFmbUFnkmijrE4dK8.jpg",
+            "numberEpisode": "E19",
+            "caption": "El equipo viaja a Guatemala con la misión de ayudar a los pacientes de un hospital rural. El equipo se enfrenta a una pequeña comunidad que necesita ayuda desesperadamente, pero deben identificar a quién pueden ayudar más. Lea todavía sufre con la pérdida de su bebé."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-4/episodio-20",
+            "title": "Vamos",
+            "image": "https://image.tmdb.org/t/p/w300/m1Wq6KKMOEGfcM643U90uhEM3Du.jpg",
+            "numberEpisode": "E20",
+            "caption": "Shaun debe realizar una cirugía arriesgada en un paciente sin electricidad cuando la energía se apaga repentinamente. La relación entre Lim y el Dr. Rendón Osma se profundiza a medida que superan las dificultades durante su cirugía."
+          }
+        ]
+      },
+      {
+        "season": "5",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-1",
+            "title": "Nuevos comienzos",
+            "image": "https://image.tmdb.org/t/p/w300/mbqxKWKibdywlUHOF5Kwl7zCnvU.jpg",
+            "numberEpisode": "E1",
+            "caption": "La próxima fiesta de compromiso de Shaun y Lea tiene a todos de buen humor después de su regreso de Guatemala. Mientras tanto, una joven madre soltera se entera de que su hijo puede haber contraído el cáncer de una fuente sorprendente, y Mateo descubre si sus problemas anteriores en Estados Unidos se resolverán."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-2",
+            "title": "Escoge",
+            "image": "https://image.tmdb.org/t/p/w300/rrjFDXsMSHveoU3fZzOIT5U2UCh.jpg",
+            "numberEpisode": "E2",
+            "caption": "Shaun y el equipo se apresuran a salvar al bebé de una mujer embarazada y descubren que su situación actual como delincuente convicta lo complica aún más de lo que creen. Mientras tanto, el hospital asume algunos cambios inesperados para los que el personal no está preparado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-3",
+            "title": "Medida de inteligencia",
+            "image": "https://image.tmdb.org/t/p/w300/ZidBfB6L7tyr21EQ811X3EcXZV.jpg",
+            "numberEpisode": "E3",
+            "caption": "Shaun, Asher, Jordan y Audrey deben usar su ingenio para tratar el grave traumatismo facial de un ciclista. Marcus, Alex y Mateo intentan unir fuerzas con Salen para tratar una cirugía arriesgada y conseguir detener las convulsiones de una mujer."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-4",
+            "title": "Racionalidad",
+            "image": "https://image.tmdb.org/t/p/w300/812UcjxVcNmnhbk29PmTJqxrHPy.jpg",
+            "numberEpisode": "E4",
+            "caption": "Shaun, Marcus y Mateo deben trabajar con el padre de una paciente como si fuese un compañero más, con el fin un idear un tratamiento para la miopatía visceral de su hija."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-5",
+            "title": "Obsesión",
+            "image": "https://image.tmdb.org/t/p/w300/7M7MJxxiqvdchXn8RIqp2qUEYNF.jpg",
+            "numberEpisode": "E5",
+            "caption": "Alex y Shaun tratan a un hombre asiático al que su hija ha llevado al hospital tras ser víctima de un crimen de odio. Además, Lea actúa a espaldas de Shaun para ayudarle a mejorar su reputación en el hospital."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-6",
+            "title": "Un corazón",
+            "image": "https://image.tmdb.org/t/p/w300/ukqfa4qwbNoe86Gxni4XgjUyE6w.jpg",
+            "numberEpisode": "E6",
+            "caption": "Shaun y Alex deben lidiar con una decisión de vida o muerte y decidir entre salvar a un paciente y no a otro. Mientras tanto, Morgan va demasiado lejos en su intento de ganarse el favor de Salen."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-7",
+            "title": "Caducado",
+            "image": "https://image.tmdb.org/t/p/w300/1i3jyRyNz41E2Xv1gZ42zoSEZb1.jpg",
+            "numberEpisode": "E7",
+            "caption": "Después de visitar un posible lugar para la boda, Shaun y Lea sufren un terrible accidente automovilístico y descubren a Alma, una joven madre embarazada que ha resultado gravemente herida y necesita atención médica inmediata. Aaron siente aprensión cuando una figura de su pasado busca ayuda."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-8",
+            "title": "Rebelión",
+            "image": "https://image.tmdb.org/t/p/w300/c9IUUBOQ24QuRYwJ6OdXl1EOLYV.jpg",
+            "numberEpisode": "E8",
+            "caption": "Tras cancelar la boda, Shaun debe enfrentarse a Lea y determinar lo que realmente significa para ella. Además, el equipo debate sus opiniones sobre la cirugía plástica y Audrey intenta desmantelar a Salen tras la muerte de un bebé."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-9",
+            "title": "Yippee Ki-Yay",
+            "image": "https://image.tmdb.org/t/p/w300/6aEr5aO5uEPpxsbAQPgQtgU4LrN.jpg",
+            "numberEpisode": "E9",
+            "caption": "En un esfuerzo por complacer a Salen, Marcus acepta un caso de alto perfil y solicita la ayuda de Shaun y Jordan para realizar una cirugía arriesgada y conseguir restaurar la voz de una famosa estrella del pop."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-10",
+            "title": "Hoy hago trampa",
+            "image": "https://image.tmdb.org/t/p/w300/a8h4VMgBCXZT7nqf5tPrt20eFtK.jpg",
+            "numberEpisode": "E10",
+            "caption": "Salen toma medidas extremas al descubrir que el personal quirúrgico se ha unido a los esfuerzos de Audrey contra ella. Mientras tanto, el equipo trata a un paciente que tiene graves problemas con su trasplante de hígado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-11",
+            "title": "La familia",
+            "image": "https://image.tmdb.org/t/p/w300/2vo1C48JAzdLMji22sYMJJtbmHW.jpg",
+            "numberEpisode": "E11",
+            "caption": "Shaun hace una conexión personal con un paciente joven precoz que amenaza su objetividad. Mientras tanto, mientras es voluntaria en un centro de atención a largo plazo, Morgan se da cuenta de que podría ayudar a la clínica de Aaron ofreciendo servicios de telemedicina para hogares de ancianos y centros de atención."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-12",
+            "title": "En dique seco",
+            "image": "https://image.tmdb.org/t/p/w300/zkKr17GvVN6QHo81Oh2Z59Czx7s.jpg",
+            "numberEpisode": "E12",
+            "caption": "Audrey, Alex y Asher tratan a una mujer con fiebre del Valle y descubren un secreto que ha estado escondiendo de su prometido. Mientras tanto, los Shaun, Jordan y Marcus tratan a una virgen de 45 años y la ayudan a tomar una gran decisión sobre su vida."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-13",
+            "title": "Dolores del crecimiento",
+            "image": "https://image.tmdb.org/t/p/w300/qqFN1tQJVKmNRAqfAO3Q7n3cjsK.jpg",
+            "numberEpisode": "E13",
+            "caption": "Mientras Audrey, Shaun y Asher ayudan a un \"biohacker\" adolescente cuyos experimentos comienzan a comprometer su salud, Morgan, Alex, Jordan y Aaron tratan a una joven que quiere una controvertida cirugía para tratar su depresión y dolor crónico. Además, Morgan busca dar el siguiente paso en su relación con Alex."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-14",
+            "title": "El bufé",
+            "image": "https://image.tmdb.org/t/p/w300/p1z3JIutHsdzU5BaxDMT2BNdkNY.jpg",
+            "numberEpisode": "E14",
+            "caption": "Cuando alguien trae por error un plato alucinógeno a la comida de la compañía del hospital, gran parte del personal del hospital y los médicos están incapacitados, dejando a los médicos Shaun, Aaron y Jordan obligados a ocuparse de todos los casos del hospital, exacerbando aún más los estilos de trabajo conflictivos de Shaun y el Aaron."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-15",
+            "title": "A mi manera",
+            "image": "https://image.tmdb.org/t/p/w300/zv5Ml7kb0qVBb3DHibUZ2moKiRy.jpg",
+            "numberEpisode": "E15",
+            "caption": "Mientras el Marcus trata a un niño de acogida por las lesiones sufridas en su hogar de acogida, Shaun y el equipo buscan la experiencia de Lea con los coches y la reparación de automóviles para ayudar a una paciente cuyo pulmón de hierro se ha roto. Mientras tanto, la sobrina de la paciente, una documentalista, se interesa por Shaun."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-16",
+            "title": "El programa de Shaun",
+            "image": "https://image.tmdb.org/t/p/w300/bmQKaY0ZWdornKE60YBPvJ8J7Tg.jpg",
+            "numberEpisode": "E16",
+            "caption": "Mientras Shaun y Lea se acercan al día de su boda, una realizadora de documentales ha optado por seguir sus vidas para mostrar las relaciones y bodas de parejas atípicas."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-17",
+            "title": "El programa de Lea",
+            "image": "https://image.tmdb.org/t/p/w300/11wk33AZRjfZjPsP3Sdxwf0tgo1.jpg",
+            "numberEpisode": "E17",
+            "caption": "Sophie lleva a Lea a pasar un día lleno de lujos preboda. Y después de un descuido casi fatal, Audrey siente que hay un problema subyacente detrás del comportamiento poco profesional de la enfermera Dalisay."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-5/episodio-18",
+            "title": "Hijos",
+            "image": "https://image.tmdb.org/t/p/w300/wSXFfKqM00CZFpBVrADDU2tEMef.jpg",
+            "numberEpisode": "E18",
+            "caption": "Shaun y Lea toman una gran decisión en la vida y quedan gratamente sorprendidos por el apoyo que reciben de sus amigos en el hospital. Mientras tanto, cuando los padres de Asher aparecen con una revelación, Asher se esfuerza por aceptar que es posible que él y su padre nunca se entiendan realmente."
+          }
+        ]
+      },
+      {
+        "season": "6",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-1",
+            "title": "Después de la fiesta",
+            "image": "https://image.tmdb.org/t/p/w300/jiwfFwM6DyEGMsq86n6WotqEML3.jpg",
+            "numberEpisode": "E1",
+            "caption": "La esperada boda de Shaun y Lea se ve interrumpida por un violento ataque en el hospital y todo el equipo debe movilizarse para salvar a las víctimas. Mientras tanto, el trauma de ver a las personas que quiere en situaciones que amenazan sus vidas está afectando a Shaun en más de un sentido."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-2",
+            "title": "Cambio de perspectiva",
+            "image": "https://image.tmdb.org/t/p/w300/tVtGgTvlpk0uOBFU3zpSdtFjn6Q.jpg",
+            "numberEpisode": "E2",
+            "caption": "En su primer día como ayudantes de cirugía, Shaun y Alex conocen a los residentes de primer año que supervisarán, Danica Powell y Daniel Pérez, quienes causan una gran primera impresión. Mientras tanto, Audrey regresa al trabajo mientras enfrenta su nueva realidad y las emociones que rodean los cambios."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-3",
+            "title": "En letras mayúsculas",
+            "image": "https://image.tmdb.org/t/p/w300/roCnOVshIkgrOdpJpk7FX2wPyDa.jpg",
+            "numberEpisode": "E3",
+            "caption": "El equipo trata a una famosa consejera matrimonial después de que se lesione el tobillo al caerse, pero cuando les ofrece consejos sobre relaciones, Morgan rápidamente ve que su paciente podría estar experimentando algo mucho más serio. Mientras tanto, Audrey está decidida a llegar al fondo de lo que realmente sucedió en el quirófano durante su operación y comienza su propia investigación interna."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-4",
+            "title": "Metralla",
+            "image": "https://image.tmdb.org/t/p/w300/r3Rb5iWs0lZJICZhYSJNevuoO2j.jpg",
+            "numberEpisode": "E4",
+            "caption": "El equipo opera en un recreador militar cuyo intento de autenticidad ha creado una situación explosiva que ni siquiera Shaun podría predecir. Mientras tanto, Jordan y Daniel están en una carrera contrarreloj mientras buscan un pie amputado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-5",
+            "title": "Oportunidades de crecimiento",
+            "image": "https://image.tmdb.org/t/p/w300/xAdcwwUGBMLSDK7AmNYbCq7vDQR.jpg",
+            "numberEpisode": "E5",
+            "caption": "Shaun, Asher y Danica tratan a un joven paciente en Halloween con una rara enfermedad hereditaria, enviándolos por un camino inexplorado. Mientras tanto, Aaron y Shaun deben superar sus diferencias para trabajar juntos para tratar de encontrar una solución para la parálisis de Lim."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-6",
+            "title": "Ola de calor",
+            "image": "https://image.tmdb.org/t/p/w300/pEBWrz8eMp0SZeO96z1hl7WVkyP.jpg",
+            "numberEpisode": "E6",
+            "caption": "Shaun y Danica están en desacuerdo cuando se trata de la cirugía de su paciente. Esta situación pone a prueba la paciencia de Shaun y su disposición a comprometerse."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-7",
+            "title": "De la A a la F",
+            "image": "https://image.tmdb.org/t/p/w300/x8oyBQ0Sfbo7jeaQQDYGqtjApOJ.jpg",
+            "numberEpisode": "E7",
+            "caption": "Cuando una mujer embarazada de sextillizos llega al hospital, Marcus debe dividir a los médicos en equipos para garantizar su salud y seguridad después de un parto de alto riesgo. Mientras tanto, Shaun y Lea deben enfrentar sus propios obstáculos mientras hablan sobre formar una familia."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-8",
+            "title": "Lo siento, no lo siento",
+            "image": "https://image.tmdb.org/t/p/w300/bnDUPqjGoyzFoJZyGfX95TcdDWp.jpg",
+            "numberEpisode": "E8",
+            "caption": "Shaun, Asher y Aaron conocen a una paciente con una esponja quirúrgica infectada que quedó en su abdomen. Mientras tanto, Morgan debe enfrentarse a su propio pasado cuando trata a la víctima de una agresión sexual."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-9",
+            "title": "Defectuoso o no",
+            "image": "https://image.tmdb.org/t/p/w300/92Aw0sMgAj5XZX4vk31DoZDncog.jpg",
+            "numberEpisode": "E9",
+            "caption": "Shaun sin saberlo crea una competencia entre Danica y Daniel cuando introduce un nuevo sistema de calificación de rendimiento. Morgan puede haber cruzado una línea con Alex."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-10",
+            "title": "Ruido y silencio",
+            "image": "https://image.tmdb.org/t/p/w300/9P8zlBNkQ4oERto8PsZnMnGz84a.jpg",
+            "numberEpisode": "E10",
+            "caption": "Shaun y Lea pronto descubren que su embarazo sorpresa también puede traer complicaciones adicionales. Mientras tanto, los doctores Park, Reznick y Allen tratan a un adolescente con síndrome de Gardner cuyos antecedentes quirúrgicos ponen en peligro el resultado."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-11",
+            "title": "El chico bueno",
+            "image": "https://image.tmdb.org/t/p/w300/qAomSd7S1zBH1kWwVbL94C6gDGM.jpg",
+            "numberEpisode": "E11",
+            "caption": "De camino a su viaje prebebé, Lea y Shaun reciben una rápida lección de crianza cuando se apresuran a ayudar a un perro herido. Mientras tanto, Danica realiza en secreto una operación a una amiga que podría poner en peligro su carrera."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-12",
+            "title": "365 grados",
+            "image": "https://image.tmdb.org/t/p/w300/3gxh0K99Xu89m05Uv0JkUg0wnyF.jpg",
+            "numberEpisode": "E12",
+            "caption": "Shaun invita a Aaron a quedarse con él mientras tiene exterminadores en su casa y Lea se da cuenta de que ambos hombres tienen mucho más en común de lo que creía. Mientras tanto, Morgan se enfrenta a una gran decisión sobre su carrera y su vida personal."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-13",
+            "title": "39 diferencias",
+            "image": "https://image.tmdb.org/t/p/w300/tuvIcoj0DJuCa2kerep7xI2sOZG.jpg",
+            "numberEpisode": "E13",
+            "caption": "Shaun y Lea chocan por sus estilos de crianza y se preocupan por lo que sucederá con su relación cuando nazca su hijo. Mientras tanto, Audrey debe encontrar una manera de salvar los pulmones dañados que una de sus pacientes ha estado esperando desde hace mucho tiempo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-14",
+            "title": "Corazón de piedra",
+            "image": "https://image.tmdb.org/t/p/w300/ju3zBjl7LlD90Folv3x5TOpufvX.jpg",
+            "numberEpisode": "E14",
+            "caption": "Cuando un niño de 3 años llega a la sala de emergencias, el equipo reconoce de inmediato que está teniendo un derrame cerebral. Sin embargo, el diagnóstico de la causa subyacente de Shaun no resuelve el problema que hace que Alex haga una búsqueda más a fondo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-15",
+            "title": "Viejos amigos",
+            "image": "https://image.tmdb.org/t/p/w300/rYntD3a03AaxMqZTCr5Mcp8VcHw.jpg",
+            "numberEpisode": "E15",
+            "caption": "Jared Kalu regresa por sorpresa al Hospital St. Bonaventure de San José con su paciente multimillonario. Mientras tanto, Alex debe tratar al hombre con el que su exmujer tuvo una aventura y tratar de encontrar una manera de perdonarlo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-16",
+            "title": "La buena abogada",
+            "image": "https://image.tmdb.org/t/p/w300/pA7MkVTnrNK0XJaNKBsXKm2kJ6B.jpg",
+            "numberEpisode": "E16",
+            "caption": "El Dr. Shaun Murphy busca representación legal para ayudarlo a ganar un caso y confía en una abogada joven y prometedora que tiene un trastorno obsesivo compulsivo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-17",
+            "title": "Segundas oportunidades y remordimientos del pasado",
+            "image": "https://image.tmdb.org/t/p/w300/gc5JpYJkn4fYdExZ2OY9dUi79e5.jpg",
+            "numberEpisode": "E17",
+            "caption": "Shaun debe aprender a trabajar con Jared nuevamente y recordarle que debe comenzar de nuevo en St. Bonaventure. Mientras tanto, Shaun trata a una adolescente que sufre de problemas neurológicos con un procedimiento de muy alto riesgo."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-18",
+            "title": "Un lapsus",
+            "image": "https://image.tmdb.org/t/p/w300/4Iiby3IdZOKdzhRgIqvOUHeyaOT.jpg",
+            "numberEpisode": "E18",
+            "caption": "Cuando una paciente ingresa con síntomas de COVID persistentes, el equipo descubre que puede estar lidiando con algo más difícil de tratar. Marcus y Dalisay deben lidiar con su jerarquía en el hospital y su efecto en su relación."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-19",
+            "title": "Medias tintas",
+            "image": "https://image.tmdb.org/t/p/w300/kRGCgXsdUnPn8SKJWzRsBdchjHZ.jpg",
+            "numberEpisode": "E19",
+            "caption": "Marcus y Audrey se enfrentan por un paciente dividido casi por la mitad, lo que también revela sus problemas con el regreso de Jared. Mientras tanto, Aaron le da Shaun algunos consejos paternales mientras esperan noticias sobre las pruebas recientes de Aaron."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-20",
+            "title": "Afortunado",
+            "image": "https://image.tmdb.org/t/p/w300/e1M5FZrfir7fJsAqt3wi3sCTDGw.jpg",
+            "numberEpisode": "E20",
+            "caption": "Marcus presenta a parte del equipo a un paciente cuya postura religiosa causa escepticismo por parte de Asher."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-21",
+            "title": "Un día hermoso",
+            "image": "https://image.tmdb.org/t/p/w300/qkLddujNxwsxYz9chhnU7mqWFGZ.jpg",
+            "numberEpisode": "E21",
+            "caption": "La relación entre Aaron y Shaun puede quedar irremediablemente dañada tras un tenso momento durante una intervención quirúrgica."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-6/episodio-22",
+            "title": "Obra del amor",
+            "image": "https://image.tmdb.org/t/p/w300/kFG84C5AmvenUzkL2pX6m0lh3Ke.jpg",
+            "numberEpisode": "E22",
+            "caption": "Todos los compañeros del hospital se reúnen en la sala de partos para acompañar a Shaun y Lea a ser padres, excepto una persona muy importante."
+          }
+        ]
+      },
+      {
+        "season": "7",
+        "episodes": [
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-1",
+            "title": "Peque",
+            "image": "https://image.tmdb.org/t/p/w300/2qOxo7k6kqkGOfyv877o3x3yqrw.jpg",
+            "numberEpisode": "E1",
+            "caption": "Shaun y Lea se adaptan a la paternidad y maternidad mientras debaten sobre la importancia de los horarios y la rutina para Steve; Shaun asume su primer caso de vuelta al hospital con dos bebés que necesitan el mismo corazón."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-2",
+            "title": "Apostando fuerte",
+            "image": "https://image.tmdb.org/t/p/w300/oS0tb6kH9lVJg7oDynRAWUbxubP.jpg",
+            "numberEpisode": "E2",
+            "caption": "Shaun intenta acomodar al nuevo miembro de su equipo quirúrgico, Charlie, que interfiere en la relación de un paciente con su hija; Park se enfrenta a un complicado tumor cerebral; Lea y Morgan se adaptan a la maternidad."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-3",
+            "title": "Apoyo vital",
+            "image": "https://image.tmdb.org/t/p/w300/lP2O7GYdnjaqhR5otFEU8Gu8sqK.jpg",
+            "numberEpisode": "E3",
+            "caption": "Shaun sigue siendo puesto a prueba por Charlie cuando su caso más reciente provoca un incesante flujo de preguntas, que buscan una respuesta; Morgan se debate sobre a quién nombrar como tutor del bebé, Eden, en caso de que algo le suceda."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-4",
+            "title": "Noche íntima",
+            "image": "https://image.tmdb.org/t/p/w300/3T8ht2yMQQj1JeHoket69ucXI6O.jpg",
+            "numberEpisode": "E4",
+            "caption": "Shaun y Lea intentan equilibrar sus deberes como padres con sus vidas personales; Park y Morgan intentan encontrar tiempo y espacio para reavivar su romance en medio de las exigencias de la paternidad y el trabajo; la madre de Lim hace una visita sorpresa."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-5",
+            "title": "Aquel en paz",
+            "image": "https://image.tmdb.org/t/p/w300/opwo6DlCcPf3KYyy6aSwv1vIvVe.jpg",
+            "numberEpisode": "E5",
+            "caption": "Las opiniones de Asher sobre el matrimonio complican su futuro con Jerome. Mientras tanto, Asher también revive brevemente su pasado religioso para ayudar a un paciente en la conversión al judaísmo de su prometida."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-6",
+            "title": "Prometidos",
+            "image": "https://image.tmdb.org/t/p/w300/A6LYvOlAuSRydE0W3dEmHPdH8Zx.jpg",
+            "numberEpisode": "E6",
+            "caption": "El equipo debe hacer frente a un suceso con un gran número de víctimas que les obliga a dejar a un lado sus emociones tras una reciente tragedia."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-7",
+            "title": "Fe",
+            "image": "https://image.tmdb.org/t/p/w300/R5SDGAODDtE9dmsT5w7yfGv9y8.jpg",
+            "numberEpisode": "E7",
+            "caption": "El paciente de Shaun y Jordan necesita urgentemente un trasplante de riñón. Cuando encuentran al donante perfecto, también descubren que él cree que es Jesús, lo que podría comprometer su capacidad para dar su consentimiento a la cirugía."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-8",
+            "title": "El efecto perspectiva",
+            "image": "https://image.tmdb.org/t/p/w300/3BD1nNQyd3dp7I4u7p9hQJKatd3.jpg",
+            "numberEpisode": "E8",
+            "caption": "El joven paciente de Shaun, Jared y Charlie necesita que sus padres se pongan de acuerdo sobre una importante decisión médica que podría mejorar enormemente su salud; sin embargo, sus padres no pueden ponerse de acuerdo sobre el camino correcto, lo que impulsa al equipo a intentar intervenir en nombre de su paciente."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-9",
+            "title": "Incondicional",
+            "image": "https://image.tmdb.org/t/p/w300/3dATKpoQgbmFeWOnCMQx72VDHRR.jpg",
+            "numberEpisode": "E9",
+            "caption": "La doctora Claire Browne regresa de su trabajo en Guatemala para someterse a un examen médico personal. Por otra parte, el doctor Glassman se esfuerza por tratar a Hannah, que sigue sin responder a sus intentos de ayuda."
+          },
+          {
+            "link": "serie/el-buen-doctor/temporada-7/episodio-10",
+            "title": "Adiós",
+            "image": "https://image.tmdb.org/t/p/w300/zPKhaUJtlduU6v2AEf4OXkxDb4y.jpg",
+            "numberEpisode": "E10",
+            "caption": "Mientras los médicos consideran su futuro, trabajan juntos para resolver uno de los casos más importantes de sus carreras."
+          }
+        ]
+      }
+    ],
+    "link": "serie/el-buen-doctor",
+    "updatedAt": "2026-09-01T15:11:19.114Z"
+  },
+  "serie/el-buen-doctor/temporada-1/episodio-1": {
+    "movieUrl": "https://www.mediafire.com/file/819imnmfun0beb4",
+    "link": "serie/el-buen-doctor/temporada-1/episodio-1",
+    "updatedAt": "2026-09-01T15:27:50.630Z"
   }
 }
