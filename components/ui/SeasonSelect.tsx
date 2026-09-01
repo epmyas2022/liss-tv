@@ -74,7 +74,7 @@ export default function SeasonSelect({
               animation: dropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
           `}</style>
-          <div className="absolute z-50 w-full mt-2 py-2 bg-[#181818] border border-white/10 rounded shadow-2xl overflow-hidden max-h-[50vh] overflow-y-auto animate-dropdown">
+          <div className="absolute z-50 w-full mt-2 py-2 bg-[#181818] border border-white/10 rounded shadow-2xl overflow-hidden max-h-[50vh] overflow-y-auto animate-dropdown custom-scrollbar">
             {seasons.map((s) => {
               const isActive = activeSeason === s.season;
               return (
