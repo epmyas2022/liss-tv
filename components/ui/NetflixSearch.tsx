@@ -58,7 +58,7 @@ export default function NetflixSearch({
     debounceRef.current = setTimeout(() => {
       setPending(false);
       router.push(`/?search=${encodeURIComponent(val.trim())}`);
-    }, 1000);
+    }, 1800);
   }
 
   function toggleSearch() {
@@ -86,7 +86,7 @@ export default function NetflixSearch({
           className={`group flex items-center w-full h-10 transition-all duration-500 overflow-hidden rounded-full ${
             isOpen
               ? pending
-                ? "bg-black/90 border border-[#EA1C25]/50 shadow-[0_8px_32px_rgba(234,28,37,0.3)]"
+                ? "bg-black/90 border border-[#EA1C25]/50"
                 : "bg-[#0a0a0a]/80 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] focus-within:bg-black focus-within:border-white/20"
               : "bg-transparent border border-transparent hover:bg-white/10"
           }`}
