@@ -27,6 +27,12 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Liss TV",
   description: "Watch movies and series online for free.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true, // Indica que la aplicación web es compatible con dispositivos Apple
+    title: "Liss TV",
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({

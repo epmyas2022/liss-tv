@@ -23250,5 +23250,23 @@
     ],
     "link": "serie/el-buen-doctor",
     "updatedAt": "2026-09-01T15:47:13.102Z"
+  },
+  "pelicula/monstruoso": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/6ms6RdNcQUAnjBY26aM85xC2wV0.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/8FBpammgqlX9j9yQt301PHh4sJb.jpg",
+    "title": "Cloverfield: Monstruo",
+    "year": "2008",
+    "duration": "1h 25m",
+    "rating": "◆ 6.7",
+    "tags": [
+      "Acción",
+      "Ciencia Ficción",
+      "Suspense"
+    ],
+    "caption": "La noche en que varios jóvenes neoyorquinos celebran la fiesta de despedida de un amigo en Manhattan, un monstruo del tamaño de un rascacielos llega a la ciudad. Contada desde el punto de vista de la videocámara de uno de ellos, este es el escalofriante documento sobre sus intentos por sobrevivir durante los momentos más increíbles y terroríficos de sus vidas.",
+    "episodes": [],
+    "link": "pelicula/monstruoso",
+    "updatedAt": "2026-09-02T15:17:33.632Z",
+    "movieUrl": "https://www.mediafire.com/file/lbwnthj1js71mbm"
   }
 }
