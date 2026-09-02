@@ -23268,5 +23268,528 @@
     "link": "pelicula/monstruoso",
     "updatedAt": "2026-09-02T15:17:33.632Z",
     "movieUrl": "https://www.mediafire.com/file/lbwnthj1js71mbm"
+  },
+  "serie/margarita-que-tu-cuento-valga-la-pena": {
+    "backgroundImage": "https://image.tmdb.org/t/p/w1280/7meT1UymlMJXcPEbrlSVJfBrBqA.jpg",
+    "image": "https://image.tmdb.org/t/p/w500/lp5Bcx7C3jtyWElcGOgjHb25AyW.jpg",
+    "title": "Margarita: Make Your Story Count",
+    "year": "Returning Series",
+    "duration": "2024",
+    "rating": "\n                    TMDB 9.0\n                ",
+    "tags": [
+      "Drama",
+      "Comedia",
+      "Familia"
+    ],
+    "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio.",
+    "episodes": [
+      {
+        "season": "1",
+        "episodes": [
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-1",
+            "title": "Una Historia de Cuento",
+            "image": "https://image.tmdb.org/t/p/w300/9Axn6NuR7PQpkqVMxB6yhhM8Zsv.jpg",
+            "numberEpisode": "E1",
+            "caption": "Margarita crece sin conocer su identidad, hasta que una beca en Hangar Soho la sumerge en una increíble vida nueva."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-2",
+            "title": "La Reina de la Basura",
+            "image": "https://image.tmdb.org/t/p/w300/wvcvyhcV8dulTPX05VGKSjreGKh.jpg",
+            "numberEpisode": "E2",
+            "caption": "En las audiciones del Hangar Soho, Margarita impresiona a sus compañeros y a Delfina, quien se siente amenazada con su presencia."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-3",
+            "title": "Videoclip Triste",
+            "image": "https://image.tmdb.org/t/p/w300/gvrCRSbehfrc81xEDnpOIoRe2Dr.jpg",
+            "numberEpisode": "E3",
+            "caption": "Margarita escapa del set del videoclip triste y regresa a la mansión Fritzenwalden, donde conoce mejor a Daisy."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-4",
+            "title": "Los Cardos",
+            "image": "https://image.tmdb.org/t/p/w300/2Vic3rlWUbQh011WEUd6149yYRV.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mientras Margarita recopila información sobre su madre, los becarios enfrentan su primer desafío y Delfina descubre la verdad."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-5",
+            "title": "El Lugar de Romeo",
+            "image": "https://image.tmdb.org/t/p/w300/zqcTrJaF7q8YkIfGwEsjP9ma1qr.jpg",
+            "numberEpisode": "E5",
+            "caption": "Tras una crisis en la revista, Delfina les da a los becarios un desafío que parece imposible... hasta que Margarita idea un plan."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-6",
+            "title": "Única y Elegida",
+            "image": "https://image.tmdb.org/t/p/w300/oB7fSsleeOT3tisMSrZYpjOTUT9.jpg",
+            "numberEpisode": "E6",
+            "caption": "Para hallar a Margarita, Delfina decide descalificar a un becario y anuncia un nuevo desafío, que saca el lado competitivo de Única."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-7",
+            "title": "Flíquiti",
+            "image": "https://image.tmdb.org/t/p/w300/1RqqzgRS7JJInYoGd0pUMQWNNUe.jpg",
+            "numberEpisode": "E7",
+            "caption": "Delfina intenta confesarle la verdad a Daisy, pero Severino y Malala se lo impiden. Única y Rey descubren la identidad de Merlín."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-8",
+            "title": "Mentira Verdad",
+            "image": "https://image.tmdb.org/t/p/w300/mxJZ6ZCerDrmRUGjujkCof888pw.jpg",
+            "numberEpisode": "E8",
+            "caption": "Delfina se siente derrotada y decide entregarse a la policía. Margarita interfiere con los planes que Rey tiene para Merlín."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-9",
+            "title": "Desechos Tóxicos",
+            "image": "https://image.tmdb.org/t/p/w300/vkeiHNfav0PzxWxxsvSqV7UJhGO.jpg",
+            "numberEpisode": "E9",
+            "caption": "Al atrapar a Merlín y Margarita por besarse, Rey los extorsiona para que ella protagonice su videoclip."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-10",
+            "title": "Lo Que Queremos y lo Que Necesitamos",
+            "image": "https://image.tmdb.org/t/p/w300/su9nlWxiSzIV4TjspI5xD2Bll2o.jpg",
+            "numberEpisode": "E10",
+            "caption": "Delfina, paranoica, contrata a Germán para investigar las amenazas. En la piscina del Hangar Soho, surge más drama entre los becarios."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-11",
+            "title": "Karaoke",
+            "image": "https://image.tmdb.org/t/p/w300/8xugn4Z66GBCMN6OYuZgdA3PQiL.jpg",
+            "numberEpisode": "E11",
+            "caption": "Margarita recuerda su primer desamor al ver a Daisy y Merlín juntos. Delfina recibe un mensaje aterrador."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-12",
+            "title": "Cambio Climático",
+            "image": "https://image.tmdb.org/t/p/w300/zTjlhC7ICEfu30rmlGFUmNKTf0F.jpg",
+            "numberEpisode": "E12",
+            "caption": "Mientras que Margarita y Daisy se preocupan por el paradero de Merlín, él va a Krikoragán con Pio Pietro y Erasmus."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-13",
+            "title": "El Semáforo",
+            "image": "https://image.tmdb.org/t/p/w300/kVL9Jr6DMexqa17Ok1jBj1Rf21G.jpg",
+            "numberEpisode": "E13",
+            "caption": "Merlín intenta hablar con Margarita. Delfina revela la identidad de Daisy y Margarita confronta a Única tras una presentación triunfal."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-14",
+            "title": "Pijamada",
+            "image": "https://image.tmdb.org/t/p/w300/i64rT8x8PnaxuXw4hw4Um6DsBst.jpg",
+            "numberEpisode": "E14",
+            "caption": "Mientras Margarita sufre por ver a Daisy y Merlín juntos, Ada le escucha decir algo impactante a Delfina."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-15",
+            "title": "Un Giro Inesperado",
+            "image": "https://image.tmdb.org/t/p/w300/9PWQJLHvcKfnTqkeVTUvtnazmn7.jpg",
+            "numberEpisode": "E15",
+            "caption": "Delfina y Severino están a punto de descubrir la identidad del hacker. Además, los becarios son llevados por sorpresa a Costa Diamante."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-16",
+            "title": "Alguien Está en Problemas",
+            "image": "https://image.tmdb.org/t/p/w300/7IP7eAqK9alN6ZfFw1rGlMIl4Ds.jpg",
+            "numberEpisode": "E16",
+            "caption": "Cuando el avión aterriza, el grupo se une para asegurarse de sobrevivir. Entretanto, se desata un escándalo en el mundo real."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-17",
+            "title": "Alguien Está en Problemas: Segunda Parte",
+            "image": "https://image.tmdb.org/t/p/w300/9xdQU5bHx2ag4kZm4eY7TRlBqM0.jpg",
+            "numberEpisode": "E17",
+            "caption": "Mientras Delfina recibe elogios por su trabajo con los becarios, el grupo descubre que sus aventuras en la isla están siendo filmadas."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-18",
+            "title": "Asilo Político",
+            "image": "https://image.tmdb.org/t/p/w300/st8qwjgEEc6hsbUlEmcWVvYqBvi.jpg",
+            "numberEpisode": "E18",
+            "caption": "La dinámica del grupo es afectada, hasta que a Margarita se le ocurre una idea que podría convertir al Hangar Soho en una embajada."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-19",
+            "title": "Vidas Privadas",
+            "image": "https://image.tmdb.org/t/p/w300/9fngipaDqderV5GFZ54eL6qs1Ek.jpg",
+            "numberEpisode": "E19",
+            "caption": "Ante el agobio del grupo por las cámaras, Delfina sugiere desconectarlas... lo que da lugar a varias confesiones entre los becarios."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-20",
+            "title": "Otra Princesa en el Palacio",
+            "image": "https://image.tmdb.org/t/p/w300/g15VUleEw1j6oPMnZhZYOqLXJxj.jpg",
+            "numberEpisode": "E20",
+            "caption": "Mientras Salo organiza una cena show en el Hangar, la prometida de Merlín, Petra, se presenta en la mansión solicitando asilo político."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-21",
+            "title": "Yuyito",
+            "image": "https://image.tmdb.org/t/p/w300/1ya7teGWkWMyxutEYfkRL2lGO6k.jpg",
+            "numberEpisode": "E21",
+            "caption": "Mientras crece la ira de Margarita hacia Delfina, las tensiones en el grupo Hangar llegan a su punto límite."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-22",
+            "title": "Corazonadas",
+            "image": "https://image.tmdb.org/t/p/w300/eD48YAQLmk4swnCVfwdPyHFmjpV.jpg",
+            "numberEpisode": "E22",
+            "caption": "La competencia por las becas se intensifica, Merlín planea protestar contra la monarquía y Margarita busca más pistas."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-23",
+            "title": "Ficción o Realidad",
+            "image": "https://image.tmdb.org/t/p/w300/99h8SKksMz58Suw9J2XoWb5zI7W.jpg",
+            "numberEpisode": "E23",
+            "caption": "En medio del caos en el Hangar, Mei podría volver a casa, Merlín se sincera con Daisy y Yamila obtiene una valiosa confesión de Malala."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-24",
+            "title": "Cancelada",
+            "image": "https://image.tmdb.org/t/p/w300/875sDqBRwyqqLbiambFfTIUyUFh.jpg",
+            "numberEpisode": "E24",
+            "caption": "Mientras que Margarita lucha con ser 'cancelada', Delfina presenta la revista del mes y anuncia a los ganadores de las becas."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-25",
+            "title": "Las Cartas del Destino",
+            "image": "https://image.tmdb.org/t/p/w300/vWi2OIrsd8n6ZroCfifazqR48Xt.jpg",
+            "numberEpisode": "E25",
+            "caption": "Antes de anunciar una eliminación, el hacker extorsiona a Delfina para que mantenga a Margarita en la competencia."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-26",
+            "title": "Enamorhada",
+            "image": "https://image.tmdb.org/t/p/w300/aV0QXXTZQvPp45UvBNye9ZGq48F.jpg",
+            "numberEpisode": "E26",
+            "caption": "Mientras Margarita comienza una relación en secreto, el hacker le advierte a Delfina que sus mentiras pronto saldrán a la luz."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-27",
+            "title": "Encrucijada",
+            "image": "https://image.tmdb.org/t/p/w300/vyMWY5sx8AfX5kNDKhDCJmfv5vY.jpg",
+            "numberEpisode": "E27",
+            "caption": "Tras ser atacada por Rano y su compañero, Margarita debe elegir entre sus dos amores: Merlín y Rey."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-28",
+            "title": "Otra Piedra en el Camino",
+            "image": "https://image.tmdb.org/t/p/w300/9o2TGUt3dKf9LjvutvmoMACkfyR.jpg",
+            "numberEpisode": "E28",
+            "caption": "Mientras Margarita lidia con sus sentimientos por Merlín y Rey, Delfina y Severino presionan al hacker para planear un secuestro."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-29",
+            "title": "Como Dice el Dicho",
+            "image": "https://image.tmdb.org/t/p/w300/qtA4XkgHCGTje9HjtVZOMhpCAY8.jpg",
+            "numberEpisode": "E29",
+            "caption": "En un día de spa en las afueras de la ciudad, Delfina empieza a sincerarse con Margarita. Malala se instala en la mansión."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-30",
+            "title": "Caras y Caretas",
+            "image": "https://image.tmdb.org/t/p/w300/dZWLwiq4x7mAixBFOnDVwwHZEPk.jpg",
+            "numberEpisode": "E30",
+            "caption": "Pipe, Zeki, Jano y Julieta descubren la identidad del hacker. Delfina tiene nueva información y se enfrenta a una visita inesperada."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-31",
+            "title": "A Tiempo",
+            "image": "https://image.tmdb.org/t/p/w300/bHun11EBpjmdmraZUwDxfjKTCfB.jpg",
+            "numberEpisode": "E31",
+            "caption": "Cuando la salud de Mei empeora, los becarios preparan una presentación para concientizar a la gente acerca de la donación de órganos."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-32",
+            "title": "ADN o DNI",
+            "image": "https://image.tmdb.org/t/p/w300/xDAhX3vetu02yGCwwyuAD2yivc1.jpg",
+            "numberEpisode": "E32",
+            "caption": "Ada encuentra evidencia contundente sobre la verdadera princesa, Merlín avanza con la renuncia a sus títulos y Mei regresa al Hangar."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-33",
+            "title": "Los Herederos",
+            "image": "https://image.tmdb.org/t/p/w300/4fzCjYgfv4TTrtm2EgbQGcVv16K.jpg",
+            "numberEpisode": "E33",
+            "caption": "Ada está decidida a contarle la verdad a Margarita y Daisy. El premio Mecenas del Futuro le da a Delfina un nuevo propósito en su vida."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-34",
+            "title": "La Princesa que Vive en el Corazón del Pueblo - Primera Parte",
+            "image": "https://image.tmdb.org/t/p/w300/1OoyGlvdp1Gl0hpwcNe0VxDoWST.jpg",
+            "numberEpisode": "E34",
+            "caption": "Mientras que Delfina se siente acorralada, Margarita y Merlín vuelan a Krikoragán, donde ella rápidamente se gana el afecto del pueblo."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-35",
+            "title": "La Princesa que Vive en el Corazón del Pueblo - Segunda Parte",
+            "image": "https://image.tmdb.org/t/p/w300/uAr8s1i6I2eJ7OJzR3C7d801El3.jpg",
+            "numberEpisode": "E35",
+            "caption": "En Krikoragán, la relación de Margarita y Merlín se hace pública, lo que los conduce a la fama viral y a un ultimátum de Erasmus."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-36",
+            "title": "Bajo la Capa del Marqués",
+            "image": "https://image.tmdb.org/t/p/w300/eJH3iLAq9YNU6NlIzGr4ylCpnNH.jpg",
+            "numberEpisode": "E36",
+            "caption": "A pesar del anuncio de Merlín, Erasmus agiliza el plan para eliminar a Margarita. En el Hangar, Delfina se enfoca en recibir su premio."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-37",
+            "title": "La Gran Respuesta",
+            "image": "https://image.tmdb.org/t/p/w300/6Rgs4V6K43e8ufmshhpDOUiitg6.jpg",
+            "numberEpisode": "E37",
+            "caption": "Ada le da a Margarita información impactante sobre su pasado luego de que esta lograra zafar del horrible ataque en su vuelo."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-38",
+            "title": "Sin Palabras",
+            "image": "https://image.tmdb.org/t/p/w300/wbdXL5VlsxRPRQNgMGnoor2hPq4.jpg",
+            "numberEpisode": "E38",
+            "caption": "Tras descubrir su identidad, Margarita intenta mantener un perfil bajo, hasta que encuentra la grabación de Anieta."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-39",
+            "title": "Ganar o Perder",
+            "image": "https://image.tmdb.org/t/p/w300/wUxr8tTvLBpMb9j6iyJEfbVjFCy.jpg",
+            "numberEpisode": "E39",
+            "caption": "Delfina finalmente anuncia quién ganó del certamen, Ada alienta a Margarita a escapar con Daisy y Merlín viaja a Krikoragán."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-1/episodio-40",
+            "title": "Capítulo Final",
+            "image": "https://image.tmdb.org/t/p/w300/ArEN7S8CJetcFgHwD84RpsN6CGl.jpg",
+            "numberEpisode": "E40",
+            "caption": "Delfina pone en marcha su plan y envía a Margarita lejos, hasta que Fach reaparece con una revelación impactante."
+          }
+        ]
+      },
+      {
+        "season": "2",
+        "episodes": [
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-1",
+            "title": "Yo Digo Magia - Parte I⁩",
+            "image": "https://image.tmdb.org/t/p/w300/dbA3O2JPHdeW0byGASxj6lFJ5RN.jpg",
+            "numberEpisode": "E1",
+            "caption": "Mientras Delfina lanza su canal de streaming REINA, Margarita y Fach llegan a Krikoragán, donde descubren una inminente boda real."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-2",
+            "title": "Yo Digo Magia - Parte II",
+            "image": "https://image.tmdb.org/t/p/w300/6nKdBynX42LeMDHTDLRCFmpAirm.jpg",
+            "numberEpisode": "E2",
+            "caption": "Merlín escapa de su boda y se une a Margarita para huir de Krikoragán. Delfina usa a una falsa Margarita que genera ciertas sospechas."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-3",
+            "title": "Escaparé",
+            "image": "https://image.tmdb.org/t/p/w300/2skcjdHhiRu3Wylr2SHKbuRopht.jpg",
+            "numberEpisode": "E3",
+            "caption": "Delfina estrena su canal con la falsa Margarita, lo que desata la furia de sus amigos. Luego, la búsqueda del príncipe se ve amenazada."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-4",
+            "title": "Oh La La",
+            "image": "https://image.tmdb.org/t/p/w300/cEU2cVJn1F1r8CqaMhtvcZ98ffP.jpg",
+            "numberEpisode": "E4",
+            "caption": "Mientras Delfina lidia con Daisy, Fach se acerca a una pista clave, y Margarita comprende la verdadera magnitud del plan de Delfina."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-5",
+            "title": "Puro Cuento",
+            "image": "https://image.tmdb.org/t/p/w300/unhBgACwbhlhYugRAPm23HxM46I.jpg",
+            "numberEpisode": "E5",
+            "caption": "Mientras un live accidental alerta a Delfina, Fach escapa de Krikoragán y Yamila expone la verdad sobre la Margarita de REINA."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-6",
+            "title": "Fantasía Musical",
+            "image": "https://image.tmdb.org/t/p/w300/87BJek760CYNNDvsWlT9WaVHhX6.jpg",
+            "numberEpisode": "E6",
+            "caption": "Al regresar a la Argentina, Margarita y sus aliados se preparan para enfrentarse a Delfina, quien intenta reforzar su control."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-7",
+            "title": "Nuestra Esencia",
+            "image": "https://image.tmdb.org/t/p/w300/ySxekZKSo7xmGctPlGrxOjayO0i.jpg",
+            "numberEpisode": "E7",
+            "caption": "Mientras Delfina consolida su poder político y mediático, Margarita y sus amigos lanzan el canal FLÍKITI para hacerle frente."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-8",
+            "title": "¿Y Vos Quién Sos?",
+            "image": "https://image.tmdb.org/t/p/w300/cCg7iBhhd3CZ7HwFwW18LkNrKZs.jpg",
+            "numberEpisode": "E8",
+            "caption": "Mientras la popularidad de FLÍKITI crece, Delfina contraataca con una ficción interactiva. Luego, Margarita y Fach se infiltran en Reina Studios."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-9",
+            "title": "Todo Nos Puede Pasar",
+            "image": "https://image.tmdb.org/t/p/w300/xBgW2hy0QrvQrgtixQkk2COXc6b.jpg",
+            "numberEpisode": "E9",
+            "caption": "Después de la fuga, el reencuentro entre Margarita y Rey reaviva sentimientos del pasado en medio del gran peligro."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-10",
+            "title": "Puntos de Vista",
+            "image": "https://image.tmdb.org/t/p/w300/u6txih1d1V4GaDGlJIbDVJ4582o.jpg",
+            "numberEpisode": "E10",
+            "caption": "Tras el rescate de la Liga, Delfina se enfrenta a FLÍKITI, y una traición amenaza el vínculo entre Margarita y Merlín."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-11",
+            "title": "The World Upside Down",
+            "image": "https://image.tmdb.org/t/p/w300/ldCadzOdqjjIYdUlhVCBYSiTwB9.jpg",
+            "numberEpisode": "E11",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-12",
+            "title": "The Price of Truth",
+            "image": "https://image.tmdb.org/t/p/w300/ldCadzOdqjjIYdUlhVCBYSiTwB9.jpg",
+            "numberEpisode": "E12",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-13",
+            "title": "Family",
+            "image": "https://image.tmdb.org/t/p/w300/ldCadzOdqjjIYdUlhVCBYSiTwB9.jpg",
+            "numberEpisode": "E13",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-14",
+            "title": "Viral",
+            "image": "https://image.tmdb.org/t/p/w300/ldCadzOdqjjIYdUlhVCBYSiTwB9.jpg",
+            "numberEpisode": "E14",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-15",
+            "title": "Play",
+            "image": "https://image.tmdb.org/t/p/w300/ldCadzOdqjjIYdUlhVCBYSiTwB9.jpg",
+            "numberEpisode": "E15",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-16",
+            "title": "Los Planes de la Intuición",
+            "image": "https://image.tmdb.org/t/p/w300/eY8lo3fJtkJ88KkP9ifLAa92Pjf.jpg",
+            "numberEpisode": "E16",
+            "caption": "Margarita irrumpe en REINA, Fach busca pruebas sobre su hermano, y el grupo planea exponer a Delfina, quien contraataca con un golpe bajo."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-17",
+            "title": "El que Ríe Último",
+            "image": "https://image.tmdb.org/t/p/w300/rlpBpv7Q7pTwww2eSAKPwMyOCAg.jpg",
+            "numberEpisode": "E17",
+            "caption": "El grupo se reorganiza para derrotar a Delfina, la noticia sobre Pío Pietro sacude a Krikoragán, y Fach busca una prueba de ADN para Florencio."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-18",
+            "title": "La Mujer Misteriosa",
+            "image": "https://image.tmdb.org/t/p/w300/g1l7wofQaHwB60VSCs4ni5uVdRf.jpg",
+            "numberEpisode": "E18",
+            "caption": "En medio de la confusión por Andrés, el grupo y Delfina intercambian ataques. Luego, Ada y Pipe le revelan la verdad a Daisy."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-19",
+            "title": "Rey de Todo",
+            "image": "https://image.tmdb.org/t/p/w300/qOQobVLob4i1LBu20ZfULRwIB06.jpg",
+            "numberEpisode": "E19",
+            "caption": "Mientras las sospechas sobre Rey aumentan, Daisy se enfrenta a Margarita, y las tácticas de ambos bandos intensifican el conflicto."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-2/episodio-20",
+            "title": "Quién Cuenta la Historia",
+            "image": "https://image.tmdb.org/t/p/w300/8gx1nmDodC0lnB4cddQzr85uKP6.jpg",
+            "numberEpisode": "E20",
+            "caption": "Mientras Margarita deposita su confianza en Rey, Delfina logra tomar el control de la narrativa y da un sorprendente golpe final."
+          }
+        ]
+      },
+      {
+        "season": "3",
+        "episodes": [
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-1",
+            "title": "Estúpida",
+            "image": "https://image.tmdb.org/t/p/w300/ydCnBXbCkJ5rNrFaSuD2EeddjjR.jpg",
+            "numberEpisode": "E1",
+            "caption": "Cuando Margarita y Fach se ven obligados a vivir bajo el control de Delfina, él envía un mensaje secreto a quienes aún pueden ayudarlos."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-2",
+            "title": "Las Invisibles",
+            "image": "https://image.tmdb.org/t/p/w300/wXOlUZbLqcApvfUkQ8lPxpMI8vi.jpg",
+            "numberEpisode": "E2",
+            "caption": "Fach sorprende a todos desafiando a Daisy, y los miembros de FLÍKITI fingen rendirse. Luego, una revuelta lleva a Merlín a prisión."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-3",
+            "title": "¿Por qué?",
+            "image": "https://image.tmdb.org/t/p/w300/Agr7NmcjIedB5kt5A5QkE3DTWzw.jpg",
+            "numberEpisode": "E3",
+            "caption": "Daisy confronta a Severino en busca de respuestas, y un cruce decisivo entre Merlín y Margarita marca un quiebre aún mayor entre ellos."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-4",
+            "title": "Rebeldes",
+            "image": "https://image.tmdb.org/t/p/w300/7SCIz4D6gzqXmFxhEqKeDnGCr7h.jpg",
+            "numberEpisode": "E4",
+            "caption": "¡Mientras Merlín lanza REBELDES para hacerle frente a la monarquía, Delfina intenta contener los sabotajes en su canal."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-5",
+            "title": "Cómo Nace un Villano",
+            "image": "https://image.tmdb.org/t/p/w300/8cBAcsX7JWPuXE4JqQvDg5Y1imt.jpg",
+            "numberEpisode": "E5",
+            "caption": "La Liga se encuentra dividida, Delfina manipula a Rey para traicionar a Merlín, y Daisy desaparece."
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-6",
+            "title": "To Be or To Seem",
+            "image": "https://image.tmdb.org/t/p/w300/7meT1UymlMJXcPEbrlSVJfBrBqA.jpg",
+            "numberEpisode": "E6",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-7",
+            "title": "In the Wolf's Mouth",
+            "image": "https://image.tmdb.org/t/p/w300/4RO8Z9OpeOs2hs2Tyml0ewu5h4e.jpg",
+            "numberEpisode": "E7",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-8",
+            "title": "Your Story",
+            "image": "https://image.tmdb.org/t/p/w300/32DG5LBRglpF82VRfOTipp4nuS6.jpg",
+            "numberEpisode": "E8",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-9",
+            "title": "Like Strangers",
+            "image": "https://image.tmdb.org/t/p/w300/70MICuEEKlynT4XBODTcu0Kx1Vo.jpg",
+            "numberEpisode": "E9",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          },
+          {
+            "link": "serie/margarita-que-tu-cuento-valga-la-pena/temporada-3/episodio-10",
+            "title": "A Place on the Throne",
+            "image": "https://image.tmdb.org/t/p/w300/kVaPMoTpxdfAAd2GPFL9gvY1urR.jpg",
+            "numberEpisode": "E10",
+            "caption": "Margarita cuenta la historia de una adolescente huérfana con una vida de película, con muchas dudas y casi ninguna certeza sobre su historia, que yendo detrás de su deseo, llegará a un lugar muy mágico en el que podrá vivir y cumplir sus sueños, sin saber que esa casa fue el lugar donde ella nació y que la pérfida Delfina usurpó para construir su imperio. ​"
+          }
+        ]
+      }
+    ],
+    "link": "serie/margarita-que-tu-cuento-valga-la-pena",
+    "updatedAt": "2026-09-02T20:50:17.934Z"
   }
 }

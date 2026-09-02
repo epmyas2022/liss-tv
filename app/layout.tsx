@@ -7,6 +7,7 @@ import "@vidstack/react/player/styles/default/layouts/audio.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import NavigationProvider from "@/components/providers/NavigationProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import PWARegister from "@/components/providers/PWARegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
     >
       <NavigationProvider>
         <body className="min-h-full flex flex-col">
+          <PWARegister></PWARegister>
           <AuthProvider>{children}</AuthProvider>
         </body>
       </NavigationProvider>
