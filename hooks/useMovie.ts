@@ -37,7 +37,7 @@ export function useMovie() {
 
     const { currentTime, duration, threshold, lastSavedTimeRef } = options;
 
-    if (duration - currentTime < threshold) {
+    if (duration > 0 && duration - currentTime < threshold) {
       if (moviePreview.next)
         store.addToContinueWatching({
           ...moviePreview.next,
