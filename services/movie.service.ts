@@ -13,8 +13,9 @@ export async function getBrowser() {
       proxy: { server: "socks5://127.0.0.1:9050" },
       args: [
         "--autoplay-policy=no-user-gesture-required",
-        "--disable-blin k-features=AutomationControlled",
+        "--disable-blink-features=AutomationControlled",
         "--no-sandbox",
+        "--disable-extensions",
         "--disable-dev-shm-usage",
         "--disable-gpu",
       ],
@@ -40,8 +41,6 @@ export async function getBrowser() {
   return { browser, context, page };
 }
 
-
-
 export async function getUrl(path: string) {
   // ponytail: cache-first — skip scrape if URL already stored
 
@@ -55,14 +54,50 @@ export async function getUrl(path: string) {
 
   let resolved = false;
 
+  const blacklistedDomains = [
+    "google-analytics.com",
+    "googletagmanager.com",
+    "cloudflareinsights.com",
+    "://cloudflareinsights.com",
+    "doubleclick.net",
+    "adbrn.com",
+    "jads.co",
+    "popads.net",
+    "onclickads.net",
+    "://impactradius-go.com",
+  ];
+
   return new Promise(async (resolve) => {
     const { context, page } = await getBrowser();
 
+    await page.route("**/*", (route) => {
+      const type = route.request().resourceType();
+      const url = route.request().url();
+
+      if (
+        blacklistedDomains.some((domain) => url.includes(domain)) ||
+        [
+          "font",
+          "image",
+          "manifest",
+          "object",
+          "other",
+          "websocket",
+          "eventsource",
+          "ping",
+          "webworker",
+        ].includes(type)
+      ) {
+        return route.abort();
+      }
+      route.continue();
+    });
+
     const videoPromise = new Promise<string>((resolveVideo) => {
       const handler = (response: { url: () => string }) => {
-        if (response.url().includes(".bin") || isUrlMediafire(response.url())) {
+        if (isUrlMediafire(response.url())) {
           resolved = true;
-          page.off("response", handler); // Limpiamos el listener en cuanto lo encontramos
+          page.off("response", handler);
           resolveVideo(response.url());
         }
       };
@@ -107,6 +142,8 @@ export async function getUrl(path: string) {
       resolve(url);
     } catch (error) {
       console.error("Error occurred while fetching video URL:", error);
+    } finally {
+      await context.close();
     }
   });
 }
