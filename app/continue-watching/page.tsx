@@ -216,11 +216,14 @@ export default function ContinueWatchingPage() {
   };
 
   const handleRemove = async (
-    item: ContinueWatching & { isLocalOnly?: boolean },
+    item: ContinueWatching,
+    isLocalOnly: boolean = false,
   ) => {
     const userId = pb.authStore?.record?.id;
 
-    if (item.isLocalOnly || !userId) {
+
+    console.log("Removing item:", item);
+    if (isLocalOnly || !userId) {
       return removeLocal(item.link);
     }
 
@@ -316,7 +319,7 @@ export default function ContinueWatchingPage() {
               key={activeTab}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-tab-content"
             >
-              {displayList.map((item, i) => (
+              {displayList.map((item, _) => (
                 <a key={item.link} onClick={() => handleCardClick(item)}>
                   <FocusElementProvider
                     onEnterPress={() => handleCardClick(item)}
@@ -325,7 +328,7 @@ export default function ContinueWatchingPage() {
                   >
                     <ContinueWatchingCard
                       item={item}
-                      onRemove={() => handleRemove(item)}
+                      onRemove={() => handleRemove(item, activeTab === "local")}
                       isLocalOnly={activeTab === "local"}
                     />
                   </FocusElementProvider>
