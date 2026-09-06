@@ -165,7 +165,7 @@ export async function getAll(
   try {
 
     await page.goto(
-      `${BASE_PATH}${slug}${search ? `buscar?q=${search}` : ""}${pageNumber ? `?page=${pageNumber}` : ""}`,
+      `${BASE_PATH}${slug}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`,
       {
         waitUntil: "domcontentloaded",
         timeout: 10000,
