@@ -75,19 +75,12 @@ export default function Home() {
         condition={page === 1 && !loading && movies && movies.length > 0}
       >
         <div className="mt-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-          {movies.map((movie, index) => {
-            if (movies.length === index + 1) {
-              return (
-                <div ref={lastElementRef} key={index}>
-                  <MovieCard movie={movie} />
-                </div>
-              );
-            } else {
-              return <MovieCard key={index} movie={movie} />;
-            }
-          })}
+          {movies.map((movie, index) => (
+            <MovieCard key={index} movie={movie} />
+          ))}
           {loading && <MovieCardSkeleton />}
         </div>
+        <div ref={lastElementRef} style={{ height: "1px" }} />
       </FocusContextProvider>
     </main>
   );
