@@ -48,7 +48,7 @@ export function useMovie() {
       return store.removeFromContinueWatching(moviePreview.link);
     }
 
-    if (currentTime - lastSavedTimeRef.current < 20) return;
+    if (Math.abs(currentTime - lastSavedTimeRef.current) < 20) return;
 
     store.addToContinueWatching({ ...moviePreview, currentTime, duration });
 

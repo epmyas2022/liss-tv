@@ -29,14 +29,6 @@ export default function Home() {
     fetchMovies();
   }, [search, filter]);
 
-  /*   useEffect(() => {
-  if (!loading && movies && movies.length > 0) {
-    requestAnimationFrame(() => {
-      focusSelf();
-    });
-  }
-}, [loading, movies, focusSelf]); */
-
   return (
     <main
       className="min-h-screen pb-24 px-4 pt-6"

@@ -40,6 +40,7 @@ export function PlayerView() {
   const { moviePreview } = store;
 
   const saveWatchProgress = (currentTime: number, duration: number) => {
+
     return syncToLocal({
       currentTime,
       duration,
@@ -97,9 +98,9 @@ export function PlayerView() {
       </div>
       <VideoPlayer
         ref={player}
-        handleTimeUpdate={(detail, nativeEvent) =>
+        handleTimeUpdate={(detail, nativeEvent) => {
           saveWatchProgress(detail.currentTime, nativeEvent.target.duration)
-        }
+        }}
         handlePause={() => syncToPocketBase()}
         startTime={moviePreview.startTime}
         src={movieUrl}
