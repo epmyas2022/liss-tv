@@ -221,8 +221,6 @@ export default function ContinueWatchingPage() {
   ) => {
     const userId = pb.authStore?.record?.id;
 
-
-    console.log("Removing item:", item);
     if (isLocalOnly || !userId) {
       return removeLocal(item.link);
     }
