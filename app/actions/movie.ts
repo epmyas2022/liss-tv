@@ -20,6 +20,6 @@ export async function getMovieUrl(link: string) {
   ]); 
 }
 
-export async function getAllMovies(search?: string, filter?: string) {
-  return await getAll(search, filter);
+export async function getAllMovies(search?: string, filter?: string, page?: number) {
+  return await getAll(search, filter, page);
 }

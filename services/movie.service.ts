@@ -148,7 +148,11 @@ export async function getUrl(path: string) {
   });
 }
 
-export async function getAll(search?: string, slug: string = "") {
+export async function getAll(
+  search?: string,
+  slug: string = "",
+  pageNumber?: number,
+) {
   const { context, page } = await getBrowser();
 
   await page.route("**/*", (route) => {
@@ -159,9 +163,9 @@ export async function getAll(search?: string, slug: string = "") {
     route.continue();
   });
   try {
-    await page.goto(
-      `${BASE_PATH}${slug}${search ? `buscar?q=${search}` : ""}`,
 
+    await page.goto(
+      `${BASE_PATH}${slug}${search ? `buscar?q=${search}` : ""}${pageNumber ? `?page=${pageNumber}` : ""}`,
       {
         waitUntil: "domcontentloaded",
         timeout: 10000,
@@ -169,6 +173,16 @@ export async function getAll(search?: string, slug: string = "") {
     );
 
     await page.locator(".card").first().waitFor();
+
+    let lastPageNumber = 1;
+
+    if (slug === "peliculas" || slug === "series") {
+      const pages = await page.locator(".page-item").all();
+
+      const lastPage = pages[pages.length - 2];
+
+      lastPageNumber = await parseInt((await lastPage.textContent()) || "1");
+    }
 
     const movies = await page.evaluate(() => {
       const movieElements = document.querySelectorAll(".card");
@@ -184,13 +198,22 @@ export async function getAll(search?: string, slug: string = "") {
           /https?:\/\/[^/]+(\/(pelicula|serie)\/[^/?#]+)/,
         );
 
-        return { link: match ? match[1] : "", image, rating, title, year };
+        return {
+          link: match ? match[1] : "",
+          image,
+          rating,
+          title,
+          year,
+        };
       });
     });
 
     await context.close();
 
-    return movies;
+    return {
+      movies,
+      lastPageNumber,
+    };
   } catch (error) {
     console.error("Error occurred while fetching movies:", error);
     await context.close();
