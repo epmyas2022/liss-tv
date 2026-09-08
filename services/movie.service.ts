@@ -156,7 +156,7 @@ export async function getAll(
 ) {
   const key = slug == "" ? "home" : `${slug}/page/${pageNumber}`;
 
-  const cached = getAllData<Movies>(key);
+  const cached = !search ? getAllData<Movies>(key) : null;
 
   const isPastHours = (dateString: string, hours: number): boolean => {
     const date = new Date(dateString);
