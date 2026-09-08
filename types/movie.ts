@@ -30,6 +30,11 @@ export type StoredMovie = {
   }[];
 };
 
+export interface Movies {
+  movies: Movie[];
+  lastPageNumber: number;
+}
+
 export interface Episode {
   link: string;
   title: string;
@@ -57,8 +62,11 @@ export interface MoviePreview {
   next?: MoviePreview;
 }
 
-
-export type ContinueWatching = (MoviePreview & { currentTime: number, duration: number, id?: string });
+export type ContinueWatching = MoviePreview & {
+  currentTime: number;
+  duration: number;
+  id?: string;
+};
 export interface MovieState {
   continueWatching: ContinueWatching[];
   moviePreview: MoviePreview | null;

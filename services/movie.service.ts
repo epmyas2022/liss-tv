@@ -1,6 +1,7 @@
 import { Browser, chromium } from "playwright";
-import { upsert, get } from "./movie.store";
+import { upsert, get, upsertAll, getAllData } from "./movie.store";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
+import { Movies } from "@/types/movie";
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -153,6 +154,20 @@ export async function getAll(
   slug: string = "",
   pageNumber?: number,
 ) {
+  const key = slug == "" ? "home" : `${slug}/page/${pageNumber}`;
+
+  const cached = getAllData<Movies>(key);
+
+  const isPastHours = (dateString: string, hours: number): boolean => {
+    const date = new Date(dateString);
+
+    return (Date.now() - date.getTime()) / (1000 * 60 * 60) > hours;
+  };
+
+  if (cached && !isPastHours(cached.updatedAt, 2)) {
+    return cached.data;
+  }
+
   const { context, page } = await getBrowser();
 
   await page.route("**/*", (route) => {
@@ -163,7 +178,6 @@ export async function getAll(
     route.continue();
   });
   try {
-
     await page.goto(
       `${BASE_PATH}${slug}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`,
       {
@@ -210,10 +224,11 @@ export async function getAll(
 
     await context.close();
 
-    return {
-      movies,
-      lastPageNumber,
-    };
+    const data = { movies, lastPageNumber };
+
+    upsertAll<Movies>(key, data);
+
+    return data;
   } catch (error) {
     console.error("Error occurred while fetching movies:", error);
     await context.close();
