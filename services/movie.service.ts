@@ -156,7 +156,7 @@ export async function getAll(
 ) {
   const key = slug == "" ? "home" : `${slug}/page/${pageNumber}`;
 
-  const cached = getAllData<Movies>(key);
+  const cached = !search ? getAllData<Movies>(key) : null;
 
   const isPastHours = (dateString: string, hours: number): boolean => {
     const date = new Date(dateString);
@@ -164,7 +164,7 @@ export async function getAll(
     return (Date.now() - date.getTime()) / (1000 * 60 * 60) > hours;
   };
 
-  if (cached && !isPastHours(cached.updatedAt, 2)) {
+  if (cached && !isPastHours(cached.updatedAt, 2) ) {
     return cached.data;
   }
 
