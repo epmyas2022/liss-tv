@@ -6,9 +6,9 @@ import { FloatingNav } from "@/components/FloatingNav";
 import { Movie } from "../types/movie";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getAllMovies } from "@/app/actions/movie";
-
 import { useSearchParams } from "next/navigation";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
+
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -24,6 +24,7 @@ export default function Home() {
   const [prevSearch, setPrevSearch] = useState(search);
   const [prevFilter, setPrevFilter] = useState(filter);
 
+
   if (search !== prevSearch || filter !== prevFilter) {
     setPrevSearch(search);
     setPrevFilter(filter);
@@ -31,6 +32,7 @@ export default function Home() {
     setPage(1);
     setHasMore(true);
   }
+
 
   useEffect(() => {
     const fetchMovies = async () => {

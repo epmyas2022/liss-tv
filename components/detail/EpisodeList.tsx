@@ -1,13 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import type { Episode, EpisodeListProps, MoviePreview } from "@/types/movie";
 import { useMovieStore } from "../../store/useMovieStore";
 import EpisodeWatchButton from "../ui/EpisodeWatchButton";
 import SeasonSelect from "../ui/SeasonSelect";
-import FocusContextProvider from "../providers/FocusContextProvider";
-import FocusElementProvider from "../providers/FocusElementProvider";
+import { analytics } from "@/analytics/event";
 
 export function EpisodeList({ title, seasons }: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
@@ -58,6 +57,8 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
 
     const slug = ep.link.split("/")[1];
 
+    analytics.watchVideo(`${title} - ${ep.title}`, ep.link);
+
     router.push(`/serie/${slug}/player`);
   }
 
@@ -65,35 +66,32 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
     <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 sm:pb-20">
       {/* Season tabs */}
       <div className="mb-6">
-        <SeasonSelect 
-          seasons={seasons} 
-          activeSeason={activeSeason} 
-          onChange={setActiveSeason} 
+        <SeasonSelect
+          seasons={seasons}
+          activeSeason={activeSeason}
+          onChange={setActiveSeason}
         />
       </div>
 
       {/* Episode rows */}
 
+      <ol className="flex flex-col gap-2">
+        {current.episodes.map((ep) => (
+          <li key={ep.link + ep.numberEpisode}>
+            <EpisodeWatchButton
+              ep={ep}
+              onClick={() => handleEpisode(ep)}
+              loadingLink={loadingLink}
+            />
 
-
-        <ol className="flex flex-col gap-2">
-          
-          {current.episodes.map((ep) => (
-            <li key={ep.link + ep.numberEpisode}>
-              <EpisodeWatchButton
-                ep={ep}
-                onClick={() => handleEpisode(ep)}
-                loadingLink={loadingLink}
-              />
-
-              {/* Separator */}
-              <div
-                className="mx-3 h-px"
-                style={{ background: "rgba(255,255,255,0.06)" }}
-              />
-            </li>
-          ))}
-        </ol>
+            {/* Separator */}
+            <div
+              className="mx-3 h-px"
+              style={{ background: "rgba(255,255,255,0.06)" }}
+            />
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }

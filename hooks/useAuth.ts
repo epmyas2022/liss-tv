@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import PocketBase, { ClientResponseError } from "pocketbase";
-import { redirect } from "next/navigation";
-// 1. Inicialización de la instancia de PocketBase
+
+import { analytics } from "@/analytics/event";
+
 export const pb = new PocketBase(
   process.env.NEXT_PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090",
 );
@@ -11,13 +12,9 @@ export const pb = new PocketBase(
 // Deshabilitar la cancelación automática para evitar conflictos de peticiones simultáneas en React
 pb.autoCancellation(false);
 
-
-
 // 3. Helper unificado para manejar las respuestas y capturar errores de PocketBase de forma segura
 export const response = async <T>(callback: () => Promise<T>) => {
-  
   try {
-    
     // La operación asíncrona se ejecuta de forma segura dentro de este bloque
     const res = await callback();
     return {
@@ -41,11 +38,9 @@ export const response = async <T>(callback: () => Promise<T>) => {
   }
 };
 
-// 4. Hook personalizado para el estado global y persistente de la autenticación
 export function useAuth() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
 
   const login = async (email: string, pass: string) => {
     setLoading(true);
@@ -54,6 +49,13 @@ export function useAuth() {
       const authData = await pb
         .collection("users")
         .authWithPassword(email, pass);
+
+      analytics.login(
+        authData.record.id,
+        authData.record.name,
+        authData.record.email,
+      );
+      
       return authData;
     } catch (error) {
       if (error instanceof ClientResponseError && error.status === 400) {

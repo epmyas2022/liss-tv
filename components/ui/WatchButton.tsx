@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import type { Movie } from "@/types/movie";
-
 import { useMovieStore } from "../../store/useMovieStore";
 import FocusElementProvider from "../providers/FocusElementProvider";
+import { analytics } from "@/analytics/event";
 
 export default function WatchButton({
   moviePreview,
@@ -31,10 +31,15 @@ export default function WatchButton({
       startTime: 0,
     });
 
+    analytics.watchVideo(moviePreview.title, moviePreview.link);
+
     router.push(`/${moviePreview.link}/player`);
   }
   return (
-    <FocusElementProvider className="rounded-lg" onEnterPress={() => handleClick()}>
+    <FocusElementProvider
+      className="rounded-lg"
+      onEnterPress={() => handleClick()}
+    >
       <button
         onClick={handleClick}
         className="cursor-pointer relative flex justify-center items-center gap-2 w-full bg-[#EA1C25] hover:bg-[#c8151c] active:bg-[#a01018] text-white font-bold rounded-lg transition-colors duration-200"
