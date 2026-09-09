@@ -48,9 +48,17 @@ export function get(link: string): StoredMovie | undefined {
   return read<StoredMovie>()[link];
 }
 
+export function remove(link: string): void {
+  const store = read<StoredMovie>();
+
+  if (!store[link]) return;
+
+  delete store[link];
+  write(store);
+}
+
 export function getAllData<A>(
   key: string,
 ): { data: A; updatedAt: string } | undefined {
-
   return (read()[key] as { data: A; updatedAt: string }) || undefined;
 }

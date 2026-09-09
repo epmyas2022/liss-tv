@@ -1,5 +1,5 @@
 import { Browser, chromium } from "playwright";
-import { upsert, get, upsertAll, getAllData } from "./movie.store";
+import { upsert, get, upsertAll, getAllData, remove } from "./movie.store";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import { Movies } from "@/types/movie";
 
@@ -52,6 +52,8 @@ export async function getUrl(path: string) {
     : null;
 
   if (linkCached) return linkCached;
+
+  remove(path);
 
   let resolved = false;
 
@@ -164,7 +166,7 @@ export async function getAll(
     return (Date.now() - date.getTime()) / (1000 * 60 * 60) > hours;
   };
 
-  if (cached && !isPastHours(cached.updatedAt, 2) ) {
+  if (cached && !isPastHours(cached.updatedAt, 2)) {
     return cached.data;
   }
 
@@ -226,7 +228,7 @@ export async function getAll(
 
     const data = { movies, lastPageNumber };
 
-    if(!search) upsertAll<Movies>(key, data);
+    if (!search) upsertAll<Movies>(key, data);
 
     return data;
   } catch (error) {
