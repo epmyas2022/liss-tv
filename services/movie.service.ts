@@ -53,7 +53,7 @@ export async function getUrl(path: string) {
 
   if (linkCached) return linkCached;
 
-  remove(path);
+  if (cached?.movieUrl && !linkCached) remove(path);
 
   let resolved = false;
 
