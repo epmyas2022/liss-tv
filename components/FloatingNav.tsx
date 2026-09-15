@@ -41,7 +41,15 @@ export function FloatingNav() {
           className="flex items-center gap-1 px-3 py-3 rounded-full"
           style={glassStyle}
         >
-          <FocusElementProvider className="rounded-full group" strokeSize={0}>
+          <FocusElementProvider
+            className="group rounded-full"
+            strokeSize={0}
+            onEnterPress={() => router.push("/")}
+            styleFocus={{
+              transform: "scale(1.06)",
+              transition: "transform 0.15s ease",
+            }}
+          >
             <Link
               href="/"
               className="font-poppins px-6 text-white text-2xl font-bold shrink-0 rounded-lg"
@@ -99,13 +107,19 @@ export function FloatingNav() {
           </div>
           <div className="flex items-center pl-1 pr-3 border-l border-white/10 ml-1">
             <FocusElementProvider
-              className="rounded-full group"
+              className="rounded-full group w-10 h-10  ml-1"
               strokeSize={0}
+              styleFocus={{
+                outline: "2px solid rgba(234,28,37,0.8)",
+                outlineOffset: "3px",
+                borderRadius: "9999px",
+               
+              }}
               onEnterPress={() => router.push("/profile")}
             >
               <Link
                 href="/profile"
-                className="flex items-center ml-1 hover:border-3 justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors focus-within:outline-none group-[.focus-active]:bg-[#EA1C25] group-[.focus-active]:text-white text-white/70 overflow-hidden"
+                className="flex items-center hover:border-3 justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors focus-within:outline-none group-[.focus-active]:bg-[#EA1C25] group-[.focus-active]:text-white text-white/70 overflow-hidden"
                 aria-label="Perfil"
               >
                 <UserAvatar user={user} size={35} />

@@ -9,6 +9,8 @@ import { type MediaPlayerInstance } from "@vidstack/react";
 import NextEpisode from "./ui/NextEpisode";
 import { useMovie } from "@/hooks/useMovie";
 import { Spinner } from "./ui/Spinner";
+import FocusElementProvider from "./providers/FocusElementProvider";
+import FocusContextProvider from "./providers/FocusContextProvider";
 
 const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
   ssr: false,
@@ -40,7 +42,6 @@ export function PlayerView() {
   const { moviePreview } = store;
 
   const saveWatchProgress = (currentTime: number, duration: number) => {
-
     return syncToLocal({
       currentTime,
       duration,
@@ -88,33 +89,41 @@ export function PlayerView() {
 
   return (
     <div className="h-dvh bg-black flex flex-col justify-center px-2 py-2 relative">
-      <div className="absolute top-0 left-0 w-full  z-20 p-5">
-        <button
-          onClick={() => router.back()}
-          className="cursor-pointer flex items-center gap-2 text-white font-bold"
+      <FocusContextProvider condition={true}>
+        <div className="absolute top-0 left-0 w-full  z-20 p-5">
+          <FocusElementProvider
+            className="rounded-full  w-7 h-7 flex items-center justify-center"
+            onEnterPress={() => router.back()}
+          >
+            <button
+              onClick={() => router.back()}
+              className="cursor-pointer flex items-center gap-2 text-white font-bold"
+            >
+              <ArrowLeft />
+            </button>
+          </FocusElementProvider>
+        </div>
+
+        <VideoPlayer
+          ref={player}
+          handleTimeUpdate={(detail, nativeEvent) => {
+            saveWatchProgress(detail.currentTime, nativeEvent.target.duration);
+          }}
+          handlePause={() => syncToPocketBase()}
+          startTime={moviePreview.startTime}
+          src={movieUrl}
+          title={moviePreview.title}
+          poster={moviePreview.backgroundImage || moviePreview.image}
         >
-          <ArrowLeft />
-        </button>
-      </div>
-      <VideoPlayer
-        ref={player}
-        handleTimeUpdate={(detail, nativeEvent) => {
-          saveWatchProgress(detail.currentTime, nativeEvent.target.duration)
-        }}
-        handlePause={() => syncToPocketBase()}
-        startTime={moviePreview.startTime}
-        src={movieUrl}
-        title={moviePreview.title}
-        poster={moviePreview.backgroundImage || moviePreview.image}
-      >
-        {moviePreview.next && (
-          <NextEpisode
-            threshold={THRESHOLD_PROGRESS_SECONDS}
-            playerRef={player}
-            onClick={handleNextEpisodeClick}
-          />
-        )}
-      </VideoPlayer>
+          {moviePreview.next && (
+            <NextEpisode
+              threshold={THRESHOLD_PROGRESS_SECONDS}
+              playerRef={player}
+              onClick={handleNextEpisodeClick}
+            />
+          )}
+        </VideoPlayer>
+      </FocusContextProvider>
     </div>
   );
 }

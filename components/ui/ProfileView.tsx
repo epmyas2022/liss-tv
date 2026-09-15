@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useRouter } from "next/navigation";
 import { useAuthentication } from "../providers/context/AuthContext";
 import { useRef, useState } from "react";
@@ -10,6 +9,18 @@ import Link from "next/link";
 import { ArrowLeft, Camera, Loader2, LogOut, User, Lock } from "lucide-react";
 import NextImage from "next/image";
 import { Alert } from "./Alert";
+import FocusContextProvider from "../providers/FocusContextProvider";
+import FocusElementProvider from "../providers/FocusElementProvider";
+
+const FOCUS_STYLE = {
+  outline: "2px solid white",
+  borderRadius: "12px",
+} as React.CSSProperties;
+
+const FOCUS_STYLE_ROUND = {
+  ...FOCUS_STYLE,
+  borderRadius: "9999px",
+} as React.CSSProperties;
 
 export default function ProfileView() {
   const router = useRouter();
@@ -29,6 +40,11 @@ export default function ProfileView() {
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const oldPasswordRef = useRef<HTMLInputElement>(null);
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const logoutBtnRef = useRef<HTMLButtonElement>(null);
+  const submitBtnRef = useRef<HTMLButtonElement>(null);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,134 +118,201 @@ export default function ProfileView() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070707] text-white pt-24 px-4 pb-10">
-      <div className="max-w-3xl mx-auto space-y-6">
-        {/* Back Button */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors"
-        >
-          <ArrowLeft size={20} />
-          <span className="font-medium font-poppins">Volver al inicio</span>
-        </Link>
-
-        {/* Header Profile */}
-        <div className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-md text-center md:text-left">
-          <div className="relative group shrink-0">
-            <div className="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden relative">
-              {uploadingAvatar ? (
-                <Loader2 size={30} className="animate-spin text-[#EA1C25]" />
-              ) : user?.avatar ? (
-                <NextImage
-                  width={96}
-                  height={96}
-                  src={pb.files.getURL(user, user.avatar)}
-                  alt="Avatar"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <User size={40} className="text-white/50" />
-              )}
-
-              {!uploadingAvatar && (
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity cursor-pointer"
-                  title="Cambiar foto de perfil"
-                >
-                  <Camera size={24} className="text-white mb-1" />
-                </button>
-              )}
-            </div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              className="hidden"
-              accept="image/*"
-              onChange={handleAvatarChange}
-            />
-          </div>
-          <div className="flex-1 w-full">
-            <h1 className="text-2xl md:text-3xl font-bold font-poppins truncate">
-              {user?.name || user?.username || "Usuario"}
-            </h1>
-            <p className="text-white/60 truncate">{user?.email}</p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors font-medium mt-2 md:mt-0"
+    <FocusContextProvider condition={true} trackChildren={true}>
+      <div className="min-h-screen bg-[#070707] text-white pt-24 px-4 pb-10">
+        <div className="max-w-3xl mx-auto space-y-6">
+          {/* Back Button */}
+          <FocusElementProvider
+            className="w-fit "
+            onEnterPress={() => router.push("/")}
+            strokeSize={0}
+            styleFocus={{
+              borderBottom: "1px solid white",
+            }}
           >
-            <LogOut size={18} />
-            Cerrar Sesión
-          </button>
-        </div>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+            >
+              <ArrowLeft size={20} />
+              <span className="font-medium font-poppins">Volver al inicio</span>
+            </Link>
+          </FocusElementProvider>
 
-        {/* Change Password */}
-        <div className="p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-md">
-          <div className="flex items-center gap-3 mb-6">
-            <Lock className="text-[#EA1C25]" />
-            <h2 className="text-xl font-bold font-poppins">
-              Cambiar Contraseña
-            </h2>
+          {/* Header Profile */}
+          <div className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-md text-center md:text-left">
+            {/* Avatar */}
+            <FocusElementProvider
+              onEnterPress={() => fileInputRef.current?.click()}
+              strokeSize={0}
+              styleFocus={FOCUS_STYLE_ROUND}
+            >
+              <div className="relative group shrink-0">
+                <div className="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center border border-white/20 overflow-hidden relative">
+                  {uploadingAvatar ? (
+                    <Loader2
+                      size={30}
+                      className="animate-spin text-[#EA1C25]"
+                    />
+                  ) : user?.avatar ? (
+                    <NextImage
+                      width={96}
+                      height={96}
+                      src={pb.files.getURL(user, user.avatar)}
+                      alt="Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <User size={40} className="text-white/50" />
+                  )}
+
+                  {!uploadingAvatar && (
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity cursor-pointer"
+                      title="Cambiar foto de perfil"
+                    >
+                      <Camera size={24} className="text-white mb-1" />
+                    </button>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                />
+              </div>
+            </FocusElementProvider>
+
+            <div className="flex-1 w-full">
+              <h1 className="text-2xl md:text-3xl font-bold font-poppins truncate">
+                {user?.name || user?.username || "Usuario"}
+              </h1>
+              <p className="text-white/60 truncate">{user?.email}</p>
+            </div>
+
+            {/* Logout */}
+            <FocusElementProvider
+              onEnterPress={() => logoutBtnRef.current?.click()}
+              strokeSize={0}
+              styleFocus={FOCUS_STYLE}
+            >
+              <button
+                ref={logoutBtnRef}
+                onClick={handleLogout}
+                className="flex items-center justify-center gap-2 w-full md:w-auto px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors font-medium mt-2 md:mt-0"
+              >
+                <LogOut size={18} />
+                Cerrar Sesión
+              </button>
+            </FocusElementProvider>
           </div>
 
-          <Alert
-            type={message.type as "error" | "success" | "info"}
-            message={message.text}
-            className="mb-6"
-          />
-          <form onSubmit={handleChangePassword} className="space-y-5 max-w-md">
-            <div>
-              <label className="block text-sm font-medium mb-1.5 text-white/80">
-                Contraseña Actual
-              </label>
-              <input
-                type="password"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-black/30 border border-gray-600 rounded-xl focus:outline-none focus:border-[#EA1C25] text-white transition-colors"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5 text-white/80">
-                Nueva Contraseña
-              </label>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-black/30 border border-gray-600 rounded-xl focus:outline-none focus:border-[#EA1C25] text-white transition-colors"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5 text-white/80">
-                Confirmar Nueva Contraseña
-              </label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-black/30 border border-gray-600 rounded-xl focus:outline-none focus:border-[#EA1C25] text-white transition-colors"
-                required
-              />
+          {/* Change Password */}
+          <div className="p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-md">
+            <div className="flex items-center gap-3 mb-6">
+              <Lock className="text-[#EA1C25]" />
+              <h2 className="text-xl font-bold font-poppins">
+                Cambiar Contraseña
+              </h2>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-2 flex items-center justify-center gap-2 px-6 py-3 bg-[#EA1C25] hover:bg-[#c9171f] disabled:opacity-70 text-white font-bold rounded-xl transition-colors"
+            <Alert
+              type={message.type as "error" | "success" | "info"}
+              message={message.text}
+              className="mb-6"
+            />
+
+            <form
+              onSubmit={handleChangePassword}
+              className="space-y-5 max-w-md"
             >
-              {loading ? (
-                <Loader2 size={18} className="animate-spin" />
-              ) : (
-                "Actualizar Contraseña"
-              )}
-            </button>
-          </form>
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-white/80">
+                  Contraseña Actual
+                </label>
+                <FocusElementProvider
+                  strokeSize={0}
+                  styleFocus={{ ...FOCUS_STYLE, borderRadius: "12px" }}
+                  onEnterPress={() => oldPasswordRef.current?.focus()}
+                >
+                  <input
+                    ref={oldPasswordRef}
+                    type="password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    className="w-full px-4 py-3 bg-black/30 border border-gray-600 rounded-xl focus:outline-none focus:border-[#EA1C25] text-white transition-colors"
+                    required
+                  />
+                </FocusElementProvider>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-white/80">
+                  Nueva Contraseña
+                </label>
+                <FocusElementProvider
+                  strokeSize={0}
+                  styleFocus={{ ...FOCUS_STYLE, borderRadius: "12px" }}
+                  onEnterPress={() => newPasswordRef.current?.focus()}
+                >
+                  <input
+                    ref={newPasswordRef}
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="w-full px-4 py-3 bg-black/30 border border-gray-600 rounded-xl focus:outline-none focus:border-[#EA1C25] text-white transition-colors"
+                    required
+                  />
+                </FocusElementProvider>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-white/80">
+                  Confirmar Nueva Contraseña
+                </label>
+                <FocusElementProvider
+                  strokeSize={0}
+                  styleFocus={{ ...FOCUS_STYLE, borderRadius: "12px" }}
+                  onEnterPress={() => confirmPasswordRef.current?.focus()}
+                >
+                  <input
+                    ref={confirmPasswordRef}
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full px-4 py-3 bg-black/30 border border-gray-600 rounded-xl focus:outline-none focus:border-[#EA1C25] text-white transition-colors"
+                    required
+                  />
+                </FocusElementProvider>
+              </div>
+
+              {/* Submit */}
+              <FocusElementProvider
+                className="mt-2 w-fit rounded-xl"
+                onEnterPress={() => submitBtnRef.current?.click()}
+                strokeSize={0}
+                styleFocus={{ ...FOCUS_STYLE }}
+              >
+                <button
+                  ref={submitBtnRef}
+                  type="submit"
+                  disabled={loading}
+                  className=" flex items-center justify-center gap-2 px-6 py-3 bg-[#EA1C25] hover:bg-[#c9171f] disabled:opacity-70 text-white font-bold rounded-xl transition-colors"
+                >
+                  {loading ? (
+                    <Loader2 size={18} className="animate-spin" />
+                  ) : (
+                    "Actualizar Contraseña"
+                  )}
+                </button>
+              </FocusElementProvider>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </FocusContextProvider>
   );
 }

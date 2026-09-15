@@ -16,8 +16,14 @@ export function useFocus({ onEnterPress }: { onEnterPress?: () => void }) {
         onEnterPress();
       }
     },
+    onBlur: () => {
+      if (
+        typeof document !== "undefined" &&
+        document.activeElement instanceof HTMLElement
+      ) {
+        document.activeElement.blur();
+      }
+    },
   });
   return { ref, focused };
 }
-
-

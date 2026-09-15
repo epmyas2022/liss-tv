@@ -81,9 +81,18 @@ export default function NetflixSearch({
         isOpen ? (isMobile ? "w-48 sm:w-56" : "w-72 lg:w-80") : "w-10"
       } ${className}`}
     >
-      <FocusElementProvider className="w-full rounded-full">
+      <FocusElementProvider
+        className="w-full rounded-full "
+        onEnterPress={toggleSearch}
+        strokeSize={0}
+        styleFocus={{
+          outline: "2px solid rgba(234,28,37,0.8)",
+          outlineOffset: "3px",
+          borderRadius: "9999px",
+        }}
+      >
         <div
-          className={`group flex items-center w-full h-10 transition-all duration-500 overflow-hidden rounded-full ${
+          className={`group flex items-center justify-center w-full h-10 transition-all duration-500 overflow-hidden rounded-full ${
             isOpen
               ? pending
                 ? "bg-black/90 border border-[#EA1C25]/50"

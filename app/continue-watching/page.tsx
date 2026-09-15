@@ -259,42 +259,66 @@ export default function ContinueWatchingPage() {
           <h1 className="text-white text-2xl sm:text-3xl font-bold font-poppins flex items-center gap-3">
             Continue <span className="text-[#EA1C25]">Watching</span>
           </h1>
-          <div className="mt-6 flex items-center gap-8 border-b border-white/10">
-            <button
-              onClick={() => setActiveTab("cloud")}
-              className={`pb-4 text-base font-medium transition-all relative flex items-center gap-2 ${
-                activeTab === "cloud"
-                  ? "text-white"
-                  : "text-white/50 hover:text-white/80"
-              }`}
-            >
-              <Cloud size={18} />
-              Cloud{" "}
-              <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">
-                {cloudList.length}
-              </span>
-              {activeTab === "cloud" && (
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
-              )}
-            </button>
-            <button
-              onClick={() => setActiveTab("local")}
-              className={`pb-4 text-base font-medium transition-all relative flex items-center gap-2 ${
-                activeTab === "local"
-                  ? "text-white"
-                  : "text-white/50 hover:text-white/80"
-              }`}
-            >
-              <Smartphone size={18} />
-              Local{" "}
-              <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">
-                {localList.length}
-              </span>
-              {activeTab === "local" && (
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
-              )}
-            </button>
-          </div>
+
+          <FocusContextProvider trackChildren={true}>
+            <div className="mt-6 flex items-center gap-8 border-b border-white/10">
+              {/* Tab Cloud */}
+              <FocusElementProvider
+                onEnterPress={() => setActiveTab("cloud")}
+                strokeSize={0}
+                className="group"
+              >
+                <button
+                  onClick={() => setActiveTab("cloud")}
+                  className={`pb-4 text-base font-medium transition-all relative flex items-center gap-2 outline-none ${
+                    activeTab === "cloud"
+                      ? "text-white"
+                      : "text-white/50 hover:text-white/80 group-[.focus-active]:text-white"
+                  }`}
+                >
+                  <Cloud size={18} />
+                  Cloud{" "}
+                  <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">
+                    {cloudList.length}
+                  </span>
+                  {(activeTab === "cloud") && (
+                    <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
+                  )}
+                  {activeTab !== "cloud" && (
+                    <span className="absolute bottom-0 left-0 w-full h-[3px] rounded-t-sm opacity-0 group-[.focus-active]:opacity-100 transition-opacity" style={{ background: "rgba(234,28,37,0.45)" }} />
+                  )}
+                </button>
+              </FocusElementProvider>
+
+              {/* Tab Local */}
+              <FocusElementProvider
+                onEnterPress={() => setActiveTab("local")}
+                strokeSize={0}
+                className="group"
+              >
+                <button
+                  onClick={() => setActiveTab("local")}
+                  className={`pb-4 text-base font-medium transition-all relative flex items-center gap-2 outline-none ${
+                    activeTab === "local"
+                      ? "text-white"
+                      : "text-white/50 hover:text-white/80 group-[.focus-active]:text-white"
+                  }`}
+                >
+                  <Smartphone size={18} />
+                  Local{" "}
+                  <span className="text-xs px-1.5 py-0.5 rounded-full bg-white/10">
+                    {localList.length}
+                  </span>
+                  {(activeTab === "local") && (
+                    <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#EA1C25] rounded-t-sm" />
+                  )}
+                  {activeTab !== "local" && (
+                    <span className="absolute bottom-0 left-0 w-full h-[3px] rounded-t-sm opacity-0 group-[.focus-active]:opacity-100 transition-opacity" style={{ background: "rgba(234,28,37,0.45)" }} />
+                  )}
+                </button>
+              </FocusElementProvider>
+            </div>
+          </FocusContextProvider>
         </div>
 
         <style>{`
