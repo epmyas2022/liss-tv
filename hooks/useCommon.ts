@@ -14,8 +14,6 @@ export function useCommon() {
     if (typeof navigator === "undefined") return false;
     const userAgent = navigator.userAgent.toLowerCase();
 
-    const noTouch =
-      !("ontouchstart" in window) && navigator.maxTouchPoints === 0;
 
     const screenW = window.screen.width;
     const screenH = window.screen.height;
@@ -29,7 +27,7 @@ export function useCommon() {
 
     if (isAgent) return true;
 
-    return isAndroidUA && noTouch && isBigLandscape;
+    return isAndroidUA && isBigLandscape;
   };
 
   const isDesktop = () => {
