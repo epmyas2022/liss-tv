@@ -12,22 +12,10 @@ export function useCommon() {
 
   const isSmartTV = () => {
     if (typeof navigator === "undefined") return false;
-    const userAgent = navigator.userAgent.toLowerCase();
-
-
-    const screenW = window.screen.width;
-    const screenH = window.screen.height;
-    const isBigLandscape = screenW >= 1280 && screenW / screenH > 1.4;
-    const isAndroidUA = /android/i.test(userAgent);
-
-    const isAgent =
-      /smart-tv|smarttv|appletv|googletv|android tv|hbbtv|netcast|viera tv|nettv|roku|tizen|web0s|webos|aft(b|s|mm|t)|firetv|fire tv|crkey/i.test(
-        userAgent,
-      );
-
-    if (isAgent) return true;
-
-    return isAndroidUA && isBigLandscape;
+    const userAgent = navigator.userAgent;
+    return /smart-tv|smarttv|appletv|googletv|hbbtv|pov_tv|netcast.tv|viera|nettv|roku|tizen|webos|philips|sony|panasonic|sharp|toshiba|hisense|aftb|afts|firetv|fire_tv|xiaomi|mibox|mitv|total_tv|linux armv|crkey|x86_64|android_tv|sdk_gphone/i.test(
+      userAgent,
+    );
   };
 
   const isDesktop = () => {
