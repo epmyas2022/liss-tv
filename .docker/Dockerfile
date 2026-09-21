@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y tor && rm -rf /var/lib/apt/lists/*
 
 RUN echo "Log notice stdout" >> /etc/tor/torrc && \
     echo "SocksPort 127.0.0.1:9050" >> /etc/tor/torrc && \
-    echo "MaxCircuitDirtiness 5" >> /etc/tor/torrc
+    echo "MaxCircuitDirtiness 120" >> /etc/tor/torrc
 
 
 RUN npx --yes playwright@1.62.1 install --with-deps chromium
