@@ -27,6 +27,13 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Liss TV",
+  referrer: "no-referrer",
+  keywords: [
+    "Liss TV",
+    "Películas online",
+    "Series online",
+    "Ver películas gratis",
+  ],
   description: "Watch movies and series online for free.",
   manifest: "/manifest.json",
   appleWebApp: {

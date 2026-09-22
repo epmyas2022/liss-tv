@@ -21,6 +21,7 @@
     "posthog-js": "^1.428.6",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "tor-control": "^0.0.3",
     "zustand": "^5.0.14"
   },
   "devDependencies": {

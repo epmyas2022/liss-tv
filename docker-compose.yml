@@ -5,5 +5,7 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile
+      args:
+        - NEXT_PUBLIC_POCKETBASE_URL=https://pocketbase.isaacdev.site
     ports:
       - "8000:8000"

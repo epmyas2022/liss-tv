@@ -1,5 +1,13 @@
 import { Action } from "@/types/action";
 
+import TorControl, { TorControlStatus } from "tor-control";
+
+export const torControl = new TorControl({
+  host: "127.0.0.1",
+  port: 9051,
+  persistent: true,
+});
+
 export async function withTimeout<T>(
   promise: Promise<T>,
   ms: number,
@@ -35,13 +43,20 @@ export async function tryCatch<T>(
 }
 
 export async function attempt<T>(action: Action<T>): Promise<T> {
-  const { attempts: maxAttempts, delay, execute, attemptAction } = action;
+  const {
+    attempts: maxAttempts,
+    delay,
+    execute,
+    attemptAction,
+    errorHandler,
+  } = action;
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     try {
       return await execute();
     } catch (error) {
       console.error(`❌ intento ${attempt + 1}/${maxAttempts}`, error);
+      errorHandler?.(error);
 
       if (attempt < maxAttempts - 1) {
         await new Promise((resolve) => setTimeout(resolve, delay));
@@ -98,4 +113,18 @@ export async function getLinkMediafire(url: string) {
     console.error("❌ Error al obtener el enlace de Mediafire:", error);
     return null;
   }
+}
+
+export async function changeTorIdentity(): Promise<TorControlStatus | null> {
+  return new Promise((resolve, reject) => {
+    console.log("🔄 Intentando cambiar la identidad de Tor...");
+    torControl.signalNewnym((err, status) => {
+      if (err) {
+        console.error("❌ Error al cambiar la identidad de Tor:", err);
+        return reject(err);
+      }
+      console.log("✅ Identidad de Tor cambiada con éxito:", status);
+      resolve(status);
+    });
+  });
 }
