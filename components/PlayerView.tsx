@@ -50,6 +50,16 @@ export function PlayerView() {
     });
   };
 
+  const fallback = async () => {
+    if (!moviePreview) return null;
+
+    const url = await getMovieUrl(moviePreview.link);
+
+    if(!url || typeof url !== "string") return null;
+
+    return `/api/video?url=${encodeURIComponent(url)}`;
+  };
+
   useEffect(() => {
     return syncInitEventListener();
   }, [syncInitEventListener]);
@@ -114,6 +124,7 @@ export function PlayerView() {
           src={movieUrl}
           title={moviePreview.title}
           poster={moviePreview.backgroundImage || moviePreview.image}
+          fallback={fallback}
         >
           {moviePreview.next && (
             <NextEpisode

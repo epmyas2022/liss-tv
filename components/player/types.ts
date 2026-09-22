@@ -26,4 +26,5 @@ export interface VideoPlayerProps {
   poster?: string;
   thumbnails?: string;
   textTracks?: TextTrack[];
+  fallback?: () => Promise<string | null>;
 }

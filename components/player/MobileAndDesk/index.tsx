@@ -31,15 +31,21 @@ export default function MobileAndDeskPlayer({
   textTracks = [],
   handleTimeUpdate,
   handlePause,
+  fallback
+  
 }: VideoPlayerProps) {
   const [isFullScreenIOS, setIsFullScreenIOS] = useState(false);
 
   const [srcFallback, setSrcFallback] = useState<string | null>(null);
 
-  const errorHandler = () => {
+  const errorHandler = async () => {
+    const url =  await fallback?.();
+
+    if(!url) return;
+
     console.error("❌ Error al cargar el video, se intentará con la ruta de fallback");
 
-    setSrcFallback(`/api/video?url=${encodeURIComponent(src)}`);
+    setSrcFallback(url);
   }
 
   const canFullscreen =
