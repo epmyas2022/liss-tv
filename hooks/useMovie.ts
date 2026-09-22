@@ -2,8 +2,10 @@ import { ContinueWatching } from "@/types/movie";
 import { pb, response } from "./useAuth";
 
 import { useMovieStore } from "@/store/useMovieStore";
-
+import { useState } from "react";
 export function useMovie() {
+  const [shouldSaveEnd, setShouldSaveEnd] = useState(true);
+
   const store = useMovieStore();
   const syncToPocketBase = async () => {
     const user = pb?.authStore?.record as
@@ -37,7 +39,11 @@ export function useMovie() {
 
     const { currentTime, duration, threshold, lastSavedTimeRef } = options;
 
-    if (duration > 0 && Math.abs(duration - currentTime) < threshold) {
+    if (
+      shouldSaveEnd &&
+      duration > 0 &&
+      Math.abs(duration - currentTime) < threshold
+    ) {
       if (moviePreview.next)
         store.addToContinueWatching({
           ...moviePreview.next,
@@ -48,7 +54,9 @@ export function useMovie() {
       store.removeFromContinueWatching(moviePreview.link);
 
       syncToPocketBase();
-      
+
+      setShouldSaveEnd(false);
+
       return;
     }
 
