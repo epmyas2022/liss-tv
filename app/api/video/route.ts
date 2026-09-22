@@ -1,60 +1,46 @@
 // app/api/proxy/route.ts
+import got from "got";
+import { NextRequest, NextResponse } from "next/server";
+import { Readable } from "node:stream";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const targetUrl = searchParams.get("url");
+export async function GET(req: NextRequest) {
+  const videoUrl = req.nextUrl.searchParams.get("url");
 
-  if (!targetUrl) {
-    return new Response("Falta el parámetro url", { status: 400 });
+  if (!videoUrl) {
+    return NextResponse.json(
+      { error: "Missing 'url' query parameter" },
+      { status: 400 },
+    );
   }
 
-  try {
-    const response = await fetch(targetUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        Referer: "https://callistanise.com/",
-        Accept: "*/*",
-      },
-    });
+  const nodeStream = got.stream(videoUrl, {
+    headers: {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      ...(req.headers.get("range") ? { range: req.headers.get("range")! } : {}),
+    },
+    throwHttpErrors: false,
+  });
 
-    if (!response.ok) {
-      return new Response("Error en el servidor de origen", {
-        status: response.status,
-      });
-    }
+  const response = await new Promise<{
+    statusCode: number;
+    headers: Record<string, string>;
+  }>((resolve, reject) => {
+    nodeStream.on("response", resolve);
+    nodeStream.on("error", reject);
+  });
 
-    if (targetUrl.includes(".m3u8")) {
-      const m3u8Text = await response.text();
+  const webStream = Readable.toWeb(nodeStream);
 
-      const lines = m3u8Text.split("\n");
-      const rewrittenLines = lines.map((line) => {
-        if (line.startsWith("http")) {
-          return `/api/video?url=${encodeURIComponent(line.trim())}`;
-        }
-        return line;
-      });
+  const headers = new Headers(response.headers as Record<string, string>);
+  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set("Access-Control-Allow-Headers", "Range");
+  headers.set(
+    "Access-Control-Expose-Headers",
+    "Content-Range, Content-Length, Accept-Ranges",
+  );
 
-      return new Response(rewrittenLines.join("\n"), {
-        headers: {
-          "Content-Type": "application/vnd.apple.mpegurl",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-    }
-
-    // 3. Si es un fragmento de video (.image o .ts), pasamos los datos binarios tal cual
-    const buffer = await response.arrayBuffer();
-
-    return new Response(buffer, {
-      headers: {
-        "Content-Type": "video/MP2T", // Forzamos el tipo mime de fragmentos de video
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "public, max-age=3600", // Opcional: cacheamos para no saturar tu servidor
-      },
-    });
-  } catch (error) {
-    console.error("Error en proxy:", error);
-    return new Response("Error interno del servidor", { status: 500 });
-  }
+  return new NextResponse(webStream as ReadableStream, {
+    status: response.statusCode,
+    headers,
+  });
 }

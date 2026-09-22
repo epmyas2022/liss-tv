@@ -34,6 +34,14 @@ export default function MobileAndDeskPlayer({
 }: VideoPlayerProps) {
   const [isFullScreenIOS, setIsFullScreenIOS] = useState(false);
 
+  const [srcFallback, setSrcFallback] = useState<string | null>(null);
+
+  const errorHandler = () => {
+    console.error("❌ Error al cargar el video, se intentará con la ruta de fallback");
+
+    setSrcFallback(`/api/video?url=${encodeURIComponent(src)}`);
+  }
+
   const canFullscreen =
     typeof document !== "undefined" && !!document.fullscreenEnabled;
 
@@ -79,7 +87,7 @@ export default function MobileAndDeskPlayer({
       >
         <MediaPlayer
           src={{
-            src,
+            src: srcFallback || src,
             type: "video/mp4",
           }}
           ref={ref}
@@ -93,6 +101,7 @@ export default function MobileAndDeskPlayer({
           currentTime={startTime}
           onTimeUpdate={handleTimeUpdate}
           onPause={handlePause}
+          onErrorCapture={errorHandler}
           className="w-full h-full"
         >
           <MediaProvider>
