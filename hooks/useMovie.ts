@@ -22,7 +22,7 @@ export function useMovie() {
           ...continueWatching.filter(
             (i) => !store.continueWatching.some((j) => j.link === i.link),
           ),
-          ...[store.continueWatching.find((i) => store.moviePreview?.link === i.link)],
+          ...store.continueWatching,
         ],
       }),
     );
