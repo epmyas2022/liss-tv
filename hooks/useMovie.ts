@@ -8,9 +8,9 @@ export function useMovie() {
   const [shouldSaveEnd, setShouldSaveEnd] = useState(true);
 
   const store = useMovieStore();
-  
+
   const syncToPocketBase = async () => {
-    const user = pb?.authStore?.record as AuthUserType
+    const user = pb?.authStore?.record as AuthUserType;
 
     if (!user) return;
 
@@ -29,7 +29,7 @@ export function useMovie() {
   };
 
   const removeContinueWatching = async (link: string) => {
-    const user = pb?.authStore?.record as AuthUserType
+    const user = pb?.authStore?.record as AuthUserType;
 
     if (!user) return;
 
@@ -46,7 +46,7 @@ export function useMovie() {
     });
   };
 
-  const syncToLocal = (options: {
+  const syncToLocal = async (options: {
     currentTime: number;
     duration: number;
     threshold: number;
@@ -62,16 +62,15 @@ export function useMovie() {
       duration > 0 &&
       Math.abs(duration - currentTime) < threshold
     ) {
-      if (moviePreview.next)
-        store.addToContinueWatching({
+      if (moviePreview.next) {
+        return store.addToContinueWatching({
           ...moviePreview.next,
           currentTime: 0,
           duration: 0,
         });
+      }
 
       store.removeFromContinueWatching(moviePreview.link);
-
-      removeContinueWatching(moviePreview.link);
 
       setShouldSaveEnd(false);
 
