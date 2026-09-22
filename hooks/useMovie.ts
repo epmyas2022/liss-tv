@@ -1,16 +1,16 @@
-import { ContinueWatching } from "@/types/movie";
 import { pb, response } from "./useAuth";
 
 import { useMovieStore } from "@/store/useMovieStore";
 import { useState } from "react";
+import { AuthUserType } from "@/types/user";
+
 export function useMovie() {
   const [shouldSaveEnd, setShouldSaveEnd] = useState(true);
 
   const store = useMovieStore();
+  
   const syncToPocketBase = async () => {
-    const user = pb?.authStore?.record as
-      | { id: string; continueWatching?: ContinueWatching[] }
-      | undefined;
+    const user = pb?.authStore?.record as AuthUserType
 
     if (!user) return;
 
@@ -22,10 +22,28 @@ export function useMovie() {
           ...continueWatching.filter(
             (i) => !store.continueWatching.some((j) => j.link === i.link),
           ),
-          ...store.continueWatching,
+          ...[store.continueWatching.find((i) => store.moviePreview?.link === i.link)],
         ],
       }),
     );
+  };
+
+  const removeContinueWatching = async (link: string) => {
+    const user = pb?.authStore?.record as AuthUserType
+
+    if (!user) return;
+
+    await response(() => {
+      const continueWatching = user.continueWatching || [];
+
+      const updatedContinueWatching = continueWatching.filter(
+        (i) => i.link !== link,
+      );
+
+      return pb.collection("users").update(user.id, {
+        continueWatching: updatedContinueWatching,
+      });
+    });
   };
 
   const syncToLocal = (options: {
@@ -53,7 +71,7 @@ export function useMovie() {
 
       store.removeFromContinueWatching(moviePreview.link);
 
-      syncToPocketBase();
+      removeContinueWatching(moviePreview.link);
 
       setShouldSaveEnd(false);
 
@@ -93,7 +111,6 @@ export function useMovie() {
       startTime: 0,
     });
 
-    syncToPocketBase();
     setTimeout(() => window.location.reload(), 1000);
   };
 
