@@ -15,10 +15,14 @@ export async function GET(req: NextRequest) {
 
   const nodeStream = got.stream(videoUrl, {
     headers: {
+      "referer": "https://www.mediafire.com/",
+      "accept": "*/*",
+      "accept-language": "en-US,en;q=0.9",
       "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
       ...(req.headers.get("range") ? { range: req.headers.get("range")! } : {}),
     },
     throwHttpErrors: false,
+    followRedirect: false,
   });
 
   const response = await new Promise<{
