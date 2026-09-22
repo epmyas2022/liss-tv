@@ -31,22 +31,11 @@ export default function MobileAndDeskPlayer({
   textTracks = [],
   handleTimeUpdate,
   handlePause,
-  fallback
+  onErrorCapture,
   
 }: VideoPlayerProps) {
   const [isFullScreenIOS, setIsFullScreenIOS] = useState(false);
 
-  const [srcFallback, setSrcFallback] = useState<string | null>(null);
-
-  const errorHandler = async () => {
-    const url =  await fallback?.();
-
-    if(!url) return;
-
-    console.error("❌ Error al cargar el video, se intentará con la ruta de fallback");
-
-    setSrcFallback(url);
-  }
 
   const canFullscreen =
     typeof document !== "undefined" && !!document.fullscreenEnabled;
@@ -93,7 +82,7 @@ export default function MobileAndDeskPlayer({
       >
         <MediaPlayer
           src={{
-            src: srcFallback || src,
+            src,
             type: "video/mp4",
           }}
           ref={ref}
@@ -107,7 +96,7 @@ export default function MobileAndDeskPlayer({
           currentTime={startTime}
           onTimeUpdate={handleTimeUpdate}
           onPause={handlePause}
-          onErrorCapture={errorHandler}
+          onErrorCapture={onErrorCapture}
           className="w-full h-full"
         >
           <MediaProvider>

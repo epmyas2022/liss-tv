@@ -163,6 +163,7 @@ export default function SmartTvPlayer({
   textTracks = [],
   handleTimeUpdate,
   handlePause,
+  onErrorCapture,
 }: VideoPlayerProps) {
   const internalRef = useRef<MediaPlayerInstance | null>(null);
   const playerRef = (ref as React.RefObject<MediaPlayerInstance | null>) ?? internalRef;
@@ -300,6 +301,7 @@ export default function SmartTvPlayer({
           currentTime={startTime}
           className="w-full h-full"
           onCanPlay={handleCanPlay}
+          onErrorCapture={onErrorCapture}
           onTimeUpdate={(detail, nativeEvent) => {
             setCurrentTime(detail.currentTime);
             setDuration(nativeEvent.target.duration ?? 0);

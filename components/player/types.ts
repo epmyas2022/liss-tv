@@ -3,6 +3,7 @@ import {
   MediaTimeUpdateEventDetail,
   type MediaPlayerInstance,
 } from "@vidstack/react";
+import { ReactEventHandler } from "react";
 
 export interface TextTrack {
   src: string;
@@ -27,4 +28,5 @@ export interface VideoPlayerProps {
   thumbnails?: string;
   textTracks?: TextTrack[];
   fallback?: () => Promise<string | null>;
+  onErrorCapture?: ReactEventHandler<HTMLElement> | undefined
 }
