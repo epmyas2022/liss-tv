@@ -45,7 +45,11 @@ export function useMovie() {
           duration: 0,
         });
 
-      return store.removeFromContinueWatching(moviePreview.link);
+      store.removeFromContinueWatching(moviePreview.link);
+
+      syncToPocketBase();
+      
+      return;
     }
 
     if (Math.abs(currentTime - lastSavedTimeRef.current) < 20) return;
@@ -81,6 +85,7 @@ export function useMovie() {
       startTime: 0,
     });
 
+    syncToPocketBase();
     setTimeout(() => window.location.reload(), 1000);
   };
 
