@@ -5,41 +5,57 @@ import { Movies } from "@/types/movie";
 
 export const BASE_PATH = "https://sololatino.net/";
 
-let browserInstance: Promise<Browser> | null = null;
+const BROWSER_ARGS = [
+  "--autoplay-policy=no-user-gesture-required",
+  "--disable-blink-features=AutomationControlled",
+  "--no-sandbox",
+  "--disable-extensions",
+  "--disable-dev-shm-usage",
+  "--disable-gpu",
+];
 
-export async function getBrowser() {
-  if (!browserInstance)
-    browserInstance = chromium.launch({
-      headless: true,
-      proxy: { server: "socks5://127.0.0.1:9050" },
-      args: [
-        "--autoplay-policy=no-user-gesture-required",
-        "--disable-blink-features=AutomationControlled",
-        "--no-sandbox",
-        "--disable-extensions",
-        "--disable-dev-shm-usage",
-        "--disable-gpu",
-      ],
-    });
+const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-  const browser = await browserInstance;
+// Browser with Tor — used for SoloLatino scraping
+let torBrowserInstance: Promise<Browser> | null = null;
+
+// Browser without proxy — used for the player (pelisserieshoy blocks Tor IPs via Cloudflare)
+let directBrowserInstance: Promise<Browser> | null = null;
+
+async function getBrowserContext(useTor: boolean) {
+  if (useTor) {
+    if (!torBrowserInstance)
+      torBrowserInstance = chromium.launch({
+        headless: true,
+        proxy: { server: "socks5://127.0.0.1:9050" },
+        args: BROWSER_ARGS,
+      });
+  } else {
+    if (!directBrowserInstance)
+      directBrowserInstance = chromium.launch({
+        headless: true,
+        args: BROWSER_ARGS,
+      });
+  }
+
+  const browser = await (useTor ? torBrowserInstance! : directBrowserInstance!);
 
   const context = await browser.newContext({
-    viewport: {
-      width: 1280,
-      height: 720,
-    },
-    userAgent:
-      "Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0",
+    viewport: { width: 1280, height: 720 },
+    userAgent: BROWSER_UA,
   });
 
   setTimeout(async () => {
-    await context.close();
-  }, 20000); // Cierra el contexto después de 20 segundos
+    await context.close().catch(() => {});
+  }, 60000); // Failsafe: close orphaned context after 60 seconds
 
   const page = await context.newPage();
-
   return { browser, context, page };
+}
+
+/** @deprecated Use getBrowserContext(true/false) directly */
+export async function getBrowser() {
+  return getBrowserContext(true);
 }
 
 export async function getUrl(path: string) {
@@ -70,68 +86,109 @@ export async function getUrl(path: string) {
     "://impactradius-go.com",
   ];
 
-  return new Promise(async (resolve) => {
-    const { context, page } = await getBrowser();
-
-    await page.route("**/*", (route) => {
-      const type = route.request().resourceType();
-      const url = route.request().url();
-
-      if (
-        blacklistedDomains.some((domain) => url.includes(domain)) ||
-        [
-          "font",
-          "image",
-          "manifest",
-          "object",
-          "other",
-          "websocket",
-          "eventsource",
-          "ping",
-          "webworker",
-        ].includes(type)
-      ) {
-        return route.abort();
-      }
-      route.continue();
-    });
-
-    const videoPromise = new Promise<string>((resolveVideo) => {
-      const handler = (response: { url: () => string }) => {
-        if (isUrlMediafire(response.url())) {
-          resolved = true;
-          page.off("response", handler);
-          resolveVideo(response.url());
-        }
-      };
-      page.on("response", handler);
-    });
-
-    await page.goto(BASE_PATH + path, {
-      waitUntil: "domcontentloaded",
-      timeout: 15000,
-    });
-
-    const frame = page.frameLocator('iframe[src*="player.pelisserieshoy.com"]');
-
-    context.on("page", async (newPage) => {
-      await newPage.close().catch(() => {});
-    });
+  return new Promise(async (resolve, reject) => {
+    let browserContext = null;
 
     try {
-      const play = await frame.locator("#playBtn");
+      // 1. Fast fetch of HTML to extract the player token (no Chromium needed)
+      const htmlResponse = await fetch(BASE_PATH + path, {
+        headers: { "User-Agent": "Mozilla/5.0" },
+      });
+      if (!htmlResponse.ok) throw new Error("Failed to fetch page HTML");
+      const htmlText = await htmlResponse.text();
 
-      await play.waitFor({ timeout: 10000 });
+      const tokenMatch = htmlText.match(/data-player-token="([^"]+)"/);
+      if (!tokenMatch) throw new Error("Player token not found in HTML");
+      const token = tokenMatch[1];
 
-      const clickLoop = async () => {
-        while (!resolved) {
-          play?.click({ force: true });
+      // 2. Resolve the iframe URL via the API (also no Chromium)
+      const apiResponse = await fetch(BASE_PATH + "api/player-url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+          "User-Agent": "Mozilla/5.0",
+        },
+        body: JSON.stringify({ t: token }),
+      });
+      const apiData = await apiResponse.json();
+      if (!apiData?.url) throw new Error("Could not resolve iframe URL");
 
-          await page.waitForTimeout(500);
+      const iframeUrl: string = apiData.url;
+
+      // 3. Open direct browser (no Tor) on the player iframe.
+      // pelisserieshoy.com blocks Tor exit IPs via Cloudflare — must use direct connection.
+      // We fake a sololatino.net page that embeds the iframe so origin checks pass.
+      const { context, page } = await getBrowserContext(false);
+      browserContext = context;
+
+      // Block notification permission prompts — they show as an ad popup that intercepts clicks.
+      // The player checks isTrusted on click events, so the real Playwright click must go through.
+      await context.grantPermissions([]);
+      await context.addInitScript(() => {
+        try {
+          Object.defineProperty(window, "Notification", {
+            get: () => ({
+              permission: "denied",
+              requestPermission: () => Promise.resolve("denied"),
+            }),
+          });
+        } catch (_) {}
+      });
+
+      // Register **/* FIRST — Playwright matches routes LIFO (last-in, first-out).
+      // The specific __player_proxy__ route must be registered AFTER so it takes priority.
+      await page.route("**/*", (route) => {
+        const type = route.request().resourceType();
+        const url = route.request().url();
+
+        if (
+          blacklistedDomains.some((domain) => url.includes(domain)) ||
+          ["font", "image", "manifest", "object"].includes(type)
+        ) {
+          return route.abort();
         }
-      };
+        route.continue();
+      });
 
-      Promise.race([clickLoop(), videoPromise]);
+      // This is registered LAST, so it runs FIRST (LIFO), intercepting the fake page request.
+      await page.route("https://sololatino.net/__player_proxy__", (route) => {
+        route.fulfill({
+          contentType: "text/html",
+          body: `<!DOCTYPE html><html><body style="margin:0">
+            <iframe id="pl" src="${iframeUrl}" style="width:100%;height:100%;border:none" allow="autoplay; fullscreen"></iframe>
+          </body></html>`,
+        });
+      });
+
+      const videoPromise = new Promise<string>((resolveVideo) => {
+        const handler = (response: { url: () => string }) => {
+          if (isUrlMediafire(response.url())) {
+            resolved = true;
+            page.off("response", handler);
+            resolveVideo(response.url());
+          }
+        };
+        page.on("response", handler);
+      });
+
+      // Navigate to the fake page — the iframe loads with sololatino.net as parent origin
+      await page.goto("https://sololatino.net/__player_proxy__", {
+        waitUntil: "domcontentloaded",
+        timeout: 15000,
+      });
+
+      context.on("page", async (newPage) => {
+        await newPage.close().catch(() => {});
+      });
+
+      const frame = page.frameLocator("#pl");
+      const play = frame.locator("#playBtn");
+      await play.waitFor({ timeout: 15000 });
+
+      // Real Playwright click fires a trusted event (isTrusted=true).
+      // The player uses this to auto-select the first available server.
+      play.click().catch(() => {});
 
       const url = await videoPromise;
 
@@ -145,8 +202,11 @@ export async function getUrl(path: string) {
       resolve(url);
     } catch (error) {
       console.error("Error occurred while fetching video URL:", error);
+      reject(error);
     } finally {
-      await context.close();
+      if (browserContext) {
+        await browserContext.close().catch(() => {});
+      }
     }
   });
 }
