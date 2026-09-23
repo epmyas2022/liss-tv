@@ -71,7 +71,6 @@ export async function getUrl(path: string) {
 
   if (cached?.movieUrl && !linkCached) remove(path);
 
-  let resolved = false;
 
   const blacklistedDomains = [
     "google-analytics.com",
@@ -164,7 +163,6 @@ export async function getUrl(path: string) {
       const videoPromise = new Promise<string>((resolveVideo) => {
         const handler = (response: { url: () => string }) => {
           if (isUrlMediafire(response.url())) {
-            resolved = true;
             page.off("response", handler);
             resolveVideo(response.url());
           }

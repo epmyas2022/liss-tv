@@ -4,9 +4,7 @@ import { getUrl, getAll } from "@/services/movie.service";
 
 import { withTimeout, attempts, changeTorIdentity } from "@/utils/utils";
 
-
 export async function getMovieUrl(link: string) {
-
   return await attempts([
     {
       execute: () =>
@@ -19,12 +17,17 @@ export async function getMovieUrl(link: string) {
       attempts: 3,
       delay: 1000,
       errorHandler: async (_) => {
-        await changeTorIdentity();
-      }
+        /*         await changeTorIdentity();
+         */
+      },
     },
-  ]); 
+  ]);
 }
 
-export async function getAllMovies(search?: string, filter?: string, page?: number) {
+export async function getAllMovies(
+  search?: string,
+  filter?: string,
+  page?: number,
+) {
   return await getAll(search, filter, page);
 }
