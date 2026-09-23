@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useAuthentication } from "../providers/context/AuthContext";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { pb } from "@/hooks/useAuth";
-import { ClientResponseError } from "pocketbase";
+import { ClientResponseError, RecordModel } from "pocketbase";
 import Link from "next/link";
-import { ArrowLeft, Camera, Loader2, LogOut, User, Lock } from "lucide-react";
+import { ArrowLeft, Camera, Loader2, LogOut, User, Lock, X } from "lucide-react";
 import NextImage from "next/image";
 import { Alert } from "./Alert";
 import FocusContextProvider from "../providers/FocusContextProvider";
@@ -46,6 +46,57 @@ export default function ProfileView() {
   const logoutBtnRef = useRef<HTMLButtonElement>(null);
   const submitBtnRef = useRef<HTMLButtonElement>(null);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [predefinedAvatars, setPredefinedAvatars] = useState<RecordModel[]>([]);
+  const [loadingAvatars, setLoadingAvatars] = useState(true);
+  const [showAvatarSelector, setShowAvatarSelector] = useState(false);
+
+  useEffect(() => {
+    const fetchAvatars = async () => {
+      try {
+        const records = await pb.collection("avatars").getFullList({
+          sort: "category,name",
+        });
+        setPredefinedAvatars(records);
+      } catch (err) {
+        console.error("Error al cargar avatares:", err);
+      } finally {
+        setLoadingAvatars(false);
+      }
+    };
+    fetchAvatars();
+  }, []);
+
+  const handleSelectPredefinedAvatar = async (avatarUrl: string) => {
+    if (!user) return;
+    setUploadingAvatar(true);
+    try {
+      const response = await fetch(avatarUrl);
+      if (!response.ok) throw new Error("No se pudo descargar la imagen");
+      
+      const blob = await response.blob();
+      const file = new File([blob], "avatar.jpg", { type: blob.type || "image/jpeg" });
+      
+      const formData = new FormData();
+      formData.append("avatar", file);
+
+      const updatedUser = await pb.collection("users").update(user.id, formData);
+      pb.authStore.save(pb.authStore.token, updatedUser);
+
+      setMessage({
+        type: "success",
+        text: "Foto de perfil actualizada exitosamente.",
+      });
+      setShowAvatarSelector(false);
+    } catch (err) {
+      console.error(err);
+      setMessage({
+        type: "error",
+        text: "Error al actualizar el avatar predefinido.",
+      });
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,6 +116,7 @@ export default function ProfileView() {
         type: "success",
         text: "Foto de perfil actualizada exitosamente.",
       });
+      setShowAvatarSelector(false);
     } catch (_err) {
       setMessage({
         type: "error",
@@ -143,7 +195,7 @@ export default function ProfileView() {
           <div className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-md text-center md:text-left">
             {/* Avatar */}
             <FocusElementProvider
-              onEnterPress={() => fileInputRef.current?.click()}
+              onEnterPress={() => setShowAvatarSelector(true)}
               strokeSize={0}
               styleFocus={FOCUS_STYLE_ROUND}
             >
@@ -168,7 +220,7 @@ export default function ProfileView() {
 
                   {!uploadingAvatar && (
                     <button
-                      onClick={() => fileInputRef.current?.click()}
+                      onClick={() => setShowAvatarSelector(true)}
                       className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity cursor-pointer"
                       title="Cambiar foto de perfil"
                     >
@@ -311,8 +363,114 @@ export default function ProfileView() {
               </FocusElementProvider>
             </form>
           </div>
+
         </div>
       </div>
+
+      {/* Avatar Selection Modal */}
+      {showAvatarSelector && (
+        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 md:p-6 overflow-hidden">
+          <div className="bg-[#141414] w-full max-w-4xl max-h-[85vh] rounded-3xl flex flex-col border border-white/20 shadow-2xl relative">
+            
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 md:p-8 border-b border-white/10 shrink-0">
+              <h2 className="text-xl md:text-2xl font-bold font-poppins text-white">
+                Editar perfil
+              </h2>
+              <FocusElementProvider
+                onEnterPress={() => setShowAvatarSelector(false)}
+                strokeSize={0}
+                styleFocus={FOCUS_STYLE_ROUND}
+                className="shrink-0"
+              >
+                <button
+                  onClick={() => setShowAvatarSelector(false)}
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/70 hover:text-white"
+                >
+                  <X size={24} />
+                </button>
+              </FocusElementProvider>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="overflow-y-auto p-6 md:p-8">
+              <div className="mb-8 flex justify-center">
+                <FocusElementProvider
+                  onEnterPress={() => fileInputRef.current?.click()}
+                  strokeSize={0}
+                  styleFocus={FOCUS_STYLE}
+                  className="w-full max-w-sm"
+                >
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-white/5 hover:bg-white/10 rounded-xl transition-colors border border-white/10 text-white font-medium"
+                  >
+                    <Camera size={20} />
+                    Subir foto
+                  </button>
+                </FocusElementProvider>
+              </div>
+
+              <div className="space-y-8">
+                <h2 className="text-lg font-bold font-poppins text-white/50 text-center uppercase tracking-wider mb-6">
+                  Avatares Clásicos
+                </h2>
+                
+                {loadingAvatars ? (
+                  <div className="flex justify-center py-8">
+                    <Loader2 className="animate-spin text-[#EA1C25]" size={32} />
+                  </div>
+                ) : predefinedAvatars.length > 0 ? (
+                  <div className="space-y-10">
+                    {Object.entries(
+                      predefinedAvatars.reduce((acc, avatar) => {
+                        const cat = avatar.category || "Otros";
+                        if (!acc[cat]) acc[cat] = [];
+                        acc[cat].push(avatar);
+                        return acc;
+                      }, {} as Record<string, RecordModel[]>)
+                    ).map(([category, avatars]) => (
+                      <div key={category}>
+                        <h3 className="text-lg font-semibold text-white/80 mb-4 capitalize">
+                          {category}
+                        </h3>
+                        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-4">
+                          {avatars.map((av) => (
+                            <FocusElementProvider
+                              key={av.id}
+                              strokeSize={0}
+                              styleFocus={FOCUS_STYLE}
+                              className="w-full aspect-square relative rounded-xl overflow-hidden border-[3px] border-transparent hover:border-white focus:border-white transition-all bg-white/5 group"
+                              onEnterPress={() => handleSelectPredefinedAvatar(av.image)}
+                            >
+                              <button
+                                onClick={() => handleSelectPredefinedAvatar(av.image)}
+                                disabled={uploadingAvatar}
+                                className="w-full h-full flex items-center justify-center"
+                                title={av.name}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={av.image}
+                                  alt={av.name}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  loading="lazy"
+                                />
+                              </button>
+                            </FocusElementProvider>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-white/50 text-center">No hay avatares disponibles.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </FocusContextProvider>
   );
 }
