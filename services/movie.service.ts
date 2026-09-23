@@ -47,7 +47,7 @@ async function getBrowserContext(useTor: boolean) {
 
   setTimeout(async () => {
     await context.close().catch(() => {});
-  }, 60000); // Failsafe: close orphaned context after 60 seconds
+  }, 30000); // Failsafe: close orphaned context after 30 seconds
 
   const page = await context.newPage();
   return { browser, context, page };
