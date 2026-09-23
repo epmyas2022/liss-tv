@@ -8,6 +8,7 @@ import { getMovieUrl } from "@/app/actions/movie";
 import { type MediaPlayerInstance } from "@vidstack/react";
 import NextEpisode from "./ui/NextEpisode";
 import { useMovie } from "@/hooks/useMovie";
+import { useMovieStore } from "@/store/useMovieStore";
 import { Spinner } from "./ui/Spinner";
 import FocusElementProvider from "./providers/FocusElementProvider";
 import FocusContextProvider from "./providers/FocusContextProvider";
@@ -24,7 +25,7 @@ const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
 export function PlayerView() {
   const router = useRouter();
   const {
-    syncToPocketBase,
+    syncCurrentToPocketBase,
     syncToLocal,
     syncInitEventListener,
     handleNextEpisodeClick,
@@ -119,7 +120,17 @@ export function PlayerView() {
           handleTimeUpdate={(detail, nativeEvent) => {
             saveWatchProgress(detail.currentTime, nativeEvent.target.duration);
           }}
-          handlePause={() => syncToPocketBase()}
+          handlePause={() => {
+            const state = useMovieStore.getState();
+            if (state.moviePreview) {
+              const currentMovieData = state.continueWatching.find(
+                (m) => m.link === state.moviePreview?.link
+              );
+              if (currentMovieData) {
+                syncCurrentToPocketBase(currentMovieData);
+              }
+            }
+          }}
           startTime={moviePreview.startTime}
           src={movieUrl}
           title={moviePreview.title}
