@@ -10,10 +10,6 @@ import { analytics } from "@/analytics/event";
 
 export function EpisodeList({ title, seasons }: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
-  // ponytail: loading key = episode link; null means nothing loading
-  const [loadingLink, setLoadingLink] = useState<string | null>(null);
-
-  const router = useRouter();
 
   const store = useMovieStore();
 
@@ -39,10 +35,7 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
     return nextValue;
   };
 
-  async function handleEpisode(ep: Episode) {
-    if (loadingLink) return;
-    setLoadingLink(ep.link);
-
+  function handleEpisodeInteraction(ep: Episode) {
     const index = allEpisodes.findIndex((e) => e.link === ep.link);
 
     store.setMovieData({
@@ -53,13 +46,7 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
       next: next(allEpisodes.slice(index + 1)),
     });
 
-    setLoadingLink(null);
-
-    const slug = ep.link.split("/")[1];
-
     analytics.watchVideo(`${title} - ${ep.title}`, ep.link);
-
-    router.push(`/serie/${slug}/player`);
   }
 
   return (
@@ -76,21 +63,26 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
       {/* Episode rows */}
 
       <ol className="flex flex-col gap-2">
-        {current.episodes.map((ep) => (
-          <li key={ep.link + ep.numberEpisode}>
-            <EpisodeWatchButton
-              ep={ep}
-              onClick={() => handleEpisode(ep)}
-              loadingLink={loadingLink}
-            />
+        {current.episodes.map((ep) => {
+          const slug = ep.link.split("/")[1];
+          const targetHref = `/serie/${slug}/player`;
 
-            {/* Separator */}
-            <div
-              className="mx-3 h-px"
-              style={{ background: "rgba(255,255,255,0.06)" }}
-            />
-          </li>
-        ))}
+          return (
+            <li key={ep.link + ep.numberEpisode}>
+              <EpisodeWatchButton
+                ep={ep}
+                href={targetHref}
+                onClick={() => handleEpisodeInteraction(ep)}
+              />
+
+              {/* Separator */}
+              <div
+                className="mx-3 h-px"
+                style={{ background: "rgba(255,255,255,0.06)" }}
+              />
+            </li>
+          );
+        })}
       </ol>
     </section>
   );
