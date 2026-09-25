@@ -81,6 +81,7 @@ export default function MobileAndDeskPlayer({
         }
       >
         <MediaPlayer
+          autoPlay
           src={{
             src,
             type: "video/mp4",
