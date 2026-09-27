@@ -16,9 +16,8 @@ export async function getMovieUrl(link: string) {
 
       attempts: 3,
       delay: 1000,
-      errorHandler: async (_) => {
-        /*         await changeTorIdentity();
-         */
+      errorHandler: (_) => {
+        changeTorIdentity();
       },
     },
   ]);
