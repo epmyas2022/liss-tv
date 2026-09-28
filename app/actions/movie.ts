@@ -10,7 +10,7 @@ export async function getMovieUrl(link: string) {
       execute: () =>
         withTimeout(
           getUrl(link),
-          20000,
+          30000, // 30 seconds timeout
           new Error("Error al obtener la URL del video"),
         ),
 
