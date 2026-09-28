@@ -1,4 +1,6 @@
-import { Browser, chromium } from "playwright";
+import { Browser } from "playwright";
+import { chromium } from "playwright-extra";
+import stealth from "puppeteer-extra-plugin-stealth";
 import { upsert, get, upsertAll, getAllData, remove } from "./movie.store";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import { Movies } from "@/types/movie";
@@ -14,13 +16,14 @@ const BROWSER_ARGS = [
   "--disable-gpu",
 ];
 
+
+chromium.use(stealth());
+
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-// Browser with Tor — used for SoloLatino scraping
 let torBrowserInstance: Promise<Browser> | null = null;
 
-// Browser without proxy — used for the player (pelisserieshoy blocks Tor IPs via Cloudflare)
 let directBrowserInstance: Promise<Browser> | null = null;
 
 async function getBrowserContext(useTor: boolean) {
@@ -44,6 +47,7 @@ async function getBrowserContext(useTor: boolean) {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
     userAgent: BROWSER_UA,
+    ...(useTor && { storageState: 'state.json' })
   });
 
   setTimeout(async () => {
@@ -85,78 +89,117 @@ export async function getUrl(path: string) {
     "://impactradius-go.com",
   ];
 
-  return new Promise(async (resolve) => {
-    const { context, page } = await getBrowser();
-
-    let resolved = false;
-
-    await page.route("**/*", (route) => {
-      const type = route.request().resourceType();
-      const url = route.request().url();
-
-      if (
-        blacklistedDomains.some((domain) => url.includes(domain)) ||
-        [
-          "font",
-          "image",
-          "manifest",
-          "object",
-          "other",
-          "websocket",
-          "eventsource",
-          "ping",
-          "webworker",
-        ].includes(type)
-      ) {
-        return route.abort();
-      }
-      route.continue();
-    });
-
-    const videoPromise = new Promise<string>((resolveVideo) => {
-      const handler = (response: { url: () => string }) => {
-        if (isUrlMediafire(response.url())) {
-          resolved = true;
-          page.off("response", handler);
-          resolveVideo(response.url());
-        }
-      };
-      page.on("response", handler);
-    });
-
-    await page.goto(BASE_PATH + path, {
-      waitUntil: "domcontentloaded",
-      timeout: 15000,
-    });
-
-    const frame = page.frameLocator('iframe[src*="player.pelisserieshoy.com"]');
-
-    context.on("page", async (newPage) => {
-      await newPage.close().catch(() => {});
-    });
+  return new Promise(async (resolve, reject) => {
+    let browserContext = null;
 
     try {
-      const play = await frame.locator("#playBtn");
+      const htmlResponse = await fetch(BASE_PATH + path, {
+        headers: { "User-Agent": "Mozilla/5.0" },
+      });
+      if (!htmlResponse.ok) throw new Error("Failed to fetch page HTML");
+      const htmlText = await htmlResponse.text();
 
-      await play.waitFor({ timeout: 10000 });
+      const tokenMatch = htmlText.match(/data-player-token="([^"]+)"/);
+      if (!tokenMatch) throw new Error("Player token not found in HTML");
+      const token = tokenMatch[1];
 
-      const clickLoop = async () => {
-        while (!resolved) {
-          play?.click({ force: true });
+      // 2. Resolve the iframe URL via the API (also no Chromium)
+      const apiResponse = await fetch(BASE_PATH + "api/player-url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+          "User-Agent": "Mozilla/5.0",
+        },
+        body: JSON.stringify({ t: token }),
+      });
+      const apiData = await apiResponse.json();
+      if (!apiData?.url) throw new Error("Could not resolve iframe URL");
 
-          await page.waitForTimeout(500);
+      const iframeUrl: string = apiData.url;
+
+      const { context, page } = await getBrowserContext(false);
+      browserContext = context;
+
+      await context.grantPermissions([]);
+      await context.addInitScript(() => {
+        try {
+          Object.defineProperty(window, "Notification", {
+            get: () => ({
+              permission: "denied",
+              requestPermission: () => Promise.resolve("denied"),
+            }),
+          });
+        } catch (_) {}
+      });
+
+      await page.route("**/*", (route) => {
+        const type = route.request().resourceType();
+        const url = route.request().url();
+
+        if (
+          blacklistedDomains.some((domain) => url.includes(domain)) ||
+          ["font", "image", "manifest", "object"].includes(type)
+        ) {
+          return route.abort();
         }
-      };
+        route.continue();
+      });
 
-      Promise.race([clickLoop(), videoPromise]);
+      await page.route("https://sololatino.net/__player_proxy__", (route) => {
+        route.fulfill({
+          contentType: "text/html",
+          body: `<!DOCTYPE html><html><body style="margin:0">
+            <iframe id="pl" src="${iframeUrl}" style="width:100%;height:100%;border:none" allow="autoplay; fullscreen"></iframe>
+          </body></html>`,
+        });
+      });
+
+      const videoPromise = new Promise<string>((resolveVideo) => {
+        const handler = (response: { url: () => string }) => {
+          if (isUrlMediafire(response.url())) {
+            page.off("response", handler);
+            resolveVideo(response.url());
+          }
+        };
+        page.on("response", handler);
+      });
+
+      // Navigate to the fake page — the iframe loads with sololatino.net as parent origin
+      await page.goto("https://sololatino.net/__player_proxy__", {
+        waitUntil: "domcontentloaded",
+        timeout: 15000,
+      });
+
+      context.on("page", async (newPage) => {
+        await newPage.close().catch(() => {});
+      });
+
+      const frame = page.frameLocator("#pl");
+      const play = frame.locator("#playBtn");
+      await play.waitFor({ timeout: 15000 });
+
+      play.click().catch(() => {});
 
       const url = await videoPromise;
 
+      const extractNameUrl = (url: string) => {
+        const match = url.match(/[^/]+(?=\/[^/]+$)/);
+        return match ? `https://www.mediafire.com/file/${match[0]}` : "";
+      };
+
+      upsert(path, { movieUrl: extractNameUrl(url) });
+
       resolve(url);
+
+      await context.storageState({ path: 'state.json' });
     } catch (error) {
       console.error("Error occurred while fetching video URL:", error);
+      reject(error);
     } finally {
-      await context.close();
+      if (browserContext) {
+        await browserContext.close().catch(() => {});
+      }
     }
   });
 }

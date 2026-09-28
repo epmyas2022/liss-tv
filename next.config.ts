@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {},
   output: "standalone",
+  serverExternalPackages: [
+    "playwright-extra",
+    "puppeteer-extra-plugin-stealth",
+  ],
   images: {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [

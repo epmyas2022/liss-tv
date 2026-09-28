@@ -45,8 +45,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules/playwright-core ./node_modules/playwright-core
 COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
 
-
-
+COPY --from=builder /app/node_modules/playwright-extra ./node_modules/playwright-extra
+COPY --from=builder /app/node_modules/puppeteer-extra-plugin-stealth ./node_modules/puppeteer-extra-plugin-stealth
 
 ENV PORT=8000
 
