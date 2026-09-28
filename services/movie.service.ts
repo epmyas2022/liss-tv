@@ -200,7 +200,7 @@ export async function getUrl(path: string) {
       const clickLoop = async () => {
         while (!url) {
           try {
-            await play.click({ timeout: 5000 });
+            await play.click({ timeout: 1000 });
             await play.waitFor({ timeout: 1000 });
           } catch (error) {}
         }
