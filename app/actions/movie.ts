@@ -10,14 +10,14 @@ export async function getMovieUrl(link: string) {
       execute: () =>
         withTimeout(
           getUrl(link),
-          30000, // 30 seconds timeout
+          30000, // 
           new Error("Error al obtener la URL del video"),
         ),
 
       attempts: 3,
       delay: 1000,
-      errorHandler: (_) => {
-        changeTorIdentity();
+      errorHandler: async (_) => {
+        await changeTorIdentity();
       },
     },
   ]);
