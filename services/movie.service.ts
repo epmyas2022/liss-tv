@@ -5,6 +5,10 @@ import { upsert, get, upsertAll, getAllData, remove } from "./movie.store";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import { Movies } from "@/types/movie";
 import fs from "fs/promises";
+import nodeFetch from "node-fetch";
+import { SocksProxyAgent } from "socks-proxy-agent";
+
+const torAgent = new SocksProxyAgent("socks5://127.0.0.1:9050");
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -16,7 +20,6 @@ const BROWSER_ARGS = [
   "--disable-dev-shm-usage",
   "--disable-gpu",
 ];
-
 
 chromium.use(stealth());
 
@@ -45,16 +48,19 @@ async function getBrowserContext(useTor: boolean) {
 
   const browser = await (useTor ? torBrowserInstance! : directBrowserInstance!);
 
-  const isExistFileState = await fs.access('state.json').then(() => true).catch(() => false);
+  const isExistFileState = await fs
+    .access("state.json")
+    .then(() => true)
+    .catch(() => false);
 
-  if(isExistFileState) {
+  if (isExistFileState) {
     console.info("[📁] state.json file exists. Using it for storage state.");
   }
 
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
     userAgent: BROWSER_UA,
-    ...(isExistFileState && { storageState: 'state.json' })
+    ...(isExistFileState && { storageState: "state.json" }),
   });
 
   setTimeout(async () => {
@@ -100,8 +106,9 @@ export async function getUrl(path: string) {
     let browserContext = null;
 
     try {
-      const htmlResponse = await fetch(BASE_PATH + path, {
+      const htmlResponse = await nodeFetch(BASE_PATH + path, {
         headers: { "User-Agent": "Mozilla/5.0" },
+        agent: torAgent,
       });
       if (!htmlResponse.ok) throw new Error("Failed to fetch page HTML");
       const htmlText = await htmlResponse.text();
@@ -111,7 +118,7 @@ export async function getUrl(path: string) {
       const token = tokenMatch[1];
 
       // 2. Resolve the iframe URL via the API (also no Chromium)
-      const apiResponse = await fetch(BASE_PATH + "api/player-url", {
+      const apiResponse = await nodeFetch(BASE_PATH + "api/player-url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -119,13 +126,15 @@ export async function getUrl(path: string) {
           "User-Agent": "Mozilla/5.0",
         },
         body: JSON.stringify({ t: token }),
+        agent: torAgent,
       });
-      const apiData = await apiResponse.json();
+      const apiData = (await apiResponse.json()) as { url?: string };
       if (!apiData?.url) throw new Error("Could not resolve iframe URL");
 
       const iframeUrl: string = apiData.url;
 
       const { context, page } = await getBrowserContext(false);
+
       browserContext = context;
 
       await context.grantPermissions([]);
@@ -162,11 +171,13 @@ export async function getUrl(path: string) {
         });
       });
 
+      let url: string | null = null;
+
       const videoPromise = new Promise<string>((resolveVideo) => {
         const handler = (response: { url: () => string }) => {
           if (isUrlMediafire(response.url())) {
             page.off("response", handler);
-            resolveVideo(response.url());
+            url = response.url();
           }
         };
         page.on("response", handler);
@@ -175,7 +186,7 @@ export async function getUrl(path: string) {
       // Navigate to the fake page — the iframe loads with sololatino.net as parent origin
       await page.goto("https://sololatino.net/__player_proxy__", {
         waitUntil: "domcontentloaded",
-        timeout: 15000,
+        timeout: 20000,
       });
 
       context.on("page", async (newPage) => {
@@ -184,11 +195,20 @@ export async function getUrl(path: string) {
 
       const frame = page.frameLocator("#pl");
       const play = frame.locator("#playBtn");
-      await play.waitFor({ timeout: 15000 });
+      await play.waitFor({ timeout: 20000 });
 
-      play.click().catch(() => {});
+      const clickLoop = async () => {
+        while (!url) {
+          try {
+            await play.click({ timeout: 5000 });
+            await play.waitFor({ timeout: 1000 });
+          } catch (error) {}
+        }
+      };
 
-      const url = await videoPromise;
+      await Promise.race([clickLoop(), videoPromise]);
+
+      if (!url) throw new Error("Failed to retrieve video URL");
 
       const extractNameUrl = (url: string) => {
         const match = url.match(/[^/]+(?=\/[^/]+$)/);
@@ -199,7 +219,7 @@ export async function getUrl(path: string) {
 
       resolve(url);
 
-      await context.storageState({ path: 'state.json' });
+      await context.storageState({ path: "state.json" });
     } catch (error) {
       console.error("Error occurred while fetching video URL:", error);
       reject(error);
