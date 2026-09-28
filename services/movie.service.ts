@@ -4,6 +4,7 @@ import stealth from "puppeteer-extra-plugin-stealth";
 import { upsert, get, upsertAll, getAllData, remove } from "./movie.store";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import { Movies } from "@/types/movie";
+import fs from "fs/promises";
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -44,10 +45,12 @@ async function getBrowserContext(useTor: boolean) {
 
   const browser = await (useTor ? torBrowserInstance! : directBrowserInstance!);
 
+  const isExistFileState = await fs.access('state.json').then(() => true).catch(() => false);
+
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
     userAgent: BROWSER_UA,
-    ...(useTor && { storageState: 'state.json' })
+    ...(isExistFileState && { storageState: 'state.json' })
   });
 
   setTimeout(async () => {

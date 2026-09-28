@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   serverExternalPackages: [
     "playwright-extra",
     "puppeteer-extra-plugin-stealth",
+    "puppeteer-extra-plugin",
+    "clone-deep",             
+    "merge-deep"
   ],
   images: {
     dangerouslyAllowLocalIP: true,

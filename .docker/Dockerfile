@@ -18,6 +18,7 @@ ENV NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN=$NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
 ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
 
 RUN npm run build
+RUN npm prune --omit=dev
 
 FROM node:24.19.0-slim  AS runner
 
@@ -41,12 +42,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
+COPY --from=builder /app/node_modules ./node_modules
 
-COPY --from=builder /app/node_modules/playwright-core ./node_modules/playwright-core
-COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
-
-COPY --from=builder /app/node_modules/playwright-extra ./node_modules/playwright-extra
-COPY --from=builder /app/node_modules/puppeteer-extra-plugin-stealth ./node_modules/puppeteer-extra-plugin-stealth
 
 ENV PORT=8000
 
