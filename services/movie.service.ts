@@ -47,6 +47,10 @@ async function getBrowserContext(useTor: boolean) {
 
   const isExistFileState = await fs.access('state.json').then(() => true).catch(() => false);
 
+  if(isExistFileState) {
+    console.info("[📁] state.json file exists. Using it for storage state.");
+  }
+
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
     userAgent: BROWSER_UA,
