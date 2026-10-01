@@ -7,5 +7,9 @@ services:
       dockerfile: .docker/Dockerfile
       args:
         - NEXT_PUBLIC_POCKETBASE_URL=https://pocketbase.isaacdev.site
+    environment:
+      - PROXY_HOST=${PROXY_HOST}
+      - PROXY_USERNAME=${PROXY_USERNAME}
+      - PROXY_PASSWORD=${PROXY_PASSWORD}
     ports:
       - "8000:8000"

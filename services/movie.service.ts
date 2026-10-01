@@ -6,9 +6,12 @@ import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import { Movies } from "@/types/movie";
 import fs from "fs/promises";
 import nodeFetch from "node-fetch";
-import { SocksProxyAgent } from "socks-proxy-agent";
+import { HttpsProxyAgent } from "https-proxy-agent";
+import * as proxyChain from "proxy-chain";
 
-const torAgent = new SocksProxyAgent("socks5://127.0.0.1:9050");
+const PROXY_HOST = process.env.PROXY_HOST;
+const PROXY_USERNAME = process.env.PROXY_USERNAME;
+const PROXY_PASSWORD = process.env.PROXY_PASSWORD;
 
 export const BASE_PATH = "https://sololatino.net/";
 
@@ -26,27 +29,23 @@ chromium.use(stealth());
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-let torBrowserInstance: Promise<Browser> | null = null;
+
+function createStickySession() {
+  const sessid = Math.random().toString(36).substring(2, 12);
+  const username = `${PROXY_USERNAME}-sessid-${sessid}`;
+  const url = `http://${username}:${PROXY_PASSWORD}@${PROXY_HOST}`;
+  const agent = new HttpsProxyAgent(url);
+  return { url, agent };
+}
 
 let directBrowserInstance: Promise<Browser> | null = null;
 
-async function getBrowserContext(useTor: boolean) {
-  if (useTor) {
-    if (!torBrowserInstance)
-      torBrowserInstance = chromium.launch({
-        headless: true,
-        proxy: { server: "socks5://127.0.0.1:9050" },
-        args: BROWSER_ARGS,
-      });
-  } else {
-    if (!directBrowserInstance)
-      directBrowserInstance = chromium.launch({
-        headless: true,
-        args: BROWSER_ARGS,
-      });
-  }
-
-  const browser = await (useTor ? torBrowserInstance! : directBrowserInstance!);
+async function getBrowserContext(anonymizedProxy?: string) {
+  const browser = await chromium.launch({
+    headless: true,
+    args: BROWSER_ARGS,
+    ...(anonymizedProxy && { proxy: { server: anonymizedProxy } }),
+  });
 
   const isExistFileState = await fs
     .access("state.json")
@@ -63,17 +62,33 @@ async function getBrowserContext(useTor: boolean) {
     ...(isExistFileState && { storageState: "state.json" }),
   });
 
-  setTimeout(async () => {
-    await context.close().catch(() => {});
-  }, 30000); // Failsafe: close orphaned context after 30 seconds
-
   const page = await context.newPage();
   return { browser, context, page };
 }
 
-/** @deprecated Use getBrowserContext(true/false) directly */
+/** @deprecated Use getBrowserContext() directly */
 export async function getBrowser() {
-  return getBrowserContext(true);
+  if (!directBrowserInstance)
+    directBrowserInstance = chromium.launch({
+      headless: true,
+      args: BROWSER_ARGS,
+    });
+
+  const browser = await directBrowserInstance;
+
+  const isExistFileState = await fs
+    .access("state.json")
+    .then(() => true)
+    .catch(() => false);
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    userAgent: BROWSER_UA,
+    ...(isExistFileState && { storageState: "state.json" }),
+  });
+
+  const page = await context.newPage();
+  return { browser, context, page };
 }
 
 export async function getUrl(path: string) {
@@ -104,36 +119,44 @@ export async function getUrl(path: string) {
 
   return new Promise(async (resolve, reject) => {
     let browserContext = null;
+    let anonymizedProxy: string | null = null;
 
     try {
-      const htmlResponse = await nodeFetch(BASE_PATH + path, {
-        headers: { "User-Agent": "Mozilla/5.0" },
-        agent: torAgent,
+      // One sticky session = one IP for all requests in this flow
+      const { url: stickyUrl, agent: stickyAgent } = createStickySession();
+      anonymizedProxy = await proxyChain.anonymizeProxy(stickyUrl);
+
+      const targetUrl = new URL(path, BASE_PATH).href;
+      const htmlResponse = await nodeFetch(targetUrl, {
+        headers: { "User-Agent": BROWSER_UA },
+        agent: stickyAgent,
       });
-      if (!htmlResponse.ok) throw new Error("Failed to fetch page HTML");
+      if (!htmlResponse.ok)
+        throw new Error("Failed to fetch page HTML: " + htmlResponse.status);
       const htmlText = await htmlResponse.text();
 
       const tokenMatch = htmlText.match(/data-player-token="([^"]+)"/);
       if (!tokenMatch) throw new Error("Player token not found in HTML");
       const token = tokenMatch[1];
 
-      // 2. Resolve the iframe URL via the API (also no Chromium)
+      // Resolve the iframe URL via the API — same sticky IP
       const apiResponse = await nodeFetch(BASE_PATH + "api/player-url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-Requested-With": "XMLHttpRequest",
-          "User-Agent": "Mozilla/5.0",
+          "User-Agent": BROWSER_UA,
         },
         body: JSON.stringify({ t: token }),
-        agent: torAgent,
+        agent: stickyAgent,
       });
+
       const apiData = (await apiResponse.json()) as { url?: string };
       if (!apiData?.url) throw new Error("Could not resolve iframe URL");
 
       const iframeUrl: string = apiData.url;
 
-      const { context, page } = await getBrowserContext(false);
+      const { context, page } = await getBrowserContext();
 
       browserContext = context;
 
@@ -173,29 +196,35 @@ export async function getUrl(path: string) {
 
       let url: string | null = null;
 
+      // context.on captures responses from ALL frames (including cross-origin iframes)
       const videoPromise = new Promise<string>((resolveVideo) => {
         const handler = (response: { url: () => string }) => {
-          if (isUrlMediafire(response.url())) {
-            page.off("response", handler);
-            url = response.url();
+          const responseUrl = response.url();
+          if (isUrlMediafire(responseUrl)) {
+            context.off("response", handler);
+            url = responseUrl;
+            resolveVideo(responseUrl);
           }
         };
-        page.on("response", handler);
-      });
-
-      // Navigate to the fake page — the iframe loads with sololatino.net as parent origin
-      await page.goto("https://sololatino.net/__player_proxy__", {
-        waitUntil: "domcontentloaded",
-        timeout: 20000,
+        context.on("response", handler);
       });
 
       context.on("page", async (newPage) => {
         await newPage.close().catch(() => {});
       });
 
+      // Navigate to the fake page — the iframe loads with sololatino.net as parent origin
+      console.info("[🌐] Navigating to proxy page. iframeUrl:", iframeUrl);
+      await page.goto("https://sololatino.net/__player_proxy__", {
+        waitUntil: "domcontentloaded",
+        timeout: 20000,
+      });
+
+      console.info("[⏳] Waiting for #playBtn...");
       const frame = page.frameLocator("#pl");
       const play = frame.locator("#playBtn");
       await play.waitFor({ timeout: 20000 });
+      console.info("[▶️] Found #playBtn, starting click loop...");
 
       const clickLoop = async () => {
         while (!url) {
@@ -206,7 +235,16 @@ export async function getUrl(path: string) {
         }
       };
 
-      await Promise.race([clickLoop(), videoPromise]);
+      await Promise.race([
+        clickLoop(),
+        videoPromise,
+        new Promise((_, rej) =>
+          setTimeout(
+            () => rej(new Error("Timeout: no Mediafire URL captured in 30s")),
+            30000,
+          ),
+        ),
+      ]);
 
       if (!url) throw new Error("Failed to retrieve video URL");
 
@@ -226,6 +264,11 @@ export async function getUrl(path: string) {
     } finally {
       if (browserContext) {
         await browserContext.close().catch(() => {});
+      }
+      if (anonymizedProxy) {
+        await proxyChain
+          .closeAnonymizedProxy(anonymizedProxy, true)
+          .catch(() => {});
       }
     }
   });
