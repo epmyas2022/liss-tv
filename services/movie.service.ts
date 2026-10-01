@@ -1,4 +1,3 @@
-import { Browser } from "playwright";
 import { chromium } from "playwright-extra";
 import stealth from "puppeteer-extra-plugin-stealth";
 import { upsert, get, upsertAll, getAllData, remove } from "./movie.store";
@@ -42,7 +41,7 @@ function createStickySession() {
   return { url, agent };
 }
 
-let directBrowserInstance: Promise<Browser> | null = null;
+
 
 async function getBrowserContext(anonymizedProxy?: string) {
   const browser = await chromium.launch({
@@ -72,27 +71,10 @@ async function getBrowserContext(anonymizedProxy?: string) {
 
 /** @deprecated Use getBrowserContext() directly */
 export async function getBrowser() {
-  if (!directBrowserInstance)
-    directBrowserInstance = chromium.launch({
-      headless: true,
-      args: BROWSER_ARGS,
-    });
-
-  const browser = await directBrowserInstance;
-
-  const isExistFileState = await fs
-    .access("state.json")
-    .then(() => true)
-    .catch(() => false);
-
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 720 },
-    userAgent: BROWSER_UA,
-    ...(isExistFileState && { storageState: "state.json" }),
-  });
-
-  const page = await context.newPage();
-  return { browser, context, page };
+  const { url: stickyUrl } = createStickySession();
+  const anonymizedProxy = await proxyChain.anonymizeProxy(stickyUrl);
+  const result = await getBrowserContext(anonymizedProxy);
+  return { ...result, anonymizedProxy };
 }
 
 export async function getUrl(path: string) {
@@ -297,7 +279,7 @@ export async function getAll(
     return cached.data;
   }
 
-  const { context, page } = await getBrowser();
+  const { browser, context, page, anonymizedProxy } = await getBrowser();
 
   await page.route("**/*", (route) => {
     const type = route.request().resourceType();
@@ -351,8 +333,6 @@ export async function getAll(
       });
     });
 
-    await context.close();
-
     const data = { movies, lastPageNumber };
 
     if (!search) upsertAll<Movies>(key, data);
@@ -360,7 +340,10 @@ export async function getAll(
     return data;
   } catch (error) {
     console.error("Error occurred while fetching movies:", error);
-    await context.close();
+  } finally {
+    await context.close().catch(() => {});
+    await browser.close().catch(() => {});
+    await proxyChain.closeAnonymizedProxy(anonymizedProxy, true).catch(() => {});
   }
 }
 
@@ -393,7 +376,7 @@ export async function getMovieDetails(link: string) {
     };
   }
 
-  const { context, page } = await getBrowser();
+  const { browser, context, page, anonymizedProxy } = await getBrowser();
   try {
     await page.goto(BASE_PATH + link, {
       waitUntil: "domcontentloaded",
@@ -474,8 +457,6 @@ export async function getMovieDetails(link: string) {
       }
     }
 
-    await context.close();
-
     const detail = {
       backgroundImage:
         backgroundImage?.match(/url\(["']?([^"')]+)["']?\)/)?.[1] ?? "",
@@ -494,6 +475,9 @@ export async function getMovieDetails(link: string) {
     return detail;
   } catch (error) {
     console.error("Error occurred while fetching movie details:", error);
-    await context.close();
+  } finally {
+    await context.close().catch(() => {});
+    await browser.close().catch(() => {});
+    await proxyChain.closeAnonymizedProxy(anonymizedProxy, true).catch(() => {});
   }
 }
