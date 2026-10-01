@@ -12,10 +12,6 @@ const PROXY_HOST = process.env.PROXY_HOST;
 const PROXY_USERNAME = process.env.PROXY_USERNAME;
 const PROXY_PASSWORD = process.env.PROXY_PASSWORD;
 
-if(!PROXY_HOST || !PROXY_USERNAME || !PROXY_PASSWORD) {
-  throw new Error("Proxy environment variables are not set");
-}
-
 export const BASE_PATH = "https://sololatino.net/";
 
 const BROWSER_ARGS = [
@@ -32,16 +28,18 @@ chromium.use(stealth());
 const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-
 function createStickySession() {
+  if (!PROXY_HOST || !PROXY_USERNAME || !PROXY_PASSWORD) {
+    throw new Error(
+      "Proxy configuration is missing. Please set PROXY_HOST, PROXY_USERNAME, and PROXY_PASSWORD environment variables.",
+    );
+  }
   const sessid = Math.random().toString(36).substring(2, 12);
   const username = `${PROXY_USERNAME}-sessid-${sessid}`;
   const url = `http://${username}:${PROXY_PASSWORD}@${PROXY_HOST}`;
   const agent = new HttpsProxyAgent(url);
   return { url, agent };
 }
-
-
 
 async function getBrowserContext(anonymizedProxy?: string) {
   const browser = await chromium.launch({
@@ -343,7 +341,9 @@ export async function getAll(
   } finally {
     await context.close().catch(() => {});
     await browser.close().catch(() => {});
-    await proxyChain.closeAnonymizedProxy(anonymizedProxy, true).catch(() => {});
+    await proxyChain
+      .closeAnonymizedProxy(anonymizedProxy, true)
+      .catch(() => {});
   }
 }
 
@@ -478,6 +478,8 @@ export async function getMovieDetails(link: string) {
   } finally {
     await context.close().catch(() => {});
     await browser.close().catch(() => {});
-    await proxyChain.closeAnonymizedProxy(anonymizedProxy, true).catch(() => {});
+    await proxyChain
+      .closeAnonymizedProxy(anonymizedProxy, true)
+      .catch(() => {});
   }
 }
