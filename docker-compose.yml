@@ -7,5 +7,9 @@ services:
       dockerfile: .docker/Dockerfile
       args:
         - NEXT_PUBLIC_POCKETBASE_URL=https://pocketbase.isaacdev.site
+    environment:
+      - PROXY_HOST="dc.oxylabs.io:8000"
+      - PROXY_USERNAME="user-epmyas_Slf0K-country-US"
+      - PROXY_PASSWORD="+123epmyaS20182017"
     ports:
       - "8000:8000"
