@@ -13,6 +13,10 @@ const PROXY_HOST = process.env.PROXY_HOST;
 const PROXY_USERNAME = process.env.PROXY_USERNAME;
 const PROXY_PASSWORD = process.env.PROXY_PASSWORD;
 
+if(!PROXY_HOST || !PROXY_USERNAME || !PROXY_PASSWORD) {
+  throw new Error("Proxy environment variables are not set");
+}
+
 export const BASE_PATH = "https://sololatino.net/";
 
 const BROWSER_ARGS = [
