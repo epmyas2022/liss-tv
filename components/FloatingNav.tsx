@@ -11,7 +11,9 @@ import { useAuthentication } from "./providers/context/AuthContext";
 import dynamic from "next/dynamic";
 import NetflixSearch from "./ui/NetflixSearch";
 
-const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"), { ssr: false });
+const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"), {
+  ssr: false,
+});
 
 const NAV_ITEMS = [
   { label: "Movies", href: "/?filter=peliculas", icon: Popcorn },
@@ -130,8 +132,11 @@ export function FloatingNav() {
         className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3.5"
         style={glassStyle}
       >
-        <Link href="/" className="font-poppins text-white text-[1.4rem] font-bold tracking-tight">
-          Liss <span className="text-[#EA1C25]">TV</span>
+        <Link
+          href="/"
+          className="font-poppins text-white text-[1.4rem] font-bold tracking-tight"
+        >
+          LISS <span className="text-[#EA1C25]">TV</span>
         </Link>
 
         <div className="flex items-center gap-3">
@@ -167,9 +172,7 @@ export function FloatingNav() {
                 href={href}
                 onClick={() => setActive(label)}
                 className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-2xl transition-all duration-200 min-w-0 ${
-                  isActive
-                    ? "bg-[#EA1C25]/15"
-                    : ""
+                  isActive ? "bg-[#EA1C25]/15" : ""
                 }`}
               >
                 <Icon
