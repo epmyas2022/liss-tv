@@ -289,7 +289,7 @@ export default function SmartTvPlayer({
       >
         {/* Video */}
         <MediaPlayer
-          src={{ src, type: "video/mp4" }}
+          src={{ src, type: src.includes(".m3u8") ? "application/x-mpegurl" : "video/mp4" }}
           ref={playerRef}
           viewType="video"
           streamType="on-demand"

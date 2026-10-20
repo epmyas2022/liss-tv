@@ -184,9 +184,15 @@ export async function getUrl(path: string) {
       const videoPromise = new Promise<string>((resolveVideo) => {
         const handler = (response: { url: () => string }) => {
           const responseUrl = response.url();
-          if (isUrlMediafire(responseUrl)) {
+
+          const isM3u8 =
+            responseUrl.includes("index") && responseUrl.includes(".m3u8");
+
+          if (isUrlMediafire(responseUrl) || isM3u8) {
             context.off("response", handler);
-            url = responseUrl;
+            url = isM3u8
+              ? `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}`
+              : responseUrl;
             resolveVideo(responseUrl);
           }
         };
@@ -208,11 +214,21 @@ export async function getUrl(path: string) {
       const frame = page.frameLocator("#pl");
       const play = frame.locator("#playBtn");
       await play.waitFor({ timeout: 20000 });
+      const opcion1 = frame
+        .locator("button.tab")
+        .filter({ hasText: "Opción 1" });
+      const errorMsg = frame.locator("#srvErrorMsg");
+
       console.info("[▶️] Found #playBtn, starting click loop...");
 
       const clickLoop = async () => {
         while (!url) {
           try {
+            if (await errorMsg.isVisible()) {
+              await opcion1.click({ timeout: 1000, force: true });
+              await opcion1.waitFor({ timeout: 1000 });
+              continue;
+            }
             await play.click({ timeout: 1000 });
             await play.waitFor({ timeout: 1000 });
           } catch (error) {}
