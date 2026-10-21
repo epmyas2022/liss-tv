@@ -1,3 +1,5 @@
+import { MovieContext } from "@/strategies/context";
+
 export interface Movie {
   link: string;
   image: string;
@@ -75,4 +77,38 @@ export interface MovieState {
   addToContinueWatching: (movie: ContinueWatching) => void;
   syncContinueWatching: (movies: ContinueWatching[]) => void;
   removeFromContinueWatching: (link: string) => void;
+}
+
+export abstract class MovieService {
+  abstract getAll(
+    search?: string,
+    slug?: string,
+    pageNumber?: number,
+  ): Promise<Movies | undefined>;
+  abstract getMovieDetails(link: string): Promise<StoredMovie>;
+  abstract getUrl(path: string): Promise<unknown>;
+}
+
+export interface StrategyGetAllMovies {
+  operation: (
+    search?: string,
+    slug?: string,
+    pageNumber?: number,
+  ) => Promise<Movies | undefined>;
+}
+
+export interface StrategyGetMovieDetails {
+  operation: (link: string) => Promise<Omit<StoredMovie, "link" | "updatedAt"> | undefined>;
+}
+
+export interface StrategyGetUrl {
+  operation: (path: string) => Promise<unknown>;
+}
+
+
+export interface MovieBuilder {
+
+  name: string;
+
+  build(): MovieContext;
 }
