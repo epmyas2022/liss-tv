@@ -43,7 +43,7 @@ function createStickySession() {
 
 async function getBrowserContext(anonymizedProxy?: string) {
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
     args: BROWSER_ARGS,
     //proxy: { server: "socks5h://127.0.0.1:10808" },
 
