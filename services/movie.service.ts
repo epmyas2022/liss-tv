@@ -138,7 +138,7 @@ export async function getUrl(path: string) {
 
       const iframeUrl: string = apiData.url;
 
-      const { context, page } = await getBrowser();
+      const { context, page } = await getBrowserContext();
 
       browserContext = context;
 
