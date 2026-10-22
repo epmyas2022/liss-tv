@@ -34,9 +34,7 @@ function createStickySession() {
       "Proxy configuration is missing. Please set PROXY_HOST, PROXY_USERNAME, and PROXY_PASSWORD environment variables.",
     );
   }
-  const sessid = Math.random().toString(36).substring(2, 12);
-  const username = `${PROXY_USERNAME}-sessid-${sessid}`;
-  const url = `http://${username}:${PROXY_PASSWORD}@${PROXY_HOST}`;
+  const url = `http://${PROXY_USERNAME}:${PROXY_PASSWORD}@${PROXY_HOST}/`;
   const agent = new HttpsProxyAgent(url);
   return { url, agent };
 }
