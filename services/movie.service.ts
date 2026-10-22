@@ -111,7 +111,7 @@ export async function getUrl(path: string) {
       const targetUrl = new URL(path, BASE_PATH).href;
       const htmlResponse = await nodeFetch(targetUrl, {
         headers: { "User-Agent": BROWSER_UA },
-        agent: stickyAgent,
+      //  agent: stickyAgent,
       });
       if (!htmlResponse.ok)
         throw new Error("Failed to fetch page HTML: " + htmlResponse.status);
@@ -130,7 +130,7 @@ export async function getUrl(path: string) {
           "User-Agent": BROWSER_UA,
         },
         body: JSON.stringify({ t: token }),
-        agent: stickyAgent,
+        //agent: stickyAgent,
       });
 
       const apiData = (await apiResponse.json()) as { url?: string };
