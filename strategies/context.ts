@@ -16,15 +16,15 @@ export class MovieContext {
   }
 
   async getAll(search?: string, slug?: string, pageNumber?: number) {
-    return this.strategyGetAllMovies.operation(search, slug, pageNumber);
+    return await this.strategyGetAllMovies.operation(search, slug, pageNumber);
   }
 
   async getMovieDetails(link: string) {
-    return this.strategyGetMovieDetails.operation(link);
+    return await this.strategyGetMovieDetails.operation(link);
   }
 
   async getUrl(path: string) {
-    return this.strategyGetUrl.operation(path);
+    return await this.strategyGetUrl.operation(path);
   }
 
   setStrategyGetAllMovies(strategy: StrategyGetAllMovies) {
