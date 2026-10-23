@@ -54,7 +54,7 @@ export function createStickySession() {
 
 export async function getBrowserContext(anonymizedProxy?: string) {
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
     args: BROWSER_ARGS,
     ...(anonymizedProxy && { proxy: { server: anonymizedProxy } }),
   });
