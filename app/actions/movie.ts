@@ -1,24 +1,22 @@
 "use server";
 
-import { getUrl, getAll } from "@/services/movie.service";
-
 import { withTimeout, attempts } from "@/utils/utils";
+
+import { MovieContextFactory } from "@/builder/factory";
+
+const context = MovieContextFactory.driver("solo-latino");
 
 export async function getMovieUrl(link: string) {
   return await attempts([
     {
       execute: () =>
         withTimeout(
-          getUrl(link),
-          30000, // 
+          context.getUrl(link),
+          30000, //
           new Error("Error al obtener la URL del video"),
         ),
-
       attempts: 3,
       delay: 1000,
-      errorHandler: async (_) => {
-       // await changeTorIdentity();
-      },
     },
   ]);
 }
@@ -28,5 +26,9 @@ export async function getAllMovies(
   filter?: string,
   page?: number,
 ) {
-  return await getAll(search, filter, page);
+  return await context.getAll(search, filter, page);
+}
+
+export async function getDetails(link: string) {
+  return await context.getMovieDetails(link);
 }

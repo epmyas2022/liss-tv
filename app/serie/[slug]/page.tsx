@@ -1,8 +1,8 @@
-import { getMovieDetails } from "@/services/movie.service";
 import { FloatingNav } from "@/components/FloatingNav";
 import { HeroBackdrop } from "@/components/detail/HeroBackdrop";
 import { EpisodeList } from "@/components/detail/EpisodeList";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
+import { getDetails } from "@/app/actions/movie";
 
 export default async function SerieDetailPage({
   params,
@@ -10,7 +10,7 @@ export default async function SerieDetailPage({
   params: { slug: string };
 }) {
   const { slug } = await params;
-  const movie = await getMovieDetails(`serie/${slug}`);
+  const movie = await getDetails(`serie/${slug}`);
 
   if (!movie) {
     return (
@@ -39,18 +39,18 @@ export default async function SerieDetailPage({
 
       <FocusContextProvider condition={movie !== null}>
         <HeroBackdrop
-          backgroundImage={movie.backgroundImage}
-          image={movie.image}
-          title={movie.title}
-          year={movie.year}
-          duration={movie.duration}
-          rating={movie.rating}
-          tags={movie.tags}
-          caption={movie.caption}
+          backgroundImage={movie.backgroundImage || ''}
+          image={movie.image || '/logo.png'}
+          title={movie.title || 'No disponible'}
+          year={movie.year || ''}
+          duration={movie.duration || ''}
+          rating={movie.rating || ''}
+          tags={movie.tags || []}
+          caption={movie.caption || 'No disponible'}
           link={`serie/${slug}`}
         />
         {seasons.length > 0 && (
-          <EpisodeList title={movie.title} seasons={seasons} />
+          <EpisodeList title={movie.title || 'No disponible'} seasons={seasons} />
         )}
       </FocusContextProvider>
     </main>

@@ -66,7 +66,7 @@ export class GetUrl implements StrategyGetUrl {
 
         const iframeUrl: string = apiData.url;
 
-        const { context, page } = await getBrowserContext();
+        const { context, page } = await getBrowserContext(anonymizedProxy);
 
         browserContext = context;
 
@@ -99,8 +99,8 @@ export class GetUrl implements StrategyGetUrl {
           route.fulfill({
             contentType: "text/html",
             body: `<!DOCTYPE html><html><body style="margin:0">
-                            <iframe id="pl" src="${iframeUrl}" style="width:100%;height:100%;border:none" allow="autoplay; fullscreen"></iframe>
-                          </body></html>`,
+               <iframe id="pl" src="${iframeUrl}" style="width:100%;height:100%;border:none" allow="autoplay; fullscreen"></iframe>
+             </body></html>`,
           });
         });
 

@@ -1,7 +1,7 @@
-import { getMovieDetails } from "@/services/movie.service";
 import { FloatingNav } from "@/components/FloatingNav";
 import { HeroBackdrop } from "@/components/detail/HeroBackdrop";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
+import { getDetails } from "@/app/actions/movie";
 
 export default async function MovieDetailPage({
   params,
@@ -9,7 +9,7 @@ export default async function MovieDetailPage({
   params: { slug: string };
 }) {
   const { slug } = await params;
-  const movie = await getMovieDetails(`pelicula/${slug}`);
+  const movie = await getDetails(`pelicula/${slug}`);
 
   if (!movie) {
     return (
@@ -34,14 +34,14 @@ export default async function MovieDetailPage({
 
       <FocusContextProvider condition={movie !== null}>
         <HeroBackdrop
-          backgroundImage={movie.backgroundImage}
-          image={movie.image}
-          title={movie.title}
-          year={movie.year}
-          duration={movie.duration}
-          rating={movie.rating}
-          tags={movie.tags}
-          caption={movie.caption}
+          backgroundImage={movie.backgroundImage || ''}
+          image={movie.image || '/logo.png'}
+          title={movie.title || ''}
+          year={movie.year || ''}
+          duration={movie.duration || ''}
+          rating={movie.rating || ''}
+          tags={movie.tags || []}
+          caption={movie.caption || ''}
           link={`pelicula/${slug}`}
         />
       </FocusContextProvider>
