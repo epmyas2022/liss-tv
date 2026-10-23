@@ -33,7 +33,7 @@ export class GetAll implements StrategyGetAllMovies {
     });
     try {
       await page.goto(
-        `${BASE_URL.SoloLatino}${slug}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`,
+        `${BASE_URL.SoloLatino}${slug ?? ""}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`,
         {
           waitUntil: "domcontentloaded",
           timeout: 10000,
