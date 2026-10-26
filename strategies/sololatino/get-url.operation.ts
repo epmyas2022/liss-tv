@@ -1,5 +1,5 @@
 import { get, remove, upsert } from "@/services/movie.store";
-import { StrategyGetUrl } from "../../types/movie";
+import { StrategyGetUrl, Url } from "../../types/movie";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import {
   anonymizeProxy,
@@ -13,14 +13,17 @@ import {
 import nodeFetch from "node-fetch";
 
 export class GetUrl implements StrategyGetUrl {
-  async operation(path: string): Promise<unknown> {
+  async operation(path: string): Promise<Url> {
     const cached = get(path);
 
     const linkCached = cached?.movieUrl
       ? await getLinkMediafire(cached.movieUrl)
       : null;
 
-    if (linkCached) return linkCached;
+    if (linkCached)
+      return {
+        url: linkCached,
+      };
 
     if (cached?.movieUrl && !linkCached) remove(path);
 
@@ -104,26 +107,38 @@ export class GetUrl implements StrategyGetUrl {
           });
         });
 
-        let url: string | null = null;
+        const dataUrls: Url = {
+          url: null,
+          fallbackUrl: null,
+        };
 
         // context.on captures responses from ALL frames (including cross-origin iframes)
-        const videoPromise = new Promise<string>((resolveVideo) => {
-          const handler = (response: { url: () => string }) => {
-            const responseUrl = response.url();
+        const videoPromise = (callback: (responseUrl: string) => void) =>
+          new Promise<string>((resolveVideo) => {
+            const handler = (response: { url: () => string }) => {
+              const responseUrl = response.url();
 
-            const isM3u8 =
-              responseUrl.includes("index") && responseUrl.includes(".m3u8");
+              callback(responseUrl);
 
-            if (isUrlMediafire(responseUrl) || isM3u8) {
+              context.off("response", handler);
+              
+              resolveVideo(responseUrl);
+
+
+              /*   const isM3u8 =
+              responseUrl.includes("index") && responseUrl.includes(".m3u8"); */
+
+              /* if (isUrlMediafire(responseUrl) || isM3u8) {
               context.off("response", handler);
               url = isM3u8
                 ? `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}`
                 : responseUrl;
               resolveVideo(responseUrl);
-            }
-          };
-          context.on("response", handler);
-        });
+            } */
+            };
+
+            context.on("response", handler);
+          });
 
         context.on("page", async (newPage) => {
           await newPage.close().catch(() => {});
@@ -143,14 +158,14 @@ export class GetUrl implements StrategyGetUrl {
         const opcion1 = frame
           .locator("button.tab")
           .filter({ hasText: "Opción 1" });
-        const errorMsg = frame.locator("#srvErrorMsg");
-
+/*         const errorMsg = frame.locator("#srvErrorMsg");
+ */
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
-          while (!url) {
+          while (!dataUrls.url || !dataUrls.fallbackUrl) {
             try {
-              if (await errorMsg.isVisible()) {
+              if (await opcion1.isVisible({ timeout: 1000 }) && dataUrls.url && !dataUrls.fallbackUrl) {
                 await opcion1.click({ timeout: 1000, force: true });
                 await opcion1.waitFor({ timeout: 1000 });
                 continue;
@@ -161,9 +176,21 @@ export class GetUrl implements StrategyGetUrl {
           }
         };
 
+        const getUrlMediafire = (responseUrl: string) => {
+          if (!isUrlMediafire(responseUrl)) return;
+          dataUrls.url = responseUrl;
+        };
+
+        const getUrlM3u8 = (responseUrl: string) => {
+          if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
+            return;
+          dataUrls.fallbackUrl = `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}`;
+        };
+
         await Promise.race([
           clickLoop(),
-          videoPromise,
+          videoPromise(getUrlMediafire),
+          videoPromise(getUrlM3u8),
           new Promise((_, rej) =>
             setTimeout(
               () => rej(new Error("Timeout: no Mediafire URL captured in 30s")),
@@ -172,16 +199,16 @@ export class GetUrl implements StrategyGetUrl {
           ),
         ]);
 
-        if (!url) throw new Error("Failed to retrieve video URL");
+        if (!dataUrls.url || !dataUrls.fallbackUrl) throw new Error("Failed to retrieve video URL or fallback URL");
 
         const extractNameUrl = (url: string) => {
           const match = url.match(/[^/]+(?=\/[^/]+$)/);
           return match ? `https://www.mediafire.com/file/${match[0]}` : "";
         };
 
-        upsert(path, { movieUrl: extractNameUrl(url) });
+        upsert(path, { movieUrl: extractNameUrl(dataUrls.url) });
 
-        resolve(url);
+        resolve(dataUrls);
 
         await context.storageState({ path: "state.json" });
       } catch (error) {
