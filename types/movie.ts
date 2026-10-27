@@ -101,8 +101,15 @@ export interface StrategyGetMovieDetails {
   operation: (link: string) => Promise<Omit<StoredMovie, "link" | "updatedAt"> | undefined>;
 }
 
+
+
+export interface Url {
+  url?: string | null;
+  fallbackUrl?: string | null;
+}
+
 export interface StrategyGetUrl {
-  operation: (path: string) => Promise<unknown>;
+  operation: (path: string) => Promise<Url>;
 }
 
 

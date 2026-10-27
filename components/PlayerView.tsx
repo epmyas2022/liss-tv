@@ -12,6 +12,7 @@ import { useMovieStore } from "@/store/useMovieStore";
 import { Spinner } from "./ui/Spinner";
 import FocusElementProvider from "./providers/FocusElementProvider";
 import FocusContextProvider from "./providers/FocusContextProvider";
+import { Url } from "@/types/movie";
 
 const VideoPlayer = dynamic(() => import("@/components/VideoPlayer"), {
   ssr: false,
@@ -32,7 +33,7 @@ export function PlayerView() {
     store,
   } = useMovie();
 
-  const [movieUrl, setMovieUrl] = useState<string | null>(null);
+  const [movieUrl, setMovieUrl] = useState<Url | null>(null);
   const [loading, setLoading] = useState(true);
   const lastSavedTimeRef = useRef<number>(0);
 
@@ -52,13 +53,9 @@ export function PlayerView() {
   };
 
   const fallback = async () => {
-    if (!moviePreview) return null;
+    if (!moviePreview || !movieUrl || !movieUrl.fallbackUrl) return null;
 
-    const url = await getMovieUrl(moviePreview.link);
-
-    if(!url || typeof url !== "string") return null;
-
-    return `/api/video?url=${encodeURIComponent(url)}`;
+    return Promise.resolve(movieUrl.fallbackUrl);
   };
 
   useEffect(() => {
@@ -71,7 +68,7 @@ export function PlayerView() {
       try {
         const content = await getMovieUrl(moviePreview.link);
 
-        setMovieUrl(content as string);
+        setMovieUrl(content as Url);
       } catch (error) {
         console.error(error);
       } finally {
@@ -89,7 +86,7 @@ export function PlayerView() {
       </div>
     );
 
-  if (!movieUrl)
+  if (!movieUrl || !movieUrl.url)
     return (
       <div className="flex items-center justify-center h-screen text-white bg-black">
         <p className="text-lg font-semibold">
@@ -124,7 +121,7 @@ export function PlayerView() {
             const state = useMovieStore.getState();
             if (state.moviePreview) {
               const currentMovieData = state.continueWatching.find(
-                (m) => m.link === state.moviePreview?.link
+                (m) => m.link === state.moviePreview?.link,
               );
               if (currentMovieData) {
                 syncCurrentToPocketBase(currentMovieData);
@@ -132,7 +129,7 @@ export function PlayerView() {
             }
           }}
           startTime={moviePreview.startTime}
-          src={movieUrl}
+          src={movieUrl.url}
           title={moviePreview.title}
           poster={moviePreview.backgroundImage || moviePreview.image}
           fallback={fallback}

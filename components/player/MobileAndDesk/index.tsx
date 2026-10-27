@@ -81,6 +81,7 @@ export default function MobileAndDeskPlayer({
         }
       >
         <MediaPlayer
+        key={src}
           autoPlay
           src={{
             src,

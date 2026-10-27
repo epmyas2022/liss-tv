@@ -50,8 +50,14 @@ function ProgressBar({
 
   const { ref, focused } = useFocusable({
     onArrowPress: (dir) => {
-      if (dir === "left") { onSeekBack(); return false; }
-      if (dir === "right") { onSeekForward(); return false; }
+      if (dir === "left") {
+        onSeekBack();
+        return false;
+      }
+      if (dir === "right") {
+        onSeekForward();
+        return false;
+      }
       return true;
     },
   });
@@ -69,7 +75,11 @@ function ProgressBar({
         className="relative w-full h-1 rounded-full bg-white/25 cursor-pointer outline-none"
         style={
           focused
-            ? { outline: "2px solid white", outlineOffset: "4px", borderRadius: "999px" }
+            ? {
+                outline: "2px solid white",
+                outlineOffset: "4px",
+                borderRadius: "999px",
+              }
             : undefined
         }
         onClick={(e) => {
@@ -144,7 +154,11 @@ function StartOverlay({ onStart }: { onStart: () => void }) {
           <Play size={40} fill="white" className="text-white ml-1" />
         </span>
         <span className="text-white/70 text-sm font-medium tracking-wide">
-          Presiona&nbsp;<kbd className="px-2 py-0.5 bg-white/20 rounded text-xs font-mono">Enter</kbd>&nbsp;para reproducir
+          Presiona&nbsp;
+          <kbd className="px-2 py-0.5 bg-white/20 rounded text-xs font-mono">
+            Enter
+          </kbd>
+          &nbsp;para reproducir
         </span>
       </button>
     </FocusElementProvider>
@@ -166,7 +180,8 @@ export default function SmartTvPlayer({
   onErrorCapture,
 }: VideoPlayerProps) {
   const internalRef = useRef<MediaPlayerInstance | null>(null);
-  const playerRef = (ref as React.RefObject<MediaPlayerInstance | null>) ?? internalRef;
+  const playerRef =
+    (ref as React.RefObject<MediaPlayerInstance | null>) ?? internalRef;
 
   const [showControls, setShowControls] = useState(true);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -183,16 +198,21 @@ export default function SmartTvPlayer({
   const revealControls = useCallback(() => {
     setShowControls(true);
     if (hideTimer.current) clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => setShowControls(false), CONTROLS_HIDE_MS);
+    hideTimer.current = setTimeout(
+      () => setShowControls(false),
+      CONTROLS_HIDE_MS,
+    );
   }, []);
 
   useEffect(() => {
-    hideTimer.current = setTimeout(() => setShowControls(false), CONTROLS_HIDE_MS);
+    hideTimer.current = setTimeout(
+      () => setShowControls(false),
+      CONTROLS_HIDE_MS,
+    );
     return () => {
       if (hideTimer.current) clearTimeout(hideTimer.current);
     };
   }, []);
-
 
   const handleCanPlay = useCallback(() => {
     const player = playerRef.current;
@@ -240,7 +260,10 @@ export default function SmartTvPlayer({
   const seekForward = useCallback(() => {
     const player = playerRef.current;
     if (!player) return;
-    player.currentTime = Math.min(player.duration, player.currentTime + SEEK_SECONDS);
+    player.currentTime = Math.min(
+      player.duration,
+      player.currentTime + SEEK_SECONDS,
+    );
     revealControls();
   }, [playerRef, revealControls]);
 
@@ -282,142 +305,161 @@ export default function SmartTvPlayer({
   }, [togglePlay, toggleMute, revealControls, needsUserGesture, startPlayback]);
 
   return (
-      <div
-        className="relative w-full h-dvh bg-black overflow-hidden"
-        onMouseMove={revealControls}
-        onClick={revealControls}
+    <div
+      className="relative w-full h-dvh bg-black overflow-hidden"
+      onMouseMove={revealControls}
+      onClick={revealControls}
+    >
+      {/* Video */}
+      <MediaPlayer
+        key={src}
+        src={{
+          src,
+          type: src.includes(".m3u8") ? "application/x-mpegurl" : "video/mp4",
+        }}
+        ref={playerRef}
+        viewType="video"
+        streamType="on-demand"
+        logLevel="warn"
+        crossOrigin
+        playsInline
+        title={title}
+        poster={poster}
+        currentTime={startTime}
+        className="w-full h-full"
+        onCanPlay={handleCanPlay}
+        onErrorCapture={onErrorCapture}
+        onTimeUpdate={(detail, nativeEvent) => {
+          setCurrentTime(detail.currentTime);
+          setDuration(nativeEvent.target.duration ?? 0);
+          handleTimeUpdate?.(detail, nativeEvent);
+        }}
+        onPause={(e) => {
+          setPaused(true);
+          handlePause?.(e);
+        }}
+        onPlay={() => setPaused(false)}
       >
-        {/* Video */}
-        <MediaPlayer
-          src={{ src, type: src.includes(".m3u8") ? "application/x-mpegurl" : "video/mp4" }}
-          ref={playerRef}
-          viewType="video"
-          streamType="on-demand"
-          logLevel="warn"
-          crossOrigin
-          playsInline
-          title={title}
-          poster={poster}
-          currentTime={startTime}
-          className="w-full h-full"
-          onCanPlay={handleCanPlay}
-          onErrorCapture={onErrorCapture}
-          onTimeUpdate={(detail, nativeEvent) => {
-            setCurrentTime(detail.currentTime);
-            setDuration(nativeEvent.target.duration ?? 0);
-            handleTimeUpdate?.(detail, nativeEvent);
-          }}
-          onPause={(e) => {
-            setPaused(true);
-            handlePause?.(e);
-          }}
-          onPlay={() => setPaused(false)}
+        <MediaProvider>
+          {poster && <Poster className="vds-poster" />}
+          {textTracks.map((track) => (
+            <Track
+              key={track.src}
+              kind={track.kind}
+              src={track.src}
+              label={track.label}
+              language={track.language}
+              default={track.default}
+            />
+          ))}
+        </MediaProvider>
+
+        {children}
+      </MediaPlayer>
+
+      {/* ── Overlay "necesita gesto del usuario" ─────────────────────────── */}
+      {needsUserGesture && (
+        <FocusContextProvider
+          condition={true}
+          trackChildren={true}
+          isFocusBoundary={true}
         >
-          <MediaProvider>
-            {poster && <Poster className="vds-poster" />}
-            {textTracks.map((track) => (
-              <Track
-                key={track.src}
-                kind={track.kind}
-                src={track.src}
-                label={track.label}
-                language={track.language}
-                default={track.default}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-20">
+            <StartOverlay onStart={startPlayback} />
+          </div>
+        </FocusContextProvider>
+      )}
+
+      {/* ── Aviso de sonido silenciado (autoplay muted trick) ────────────── */}
+      {muted && !needsUserGesture && !paused && (
+        <div className="absolute top-6 right-6 z-20">
+          <FocusElementProvider
+            onEnterPress={toggleMute}
+            strokeSize={0}
+            styleFocus={{
+              borderRadius: "9999px",
+              outline: "2px solid white",
+              outlineOffset: "3px",
+            }}
+          >
+            <button
+              onClick={toggleMute}
+              className="flex items-center gap-2 bg-black/70 border border-white/20 text-white text-xs font-medium px-3 py-2 rounded-full backdrop-blur-sm hover:bg-black/80 transition-colors"
+              aria-label="Activar sonido"
+            >
+              <VolumeX size={14} />
+              <span>Activar sonido</span>
+            </button>
+          </FocusElementProvider>
+        </div>
+      )}
+
+      {/* ── Overlay de controles estilo Netflix ──────────────────────────── */}
+      <div
+        aria-hidden={!showControls}
+        className={`absolute inset-0 flex flex-col justify-end transition-opacity duration-300 ${
+          showControls
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 30%, transparent 60%)",
+        }}
+      >
+        <div className="px-6 pb-6 pt-16 flex flex-col gap-3">
+          {/* Título + tiempo */}
+          <div className="flex items-end justify-between">
+            <span className="text-white text-sm font-semibold drop-shadow line-clamp-1 max-w-[70%]">
+              {title}
+            </span>
+          </div>
+
+          {/* Barra de progreso focusable */}
+          <FocusContextProvider trackChildren={true}>
+            <ProgressBar
+              playerRef={playerRef}
+              currentTime={currentTime}
+              duration={duration}
+              onSeekBack={seekBack}
+              onSeekForward={seekForward}
+            />
+          </FocusContextProvider>
+
+          {/* Botones de control */}
+          <FocusContextProvider trackChildren={true}>
+            <div className="flex items-center gap-4 pt-1">
+              <ControlButton
+                icon={
+                  paused ? (
+                    <Play size={20} fill="white" />
+                  ) : (
+                    <Pause size={20} fill="white" />
+                  )
+                }
+                label={paused ? "Reproducir" : "Pausar"}
+                onPress={togglePlay}
+                large
               />
-            ))}
-          </MediaProvider>
-
-          {children}
-        </MediaPlayer>
-
-        {/* ── Overlay "necesita gesto del usuario" ─────────────────────────── */}
-        {needsUserGesture && (
-          <FocusContextProvider condition={true} trackChildren={true} isFocusBoundary={true}>
-            <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-20">
-              <StartOverlay onStart={startPlayback} />
+              <ControlButton
+                icon={<SkipBack size={18} />}
+                label={`Retroceder ${SEEK_SECONDS}s`}
+                onPress={seekBack}
+              />
+              <ControlButton
+                icon={<SkipForward size={18} />}
+                label={`Adelantar ${SEEK_SECONDS}s`}
+                onPress={seekForward}
+              />
+              <ControlButton
+                icon={muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                label={muted ? "Activar sonido" : "Silenciar"}
+                onPress={toggleMute}
+              />
             </div>
           </FocusContextProvider>
-        )}
-
-        {/* ── Aviso de sonido silenciado (autoplay muted trick) ────────────── */}
-        {muted && !needsUserGesture && !paused && (
-          <div className="absolute top-6 right-6 z-20">
-            <FocusElementProvider
-              onEnterPress={toggleMute}
-              strokeSize={0}
-              styleFocus={{ borderRadius: "9999px", outline: "2px solid white", outlineOffset: "3px" }}
-            >
-              <button
-                onClick={toggleMute}
-                className="flex items-center gap-2 bg-black/70 border border-white/20 text-white text-xs font-medium px-3 py-2 rounded-full backdrop-blur-sm hover:bg-black/80 transition-colors"
-                aria-label="Activar sonido"
-              >
-                <VolumeX size={14} />
-                <span>Activar sonido</span>
-              </button>
-            </FocusElementProvider>
-          </div>
-        )}
-
-        {/* ── Overlay de controles estilo Netflix ──────────────────────────── */}
-        <div
-          aria-hidden={!showControls}
-          className={`absolute inset-0 flex flex-col justify-end transition-opacity duration-300 ${
-            showControls ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
-          style={{
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 30%, transparent 60%)",
-          }}
-        >
-          <div className="px-6 pb-6 pt-16 flex flex-col gap-3">
-            {/* Título + tiempo */}
-            <div className="flex items-end justify-between">
-              <span className="text-white text-sm font-semibold drop-shadow line-clamp-1 max-w-[70%]">
-                {title}
-              </span>
-          
-            </div>
-
-            {/* Barra de progreso focusable */}
-            <FocusContextProvider trackChildren={true}>
-              <ProgressBar
-                playerRef={playerRef}
-                currentTime={currentTime}
-                duration={duration}
-                onSeekBack={seekBack}
-                onSeekForward={seekForward}
-              />
-            </FocusContextProvider>
-
-            {/* Botones de control */}
-            <FocusContextProvider trackChildren={true}>
-              <div className="flex items-center gap-4 pt-1">
-                <ControlButton
-                  icon={paused ? <Play size={20} fill="white" /> : <Pause size={20} fill="white" />}
-                  label={paused ? "Reproducir" : "Pausar"}
-                  onPress={togglePlay}
-                  large
-                />
-                <ControlButton
-                  icon={<SkipBack size={18} />}
-                  label={`Retroceder ${SEEK_SECONDS}s`}
-                  onPress={seekBack}
-                />
-                <ControlButton
-                  icon={<SkipForward size={18} />}
-                  label={`Adelantar ${SEEK_SECONDS}s`}
-                  onPress={seekForward}
-                />
-                <ControlButton
-                  icon={muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                  label={muted ? "Activar sonido" : "Silenciar"}
-                  onPress={toggleMute}
-                />
-              </div>
-            </FocusContextProvider>
-          </div>
         </div>
       </div>
+    </div>
   );
 }
