@@ -205,7 +205,7 @@ export class GetUrl implements StrategyGetUrl {
           return match ? `https://www.mediafire.com/file/${match[0]}` : "";
         };
 
-        upsert(path, { movieUrl: extractNameUrl(dataUrls.url) });
+        //upsert(path, { movieUrl: extractNameUrl(dataUrls.url) });
 
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
