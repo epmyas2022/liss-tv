@@ -33,14 +33,8 @@ ENV NODE_ENV=production
 RUN apt-get update && apt-get install -y \
     tor \
     curl \
-    unzip \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
-
-RUN curl -fSL "https://github.com/epmyas2022/liss-tv/releases/download/chrome/chrome-proxy.zip" -o /tmp/chrome-proxy.zip \
-    && unzip /tmp/chrome-proxy.zip -d /usr/local/chrome-proxy \
-    && rm /tmp/chrome-proxy.zip
 
 
 RUN echo "Log notice stdout" >> /etc/tor/torrc && \
