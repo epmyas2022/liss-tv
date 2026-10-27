@@ -14,6 +14,7 @@ import nodeFetch from "node-fetch";
 
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
+
     const cached = get(path);
 
     const linkCached = cached?.movieUrl
@@ -113,17 +114,16 @@ export class GetUrl implements StrategyGetUrl {
         };
 
         // context.on captures responses from ALL frames (including cross-origin iframes)
-        const videoPromise = (callback: (responseUrl: string) => void) =>
+        const videoPromise = (callback: (responseUrl: string) => boolean) =>
           new Promise<string>((resolveVideo) => {
             const handler = (response: { url: () => string }) => {
               const responseUrl = response.url();
 
-              callback(responseUrl);
+              if (!callback(responseUrl)) return;
 
               context.off("response", handler);
-              
-              resolveVideo(responseUrl);
 
+              resolveVideo(responseUrl);
 
               /*   const isM3u8 =
               responseUrl.includes("index") && responseUrl.includes(".m3u8"); */
@@ -158,14 +158,18 @@ export class GetUrl implements StrategyGetUrl {
         const opcion1 = frame
           .locator("button.tab")
           .filter({ hasText: "Opción 1" });
-/*         const errorMsg = frame.locator("#srvErrorMsg");
- */
+        /*         const errorMsg = frame.locator("#srvErrorMsg");
+         */
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
           while (!dataUrls.url || !dataUrls.fallbackUrl) {
             try {
-              if (await opcion1.isVisible({ timeout: 1000 }) && dataUrls.url && !dataUrls.fallbackUrl) {
+              if (
+                (await opcion1.isVisible({ timeout: 1000 })) &&
+                dataUrls.url &&
+                !dataUrls.fallbackUrl
+              ) {
                 await opcion1.click({ timeout: 1000, force: true });
                 await opcion1.waitFor({ timeout: 1000 });
                 continue;
@@ -177,20 +181,27 @@ export class GetUrl implements StrategyGetUrl {
         };
 
         const getUrlMediafire = (responseUrl: string) => {
-          if (!isUrlMediafire(responseUrl)) return;
+          if (!isUrlMediafire(responseUrl)) return false;
           dataUrls.url = responseUrl;
+          return true;
         };
 
         const getUrlM3u8 = (responseUrl: string) => {
           if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
-            return;
+            return false;
           dataUrls.fallbackUrl = `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}`;
+          return true;
         };
 
         await Promise.race([
           clickLoop(),
-          videoPromise(getUrlMediafire),
-          videoPromise(getUrlM3u8),
+          Promise.all([
+            videoPromise(getUrlMediafire),
+            Promise.race([
+              videoPromise(getUrlM3u8),
+              new Promise((res, _) => setTimeout(() => res(null), 10000)),
+            ]),
+          ]),
           new Promise((_, rej) =>
             setTimeout(
               () => rej(new Error("Timeout: no Mediafire URL captured in 30s")),
@@ -199,7 +210,8 @@ export class GetUrl implements StrategyGetUrl {
           ),
         ]);
 
-        if (!dataUrls.url || !dataUrls.fallbackUrl) throw new Error("Failed to retrieve video URL or fallback URL");
+        if (!dataUrls.url)
+          throw new Error("Failed to retrieve video URL or fallback URL");
 
         const extractNameUrl = (url: string) => {
           const match = url.match(/[^/]+(?=\/[^/]+$)/);
@@ -207,6 +219,8 @@ export class GetUrl implements StrategyGetUrl {
         };
 
         upsert(path, { movieUrl: extractNameUrl(dataUrls.url) });
+
+        console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
         resolve(dataUrls);
 

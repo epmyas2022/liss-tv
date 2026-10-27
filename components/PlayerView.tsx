@@ -55,7 +55,7 @@ export function PlayerView() {
   const fallback = async () => {
     if (!moviePreview || !movieUrl || !movieUrl.fallbackUrl) return null;
 
-    return movieUrl.fallbackUrl;
+    return Promise.resolve(movieUrl.fallbackUrl);
   };
 
   useEffect(() => {
