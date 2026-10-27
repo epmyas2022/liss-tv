@@ -1,10 +1,24 @@
 import got from "got";
+import { HttpsProxyAgent } from "https-proxy-agent";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "node:stream";
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
 const PROXY_PATH = "/api/video/m3u8";
+
+// ---------------------------------------------------------------------------
+// Sticky proxy agent — used ONLY to fetch manifests (.m3u8).
+// Segments are forwarded directly; no proxy bandwidth is spent on them.
+// ---------------------------------------------------------------------------
+function buildProxyAgent(): HttpsProxyAgent<string> | undefined {
+  const host = process.env.PROXY_HOST;
+  const user = process.env.PROXY_USERNAME;
+  const pass = process.env.PROXY_PASSWORD;
+  if (!host) return undefined;
+  const auth = user && pass ? `${user}:${pass}@` : "";
+  return new HttpsProxyAgent(`http://${auth}${host}`);
+}
 
 function resolveUrl(uri: string, manifestUrl: string): string {
   if (/^https?:\/\//i.test(uri)) return uri;
@@ -46,7 +60,45 @@ export async function GET(req: NextRequest) {
     );
   }
 
+  const isManifestUrl = url.includes(".m3u8");
+
   try {
+    // ------------------------------------------------------------------
+    // MANIFEST path — fetch via sticky proxy, rewrite, return as text.
+    // The proxy is used HERE and nowhere else, so segment bandwidth
+    // never touches the proxy.
+    // ------------------------------------------------------------------
+    if (isManifestUrl) {
+      const agent = buildProxyAgent();
+
+      const manifestRes = await got(url, {
+        headers: { "user-agent": UA },
+        throwHttpErrors: false,
+        ...(agent ? { agent: { https: agent, http: agent } } : {}),
+      });
+
+      if (manifestRes.statusCode >= 400) {
+        return NextResponse.json(
+          { error: "Upstream manifest error", status: manifestRes.statusCode },
+          { status: 502 },
+        );
+      }
+
+      const body = manifestRes.body;
+
+      return new NextResponse(rewriteManifest(body, url), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/vnd.apple.mpegurl",
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "public, max-age=60",
+        },
+      });
+    }
+
+    // ------------------------------------------------------------------
+    // SEGMENT path — stream directly, no proxy.
+    // ------------------------------------------------------------------
     const nodeStream = got.stream(url, {
       headers: {
         "user-agent": UA,
@@ -68,33 +120,12 @@ export async function GET(req: NextRequest) {
     if (upstream.statusCode >= 400) {
       nodeStream.destroy();
       return NextResponse.json(
-        { error: "Upstream error", status: upstream.statusCode },
+        { error: "Upstream segment error", status: upstream.statusCode },
         { status: 502 },
       );
     }
 
-    const contentType = (upstream.headers["content-type"] ?? "").toLowerCase();
-    const isManifest =
-      contentType.includes("mpegurl") || url.includes(".m3u8");
-
-    if (isManifest) {
-      const chunks: Buffer[] = [];
-      for await (const chunk of nodeStream) {
-        chunks.push(Buffer.from(chunk));
-      }
-      const body = Buffer.concat(chunks).toString("utf-8");
-
-      return new NextResponse(rewriteManifest(body, url), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/vnd.apple.mpegurl",
-          "Access-Control-Allow-Origin": "*",
-          "Cache-Control": "no-cache",
-        },
-      });
-    }
-
-    // Stream segment binary — force video MIME since upstream disguises them
+    // Force video MIME — some upstreams disguise segments
     const headers = new Headers();
     headers.set("Content-Type", "video/mp2t");
     headers.set("Access-Control-Allow-Origin", "*");
@@ -105,7 +136,6 @@ export async function GET(req: NextRequest) {
       "Content-Range, Content-Length, Accept-Ranges",
     );
 
-    // Forward only the headers the player needs
     const contentLength = upstream.headers["content-length"];
     const contentRange = upstream.headers["content-range"];
     const acceptRanges = upstream.headers["accept-ranges"];
