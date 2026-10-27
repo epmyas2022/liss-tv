@@ -2,20 +2,10 @@ import * as proxyChain from "proxy-chain";
 import { chromium } from "playwright-extra";
 import stealth from "puppeteer-extra-plugin-stealth";
 import { HttpsProxyAgent } from "https-proxy-agent";
-import fs from "fs/promises";
 
 const PROXY_HOST = process.env.PROXY_HOST;
 const PROXY_USERNAME = process.env.PROXY_USERNAME;
 const PROXY_PASSWORD = process.env.PROXY_PASSWORD;
-
-const BROWSER_ARGS = [
-  "--autoplay-policy=no-user-gesture-required",
-  "--disable-blink-features=AutomationControlled",
-  "--no-sandbox",
-  "--disable-extensions",
-  "--disable-dev-shm-usage",
-  "--disable-gpu",
-];
 
 chromium.use(stealth());
 
@@ -32,14 +22,14 @@ export const blacklistedDomains = [
   "://impactradius-go.com",
 ];
 
-
 export const BASE_URL = {
-    "SoloLatino": "https://sololatino.net/",
-}
-
+  SoloLatino: "https://sololatino.net/",
+};
 
 export const BROWSER_UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36";
+
+const contextPath = process.env.CONTEXT_PATH || "C:\\chrome-proxy";
 
 export function createStickySession() {
   if (!PROXY_HOST || !PROXY_USERNAME || !PROXY_PASSWORD) {
@@ -53,29 +43,17 @@ export function createStickySession() {
 }
 
 export async function getBrowserContext(anonymizedProxy?: string) {
-  const browser = await chromium.launch({
+  const context = await chromium.launchPersistentContext(contextPath, {
+    channel: "chrome",
     headless: true,
-    args: BROWSER_ARGS,
-    ...(anonymizedProxy && { proxy: { server: anonymizedProxy } }),
+    viewport: null,
+    ignoreDefaultArgs: ["--enable-automation"],
+    args: ["--autoplay-policy=no-user-gesture-required"],
+    //...(anonymizedProxy && { proxy: { server: anonymizedProxy } })
   });
 
-  const isExistFileState = await fs
-    .access("state.json")
-    .then(() => true)
-    .catch(() => false);
-
-  if (isExistFileState) {
-    console.info("[📁] state.json file exists. Using it for storage state.");
-  }
-
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 720 },
-    userAgent: BROWSER_UA,
-    ...(isExistFileState && { storageState: "state.json" }),
-  });
-
-  const page = await context.newPage();
-  return { browser, context, page };
+  const page = context.pages()[0] ?? (await context.newPage());
+  return { browser: context.browser(), context, page };
 }
 
 export async function anonymizeProxy(url: string) {

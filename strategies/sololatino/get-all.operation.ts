@@ -86,7 +86,7 @@ export class GetAll implements StrategyGetAllMovies {
       console.error("Error occurred while fetching movies:", error);
     } finally {
       await context.close().catch(() => {});
-      await browser.close().catch(() => {});
+      await browser?.close().catch(() => {});
       await closeAnonymizedProxy(anonymizedProxy).catch(() => {});
     }
   }

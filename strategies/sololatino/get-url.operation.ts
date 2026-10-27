@@ -14,7 +14,6 @@ import nodeFetch from "node-fetch";
 
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
-
     const cached = get(path);
 
     const linkCached = cached?.movieUrl
@@ -124,17 +123,6 @@ export class GetUrl implements StrategyGetUrl {
               context.off("response", handler);
 
               resolveVideo(responseUrl);
-
-              /*   const isM3u8 =
-              responseUrl.includes("index") && responseUrl.includes(".m3u8"); */
-
-              /* if (isUrlMediafire(responseUrl) || isM3u8) {
-              context.off("response", handler);
-              url = isM3u8
-                ? `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}`
-                : responseUrl;
-              resolveVideo(responseUrl);
-            } */
             };
 
             context.on("response", handler);
@@ -158,8 +146,7 @@ export class GetUrl implements StrategyGetUrl {
         const opcion1 = frame
           .locator("button.tab")
           .filter({ hasText: "Opción 1" });
-        /*         const errorMsg = frame.locator("#srvErrorMsg");
-         */
+      
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
@@ -223,8 +210,6 @@ export class GetUrl implements StrategyGetUrl {
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
         resolve(dataUrls);
-
-        await context.storageState({ path: "state.json" });
       } catch (error) {
         console.error("Error occurred while fetching video URL:", error);
         reject(error);

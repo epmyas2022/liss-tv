@@ -135,7 +135,7 @@ export class GetDetail implements StrategyGetMovieDetails {
       console.error("Error occurred while fetching movie details:", error);
     } finally {
       await context.close().catch(() => {});
-      await browser.close().catch(() => {});
+      await browser?.close().catch(() => {});
       await closeAnonymizedProxy(anonymizedProxy).catch(() => {});
     }
   }
