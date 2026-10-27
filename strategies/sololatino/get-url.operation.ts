@@ -70,7 +70,7 @@ export class GetUrl implements StrategyGetUrl {
 
         const iframeUrl: string = apiData.url;
 
-        const { context, page } = await getBrowserContext(anonymizedProxy);
+        const { context, page } = await getBrowserContext();
 
         browserContext = context;
 
