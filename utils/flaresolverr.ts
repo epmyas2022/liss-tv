@@ -1,73 +1,146 @@
 import {
   FlareSolverrOutput,
   FlareSolverrResponse,
-  FlareSolverrCookies,
+  FlareSolverrCacheEntry,
+  FlareSolverrCacheStore,
+  ResolverOptions,
+  FetchFlareOptions,
 } from "@/types/solverr";
-import { BASE_URL, BROWSER_UA } from "@/utils/browser";
+import { BASE_URL } from "@/utils/browser";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import nodeFetch from "node-fetch";
 
 /**
- * Cache file for storing resolved user-agent and cookies.
+ * Cache file for storing resolved user-agent and cookies per IP/target.
  * Uses process.cwd() to avoid __dirname resolution issues in Next.js bundle.
  */
 const CACHE_FILE_PATH = path.join(process.cwd(), "data", "flaresolverrCache.json");
 
 /**
- * Load the shared cache from disk. If the file does not exist, is expired, or malformed, returns null.
+ * Load the shared cache store from disk. Handles legacy single-entry format gracefully.
  */
-async function loadCache(): Promise<{
-  userAgent: string;
-  cookies: FlareSolverrCookies[];
-  expiry: number;
-} | null> {
+async function loadCacheStore(): Promise<FlareSolverrCacheStore> {
   try {
     const data = await readFile(CACHE_FILE_PATH, "utf-8");
     const parsed = JSON.parse(data);
+    if (!parsed || typeof parsed !== "object") return {};
+
+    // Backward compatibility with legacy single-entry cache
     if (
-      parsed &&
       typeof parsed.userAgent === "string" &&
       Array.isArray(parsed.cookies) &&
       typeof parsed.expiry === "number"
     ) {
-      return parsed;
+      return {
+        direct: {
+          userAgent: parsed.userAgent,
+          cookies: parsed.cookies,
+          expiry: parsed.expiry,
+        },
+      };
     }
-    return null;
+
+    return parsed as FlareSolverrCacheStore;
   } catch {
-    return null;
+    return {};
   }
 }
 
 /**
- * Persist the shared cache back to disk, creating directory if needed.
+ * Load cache entry for a specific key (e.g. "direct" or "proxy:<host>").
  */
-async function saveCache(cache: {
-  userAgent: string;
-  cookies: FlareSolverrCookies[];
-  expiry: number;
-}) {
+async function loadCache(key: string): Promise<FlareSolverrCacheEntry | null> {
+  const store = await loadCacheStore();
+  const entry = store[key];
+  if (
+    entry &&
+    typeof entry.userAgent === "string" &&
+    Array.isArray(entry.cookies) &&
+    typeof entry.expiry === "number"
+  ) {
+    return entry;
+  }
+  return null;
+}
+
+/**
+ * Persist cache entry for a specific key back to disk.
+ */
+async function saveCache(key: string, entry: FlareSolverrCacheEntry): Promise<void> {
+  const store = await loadCacheStore();
+  store[key] = entry;
   await mkdir(path.dirname(CACHE_FILE_PATH), { recursive: true });
-  await writeFile(CACHE_FILE_PATH, JSON.stringify(cache, null, 2), "utf-8");
+  await writeFile(CACHE_FILE_PATH, JSON.stringify(store, null, 2), "utf-8");
+}
+
+/**
+ * Extract proxy URL and IP-based cache key from options or agent.
+ * The proxy accounts may rotate usernames, but share the same proxy IP/host.
+ */
+function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
+  if (options.agent) {
+    const proxyUrl = options.agent.proxy.href;
+    const host = options.agent.proxy.hostname || options.agent.proxy.host;
+    return {
+      proxyUrl,
+      proxyKey: `proxy:${host}`,
+    };
+  }
+
+  if (options.proxyUrl) {
+    try {
+      const parsed = new URL(options.proxyUrl);
+      const host = parsed.hostname || parsed.host;
+      return {
+        proxyUrl: options.proxyUrl,
+        proxyKey: `proxy:${host}`,
+      };
+    } catch {
+      return {
+        proxyUrl: options.proxyUrl,
+        proxyKey: `proxy:${process.env.PROXY_HOST || "default"}`,
+      };
+    }
+  }
+
+  return { proxyKey: "direct" };
 }
 
 /**
  * Resolve a captcha challenge via FlareSolverr, returning the required user-agent and cookies.
- * If valid cache exists, returns cached credentials immediately without calling FlareSolverr.
+ * Supports caching based on IP/host so proxy username rotations reuse solved clearance cookies.
  */
-export async function resolver(url: string): Promise<FlareSolverrOutput> {
-  const cached = await loadCache();
+export async function resolver(
+  url: string,
+  options: ResolverOptions = {},
+): Promise<FlareSolverrOutput> {
+  const cacheKey =
+    options.proxyKey ||
+    (options.proxyUrl
+      ? `proxy:${new URL(options.proxyUrl).hostname || new URL(options.proxyUrl).host}`
+      : "direct");
+
+  const cached = await loadCache(cacheKey);
   const now = Date.now();
   if (cached && cached.expiry > now) {
     return { userAgent: cached.userAgent, cookies: cached.cookies };
   }
 
-  const flareSolverrEndpoint = process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
-  const payload = {
+  const flareSolverrEndpoint =
+    process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
+
+  const payload: Record<string, unknown> = {
     cmd: "request.get",
     url: url || BASE_URL.SoloLatino,
     maxTimeout: 60000,
   };
+
+  if (options.proxyUrl) {
+    payload.proxy = {
+      url: options.proxyUrl,
+    };
+  }
 
   const response = await fetch(flareSolverrEndpoint, {
     method: "POST",
@@ -89,49 +162,44 @@ export async function resolver(url: string): Promise<FlareSolverrOutput> {
   const { userAgent, cookies } = data.solution;
   // Cache for 1 hour
   const expiry = now + 60 * 60 * 1000;
-  await saveCache({ userAgent, cookies, expiry });
+  await saveCache(cacheKey, { userAgent, cookies, expiry });
   return { userAgent, cookies };
 }
 
-export interface FetchFlareOptions extends RequestInit {
-  agent?: unknown;
-}
+export type { FetchFlareOptions, ResolverOptions } from "@/types/solverr";
 
 /**
  * Helper to perform a fetch:
- * - If a proxy agent is passed: skips cookies and FlareSolverr resolution completely,
- *   routing directly through node-fetch using the proxy IP.
- * - Otherwise: resolves captcha via FlareSolverr and injects clearance cookies & user-agent.
+ * - Resolves captcha via FlareSolverr (routing through proxy if agent/proxy is supplied).
+ * - Caches and injects clearance cookies & user-agent linked to the IP.
+ * - Dispatches request with node-fetch (when proxy agent is provided) or native fetch.
  */
 export async function fetchFlare(
   url: string,
   options: FetchFlareOptions = {},
 ): Promise<Response> {
-  if (options.agent) {
-    const mergedHeaders = new Headers(options.headers || {});
-    if (!mergedHeaders.has("User-Agent")) {
-      mergedHeaders.set("User-Agent", BROWSER_UA);
-    }
-    const fetchOptions = {
-      ...options,
-      headers: mergedHeaders,
-    };
-    return nodeFetch(url, fetchOptions as never) as unknown as Response;
-  }
-
-  const { userAgent, cookies } = await resolver(url);
+  const proxyDetails = extractProxyDetails(options);
+  const { userAgent, cookies } = await resolver(url, proxyDetails);
 
   const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
   const mergedHeaders = new Headers(options.headers || {});
   mergedHeaders.set("User-Agent", userAgent);
   if (cookieHeader) {
-    mergedHeaders.set("Cookie", cookieHeader);
+    const existingCookie = mergedHeaders.get("Cookie");
+    mergedHeaders.set(
+      "Cookie",
+      existingCookie ? `${existingCookie}; ${cookieHeader}` : cookieHeader,
+    );
   }
 
   const fetchOptions = {
     ...options,
     headers: mergedHeaders,
   };
+
+  if (options.agent) {
+    return nodeFetch(url, fetchOptions as never) as unknown as Response;
+  }
 
   return fetch(url, fetchOptions);
 }

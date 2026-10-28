@@ -160,22 +160,15 @@ export default function Home() {
         </div>
 
         {!loading && movies.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center px-4 bg-[#131519]/50 border border-white/[0.06] rounded-2xl my-4">
-            <div className="w-16 h-16 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center mb-4 text-[#e50914]">
-              <Search size={32} />
-            </div>
+          <div className="flex flex-col items-center justify-center py-20 text-center px-4 rounded-2xl my-4">
+           
             <h3 className="text-xl sm:text-2xl font-bold font-poppins text-white mb-2">
               No encontramos resultados para &ldquo;{search}&rdquo;
             </h3>
             <p className="text-gray-400 max-w-md text-sm mb-6">
               Revisá que las palabras estén bien escritas o probá con otros términos más generales.
             </p>
-            <button
-              onClick={() => router.push("/")}
-              className="px-6 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] border border-white/10 text-white font-semibold text-sm transition-all duration-200 cursor-pointer"
-            >
-              Ver todo el catálogo
-            </button>
+         
           </div>
         ) : (
           <FocusContextProvider
