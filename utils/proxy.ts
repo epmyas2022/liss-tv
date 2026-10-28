@@ -59,7 +59,7 @@ export function createStickySession(): StickySession {
   }
 
   const { username, password } = getNextProxyAccount();
-  const url = `http://${username}:${password}@${PROXY_HOST}/`;
+  const url = `http://${username}:${password}@${PROXY_HOST}`;
   const agent = new HttpsProxyAgent(url);
   return { url, agent };
 }

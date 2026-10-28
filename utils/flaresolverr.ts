@@ -18,6 +18,14 @@ import nodeFetch from "node-fetch";
 const CACHE_FILE_PATH = path.join(process.cwd(), "data", "flaresolverrCache.json");
 
 /**
+ * Strip trailing slashes from proxy URL.
+ * Chromium networking fails with ERR_NO_SUPPORTED_PROXIES if a trailing slash is present.
+ */
+function cleanProxyUrl(url: string): string {
+  return url.trim().replace(/\/+$/, "");
+}
+
+/**
  * Load the shared cache store from disk. Handles legacy single-entry format gracefully.
  */
 async function loadCacheStore(): Promise<FlareSolverrCacheStore> {
@@ -80,7 +88,7 @@ async function saveCache(key: string, entry: FlareSolverrCacheEntry): Promise<vo
  */
 function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
   if (options.agent) {
-    const proxyUrl = options.agent.proxy.href;
+    const proxyUrl = cleanProxyUrl(options.agent.proxy.href);
     const host = options.agent.proxy.hostname || options.agent.proxy.host;
     return {
       proxyUrl,
@@ -89,16 +97,17 @@ function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
   }
 
   if (options.proxyUrl) {
+    const proxyUrl = cleanProxyUrl(options.proxyUrl);
     try {
-      const parsed = new URL(options.proxyUrl);
+      const parsed = new URL(proxyUrl);
       const host = parsed.hostname || parsed.host;
       return {
-        proxyUrl: options.proxyUrl,
+        proxyUrl,
         proxyKey: `proxy:${host}`,
       };
     } catch {
       return {
-        proxyUrl: options.proxyUrl,
+        proxyUrl,
         proxyKey: `proxy:${process.env.PROXY_HOST || "default"}`,
       };
     }
@@ -138,7 +147,7 @@ export async function resolver(
 
   if (options.proxyUrl) {
     payload.proxy = {
-      url: options.proxyUrl,
+      url: cleanProxyUrl(options.proxyUrl),
     };
   }
 
@@ -165,6 +174,17 @@ export async function resolver(
     response: solutionHtml,
     status: solutionStatus,
   } = data.solution;
+
+  if (
+    solutionHtml &&
+    (solutionHtml.includes("ERR_NO_SUPPORTED_PROXIES") ||
+      solutionHtml.includes("class=\"neterror\""))
+  ) {
+    throw new Error(
+      "FlareSolverr proxy connection failed with ERR_NO_SUPPORTED_PROXIES",
+    );
+  }
+
   // Cache for 1 hour
   const expiry = now + 60 * 60 * 1000;
   await saveCache(cacheKey, { userAgent, cookies, expiry });
