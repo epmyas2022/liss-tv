@@ -37,7 +37,7 @@ export default function Home() {
     setMovies([]);
     setHeroDetails(null);
     setPage(1);
-    setHasMore(true);
+    setHasMore(!search);
   }
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Home() {
       if (!isMounted) return;
 
       setMovies((prev) => (page === 1 ? newMovies : [...prev, ...newMovies]));
-      setHasMore(page < lastPageNumber);
+      setHasMore(!search && page < lastPageNumber);
       setLoading(false);
     };
 

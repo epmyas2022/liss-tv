@@ -1,9 +1,16 @@
 import { getAllData, upsertAll } from "@/services/movie.store";
 import { fetchFlare } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
-import { Movies, StrategyGetAllMovies } from "@/types/movie";
+import { Movie, Movies, StrategyGetAllMovies } from "@/types/movie";
 import { BASE_URL } from "@/utils/browser";
-import { createStickySession } from "@/utils/proxy";
+
+interface SoloLatinoSuggestItem {
+  type?: string;
+  title?: string;
+  year?: number | string;
+  poster?: string;
+  url?: string;
+}
 
 export class GetAll implements StrategyGetAllMovies {
   async operation(
@@ -22,17 +29,56 @@ export class GetAll implements StrategyGetAllMovies {
       return cached.data;
     }
 
-    // Build target URL
-    const targetUrl = `${BASE_URL.SoloLatino}${slug ?? ""}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`;
+    // Build target URL: use official suggest API for search to avoid server-side 403 on common query terms
+    const targetUrl = search
+      ? `${BASE_URL.SoloLatino}api/search/suggest?q=${encodeURIComponent(search)}`
+      : `${BASE_URL.SoloLatino}${slug ?? ""}${pageNumber && pageNumber > 1 ? `?page=${pageNumber}` : ""}`;
 
     try {
-      const agent = search ? createStickySession().agent : undefined;
-      const response = await fetchFlare(targetUrl, agent ? { agent } : {});
+      const response = await fetchFlare(targetUrl, {});
+      const rawText = await response.text();
 
-      const html = await response.text();
+      if (search) {
+        let jsonPayload = rawText.trim();
+        if (jsonPayload.startsWith("<")) {
+          const $ = cheerio.load(rawText);
+          const preText = $("pre").text().trim();
+          if (preText) {
+            jsonPayload = preText;
+          }
+        }
 
-      console.log(html);
-      const $ = cheerio.load(html);
+        let items: SoloLatinoSuggestItem[] = [];
+        try {
+          items = JSON.parse(jsonPayload);
+        } catch (parseError) {
+          console.warn("[SoloLatino] Failed to parse search suggest JSON:", parseError);
+        }
+
+        const movies: Movie[] = Array.isArray(items)
+          ? items
+              .filter((item) => item.type === "movie" || item.type === "series")
+              .map((item) => {
+                const linkRaw = item.url || "";
+                const match = linkRaw.match(
+                  /(?:\/\/[^/]+)?(\/(pelicula|serie)\/[^/?#]+)/,
+                );
+                const link = match ? match[1] : linkRaw;
+
+                return {
+                  link,
+                  image: item.poster || "",
+                  rating: "",
+                  title: item.title || "",
+                  year: item.year ? String(item.year) : "",
+                };
+              })
+          : [];
+
+        return { movies, lastPageNumber: 1 };
+      }
+
+      const $ = cheerio.load(rawText);
 
       let lastPageNumber = 1;
       if (slug === "peliculas" || slug === "series") {
@@ -43,7 +89,7 @@ export class GetAll implements StrategyGetAllMovies {
         }
       }
 
-      const movies = $(".card")
+      const movies: Movie[] = $(".card")
         .map((_, el) => {
           const linkRaw = $(el).find("a").attr("href") || "";
           const match = linkRaw.match(
@@ -65,7 +111,7 @@ export class GetAll implements StrategyGetAllMovies {
 
       const data = { movies, lastPageNumber };
 
-      if (!search) upsertAll<Movies>(key, data);
+      upsertAll<Movies>(key, data);
 
       return data;
     } catch (error) {

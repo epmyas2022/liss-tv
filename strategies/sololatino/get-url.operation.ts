@@ -210,6 +210,8 @@ export class GetUrl implements StrategyGetUrl {
 
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
+        await context.storageState({ path: "state.json" });
+
         resolve(dataUrls);
       } catch (error) {
         console.error("Error occurred while fetching video URL:", error);

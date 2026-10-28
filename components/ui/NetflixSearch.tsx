@@ -54,23 +54,46 @@ export default function NetflixSearch({ className = "" }: NetflixSearchProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [value]);
 
+  const DEBOUNCE_MS = 1000;
+
+  function triggerSearch(val: string) {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    setPending(false);
+    const trimmed = val.trim();
+    if (trimmed === "") {
+      router.push("/");
+    } else {
+      router.push(`/?search=${encodeURIComponent(trimmed)}`);
+    }
+  }
+
   function handleSearch(val: string) {
     setValue(val);
-    setPending(true);
 
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
     }
 
-    debounceRef.current = setTimeout(() => {
+    const trimmed = val.trim();
+    if (trimmed === "") {
       setPending(false);
-      const trimmed = val.trim();
-      if (trimmed === "") {
-        router.push("/");
-      } else {
-        router.push(`/?search=${encodeURIComponent(trimmed)}`);
-      }
-    }, 450);
+      router.push("/");
+      return;
+    }
+
+    setPending(true);
+    debounceRef.current = setTimeout(() => {
+      triggerSearch(val);
+    }, DEBOUNCE_MS);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      triggerSearch(value);
+    }
   }
 
   function handleClear() {
@@ -129,6 +152,7 @@ export default function NetflixSearch({ className = "" }: NetflixSearchProps) {
               placeholder="Títulos, personas, géneros..."
               value={value}
               onChange={(e) => handleSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
               className="w-full bg-transparent text-lg text-white font-medium placeholder-gray-400 focus:outline-none"
             />
 
@@ -201,6 +225,7 @@ export default function NetflixSearch({ className = "" }: NetflixSearchProps) {
               placeholder="Títulos, series, géneros..."
               value={value}
               onChange={(e) => handleSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
               className={`bg-transparent text-base lg:text-lg font-medium text-white placeholder:text-gray-400 placeholder:font-normal focus:outline-none transition-all duration-300 ${
                 isExpanded
                   ? "w-full opacity-100"

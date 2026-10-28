@@ -8,4 +8,5 @@ export interface ProxyAccount {
 export interface StickySession {
   url: string;
   agent: HttpsProxyAgent<string>;
+  username: string;
 }

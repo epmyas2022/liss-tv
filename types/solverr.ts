@@ -10,6 +10,7 @@ export interface FlareSolverrCookies {
 
 export interface FlareSolverrResponse {
   status: string;
+  message?: string;
   solution: {
     url: string;
     status?: number;
@@ -43,4 +44,5 @@ export interface ResolverOptions {
 export interface FetchFlareOptions extends RequestInit {
   agent?: HttpsProxyAgent<string>;
   proxyUrl?: string;
+  proxyUsername?: string;
 }
