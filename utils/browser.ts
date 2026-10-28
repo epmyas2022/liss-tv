@@ -84,6 +84,9 @@ export async function getBrowser(options?: { blockAssets?: boolean }) {
   const anonymizedProxy = await anonymizeProxy(stickyUrl);
   const result = await getBrowserContext(anonymizedProxy);
 
+
+  console.log(`Anonymized proxy created: ${anonymizedProxy}`);
+
   if (options?.blockAssets !== false) {
     await result.page.route("**/*", (route) => {
       const type = route.request().resourceType();
