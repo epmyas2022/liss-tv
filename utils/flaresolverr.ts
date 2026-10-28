@@ -159,11 +159,21 @@ export async function resolver(
     throw new Error(`FlareSolverr returned error status: ${data.status}`);
   }
 
-  const { userAgent, cookies } = data.solution;
+  const {
+    userAgent,
+    cookies,
+    response: solutionHtml,
+    status: solutionStatus,
+  } = data.solution;
   // Cache for 1 hour
   const expiry = now + 60 * 60 * 1000;
   await saveCache(cacheKey, { userAgent, cookies, expiry });
-  return { userAgent, cookies };
+  return {
+    userAgent,
+    cookies,
+    html: solutionHtml,
+    status: solutionStatus,
+  };
 }
 
 export type { FetchFlareOptions, ResolverOptions } from "@/types/solverr";
@@ -172,15 +182,24 @@ export type { FetchFlareOptions, ResolverOptions } from "@/types/solverr";
  * Helper to perform a fetch:
  * - Resolves captcha via FlareSolverr (routing through proxy if agent/proxy is supplied).
  * - Caches and injects clearance cookies & user-agent linked to the IP.
- * - Dispatches request with node-fetch (when proxy agent is provided) or native fetch.
+ * - Reuses solution HTML directly if freshly resolved, otherwise dispatches via fetch/node-fetch.
  */
 export async function fetchFlare(
   url: string,
   options: FetchFlareOptions = {},
 ): Promise<Response> {
   const proxyDetails = extractProxyDetails(options);
-  const { userAgent, cookies } = await resolver(url, proxyDetails);
+  const resolverOutput = await resolver(url, proxyDetails);
 
+  // If FlareSolverr solved and retrieved the target URL directly, reuse its HTML response
+  if (resolverOutput.html) {
+    return new Response(resolverOutput.html, {
+      status: resolverOutput.status || 200,
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+    });
+  }
+
+  const { userAgent, cookies } = resolverOutput;
   const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
   const mergedHeaders = new Headers(options.headers || {});
   mergedHeaders.set("User-Agent", userAgent);

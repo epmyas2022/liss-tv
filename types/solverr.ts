@@ -12,15 +12,19 @@ export interface FlareSolverrResponse {
   status: string;
   solution: {
     url: string;
+    status?: number;
     userAgent: string;
-    responseHeaders: Record<string, string>;
+    responseHeaders?: Record<string, string>;
     cookies: FlareSolverrCookies[];
+    response?: string;
   };
 }
 
 export interface FlareSolverrOutput {
   userAgent: string;
   cookies: FlareSolverrCookies[];
+  html?: string;
+  status?: number;
 }
 
 export interface FlareSolverrCacheEntry {

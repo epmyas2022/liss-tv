@@ -1,13 +1,9 @@
 import { getAllData, upsertAll } from "@/services/movie.store";
-import { fetchFlare, resolver } from "@/utils/flaresolverr";
+import { fetchFlare } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 import { Movies, StrategyGetAllMovies } from "@/types/movie";
-import {
-  BASE_URL,
-  getBrowser,
-  closeAnonymizedProxy,
-  createStickySession,
-} from "@/utils/browser";
+import { BASE_URL } from "@/utils/browser";
+import { createStickySession } from "@/utils/proxy";
 
 export class GetAll implements StrategyGetAllMovies {
   async operation(
@@ -29,43 +25,11 @@ export class GetAll implements StrategyGetAllMovies {
     // Build target URL
     const targetUrl = `${BASE_URL.SoloLatino}${slug ?? ""}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`;
 
-    let browserInstance: Awaited<ReturnType<typeof getBrowser>> | null = null;
     try {
-      let html: string;
+      const agent = search ? createStickySession().agent : undefined;
+      const response = await fetchFlare(targetUrl, agent ? { agent } : {});
 
-      if (search) {
-        const { url: stickyUrl } = createStickySession();
-        const { userAgent, cookies } = await resolver(targetUrl, {
-          proxyUrl: stickyUrl,
-        });
-
-        browserInstance = await getBrowser({
-          proxyUrl: stickyUrl,
-          userAgent,
-          cookies,
-        });
-
-        await browserInstance.page.goto(targetUrl, {
-          waitUntil: "domcontentloaded",
-          timeout: 20000,
-        });
-
-        const title = await browserInstance.page.title();
-        if (title.includes("Just a moment") || title.includes("Cloudflare")) {
-          await browserInstance.page
-            .waitForFunction(() => !document.title.includes("Just a moment"), {
-              timeout: 10000,
-            })
-            .catch(() => {});
-        }
-
-        html = await browserInstance.page.content();
-        console.log(html);
-      } else {
-        const response = await fetchFlare(targetUrl);
-        html = await response.text();
-      }
-
+      const html = await response.text();
       const $ = cheerio.load(html);
 
       let lastPageNumber = 1;
@@ -104,15 +68,6 @@ export class GetAll implements StrategyGetAllMovies {
       return data;
     } catch (error) {
       console.error("Error occurred while fetching movies:", error);
-    } finally {
-      if (browserInstance) {
-        await browserInstance.browser.close().catch(() => {});
-        if (browserInstance.anonymizedProxy) {
-          await closeAnonymizedProxy(browserInstance.anonymizedProxy).catch(
-            () => {},
-          );
-        }
-      }
     }
   }
 }
