@@ -30,7 +30,7 @@ export function HomeHero({ movie }: HomeHeroProps) {
 
   const backdropSrc = movie.backgroundImage || movie.image || "/logo-with-background.png";
   const isSerie = movie.link.includes("serie");
-  const playHref = isSerie ? movie.link : `./${movie.link}/player`;
+  const playHref = isSerie ? movie.link : `${movie.link}/player`;
 
   const handlePlay = () => {
     store.setMovieData({

@@ -16,6 +16,19 @@ const BROWSER_ARGS = [
   "--disable-extensions",
   "--disable-dev-shm-usage",
   "--disable-gpu",
+  "--disable-background-networking",
+  "--disable-background-timer-throttling",
+  "--disable-backgrounding-occluded-windows",
+  "--disable-breakpad",
+  "--disable-component-update",
+  "--disable-default-apps",
+  "--disable-domain-reliability",
+  "--disable-ipc-flooding-protection",
+  "--disable-renderer-backgrounding",
+  "--disable-sync",
+  "--no-first-run",
+  "--no-default-browser-check",
+  "--mute-audio",
 ];
 
 chromium.use(stealth());
@@ -66,9 +79,25 @@ export async function getBrowserContext(anonymizedProxy?: string) {
   return { browser, context, page };
 }
 
-export async function getBrowser() {
+export async function getBrowser(options?: { blockAssets?: boolean }) {
   const { url: stickyUrl } = createStickySession();
   const anonymizedProxy = await anonymizeProxy(stickyUrl);
   const result = await getBrowserContext(anonymizedProxy);
+
+  if (options?.blockAssets !== false) {
+    await result.page.route("**/*", (route) => {
+      const type = route.request().resourceType();
+      const url = route.request().url();
+
+      if (
+        blacklistedDomains.some((domain) => url.includes(domain)) ||
+        ["image", "media", "font"].includes(type)
+      ) {
+        return route.abort();
+      }
+      return route.continue();
+    });
+  }
+
   return { ...result, anonymizedProxy };
 }

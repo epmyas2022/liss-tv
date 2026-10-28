@@ -2,8 +2,7 @@ import { getAllData, upsertAll } from "@/services/movie.store";
 import { fetchFlare } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 import { Movies, StrategyGetAllMovies } from "@/types/movie";
-import { BASE_URL } from "@/utils/browser";
-import { createStickySession } from "@/utils/proxy";
+import { BASE_URL, getBrowser, closeAnonymizedProxy } from "@/utils/browser";
 
 export class GetAll implements StrategyGetAllMovies {
   async operation(
@@ -25,11 +24,23 @@ export class GetAll implements StrategyGetAllMovies {
     // Build target URL
     const targetUrl = `${BASE_URL.SoloLatino}${slug ?? ""}${search ? `buscar?q=${search}` : ""}${pageNumber && !search ? `?page=${pageNumber}` : ""}`;
 
+    let browserInstance: Awaited<ReturnType<typeof getBrowser>> | null = null;
     try {
-      const agent = search ? createStickySession().agent : undefined;
-      const response = await fetchFlare(targetUrl, agent ? { agent } : {});
+      let html: string;
 
-      const html = await response.text();
+      if (search) {
+        browserInstance = await getBrowser();
+        await browserInstance.page.goto(targetUrl, {
+          waitUntil: "domcontentloaded",
+          timeout: 20000,
+        });
+
+        html = await browserInstance.page.content();
+      } else {
+        const response = await fetchFlare(targetUrl);
+        html = await response.text();
+      }
+
       const $ = cheerio.load(html);
 
       let lastPageNumber = 1;
@@ -66,6 +77,13 @@ export class GetAll implements StrategyGetAllMovies {
       return data;
     } catch (error) {
       console.error("Error occurred while fetching movies:", error);
+    } finally {
+      if (browserInstance) {
+        await browserInstance.browser.close().catch(() => {});
+        if (browserInstance.anonymizedProxy) {
+          await closeAnonymizedProxy(browserInstance.anonymizedProxy).catch(() => {});
+        }
+      }
     }
   }
 }
