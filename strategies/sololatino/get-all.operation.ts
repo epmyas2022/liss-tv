@@ -35,7 +35,13 @@ export class GetAll implements StrategyGetAllMovies {
           timeout: 20000,
         });
 
+        console.log(`Navigated to ${targetUrl} with search term "${search}"`);
+
+      
+
         html = await browserInstance.page.content();
+
+        console.log(html)
       } else {
         const response = await fetchFlare(targetUrl);
         html = await response.text();
