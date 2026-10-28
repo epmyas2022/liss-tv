@@ -30,6 +30,8 @@ export class GetAll implements StrategyGetAllMovies {
       const response = await fetchFlare(targetUrl, agent ? { agent } : {});
 
       const html = await response.text();
+
+      console.log(html);
       const $ = cheerio.load(html);
 
       let lastPageNumber = 1;
