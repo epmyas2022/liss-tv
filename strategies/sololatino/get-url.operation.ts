@@ -1,5 +1,6 @@
-import { get, remove, upsert } from "@/services/movie.store";
-import { StrategyGetUrl, Url } from "../../types/movie";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { get, remove, /* upsert */ } from "@/services/movie.store";
+import { StrategyGetUrl, Url } from "@/types/movie";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import {
   anonymizeProxy,
@@ -200,11 +201,11 @@ export class GetUrl implements StrategyGetUrl {
         if (!dataUrls.url)
           throw new Error("Failed to retrieve video URL or fallback URL");
 
-        const extractNameUrl = (url: string) => {
+    /*     const extractNameUrl = (url: string) => {
           const match = url.match(/[^/]+(?=\/[^/]+$)/);
           return match ? `https://www.mediafire.com/file/${match[0]}` : "";
         };
-
+ */
         //upsert(path, { movieUrl: extractNameUrl(dataUrls.url) });
 
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);

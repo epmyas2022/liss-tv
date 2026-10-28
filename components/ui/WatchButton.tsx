@@ -6,16 +6,19 @@ import type { Movie } from "@/types/movie";
 import { useMovieStore } from "../../store/useMovieStore";
 import FocusElementProvider from "../providers/FocusElementProvider";
 import { analytics } from "@/analytics/event";
+import { Play } from "lucide-react";
 
 export default function WatchButton({
   moviePreview,
   redirectDetails = false,
+  label = "Reproducir ahora",
 }: {
   moviePreview: Pick<Movie, "title" | "link" | "image"> & {
     backgroundImage?: string;
   };
   backgroundImage?: string;
   redirectDetails?: boolean;
+  label?: string;
 }) {
   const router = useRouter();
   const store = useMovieStore();
@@ -36,7 +39,13 @@ export default function WatchButton({
 
   return (
     <FocusElementProvider
-      className="rounded-lg"
+      className="rounded-xl w-full"
+      strokeSize={0}
+      styleFocus={{
+        outline: "3px solid #ffffff",
+        outlineOffset: "2px",
+        transform: "scale(1.02)",
+      }}
       onEnterPress={() => {
         if (!redirectDetails) {
           handleInteraction();
@@ -46,31 +55,19 @@ export default function WatchButton({
     >
       {redirectDetails ? (
         <div
-          className="cursor-pointer relative flex justify-center items-center gap-2 w-full bg-[#EA1C25] hover:bg-[#c8151c] active:bg-[#a01018] text-white font-bold rounded-lg transition-colors duration-200"
-          style={{
-            height: "clamp(2.25rem, 5vw, 2.75rem)",
-            fontSize: "clamp(0.8rem, 2vw, 0.9rem)",
-          }}
+          className="cursor-pointer flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#e50914] hover:bg-[#b80710] text-white font-bold rounded-xl text-sm transition-all duration-200 active:scale-95 select-none"
         >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-            <polygon points="4,2 14,8 4,14" />
-          </svg>
-          Watch Now
+          <Play size={15} className="fill-white" />
+          <span>{label}</span>
         </div>
       ) : (
         <Link
           href={targetHref}
           onClick={handleInteraction}
-          className="cursor-pointer relative flex justify-center items-center gap-2 w-full bg-[#EA1C25] hover:bg-[#c8151c] active:bg-[#a01018] text-white font-bold rounded-lg transition-colors duration-200"
-          style={{
-            height: "clamp(2.25rem, 5vw, 2.75rem)",
-            fontSize: "clamp(0.8rem, 2vw, 0.9rem)",
-          }}
+          className="cursor-pointer flex items-center justify-center gap-2.5 w-full py-3.5 px-6 bg-[#e50914] hover:bg-[#b80710] text-white font-bold rounded-xl text-base transition-all duration-200  active:scale-95 select-none"
         >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-            <polygon points="4,2 14,8 4,14" />
-          </svg>
-          Watch Now
+          <Play size={18} className="fill-white" />
+          <span>{label}</span>
         </Link>
       )}
     </FocusElementProvider>

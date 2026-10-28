@@ -1,6 +1,8 @@
 import { get, upsert } from "@/services/movie.store";
-import { StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
-import { BASE_URL, closeAnonymizedProxy, getBrowser } from "@/utils/browser";
+import { Season, StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
+import { BASE_URL } from "@/utils/browser";
+import { fetchFlare } from "@/utils/flaresolverr";
+import * as cheerio from "cheerio";
 
 export class GetDetail implements StrategyGetMovieDetails {
   async operation(link: string): Promise<Omit<StoredMovie, "link" | "updatedAt"> | undefined> {
@@ -9,13 +11,13 @@ export class GetDetail implements StrategyGetMovieDetails {
 
     const isPastDays = (dateString: string, days: number): boolean => {
       const date = new Date(dateString);
-
       return (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24) > days;
     };
 
     if (
       cached?.title &&
       cached?.image &&
+      cached?.backgroundImage &&
       !isPastDays(cached.updatedAt, 7) &&
       (!isSerie || cached?.episodes?.length)
     ) {
@@ -32,111 +34,90 @@ export class GetDetail implements StrategyGetMovieDetails {
       };
     }
 
-    const { browser, context, page, anonymizedProxy } = await getBrowser();
+    // Fetch page with FlareSolverr and parse via cheerio
+    const targetUrl = `${BASE_URL.SoloLatino}${link}`;
     try {
-      await page.goto(BASE_URL.SoloLatino + link, {
-        waitUntil: "domcontentloaded",
-      });
+      const response = await fetchFlare(targetUrl);
+      const html = await response.text();
+      const $ = cheerio.load(html);
 
-      const wrapper = page.locator(".detail-hero + div");
+      const wrapper = $(".detail-hero + div");
+      const container = isSerie ? wrapper.find("> div").first() : wrapper.find("> div");
 
-      const container = isSerie
-        ? wrapper.locator("> div").first()
-        : wrapper.locator("> div");
+      const backgroundStyle =
+        $(".detail-hero__bg, .detail-hero").attr("style") || "";
+      const bgMatch = backgroundStyle.match(/url\(['"]?([^'"]+?)['"]?\)/);
+      let backgroundImage = bgMatch?.[1]?.trim() ?? "";
 
-      const backgroundImage = await page
-        .locator(".detail-hero__bg")
-        .getAttribute("style");
+      if (backgroundImage.startsWith("//")) {
+        backgroundImage = `https:${backgroundImage}`;
+      } else if (backgroundImage.startsWith("/") && !backgroundImage.startsWith("//")) {
+        backgroundImage = `${BASE_URL.SoloLatino}${backgroundImage.replace(/^\//, "")}`;
+      }
 
-      const image = await container.locator("img").nth(0).getAttribute("src");
-      const title = await container.locator("h1").textContent();
+      if (backgroundImage.includes("image.tmdb.org")) {
+        backgroundImage = backgroundImage.replace(/\/w\d+\//, "/original/");
+      }
 
-      const spans = container.locator("span:not(.badge):not(.rating-badge)");
+      const image = container.find("img").eq(0).attr("src") ?? "";
+      const title = container.find("h1").text().trim() ?? "";
 
-      const year = await spans.nth(0).textContent();
+      const spans = container.find("span:not(.badge):not(.rating-badge)");
+      const year = spans.eq(0).text() ?? "";
+      const duration = spans.eq(1).text() ?? "";
 
-      const duration = await spans.nth(1).textContent();
+      const rating = container.find(".rating-badge--tmdb").text().trim() ?? "";
 
-      const rating = await container
-        .locator(".rating-badge--tmdb")
-        .textContent();
+      const tags = container
+        .find('a:not([data-tab-panel="episodios"] a)')
+        .map((_, el) => $(el).text().trim())
+        .get();
 
-      const tags = (
-        await container
-          .locator('a:not([data-tab-panel="episodios"] a)')
-          .allTextContents()
-      ).map((tag) => tag.trim());
+      const caption = container.find("p").last().text().trim() ?? "";
 
-      const caption = await container.locator("p").nth(-1).textContent();
-
-      const seasonsData = [];
+      const seasonsData: Season[] = [];
       if (isSerie) {
-        const seasonLocators = await page.locator("[data-season-panel]").all();
-
-        for (const seasonLocator of seasonLocators) {
-          const seasonNumber =
-            (await seasonLocator.getAttribute("data-season-panel")) ||
-            "Desconocida";
-
-          // 3. Buscamos los episodios ÚNICAMENTE dentro de este panel de temporada
-          const episodesData = await seasonLocator
-            .locator(".ep-item")
-            .evaluateAll((elements) => {
-              return elements.map((episode) => {
-                // Buscar los elementos de forma segura dentro del DOM
-                const imgEl = episode.querySelector("img.ep-thumb");
-                const titleEl = episode.querySelector(".text-sm.font-semibold");
-                const numEl = episode.querySelector(".ep-num");
-                const captionEl = episode.querySelector(".line-clamp-2");
-
-                const fullLink = episode.getAttribute("href") || "";
-
-                // Aplicar la expresión regular directamente en el navegador
-                const match = fullLink.match(
-                  /https?:\/\/[^/]+\/((?:pelicula|serie)\/[^?#]+)/,
-                );
-                const cleanedLink = match ? match[1] : "";
-
-                return {
-                  link: cleanedLink,
-                  title: titleEl ? titleEl.textContent.trim() : "",
-                  image: imgEl ? imgEl.getAttribute("src") || "" : "",
-                  numberEpisode: numEl ? numEl.textContent.trim() : "",
-                  caption: captionEl ? captionEl.textContent.trim() : "",
-                };
-              });
-            });
-
-          // 4. Guardamos la temporada junto con su lista de episodios
-          seasonsData.push({
-            season: seasonNumber,
-            episodes: episodesData,
-          });
-        }
+        $("[data-season-panel]").each((_, seasonEl) => {
+          const seasonNumber = $(seasonEl).attr("data-season-panel") || "Desconocida";
+          const episodesData = $(seasonEl)
+            .find(".ep-item")
+            .map((_, epEl) => {
+              const imgEl = $(epEl).find("img.ep-thumb");
+              const titleEl = $(epEl).find(".text-sm.font-semibold");
+              const numEl = $(epEl).find(".ep-num");
+              const captionEl = $(epEl).find(".line-clamp-2");
+              const fullLink = $(epEl).attr("href") || "";
+              const match = fullLink.match(/https?:\/\/[^/]+\/(?:pelicula|serie)\/[^?#]+/);
+              const cleanedLink = match ? match[0] : "";
+              return {
+                link: cleanedLink,
+                title: titleEl.text().trim() ?? "",
+                image: imgEl.attr("src") ?? "",
+                numberEpisode: numEl.text().trim() ?? "",
+                caption: captionEl.text().trim() ?? "",
+              };
+            })
+            .get();
+          seasonsData.push({ season: seasonNumber, episodes: episodesData });
+        });
       }
 
       const detail = {
-        backgroundImage:
-          backgroundImage?.match(/url\(["']?([^"')]+)["']?\)/)?.[1] ?? "",
-        image: image ?? "",
-        title: title?.trim() ?? "",
-        year: year ?? "",
-        duration: duration ?? "",
-        rating: rating?.replace(/TMDB\s+([0-9.]+)/, "TMDB $1") ?? "",
-        tags: tags ?? [],
-        caption: caption ?? "",
+        backgroundImage,
+        image,
+        title,
+        year,
+        duration,
+        rating,
+        tags,
+        caption,
         episodes: seasonsData,
       };
 
       upsert(link, detail);
-
       return detail;
     } catch (error) {
       console.error("Error occurred while fetching movie details:", error);
-    } finally {
-      await context.close().catch(() => {});
-      await browser?.close().catch(() => {});
-      await closeAnonymizedProxy(anonymizedProxy).catch(() => {});
     }
   }
 }

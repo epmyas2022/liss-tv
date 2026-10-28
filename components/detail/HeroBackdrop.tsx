@@ -1,6 +1,8 @@
 import Image from "next/image";
 import WatchButton from "@/components/ui/WatchButton";
-import FocusElementProvider from '../providers/FocusElementProvider';
+import FocusElementProvider from "../providers/FocusElementProvider";
+import { Star } from "lucide-react";
+import Link from "next/link";
 
 interface HeroBackdropProps {
   backgroundImage: string;
@@ -14,6 +16,27 @@ interface HeroBackdropProps {
   link: string;
 }
 
+function getCleanTitle(title?: string): string {
+  if (!title) return "";
+  const trimmed = title.trim();
+  const halfLen = trimmed.length / 2;
+  if (halfLen >= 3 && Number.isInteger(halfLen)) {
+    const firstHalf = trimmed.slice(0, halfLen);
+    const secondHalf = trimmed.slice(halfLen);
+    if (firstHalf === secondHalf) {
+      return firstHalf;
+    }
+  }
+  return trimmed;
+}
+
+function getCleanYear(year?: string): string {
+  if (!year) return "";
+  const trimmed = year.trim();
+  const match = trimmed.match(/\b(19\d\d|20\d\d)\b/);
+  return match ? match[0] : trimmed.slice(0, 4);
+}
+
 export function HeroBackdrop({
   backgroundImage,
   image,
@@ -25,85 +48,93 @@ export function HeroBackdrop({
   caption,
   link,
 }: HeroBackdropProps) {
+  const cleanTitle = getCleanTitle(title);
+  const cleanYear = getCleanYear(year);
+  const cleanRating = rating?.replace(/★/, "").trim();
+  const backdropSrc = backgroundImage || image || "/logo-with-background.png";
+  const isSerie = link.includes("serie");
+
   return (
-    <div className="flex flex-col">
-      {/* ── MOBILE LAYOUT ── */}
-      <div className="md:hidden">
-        {/* Backdrop hero — title overlaid at bottom */}
-        <div
-          className="relative w-full"
-          style={{ height: "56vw", minHeight: 200, maxHeight: 320 }}
-        >
-          {backgroundImage && (
-            <Image
-              src={backgroundImage}
-              alt=""
-              fill
-              priority
-              className="object-cover object-top"
-              sizes="(max-width: 767px) 100vw, 1px"
-            />
-          )}
-          {/* Gradient: transparent top → solid bottom */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(7,7,7,0.1) 0%, rgba(7,7,7,0.6) 60%, #070707 100%)",
-            }}
-          />
-          {/* Title over gradient */}
-          <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
-            <h1
-              className="font-poppins text-white font-bold leading-tight"
+    <section className="relative w-full min-h-[75vh] md:min-h-[82vh] flex items-end overflow-hidden pb-10 md:pb-16 pt-28 md:pt-36">
+      {/* ── Immersive Full-Screen Backdrop ── */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={backdropSrc}
+          alt={cleanTitle}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top sm:object-center select-none"
+        />
+        {/* Cinematic multi-stop gradients */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090a0c] via-[#090a0c]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#090a0c]/95 via-[#090a0c]/60 to-transparent md:w-3/4" />
+        <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-[#090a0c]/85 to-transparent" />
+      </div>
+
+      {/* ── Content Container ── */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-10">
+        {/* Floating Poster */}
+        {image && (
+          <FocusElementProvider className="rounded-xl shrink-0">
+            <div
+              className="w-36 sm:w-44 md:w-52 aspect-[2/3] shrink-0 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.9)] border border-white/10"
               style={{
-                fontSize: "clamp(1.4rem, 6vw, 2rem)",
-                textShadow: "0 2px 16px rgba(0,0,0,0.9)",
+                viewTransitionName: `poster-${link.replace(/\//g, "-").replace(/^-/, "")}`,
               }}
             >
-              {title}
-            </h1>
-          </div>
-        </div>
+              <Image
+                src={image}
+                alt={cleanTitle}
+                width={208}
+                height={312}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </FocusElementProvider>
+        )}
 
-        {/* Meta + CTA below backdrop */}
-        <div className="px-4 pt-3 pb-4 flex flex-col gap-3">
+        {/* Text & Action Details */}
+        <div className="flex flex-col gap-3.5 sm:gap-4 text-center md:text-left flex-1">
+     
+
+          {/* Title */}
+          <h1 className="font-poppins text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)]">
+            {cleanTitle}
+          </h1>
+
           {/* Meta row */}
-          <div className="flex items-center gap-2 flex-wrap">
-            {rating && (
-              <span
-                className="font-bold px-2.5 py-0.5 rounded-full text-white text-xs"
-                style={{
-                  background: "#EA1C25",
-                  boxShadow: "0 2px 8px rgba(234,28,37,0.5)",
-                }}
-              >
-                ★ {rating.trim()}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5 text-xs sm:text-sm text-gray-300 font-medium">
+            {cleanRating && (
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#e50914] text-white text-xs font-bold shadow-[0_2px_10px_rgba(229,9,20,0.4)]">
+                <Star size={12} className="fill-white" />
+                {cleanRating}
               </span>
             )}
-            {year && (
-              <span className="text-gray-300 text-sm">{year.trim()}</span>
-            )}
+            {cleanYear && <span>{cleanYear}</span>}
             {duration && (
               <>
-                <span className="text-gray-600 text-sm">·</span>
-                <span className="text-gray-300 text-sm">{duration.trim()}</span>
+                <span className="text-gray-600">•</span>
+                <span>{duration.trim()}</span>
               </>
             )}
+            <span className="text-gray-600">•</span>
+            <span className="px-2 py-0.5 rounded border border-white/20 text-xs uppercase text-gray-200">
+              {isSerie ? "Serie de TV" : "Película"}
+            </span>
+            <span className="text-gray-600">•</span>
+            <span className="px-2 py-0.5 rounded bg-white/[0.08] text-xs font-semibold text-gray-300">
+              HD
+            </span>
           </div>
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div className="flex gap-1.5 flex-wrap">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-1.5 sm:gap-2">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs px-2.5 py-0.5 rounded-full font-medium"
-                  style={{
-                    background: "rgba(255,255,255,0.08)",
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    color: "rgba(255,255,255,0.75)",
-                  }}
+                  className="text-xs px-3 py-1 rounded-full bg-white/[0.08] border border-white/[0.12] text-gray-300 font-medium"
                 >
                   {tag}
                 </span>
@@ -113,136 +144,28 @@ export function HeroBackdrop({
 
           {/* Synopsis */}
           {caption && (
-            <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+            <p className="text-gray-300/90 text-sm sm:text-base leading-relaxed max-w-2xl line-clamp-4 drop-shadow">
               {caption}
             </p>
           )}
 
-          {/* CTA — full width on mobile */}
-          {link.includes("pelicula") && (
-            <div className="mt-1">
-              <WatchButton
-                moviePreview={{ title, image, link, backgroundImage }}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ── DESKTOP LAYOUT (md+) — unchanged ── */}
-      <div className="hidden md:block relative">
-        {backgroundImage && (
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={backgroundImage}
-              alt=""
-              fill
-              priority
-              className="object-cover object-top"
-              sizes="(min-width: 768px) 100vw, 1px"
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.85) 50%, #070707 100%)",
-              }}
-            />
-          </div>
-        )}
-
-        <div className="relative z-10 flex flex-row items-start gap-8 px-6 pt-36 pb-16 max-w-5xl mx-auto w-full">
-          {/* Poster */}
-          {image && (
-            <FocusElementProvider className="rounded-xl" >
-              <div
-                className="shrink-0 rounded-xl overflow-hidden shadow-2xl"
-                style={{
-                  width: 180,
-                  aspectRatio: "2/3",
-                  boxShadow:
-                    "0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(234,28,37,0.25)",
-                }}
-              >
-                <Image
-                  src={image}
-                  alt={title || ""}
-                  width={180}
-                  height={270}
-                  className="object-cover w-full h-full"
-                  // ponytail: same name formula as MovieCard so the browser morphs them
-                  style={{
-                    viewTransitionName: `poster-${link.replace(/\//g, "-").replace(/^-/, "")}`,
-                  }}
-                />
-              </div>
-            </FocusElementProvider>
-          )}
-
-          {/* Info */}
-          <div className="flex flex-col gap-4 pb-2">
-            <h1
-              className="font-poppins text-white text-4xl md:text-5xl font-bold leading-tight"
-              style={{ textShadow: "0 2px 24px rgba(0,0,0,0.8)" }}
-            >
-              {title}
-            </h1>
-
-            <div className="flex items-center gap-3 flex-wrap text-sm">
-              {rating && (
-                <span
-                  className="font-bold px-2.5 py-0.5 rounded-full text-white text-xs"
-                  style={{
-                    background: "#EA1C25",
-                    boxShadow: "0 2px 12px rgba(234,28,37,0.5)",
-                  }}
-                >
-                  ★ {rating.trim()}
-                </span>
-              )}
-              {year && <span className="text-gray-300">{year.trim()}</span>}
-              {duration && (
-                <>
-                  <span className="text-gray-600">·</span>
-                  <span className="text-gray-300">{duration.trim()}</span>
-                </>
-              )}
-            </div>
-
-            {tags.length > 0 && (
-              <div className="flex gap-2 flex-wrap">
-                {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 rounded-full font-medium"
-                    style={{
-                      background: "rgba(255,255,255,0.08)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      color: "rgba(255,255,255,0.75)",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {caption && (
-              <p className="text-gray-300 text-sm leading-relaxed max-w-xl">
-                {caption}
-              </p>
-            )}
-
-            {link.includes("pelicula") && (
-              <div className="w-48 mt-2">
+          {/* Actions (Movies only — series display episodes list below) */}
+          {!isSerie && (
+            <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <div className="w-full sm:w-56">
                 <WatchButton
-                  moviePreview={{ title, image, link, backgroundImage }}
+                  moviePreview={{
+                    title: cleanTitle,
+                    image,
+                    link,
+                    backgroundImage: backdropSrc,
+                  }}
                 />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

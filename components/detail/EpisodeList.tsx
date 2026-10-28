@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Episode, EpisodeListProps, MoviePreview } from "@/types/movie";
 import { useMovieStore } from "../../store/useMovieStore";
@@ -49,41 +48,53 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
     analytics.watchVideo(`${title} - ${ep.title}`, ep.link);
   }
 
+  const episodeCount = current?.episodes?.length || 0;
+
   return (
-    <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 sm:pb-20">
-      {/* Season tabs */}
-      <div className="mb-6">
-        <SeasonSelect
-          seasons={seasons}
-          activeSeason={activeSeason}
-          onChange={setActiveSeason}
-        />
+    <section className="w-full max-w-6xl mx-auto px-4 sm:px-8 pb-24 sm:pb-20 pt-8 border-t border-white/[0.08]">
+      {/* Header: Season selection + Episode count */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div className="flex items-center gap-4">
+          <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Episodios
+          </h2>
+          <span className="text-xs sm:text-sm font-semibold px-3 py-1 rounded-full bg-white/[0.08] text-gray-300">
+            {episodeCount} {episodeCount === 1 ? "episodio" : "episodios"}
+          </span>
+        </div>
+
+        {seasons.length > 1 && (
+          <SeasonSelect
+            seasons={seasons}
+            activeSeason={activeSeason}
+            onChange={setActiveSeason}
+          />
+        )}
       </div>
 
-      {/* Episode rows */}
+      {/* Episode list */}
+      {current?.episodes && current.episodes.length > 0 ? (
+        <ol className="flex flex-col gap-2.5">
+          {current.episodes.map((ep) => {
+            const slug = ep.link.split("/")[1];
+            const targetHref = `/serie/${slug}/player`;
 
-      <ol className="flex flex-col gap-2">
-        {current.episodes.map((ep) => {
-          const slug = ep.link.split("/")[1];
-          const targetHref = `/serie/${slug}/player`;
-
-          return (
-            <li key={ep.link + ep.numberEpisode}>
-              <EpisodeWatchButton
-                ep={ep}
-                href={targetHref}
-                onClick={() => handleEpisodeInteraction(ep)}
-              />
-
-              {/* Separator */}
-              <div
-                className="mx-3 h-px"
-                style={{ background: "rgba(255,255,255,0.06)" }}
-              />
-            </li>
-          );
-        })}
-      </ol>
+            return (
+              <li key={`${ep.link}-${ep.numberEpisode}`}>
+                <EpisodeWatchButton
+                  ep={ep}
+                  href={targetHref}
+                  onClick={() => handleEpisodeInteraction(ep)}
+                />
+              </li>
+            );
+          })}
+        </ol>
+      ) : (
+        <div className="py-12 text-center text-gray-400">
+          No hay episodios disponibles para esta temporada.
+        </div>
+      )}
     </section>
   );
 }

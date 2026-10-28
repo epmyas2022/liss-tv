@@ -19,7 +19,6 @@ export default function SeasonSelect({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Cierra el menú al hacer clic afuera (mouse users)
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -43,64 +42,57 @@ export default function SeasonSelect({
       className="relative inline-block w-full sm:w-auto min-w-[220px]"
       ref={containerRef}
     >
-      {/* Botón Trigger */}
+      {/* Trigger Button */}
       <FocusElementProvider
-        className="rounded"
+        className="rounded-xl w-full"
         onEnterPress={() => setIsOpen((prev) => !prev)}
+        strokeSize={0}
+        styleFocus={{
+          outline: "2px solid #e50914",
+          outlineOffset: "2px",
+        }}
       >
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="w-full flex items-center justify-between bg-[#242424] hover:bg-[#333333] text-white text-base md:text-lg font-medium px-4 py-3.5 md:py-2.5 transition-colors cursor-pointer rounded outline-none"
+          className="w-full flex items-center justify-between bg-[#131519] hover:bg-[#1a1d24] border border-white/10 text-white text-base font-semibold px-5 py-3 rounded-xl transition-all cursor-pointer shadow-lg"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
         >
-          <span>Season {activeSeason}</span>
+          <span className="font-poppins tracking-wide">
+            Temporada {activeSeason}
+          </span>
           <ChevronDown
-            className={`text-white transition-transform duration-300 ml-4 ${
-              isOpen ? "rotate-180" : ""
+            className={`text-gray-300 transition-transform duration-300 ml-3 ${
+              isOpen ? "rotate-180 text-white" : ""
             }`}
-            size={22}
+            size={20}
           />
         </button>
       </FocusElementProvider>
 
-      {/* Menú Dropdown */}
+      {/* Dropdown Menu */}
       {isOpen && (
-        <>
-          <style>{`
-            @keyframes dropdownSlide {
-              from { opacity: 0; transform: translateY(-4px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-dropdown {
-              animation: dropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-          `}</style>
-          <div className="absolute z-50 w-full mt-2 py-2 bg-[#181818] border border-white/10 rounded shadow-2xl overflow-hidden max-h-[50vh] overflow-y-auto animate-dropdown custom-scrollbar">
-            {seasons.map((s) => {
-              const isActive = activeSeason === s.season;
-              return (
-                <FocusElementProvider
-                  key={s.season}
-                  className="rounded-none"
-                  strokeSize={0}
-                  styleFocus={{ background: "rgba(0,0,0,0.4)" }}
-                  onEnterPress={() => handleSelect(s.season)}
-                >
-                  <button
-                    onClick={() => handleSelect(s.season)}
-                    className={`w-full flex items-center justify-between px-4 py-3.5 md:py-2.5 text-base md:text-lg transition-colors cursor-pointer outline-none ${
-                      isActive
-                        ? "text-white font-semibold bg-white/5"
-                        : "text-[#b3b3b3] hover:text-white hover:bg-[#333333]"
-                    }`}
-                  >
-                    <span>Season {s.season}</span>
-                    {isActive && <Check size={20} className="text-white" />}
-                  </button>
-                </FocusElementProvider>
-              );
-            })}
-          </div>
-        </>
+        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-[#16181f] border border-white/15 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.9)] p-1.5 flex flex-col gap-1 max-h-72 overflow-y-auto custom-scrollbar animate-in fade-in zoom-in-95 duration-150">
+          {seasons.map((s) => {
+            const isSelected = s.season === activeSeason;
+            return (
+              <button
+                key={s.season}
+                onClick={() => handleSelect(s.season)}
+                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-colors text-left cursor-pointer ${
+                  isSelected
+                    ? "bg-[#e50914] text-white font-bold shadow-md"
+                    : "text-gray-300 hover:bg-white/[0.08] hover:text-white"
+                }`}
+                role="option"
+                aria-selected={isSelected}
+              >
+                <span>Temporada {s.season}</span>
+                {isSelected && <Check size={16} strokeWidth={2.5} />}
+              </button>
+            );
+          })}
+        </div>
       )}
     </div>
   );

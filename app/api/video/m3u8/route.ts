@@ -1,24 +1,11 @@
+import { BROWSER_UA, createStickySession } from "@/utils/browser";
 import got from "got";
-import { HttpsProxyAgent } from "https-proxy-agent";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "node:stream";
 
-const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
 const PROXY_PATH = "/api/video/m3u8";
 
-// ---------------------------------------------------------------------------
-// Sticky proxy agent — used ONLY to fetch manifests (.m3u8).
-// Segments are forwarded directly; no proxy bandwidth is spent on them.
-// ---------------------------------------------------------------------------
-function buildProxyAgent(): HttpsProxyAgent<string> | undefined {
-  const host = process.env.PROXY_HOST;
-  const user = process.env.PROXY_USERNAME;
-  const pass = process.env.PROXY_PASSWORD;
-  if (!host) return undefined;
-  const auth = user && pass ? `${user}:${pass}@` : "";
-  return new HttpsProxyAgent(`http://${auth}${host}`);
-}
+
 
 function resolveUrl(uri: string, manifestUrl: string): string {
   if (/^https?:\/\//i.test(uri)) return uri;
@@ -69,10 +56,10 @@ export async function GET(req: NextRequest) {
     // never touches the proxy.
     // ------------------------------------------------------------------
     if (isManifestUrl) {
-      const agent = buildProxyAgent();
+      const {agent} = createStickySession();
 
       const manifestRes = await got(url, {
-        headers: { "user-agent": UA },
+        headers: { "user-agent": BROWSER_UA },
         throwHttpErrors: false,
         ...(agent ? { agent: { https: agent, http: agent } } : {}),
       });
@@ -101,7 +88,7 @@ export async function GET(req: NextRequest) {
     // ------------------------------------------------------------------
     const nodeStream = got.stream(url, {
       headers: {
-        "user-agent": UA,
+        "user-agent": BROWSER_UA,
         ...(req.headers.get("range")
           ? { range: req.headers.get("range")! }
           : {}),

@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { Search, X, Loader2, ArrowLeft } from "lucide-react";
 import FocusElementProvider from "../providers/FocusElementProvider";
 
 interface NetflixSearchProps {
@@ -10,33 +10,43 @@ interface NetflixSearchProps {
   isMobile?: boolean;
 }
 
-export default function NetflixSearch({
-  className = "",
-  isMobile = false,
-}: NetflixSearchProps) {
+export default function NetflixSearch({ className = "" }: NetflixSearchProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const urlSearch = searchParams.get("search") ?? "";
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [prevUrlSearch, setPrevUrlSearch] = useState(urlSearch);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isDesktopOpen, setIsDesktopOpen] = useState(Boolean(urlSearch));
   const [pending, setPending] = useState(false);
-  const [value, setValue] = useState(searchParams.get("search") ?? "");
+  const [value, setValue] = useState(urlSearch);
+
+  // Sync state during render when URL query changes (avoids effect cascading render)
+  if (urlSearch !== prevUrlSearch) {
+    setPrevUrlSearch(urlSearch);
+    setValue(urlSearch);
+    if (urlSearch) {
+      setIsDesktopOpen(true);
+    }
+  }
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const desktopInputRef = useRef<HTMLInputElement>(null);
+  const mobileInputRef = useRef<HTMLInputElement>(null);
+  const desktopContainerRef = useRef<HTMLDivElement>(null);
 
+  // Click outside to collapse desktop search if empty (classic Netflix behavior)
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
-      // Si el elemento ya no está en el DOM (ej: SVG path que se re-renderizó), ignoramos.
       if (!document.contains(target)) return;
-      
+
       if (
-        containerRef.current &&
-        !containerRef.current.contains(target)
+        desktopContainerRef.current &&
+        !desktopContainerRef.current.contains(target)
       ) {
         if (!value) {
-          setIsOpen(false);
+          setIsDesktopOpen(false);
         }
       }
     }
@@ -47,108 +57,177 @@ export default function NetflixSearch({
   function handleSearch(val: string) {
     setValue(val);
     setPending(true);
-    if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    if (val.trim() === "") {
-      setPending(false);
-      router.push("/");
-      return;
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
 
     debounceRef.current = setTimeout(() => {
       setPending(false);
-      router.push(`/?search=${encodeURIComponent(val.trim())}`);
-    }, 1800);
+      const trimmed = val.trim();
+      if (trimmed === "") {
+        router.push("/");
+      } else {
+        router.push(`/?search=${encodeURIComponent(trimmed)}`);
+      }
+    }, 450);
   }
 
-  function toggleSearch() {
-    if (!isOpen) {
-      setIsOpen(true);
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  }
-
-  function clearSearch() {
+  function handleClear() {
     setValue("");
-    handleSearch("");
-    inputRef.current?.focus();
+    setPending(false);
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    router.push("/");
+    desktopInputRef.current?.focus();
+    mobileInputRef.current?.focus();
   }
+
+  function toggleDesktop() {
+    setIsDesktopOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        setTimeout(() => desktopInputRef.current?.focus(), 80);
+      }
+      return next;
+    });
+  }
+
+  function openMobileSearch() {
+    setIsMobileOpen(true);
+    setTimeout(() => {
+      mobileInputRef.current?.focus();
+    }, 80);
+  }
+
+  function closeMobileSearch() {
+    setIsMobileOpen(false);
+  }
+
+  const isExpanded = isDesktopOpen || Boolean(value);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative flex items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isOpen ? (isMobile ? "w-48 sm:w-56" : "w-72 lg:w-80") : "w-10"
-      } ${className}`}
-    >
-      <FocusElementProvider
-        className="w-full rounded-full "
-        onEnterPress={toggleSearch}
-        strokeSize={0}
-        styleFocus={{
-          outline: "2px solid rgba(234,28,37,0.8)",
-          outlineOffset: "3px",
-          borderRadius: "9999px",
-        }}
-      >
-        <div
-          className={`group flex items-center justify-center w-full h-10 transition-all duration-500 overflow-hidden rounded-full ${
-            isOpen
-              ? pending
-                ? "bg-black/90 border border-[#EA1C25]/50"
-                : "bg-[#0a0a0a]/80 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] focus-within:bg-black focus-within:border-white/20"
-              : "bg-transparent border border-transparent hover:bg-white/10"
-          }`}
-          onClick={!isOpen ? toggleSearch : undefined}
-          title={!isOpen ? "Buscar" : ""}
-        >
-          <div className="w-10 h-10 flex items-center justify-center shrink-0">
-            <Search
-              size={20}
-              strokeWidth={isOpen ? 2 : 2.5}
-              className={`transition-all duration-300 ${
-                isOpen 
-                  ? pending 
-                    ? "text-[#EA1C25]" 
-                    : "text-white/50 group-focus-within:text-white"
-                  : "text-white/80 hover:text-white"
-              } ${!isOpen && "cursor-pointer"}`}
-              onClick={isOpen ? () => inputRef.current?.focus() : undefined}
+    <>
+      {/* ── Mobile Search Header Takeover (Netflix style full-width) ── */}
+      {isMobileOpen && (
+        <div className="md:hidden fixed inset-x-0 top-0 h-18 z-50 bg-black border-b border-white/20 px-3.5 flex items-center gap-3 shadow-2xl animate-in fade-in duration-200">
+          <button
+            type="button"
+            onClick={closeMobileSearch}
+            className="p-2 text-white/80 hover:text-white rounded-full active:bg-white/10 transition-colors"
+            aria-label="Cerrar búsqueda"
+          >
+            <ArrowLeft size={22} />
+          </button>
+
+          <div className="flex-1 relative flex items-center bg-black rounded-full border border-white/80 focus-within:border-white px-4 py-2.5 shadow-inner transition-colors">
+            <Search size={20} className="text-white/80 shrink-0 mr-3" />
+            <input
+              ref={mobileInputRef}
+              type="text"
+              placeholder="Títulos, personas, géneros..."
+              value={value}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="w-full bg-transparent text-lg text-white font-medium placeholder-gray-400 focus:outline-none"
             />
+
+            {pending && (
+              <Loader2 size={18} className="text-[#e50914] animate-spin shrink-0 ml-2" />
+            )}
+
+            {value && !pending && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="text-gray-400 hover:text-white p-1 rounded-full shrink-0 ml-1 active:bg-white/10"
+                aria-label="Limpiar campo"
+              >
+                <X size={18} />
+              </button>
+            )}
           </div>
-
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Títulos, personas, géneros"
-            value={value}
-            onChange={(e) => handleSearch(e.target.value)}
-            className={`font-poppins text-[15px] tracking-wide bg-transparent text-white placeholder-white/30 focus:outline-none transition-all duration-500 ${
-              isOpen ? "w-full opacity-100 pr-2" : "w-0 opacity-0"
-            }`}
-          />
-
-          {isOpen && pending && (
-            <div className="w-10 h-10 flex items-center justify-center shrink-0">
-              <span
-                className="block w-4 h-4 rounded-full border-[2.5px] border-transparent border-t-[#EA1C25] animate-[spin_0.6s_linear_infinite]"
-              />
-            </div>
-          )}
-
-          {isOpen && value && !pending && (
-            <div 
-              className="w-10 h-10 flex items-center justify-center shrink-0 cursor-pointer"
-              onClick={clearSearch}
-            >
-              <X
-                size={18}
-                className="text-white/40 hover:text-white hover:scale-110 transition-all duration-200"
-              />
-            </div>
-          )}
         </div>
-      </FocusElementProvider>
-    </div>
+      )}
+
+      {/* ── Mobile Trigger Button (when closed) ── */}
+      <button
+        type="button"
+        onClick={openMobileSearch}
+        className="md:hidden flex items-center justify-center w-10 h-10 rounded-full text-white/90 hover:text-white active:bg-white/10 transition-colors"
+        aria-label="Buscar en Liss TV"
+      >
+        <Search size={22} />
+      </button>
+
+      {/* ── Desktop Netflix-Style Search (Solid Black & Large Typography) ── */}
+      <div ref={desktopContainerRef} className={`hidden md:block ${className}`}>
+        <FocusElementProvider
+          className="rounded-full"
+          onEnterPress={() => {
+            if (!isExpanded) {
+              toggleDesktop();
+            } else {
+              desktopInputRef.current?.focus();
+            }
+          }}
+          strokeSize={0}
+          styleFocus={{
+            outline: "2px solid #e50914",
+            outlineOffset: "2px",
+            borderRadius: "9999px",
+          }}
+        >
+          <div
+            onClick={!isExpanded ? toggleDesktop : undefined}
+            className={`group relative flex items-center h-11 sm:h-12 transition-all duration-350 ease-out cursor-pointer ${
+              isExpanded
+                ? "w-72 sm:w-80 lg:w-96 bg-black border border-white focus-within:border-white  rounded-full px-4 sm:px-5"
+                : "w-11 justify-center rounded-full bg-transparent hover:bg-white/[0.08]"
+            }`}
+          >
+            <Search
+              size={isExpanded ? 20 : 22}
+              className={`shrink-0 transition-colors duration-200 ${
+                isExpanded
+                  ? "text-white mr-3"
+                  : "text-white/80 group-hover:text-white"
+              }`}
+            />
+
+            <input
+              ref={desktopInputRef}
+              type="text"
+              placeholder="Títulos, series, géneros..."
+              value={value}
+              onChange={(e) => handleSearch(e.target.value)}
+              className={`bg-transparent text-base lg:text-lg font-medium text-white placeholder:text-gray-400 placeholder:font-normal focus:outline-none transition-all duration-300 ${
+                isExpanded
+                  ? "w-full opacity-100"
+                  : "w-0 opacity-0 pointer-events-none"
+              }`}
+            />
+
+            {isExpanded && pending && (
+              <Loader2
+                size={18}
+                className="text-[#e50914] animate-spin shrink-0 ml-2"
+              />
+            )}
+
+            {isExpanded && value && !pending && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="text-gray-400 hover:text-white p-1 rounded-full shrink-0 ml-2 transition-colors cursor-pointer"
+                aria-label="Limpiar búsqueda"
+              >
+                <X size={17} />
+              </button>
+            )}
+          </div>
+        </FocusElementProvider>
+      </div>
+    </>
   );
 }

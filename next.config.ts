@@ -7,8 +7,9 @@ const nextConfig: NextConfig = {
     "playwright-extra",
     "puppeteer-extra-plugin-stealth",
     "puppeteer-extra-plugin",
-    "clone-deep",             
-    "merge-deep"
+    "clone-deep",
+    "merge-deep",
+    "better-sqlite3",
   ],
   images: {
     dangerouslyAllowLocalIP: true,

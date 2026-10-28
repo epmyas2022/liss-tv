@@ -43,3 +43,9 @@ next-env.d.ts
 # local data store
 android
 certificates
+data/flaresolverrCache.json
+
+*.db
+*.db-shm
+*.db-wal
+*.bak
