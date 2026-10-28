@@ -1,6 +1,7 @@
 import { chromium } from "playwright-extra";
 import stealth from "puppeteer-extra-plugin-stealth";
 import fs from "fs/promises";
+import { FlareSolverrCookies } from "@/types/solverr";
 import {
   createStickySession,
   anonymizeProxy,
@@ -53,7 +54,10 @@ export const BASE_URL = {
 export const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-export async function getBrowserContext(anonymizedProxy?: string) {
+export async function getBrowserContext(
+  anonymizedProxy?: string,
+  userAgent?: string,
+) {
   const browser = await chromium.launch({
     headless: true,
     args: BROWSER_ARGS,
@@ -71,7 +75,7 @@ export async function getBrowserContext(anonymizedProxy?: string) {
 
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
-    userAgent: BROWSER_UA,
+    userAgent: userAgent || BROWSER_UA,
     ...(isExistFileState && { storageState: "state.json" }),
   });
 
@@ -79,18 +83,48 @@ export async function getBrowserContext(anonymizedProxy?: string) {
   return { browser, context, page };
 }
 
-export async function getBrowser(options?: { blockAssets?: boolean }) {
-  const { url: stickyUrl } = createStickySession();
-  const anonymizedProxy = await anonymizeProxy(stickyUrl);
-  const result = await getBrowserContext(anonymizedProxy);
+export interface GetBrowserOptions {
+  proxyUrl?: string;
+  anonymizedProxy?: string;
+  userAgent?: string;
+  cookies?: FlareSolverrCookies[];
+  blockAssets?: boolean;
+}
 
+export async function getBrowser(options: GetBrowserOptions = {}) {
+  let anonymizedProxy = options.anonymizedProxy;
+  if (!anonymizedProxy) {
+    const proxyUrl = options.proxyUrl || createStickySession().url;
+    anonymizedProxy = await anonymizeProxy(proxyUrl);
+  }
+
+  const result = await getBrowserContext(anonymizedProxy, options.userAgent);
+
+  if (options.cookies && options.cookies.length > 0) {
+    await result.context.addCookies(
+      options.cookies.map((c) => ({
+        name: c.name,
+        value: c.value,
+        domain: c.domain.startsWith(".") ? c.domain : `.${c.domain}`,
+        path: c.path || "/",
+        secure: c.secure,
+      })),
+    );
+  }
 
   console.log(`Anonymized proxy created: ${anonymizedProxy}`);
 
-  if (options?.blockAssets !== false) {
+  if (options.blockAssets !== false) {
     await result.page.route("**/*", (route) => {
       const type = route.request().resourceType();
       const url = route.request().url();
+
+      if (
+        url.includes("cloudflare.com") ||
+        url.includes("challenges.cloudflare.com")
+      ) {
+        return route.continue();
+      }
 
       if (
         blacklistedDomains.some((domain) => url.includes(domain)) ||

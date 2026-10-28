@@ -1,8 +1,13 @@
 import { getAllData, upsertAll } from "@/services/movie.store";
-import { fetchFlare } from "@/utils/flaresolverr";
+import { fetchFlare, resolver } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 import { Movies, StrategyGetAllMovies } from "@/types/movie";
-import { BASE_URL, getBrowser, closeAnonymizedProxy } from "@/utils/browser";
+import {
+  BASE_URL,
+  getBrowser,
+  closeAnonymizedProxy,
+  createStickySession,
+} from "@/utils/browser";
 
 export class GetAll implements StrategyGetAllMovies {
   async operation(
@@ -29,19 +34,33 @@ export class GetAll implements StrategyGetAllMovies {
       let html: string;
 
       if (search) {
-        browserInstance = await getBrowser();
+        const { url: stickyUrl } = createStickySession();
+        const { userAgent, cookies } = await resolver(targetUrl, {
+          proxyUrl: stickyUrl,
+        });
+
+        browserInstance = await getBrowser({
+          proxyUrl: stickyUrl,
+          userAgent,
+          cookies,
+        });
+
         await browserInstance.page.goto(targetUrl, {
           waitUntil: "domcontentloaded",
           timeout: 20000,
         });
 
-        console.log(`Navigated to ${targetUrl} with search term "${search}"`);
-
-      
+        const title = await browserInstance.page.title();
+        if (title.includes("Just a moment") || title.includes("Cloudflare")) {
+          await browserInstance.page
+            .waitForFunction(() => !document.title.includes("Just a moment"), {
+              timeout: 10000,
+            })
+            .catch(() => {});
+        }
 
         html = await browserInstance.page.content();
-
-        console.log(html)
+        console.log(html);
       } else {
         const response = await fetchFlare(targetUrl);
         html = await response.text();
@@ -61,7 +80,9 @@ export class GetAll implements StrategyGetAllMovies {
       const movies = $(".card")
         .map((_, el) => {
           const linkRaw = $(el).find("a").attr("href") || "";
-          const match = linkRaw.match(/https?:\/\/[^/]+(\/(pelicula|serie)\/[^/?#]+)/);
+          const match = linkRaw.match(
+            /https?:\/\/[^/]+(\/(pelicula|serie)\/[^/?#]+)/,
+          );
           const link = match ? match[1] : "";
           const image = $(el).find("img").attr("src") || "";
           const rating =
@@ -87,7 +108,9 @@ export class GetAll implements StrategyGetAllMovies {
       if (browserInstance) {
         await browserInstance.browser.close().catch(() => {});
         if (browserInstance.anonymizedProxy) {
-          await closeAnonymizedProxy(browserInstance.anonymizedProxy).catch(() => {});
+          await closeAnonymizedProxy(browserInstance.anonymizedProxy).catch(
+            () => {},
+          );
         }
       }
     }
