@@ -1,6 +1,13 @@
-FROM node:25.9.0-alpine AS builder
+FROM node:25.9.0-slim AS builder
 
 WORKDIR /app
+
+# Instalar herramientas de compilación necesarias para node-gyp (better-sqlite3)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
 
@@ -14,28 +21,24 @@ ENV NEXT_PUBLIC_POCKETBASE_URL=$NEXT_PUBLIC_POCKETBASE_URL
 ARG NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
 ARG NEXT_PUBLIC_POSTHOG_HOST
 
-
 ENV NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN=$NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
 ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
 
 RUN npm run build
 RUN npm prune --omit=dev
 
-FROM node:25.9.0-slim  AS runner
+FROM node:25.9.0-slim AS runner
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-
-#Instalar el proxy para navegar en red tor
-
+# Instalar el proxy para navegar en red tor
 RUN apt-get update && apt-get install -y \
     tor \
     curl \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
 
 RUN echo "Log notice stdout" >> /etc/tor/torrc && \
     echo "SocksPort 127.0.0.1:9050" >> /etc/tor/torrc && \
@@ -47,15 +50,11 @@ RUN npx --yes playwright@1.62.1 install --with-deps chromium
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-
 COPY --from=builder /app/node_modules ./node_modules
-
 
 ENV PORT=8000
 
-
 EXPOSE $PORT
-
 
 VOLUME [ "/data" ]
 
