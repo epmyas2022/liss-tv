@@ -1,4 +1,4 @@
-FROM node:24.19.0-alpine AS builder
+FROM node:25.9.0-alpine AS builder
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
 RUN npm run build
 RUN npm prune --omit=dev
 
-FROM node:24.19.0-slim  AS runner
+FROM node:25.9.0-slim  AS runner
 
 WORKDIR /app
 
