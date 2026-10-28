@@ -146,9 +146,23 @@ export async function resolver(
   };
 
   if (options.proxyUrl) {
-    payload.proxy = {
-      url: cleanProxyUrl(options.proxyUrl),
-    };
+    try {
+      const parsed = new URL(options.proxyUrl);
+      const proxyPayload: Record<string, string> = {
+        url: `${parsed.protocol}//${parsed.host}`,
+      };
+      if (parsed.username) {
+        proxyPayload.username = decodeURIComponent(parsed.username);
+      }
+      if (parsed.password) {
+        proxyPayload.password = decodeURIComponent(parsed.password);
+      }
+      payload.proxy = proxyPayload;
+    } catch {
+      payload.proxy = {
+        url: cleanProxyUrl(options.proxyUrl),
+      };
+    }
   }
 
   const response = await fetch(flareSolverrEndpoint, {
