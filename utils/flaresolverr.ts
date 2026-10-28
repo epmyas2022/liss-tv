@@ -62,7 +62,7 @@ export async function resolver(url: string): Promise<FlareSolverrOutput> {
     return { userAgent: cached.userAgent, cookies: cached.cookies };
   }
 
-  const flareSolverrEndpoint = "http://localhost:8191/v1";
+  const flareSolverrEndpoint = process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
   const payload = {
     cmd: "request.get",
     url: url || BASE_URL.SoloLatino,
