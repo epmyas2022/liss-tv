@@ -144,35 +144,46 @@ export default function Home() {
           search ? "pt-24 sm:pt-28" : "pt-6 sm:pt-8"
         }`}
       >
-        <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center gap-3">
-            <div className="w-1.5 h-6 rounded-full bg-[#e50914]" />
-
-            <h2 className="font-poppins text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              {search ? (
-                <>
-                  Resultados para{" "}
-                  <span className="text-[#e50914]">&ldquo;{search}&rdquo;</span>
-                </>
-              ) : filter === "peliculas" ? (
-                "Películas destacadas"
-              ) : filter === "series" ? (
-                "Series destacadas"
-              ) : (
-                "Explorar catálogo"
-              )}
-            </h2>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-2 border-b border-white/[0.06]">
+          <div className="min-w-0 flex-1">
+            {search ? (
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-gray-400">
+                  <div className="w-1.5 h-4 rounded-full bg-[#e50914] shrink-0" />
+                  <span>Resultados para</span>
+                </div>
+                <h2 className="font-poppins text-lg sm:text-2xl font-bold tracking-tight text-white line-clamp-2 break-words">
+                  <span className="text-[#e50914]">&ldquo;</span>
+                  {search}
+                  <span className="text-[#e50914]">&rdquo;</span>
+                </h2>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2.5">
+                <div className="w-1.5 h-5 rounded-full bg-[#e50914] shrink-0" />
+                <h2 className="font-poppins text-xl sm:text-2xl font-bold tracking-tight text-white">
+                  {filter === "peliculas"
+                    ? "Películas destacadas"
+                    : filter === "series"
+                      ? "Series destacadas"
+                      : "Explorar catálogo"}
+                </h2>
+              </div>
+            )}
           </div>
-          <span className="text-xs sm:text-sm text-gray-400 font-medium">
-            {movies.length} títulos
+
+          <span className="text-xs sm:text-sm text-gray-400 font-medium shrink-0 self-start sm:self-auto">
+            {movies.length} {movies.length === 1 ? "título" : "títulos"}
           </span>
         </div>
-        <br></br>
 
         {!loading && movies.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-4 rounded-2xl my-4">
-            <h3 className="text-xl sm:text-2xl font-bold font-poppins text-white mb-2">
-              No encontramos resultados para &ldquo;{search}&rdquo;
+            <h3 className="text-xl sm:text-2xl font-bold font-poppins text-white mb-2 max-w-xl mx-auto break-words px-2">
+              No encontramos resultados para{" "}
+              <span className="text-[#e50914] break-all sm:break-words">
+                &ldquo;{search}&rdquo;
+              </span>
             </h3>
             <p className="text-gray-400 max-w-md text-sm mb-6">
               Revisá que las palabras estén bien escritas o probá con otros
