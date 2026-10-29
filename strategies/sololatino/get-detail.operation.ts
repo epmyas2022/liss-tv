@@ -1,6 +1,6 @@
 import { get, upsert } from "@/services/movie.store";
 import { Season, StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
-import { BASE_URL } from "@/utils/browser";
+import { BASE_URL, createStickySession } from "@/utils/browser";
 import { fetchFlare } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 
@@ -37,7 +37,8 @@ export class GetDetail implements StrategyGetMovieDetails {
     // Fetch page with FlareSolverr and parse via cheerio
     const targetUrl = `${BASE_URL.SoloLatino}${link}`;
     try {
-      const response = await fetchFlare(targetUrl);
+      const { agent } = createStickySession();
+      const response = await fetchFlare(targetUrl, { agent });
       const html = await response.text();
       const $ = cheerio.load(html);
 

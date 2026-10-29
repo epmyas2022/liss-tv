@@ -75,7 +75,7 @@ export class FileLogSink implements LogSink {
   private logFilePath: string;
 
   constructor(fileName = "logger.log") {
-    this.logFilePath = path.resolve(process.cwd(), fileName);
+    this.logFilePath = path.resolve(/*turbopackIgnore: true*/ process.cwd(), fileName);
   }
 
   public emit(payload: LogPayload): void {

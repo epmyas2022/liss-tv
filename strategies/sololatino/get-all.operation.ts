@@ -2,7 +2,7 @@ import { getAllData, upsertAll } from "@/services/movie.store";
 import { fetchFlare } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 import { Movie, Movies, StrategyGetAllMovies } from "@/types/movie";
-import { BASE_URL } from "@/utils/browser";
+import { BASE_URL, createStickySession } from "@/utils/browser";
 
 interface SoloLatinoSuggestItem {
   type?: string;
@@ -34,8 +34,10 @@ export class GetAll implements StrategyGetAllMovies {
       ? `${BASE_URL.SoloLatino}api/search/suggest?q=${encodeURIComponent(search)}`
       : `${BASE_URL.SoloLatino}${slug ?? ""}${pageNumber && pageNumber > 1 ? `?page=${pageNumber}` : ""}`;
 
+    const { agent } = createStickySession();
+
     try {
-      const response = await fetchFlare(targetUrl, {});
+      const response = await fetchFlare(targetUrl, { agent });
       const rawText = await response.text();
 
       if (search) {

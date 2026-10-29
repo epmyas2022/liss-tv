@@ -1,4 +1,5 @@
 import {
+  FlareSolverrCookies,
   FlareSolverrOutput,
   FlareSolverrResponse,
   FlareSolverrCacheEntry,
@@ -85,6 +86,7 @@ async function loadCache(key: string): Promise<FlareSolverrCacheEntry | null> {
     entry &&
     typeof entry.userAgent === "string" &&
     Array.isArray(entry.cookies) &&
+    entry.cookies.length > 0 &&
     typeof entry.expiry === "number"
   ) {
     return entry;
@@ -100,6 +102,15 @@ async function saveCache(key: string, entry: FlareSolverrCacheEntry): Promise<vo
   store[key] = entry;
   await mkdir(path.dirname(CACHE_FILE_PATH), { recursive: true });
   await writeFile(CACHE_FILE_PATH, JSON.stringify(store, null, 2), "utf-8");
+}
+
+async function deleteCache(key: string): Promise<void> {
+  const store = await loadCacheStore();
+  if (store[key]) {
+    delete store[key];
+    await mkdir(path.dirname(CACHE_FILE_PATH), { recursive: true });
+    await writeFile(CACHE_FILE_PATH, JSON.stringify(store, null, 2), "utf-8");
+  }
 }
 
 /**
@@ -216,6 +227,26 @@ export async function resolver(
   url: string,
   options: ResolverOptions = {},
 ): Promise<FlareSolverrOutput> {
+  let defaultProxyKey = "direct";
+  if (options.proxyUrl) {
+    try {
+      const parsed = new URL(options.proxyUrl);
+      defaultProxyKey = `proxy:${parsed.hostname || parsed.host}`;
+    } catch {
+      defaultProxyKey = `proxy:${process.env.PROXY_HOST || "default"}`;
+    }
+  }
+  const cacheKey = options.proxyKey || defaultProxyKey;
+
+  const cached = await loadCache(cacheKey);
+  const now = Date.now();
+  if (cached && cached.expiry > now) {
+    return {
+      userAgent: cached.userAgent,
+      cookies: cached.cookies,
+    };
+  }
+
   const flareSolverrEndpoint =
     process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
 
@@ -279,6 +310,7 @@ export async function resolver(
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
+
         data = await response.json();
       }
 
@@ -341,7 +373,30 @@ export async function resolver(
       };
     };
 
-    return executeRequest();
+    const result = await executeRequest();
+
+    if (result.cookies && result.cookies.length > 0) {
+      const cfClearance = result.cookies.find((c) => c.name === "cf_clearance") as
+      | (FlareSolverrCookies & { expiry?: number })
+      | undefined;
+    let expiry = now + 60 * 60 * 1000;
+    if (
+      cfClearance?.expiry &&
+      typeof cfClearance.expiry === "number" &&
+      cfClearance.expiry * 1000 > now
+    ) {
+      expiry = cfClearance.expiry * 1000;
+    }
+
+    await saveCache(cacheKey, {
+      userAgent: result.userAgent,
+      cookies: result.cookies,
+      expiry,
+    });
+
+    }
+
+    return result;
   });
 }
 
@@ -359,6 +414,16 @@ export async function fetchFlare(
   options: FetchFlareOptions = {},
   retriesLeft = 3,
 ): Promise<Response> {
+  if (!options.agent) {
+    const session = createStickySession();
+    options = {
+      ...options,
+      agent: session.agent,
+      proxyUrl: session.url,
+      proxyUsername: session.username,
+    };
+  }
+
   const proxyDetails = extractProxyDetails(options);
   const username = extractProxyUsername(options);
 
@@ -401,6 +466,15 @@ export async function fetchFlare(
         url,
         fetchOptions as never,
       )) as unknown as Response;
+
+      if (res.status === 403 && retriesLeft > 0) {
+        await deleteCache(proxyDetails.proxyKey || "direct");
+
+
+
+
+        return fetchFlare(url, options, retriesLeft - 1);
+      }
 
       if (res.status === 402 || res.status === 407) {
         throw new Error(
