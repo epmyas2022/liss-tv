@@ -192,8 +192,8 @@ export class GetUrl implements StrategyGetUrl {
           ]),
           new Promise((_, rej) =>
             setTimeout(
-              () => rej(new Error("Timeout: no Mediafire URL captured in 30s")),
-              30000,
+              () => rej(new Error("Timeout: no Mediafire URL captured in 35s")),
+              35000,
             ),
           ),
         ]);
