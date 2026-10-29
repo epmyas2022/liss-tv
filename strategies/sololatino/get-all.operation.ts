@@ -52,12 +52,21 @@ export class GetAll implements StrategyGetAllMovies {
         try {
           items = JSON.parse(jsonPayload);
         } catch (parseError) {
-          console.warn("[SoloLatino] Failed to parse search suggest JSON:", parseError);
+          console.warn(
+            "[SoloLatino] Failed to parse search suggest JSON:",
+            parseError,
+          );
         }
 
         const movies: Movie[] = Array.isArray(items)
           ? items
-              .filter((item) => item.type === "movie" || item.type === "series")
+              .filter(
+                (item) =>
+                  item.type !== "person" &&
+                  item.url &&
+                  item.title &&
+                  item.poster,
+              )
               .map((item) => {
                 const linkRaw = item.url || "";
                 const match = linkRaw.match(
