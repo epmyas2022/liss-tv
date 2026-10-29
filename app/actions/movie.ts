@@ -12,7 +12,7 @@ export async function getMovieUrl(link: string) {
       execute: () =>
         withTimeout(
           context.getUrl(link),
-          35000, //
+          30000, //
           new Error("Error al obtener la URL del video"),
         ),
       attempts: 3,

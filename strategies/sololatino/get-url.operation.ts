@@ -187,13 +187,13 @@ export class GetUrl implements StrategyGetUrl {
             videoPromise(getUrlMediafire),
             Promise.race([
               videoPromise(getUrlM3u8),
-              new Promise((res, _) => setTimeout(() => res(null), 20000)),
+              new Promise((res, _) => setTimeout(() => res(null), 10000)),
             ]),
           ]),
           new Promise((_, rej) =>
             setTimeout(
-              () => rej(new Error("Timeout: no Mediafire URL captured in 35s")),
-              35000,
+              () => rej(new Error("Timeout: no Mediafire URL captured in 30s")),
+              30000,
             ),
           ),
         ]);
