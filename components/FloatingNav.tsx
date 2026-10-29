@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Popcorn, Clapperboard, Eye, Home } from "lucide-react";
+import { Popcorn, Clapperboard, Bookmark, Home } from "lucide-react";
 import FocusContextProvider from "./providers/FocusContextProvider";
 import FocusElementProvider from "./providers/FocusElementProvider";
 
@@ -18,7 +18,7 @@ const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"), {
 const NAV_ITEMS = [
   { label: "Movies", href: "/?filter=peliculas", icon: Popcorn },
   { label: "Series", href: "/?filter=series", icon: Clapperboard },
-  { label: "Watching", href: "/continue-watching", icon: Eye },
+  { label: "Mi Lista", href: "/my-list", icon: Bookmark },
 ];
 
 const MOBILE_NAV_ITEMS = [

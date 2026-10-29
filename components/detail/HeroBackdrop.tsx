@@ -1,8 +1,8 @@
 import Image from "next/image";
 import WatchButton from "@/components/ui/WatchButton";
+import FavoriteButton from "@/components/ui/FavoriteButton";
 import FocusElementProvider from "../providers/FocusElementProvider";
 import { Star } from "lucide-react";
-import Link from "next/link";
 
 interface HeroBackdropProps {
   backgroundImage: string;
@@ -149,10 +149,10 @@ export function HeroBackdrop({
             </p>
           )}
 
-          {/* Actions (Movies only — series display episodes list below) */}
-          {!isSerie && (
-            <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
-              <div className="w-full sm:w-56">
+          {/* Actions for movies and series */}
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center md:justify-start gap-3 w-full sm:w-auto">
+            {!isSerie && (
+              <div className="w-full sm:w-auto">
                 <WatchButton
                   moviePreview={{
                     title: cleanTitle,
@@ -160,10 +160,28 @@ export function HeroBackdrop({
                     link,
                     backgroundImage: backdropSrc,
                   }}
+                  label="Reproducir"
                 />
               </div>
+            )}
+
+            <div className="w-full sm:w-auto">
+              <FavoriteButton
+                item={{
+                  link,
+                  title: cleanTitle,
+                  image,
+                  backgroundImage: backdropSrc,
+                  rating: cleanRating,
+                  year: cleanYear,
+                  duration,
+                  caption,
+                  tags,
+                  type: isSerie ? "serie" : "movie",
+                }}
+              />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </section>

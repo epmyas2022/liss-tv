@@ -73,12 +73,13 @@ export function HeroBackdropSkeleton({ isSerie = false }: { isSerie?: boolean })
             <div className="w-4/5 h-4 rounded bg-white/[0.06] animate-shimmer" />
           </div>
 
-          {/* Action CTA (Movies only) */}
-          {!isSerie && (
-            <div className="pt-2 w-full sm:w-56">
-              <div className="w-full h-12 rounded-xl bg-[#e50914]/50 animate-shimmer" />
-            </div>
-          )}
+          {/* Action CTAs (Primary play for movies + Favorite button) */}
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center md:justify-start gap-3 w-full sm:w-auto">
+            {!isSerie && (
+              <div className="w-full sm:w-36 h-12 rounded-xl bg-[#e50914]/40 animate-shimmer" />
+            )}
+            <div className="w-full sm:w-48 h-12 rounded-xl bg-white/[0.08] border border-white/10 animate-shimmer" />
+          </div>
         </div>
       </div>
     </section>

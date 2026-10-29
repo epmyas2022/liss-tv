@@ -5,7 +5,7 @@ import { useCommon } from "../../hooks/useCommon";
 
 export default function FocusElementProvider({
   children,
-  className,
+  className = "",
   onEnterPress,
   strokeSize = 2,
   styleFocus = {},
@@ -19,16 +19,19 @@ export default function FocusElementProvider({
   const { isMobile } = useCommon();
   const { ref, focused } = useFocus({ onEnterPress: onEnterPress });
 
+  const isFocused = focused && !isMobile();
+
   return (
     <div
       ref={ref}
-      className={`${focused && !isMobile() ? "focus-active" : ""} ${isMobile() ? "" : className}`}
+      className={`${isFocused ? "focus-active " : ""}${className}`.trim()}
       style={{
-        outline:
-          focused && !isMobile()
-            ? `${strokeSize !== 0 ? `${strokeSize}px solid white` : "none"}`
-            : "none",
-        ...(focused && !isMobile() && styleFocus),
+        outline: isFocused
+          ? strokeSize !== 0
+            ? `${strokeSize}px solid white`
+            : "none"
+          : "none",
+        ...(isFocused && styleFocus),
       }}
     >
       {children}

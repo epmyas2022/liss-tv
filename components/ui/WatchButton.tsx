@@ -11,7 +11,9 @@ import { Play } from "lucide-react";
 export default function WatchButton({
   moviePreview,
   redirectDetails = false,
-  label = "Reproducir ahora",
+  label = "Reproducir",
+  iconOnly = false,
+  className = "",
 }: {
   moviePreview: Pick<Movie, "title" | "link" | "image"> & {
     backgroundImage?: string;
@@ -19,6 +21,8 @@ export default function WatchButton({
   backgroundImage?: string;
   redirectDetails?: boolean;
   label?: string;
+  iconOnly?: boolean;
+  className?: string;
 }) {
   const router = useRouter();
   const store = useMovieStore();
@@ -55,19 +59,19 @@ export default function WatchButton({
     >
       {redirectDetails ? (
         <div
-          className="cursor-pointer flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#e50914] hover:bg-[#b80710] text-white font-bold rounded-xl text-sm transition-all duration-200 active:scale-95 select-none"
+          className={`cursor-pointer flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-[#e50914] hover:bg-[#b80710] text-white font-bold rounded-xl text-sm transition-all duration-200 active:scale-95 select-none whitespace-nowrap ${className}`}
         >
-          <Play size={15} className="fill-white" />
-          <span>{label}</span>
+          <Play size={15} className="fill-white shrink-0" />
+          {!iconOnly && <span>{label}</span>}
         </div>
       ) : (
         <Link
           href={targetHref}
           onClick={handleInteraction}
-          className="cursor-pointer flex items-center justify-center gap-2.5 w-full py-3.5 px-6 bg-[#e50914] hover:bg-[#b80710] text-white font-bold rounded-xl text-base transition-all duration-200  active:scale-95 select-none"
+          className={`cursor-pointer flex items-center justify-center gap-2.5 w-full py-3.5 px-6 bg-[#e50914] hover:bg-[#b80710] text-white font-bold rounded-xl text-sm sm:text-base transition-all duration-200 active:scale-95 select-none whitespace-nowrap ${className}`}
         >
-          <Play size={18} className="fill-white" />
-          <span>{label}</span>
+          <Play size={18} className="fill-white shrink-0" />
+          {!iconOnly && <span>{label}</span>}
         </Link>
       )}
     </FocusElementProvider>

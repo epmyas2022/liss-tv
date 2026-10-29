@@ -1,6 +1,9 @@
 import * as proxyChain from "proxy-chain";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { ProxyAccount, StickySession } from "@/types/proxy";
+import { bitacora } from "@/utils/bitacora";
+
+const proxyLogger = bitacora.createScope("Proxy");
 
 const PROXY_HOST = process.env.PROXY_HOST;
 
@@ -14,9 +17,13 @@ export function markProxyExhausted(username: string): void {
   if (!username) return;
   if (!exhaustedUsernames.has(username)) {
     exhaustedUsernames.add(username);
-    console.warn(
-      `[⚠️ PROXY BANDWIDTH EXHAUSTED] Proxy account "${username}" has reached its bandwidth limit! Rotating to next available account...`,
-    );
+    const logMessage = `[⚠️ PROXY BANDWIDTH EXHAUSTED] Proxy account "${username}" has reached its bandwidth limit! Rotating to next available account...`;
+    console.warn(logMessage);
+    proxyLogger.warning(logMessage, {
+      event: "BANDWIDTH_EXHAUSTED",
+      username,
+      exhaustedCount: exhaustedUsernames.size,
+    });
   }
 }
 
@@ -86,8 +93,16 @@ function getNextProxyAccount(): ProxyAccount {
   );
 
   if (availableAccounts.length === 0) {
-    console.error(
-      `[🚨 ALL PROXIES EXHAUSTED] All ${accounts.length} configured proxy accounts have reached their bandwidth limit!`,
+    const errorMessage = `[🚨 ALL PROXIES EXHAUSTED] All ${accounts.length} configured proxy accounts have reached their bandwidth limit!`;
+    console.error(errorMessage);
+    proxyLogger.error(
+      errorMessage,
+      new Error("ALL_PROXIES_BANDWIDTH_EXHAUSTED"),
+      {
+        event: "BANDWIDTH_EXHAUSTED_ALL",
+        totalAccounts: accounts.length,
+        exhaustedUsernames: Array.from(exhaustedUsernames),
+      },
     );
     throw new Error(
       `All ${accounts.length} proxy accounts have exhausted their bandwidth limit. Please renew proxy accounts.`,

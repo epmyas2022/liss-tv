@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Popcorn, Clapperboard, Eye, Home } from "lucide-react";
+import { Popcorn, Clapperboard, Bookmark, Home } from "lucide-react";
 import FocusElementProvider from "../providers/FocusElementProvider";
 import { useAuthentication } from "../providers/context/AuthContext";
 import dynamic from "next/dynamic";
@@ -25,7 +25,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Inicio", href: "/", icon: Home },
   { label: "Películas", href: "/?filter=peliculas", icon: Popcorn, filter: "peliculas" },
   { label: "Series", href: "/?filter=series", icon: Clapperboard, filter: "series" },
-  { label: "Continuar viendo", href: "/continue-watching", icon: Eye },
+  { label: "Mi Lista", href: "/my-list", icon: Bookmark },
 ];
 
 export function Navbar() {
@@ -47,8 +47,8 @@ export function Navbar() {
   }, []);
 
   const isItemActive = (item: NavItem): boolean => {
-    if (item.href === "/continue-watching") {
-      return pathname === "/continue-watching";
+    if (item.href === "/my-list") {
+      return pathname === "/my-list";
     }
     if (pathname === "/") {
       if (item.filter) {

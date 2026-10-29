@@ -5,6 +5,7 @@ import { MovieCardSkeleton } from "@/components/MovieCardSkeleton";
 import { Navbar } from "@/components/layout/Navbar";
 import { HomeHero, HomeHeroMovie } from "@/components/home/HomeHero";
 import { HomeHeroSkeleton } from "@/components/home/HomeHeroSkeleton";
+import { HomeContinueWatching } from "@/components/home/HomeContinueWatching";
 import { Movie, StoredMovie } from "../types/movie";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getAllMovies, getDetails } from "@/app/actions/movie";
@@ -134,6 +135,9 @@ export default function Home() {
         </div>
       )}
 
+      {/* ── Continue Watching (Cloud POC) ── */}
+      {!search && <HomeContinueWatching />}
+
       {/* ── Catalog Section ── */}
       <section
         className={`max-w-[1800px] mx-auto px-4 sm:px-8 lg:px-12 ${
@@ -141,34 +145,39 @@ export default function Home() {
         }`}
       >
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-poppins text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            {search ? (
-              <>
-                Resultados para <span className="text-[#e50914]">&ldquo;{search}&rdquo;</span>
-              </>
-            ) : filter === "peliculas" ? (
-              "Películas destacadas"
-            ) : filter === "series" ? (
-              "Series destacadas"
-            ) : (
-              "Explorar catálogo"
-            )}
-          </h2>
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-6 rounded-full bg-[#e50914]" />
+
+            <h2 className="font-poppins text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+              {search ? (
+                <>
+                  Resultados para{" "}
+                  <span className="text-[#e50914]">&ldquo;{search}&rdquo;</span>
+                </>
+              ) : filter === "peliculas" ? (
+                "Películas destacadas"
+              ) : filter === "series" ? (
+                "Series destacadas"
+              ) : (
+                "Explorar catálogo"
+              )}
+            </h2>
+          </div>
           <span className="text-xs sm:text-sm text-gray-400 font-medium">
             {movies.length} títulos
           </span>
         </div>
+        <br></br>
 
         {!loading && movies.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-4 rounded-2xl my-4">
-           
             <h3 className="text-xl sm:text-2xl font-bold font-poppins text-white mb-2">
               No encontramos resultados para &ldquo;{search}&rdquo;
             </h3>
             <p className="text-gray-400 max-w-md text-sm mb-6">
-              Revisá que las palabras estén bien escritas o probá con otros términos más generales.
+              Revisá que las palabras estén bien escritas o probá con otros
+              términos más generales.
             </p>
-         
           </div>
         ) : (
           <FocusContextProvider

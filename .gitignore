@@ -49,3 +49,4 @@ data/flaresolverrCache.json
 *.db-shm
 *.db-wal
 *.bak
+*.log
