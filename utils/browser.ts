@@ -112,7 +112,6 @@ export async function getBrowser(options: GetBrowserOptions = {}) {
     );
   }
 
-  console.log(`Anonymized proxy created: ${anonymizedProxy}`);
 
   if (options.blockAssets !== false) {
     await result.page.route("**/*", (route) => {

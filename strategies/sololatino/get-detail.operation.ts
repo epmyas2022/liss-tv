@@ -46,7 +46,7 @@ export class GetDetail implements StrategyGetMovieDetails {
 
       const backgroundStyle =
         $(".detail-hero__bg, .detail-hero").attr("style") || "";
-      const bgMatch = backgroundStyle.match(/url\(['"]?([^'"]+?)['"]?\)/);
+      const bgMatch = backgroundStyle.match(/url\(['"']?([^'"]+?)['"']?\)/);
       let backgroundImage = bgMatch?.[1]?.trim() ?? "";
 
       if (backgroundImage.startsWith("//")) {
@@ -80,21 +80,22 @@ export class GetDetail implements StrategyGetMovieDetails {
         $("[data-season-panel]").each((_, seasonEl) => {
           const seasonNumber = $(seasonEl).attr("data-season-panel") || "Desconocida";
           const episodesData = $(seasonEl)
-            .find(".ep-item")
+            .find("a.ep-item")
             .map((_, epEl) => {
               const imgEl = $(epEl).find("img.ep-thumb");
-              const titleEl = $(epEl).find(".text-sm.font-semibold");
-              const numEl = $(epEl).find(".ep-num");
-              const captionEl = $(epEl).find(".line-clamp-2");
+              // The title element has multiple classes; match by the ones that are stable
+              const titleEl = $(epEl).find("p.text-sm.font-semibold");
+              const numEl = $(epEl).find("p.ep-num");
+              const captionEl = $(epEl).find("p.line-clamp-2");
               const fullLink = $(epEl).attr("href") || "";
               const match = fullLink.match(/https?:\/\/[^/]+\/(?:pelicula|serie)\/[^?#]+/);
               const cleanedLink = match ? match[0] : "";
               return {
                 link: cleanedLink,
-                title: titleEl.text().trim() ?? "",
+                title: titleEl.text().trim(),
                 image: imgEl.attr("src") ?? "",
-                numberEpisode: numEl.text().trim() ?? "",
-                caption: captionEl.text().trim() ?? "",
+                numberEpisode: numEl.text().trim(),
+                caption: captionEl.text().trim(),
               };
             })
             .get();

@@ -365,8 +365,6 @@ export async function fetchFlare(
   try {
     const resolverOutput = await resolver(url, proxyDetails);
 
-    console.log('output', resolverOutput);
-
     // If FlareSolverr solved and retrieved the target URL directly, reuse its HTML response
     if (resolverOutput.html) {
       if (/bandwidth\s+limit\s+reached/i.test(resolverOutput.html)) {

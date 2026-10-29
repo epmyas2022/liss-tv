@@ -77,11 +77,12 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
         <ol className="flex flex-col gap-2.5">
           {current.episodes.map((ep) => {
             const match = ep.link.match(
-              /\/serie\/([^/]+)\/episodio\/([^/]+)/
+              /\/serie\/([^/]+)\/(?:[^\/]+\/)?episodio-([^/]+)/i,
             );
             const slug = match ? match[1] : undefined;
-            
-            if(!slug) return null;
+
+
+            if (!slug) return null;
 
             const targetHref = `/serie/${slug}/player`;
 
