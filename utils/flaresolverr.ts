@@ -414,7 +414,7 @@ export async function fetchFlare(
   options: FetchFlareOptions = {},
   retriesLeft = 3,
 ): Promise<Response> {
-  if (!options.agent) {
+  if (options.agent) {
     const session = createStickySession();
     options = {
       ...options,
@@ -428,7 +428,7 @@ export async function fetchFlare(
   const username = extractProxyUsername(options);
 
   try {
-    const resolverOutput = await resolver(url, proxyDetails);
+    const resolverOutput = await resolver(url, !options.agent ? undefined : proxyDetails);
 
     // If FlareSolverr solved and retrieved the target URL directly, reuse its HTML response
     if (resolverOutput.html) {

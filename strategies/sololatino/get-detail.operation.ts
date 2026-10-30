@@ -37,8 +37,7 @@ export class GetDetail implements StrategyGetMovieDetails {
     // Fetch page with FlareSolverr and parse via cheerio
     const targetUrl = `${BASE_URL.SoloLatino}${link}`;
     try {
-      const { agent } = createStickySession();
-      const response = await fetchFlare(targetUrl, { agent });
+      const response = await fetchFlare(targetUrl);
       const html = await response.text();
       const $ = cheerio.load(html);
 

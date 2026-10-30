@@ -34,10 +34,9 @@ export class GetAll implements StrategyGetAllMovies {
       ? `${BASE_URL.SoloLatino}api/search/suggest?q=${encodeURIComponent(search)}`
       : `${BASE_URL.SoloLatino}${slug ?? ""}${pageNumber && pageNumber > 1 ? `?page=${pageNumber}` : ""}`;
 
-    const { agent } = createStickySession();
 
     try {
-      const response = await fetchFlare(targetUrl, { agent });
+      const response = await fetchFlare(targetUrl);
       const rawText = await response.text();
 
       if (search) {
