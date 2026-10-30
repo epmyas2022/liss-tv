@@ -58,7 +58,6 @@ export async function getBrowserContext(
   anonymizedProxy?: string,
   userAgent?: string,
 ) {
-
   const HOST_CDP = process.env.HOST_CDP || "http://localhost:8192";
   const browser = await chromium.connectOverCDP(HOST_CDP);
 
@@ -71,13 +70,13 @@ export async function getBrowserContext(
     console.info("[📁] state.json file exists. Using it for storage state.");
   }
 
-  const context = await browser.contexts()[0] || null;
+  const context = await browser.newContext({
+    ...(anonymizedProxy ? { proxy: { server: anonymizedProxy } } : {}),
+    ...(userAgent ? { userAgent } : {}),
+    ...(isExistFileState ? { storageState: "state.json" } : {}),
+  });
 
-  if(!context) throw new Error("No browser context available. Please ensure the browser is running and accessible.");
-
-  const page = await context.pages()[0] || null;
-
-  if(!page) throw new Error("No page available in the browser context. Please ensure the browser is running and accessible.");
+  const page = await context.newPage();
 
   return { browser, context, page };
 }

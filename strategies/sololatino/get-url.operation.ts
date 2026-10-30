@@ -41,7 +41,7 @@ export class GetUrl implements StrategyGetUrl {
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
 
         const { userAgent, cookies } = await resolver(targetUrl, {
-          proxyKey: anonymizedProxy,
+          proxyKey: process.env.PROXY_KEY || "default",
           proxyUrl: stickyUrl,
         });
 
@@ -58,6 +58,8 @@ export class GetUrl implements StrategyGetUrl {
         const tokenMatch = htmlText.match(/data-player-token="([^"]+)"/);
         if (!tokenMatch) throw new Error("Player token not found in HTML");
         const token = tokenMatch[1];
+
+        console.log("[🔑] Player token extracted:", token);
 
         // Resolve the iframe URL via the API — same sticky IP
         const apiResponse = await nodeFetch(
@@ -76,7 +78,11 @@ export class GetUrl implements StrategyGetUrl {
         );
 
         const apiData = (await apiResponse.json()) as { url?: string };
+
+      
         if (!apiData?.url) throw new Error("Could not resolve iframe URL");
+
+      
 
         const iframeUrl: string = apiData.url;
 
