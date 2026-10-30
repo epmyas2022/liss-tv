@@ -467,12 +467,8 @@ export async function fetchFlare(
         fetchOptions as never,
       )) as unknown as Response;
 
-      if (res.status === 403 && retriesLeft > 0) {
+      if ((res.status === 403 || res.status === 503) && retriesLeft > 0) {
         await deleteCache(proxyDetails.proxyKey || "direct");
-
-
-
-
         return fetchFlare(url, options, retriesLeft - 1);
       }
 
@@ -485,7 +481,14 @@ export async function fetchFlare(
       return res;
     }
 
-    return fetch(url, fetchOptions);
+    const res = await fetch(url, fetchOptions);
+
+    if ((res.status === 403 || res.status === 503) && retriesLeft > 0) {
+      await deleteCache(proxyDetails.proxyKey || "direct");
+      return fetchFlare(url, options, retriesLeft - 1);
+    }
+
+    return res;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     if (/bandwidth\s+limit\s+reached/i.test(errorMsg)) {
