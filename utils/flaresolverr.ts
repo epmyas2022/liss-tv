@@ -512,3 +512,55 @@ export async function fetchFlare(
     throw error;
   }
 }
+
+/**
+ * Execute a POST request via FlareSolverr to bypass Cloudflare WAF on API endpoints.
+ */
+export async function postFlare(
+  url: string,
+  postData: string,
+  headers: Record<string, string> = {},
+): Promise<string> {
+  const flareSolverrEndpoint =
+    process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
+
+  const payload = {
+    cmd: "request.post",
+    url,
+    postData,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "X-Requested-With": "XMLHttpRequest",
+      ...headers,
+    },
+    maxTimeout: 60000,
+  };
+
+  const response = await fetch(flareSolverrEndpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    let errorDetail = "";
+    try {
+      const errJson = (await response.json()) as { message?: string };
+      errorDetail = errJson.message || JSON.stringify(errJson);
+    } catch {
+      errorDetail = await response.text().catch(() => "");
+    }
+    throw new Error(
+      `FlareSolverr POST failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
+    );
+  }
+
+  const data = (await response.json()) as FlareSolverrResponse;
+  if (data.status !== "ok") {
+    throw new Error(
+      `FlareSolverr POST returned error: ${data.message || data.status}`,
+    );
+  }
+
+  return data.solution.response || "";
+}

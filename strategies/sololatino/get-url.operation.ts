@@ -3,16 +3,11 @@ import { get, remove /* upsert */ } from "@/services/movie.store";
 import { StrategyGetUrl, Url } from "@/types/movie";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import {
-  anonymizeProxy,
-  createStickySession,
   BASE_URL,
-  BROWSER_UA,
   getBrowserContext,
   blacklistedDomains,
-  closeAnonymizedProxy,
 } from "@/utils/browser";
-import nodeFetch from "node-fetch";
-import { resolver } from "@/utils/flaresolverr";
+import { fetchFlare, postFlare } from "@/utils/flaresolverr";
 
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
@@ -30,69 +25,50 @@ export class GetUrl implements StrategyGetUrl {
     if (cached?.movieUrl && !linkCached) remove(path);
 
     return new Promise(async (resolve, reject) => {
-      let browserContext = null;
-      let anonymizedProxy: string | null = null;
+      let browserContext: Awaited<ReturnType<typeof getBrowserContext>>["context"] | null = null;
 
       try {
-        // One sticky session = one IP for all requests in this flow
-        const { url: stickyUrl, agent: stickyAgent } = createStickySession();
-        anonymizedProxy = await anonymizeProxy(stickyUrl);
-
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
 
-        const { userAgent, cookies } = await resolver(targetUrl, {
-          proxyKey: process.env.PROXY_KEY || "default",
-          proxyUrl: stickyUrl,
-        });
-
-        const Cookie = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
-
-        const htmlResponse = await nodeFetch(targetUrl, {
-          headers: { "User-Agent": userAgent, Cookie: Cookie },
-          agent: stickyAgent,
-        });
-        if (!htmlResponse.ok)
+        // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr
+        const htmlResponse = await fetchFlare(targetUrl);
+        if (!htmlResponse.ok) {
           throw new Error("Failed to fetch page HTML: " + htmlResponse.status);
+        }
         const htmlText = await htmlResponse.text();
 
         const tokenMatch = htmlText.match(/data-player-token="([^"]+)"/);
         if (!tokenMatch) throw new Error("Player token not found in HTML");
         const token = tokenMatch[1];
 
-        console.log("[🔑] Player token extracted:", token);
+        console.log("[🔑] Player token extracted:", token.slice(0, 20) + "...");
 
-        // Resolve the iframe URL via the API — same sticky IP
-        const apiResponse = await nodeFetch(
+        // 2. Resolver la URL del reproductor enviando el POST vía FlareSolverr (evita el 403 de Cloudflare Turnstile)
+        const rawSolution = await postFlare(
           BASE_URL.SoloLatino + "api/player-url",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest",
-              "User-Agent": userAgent,
-              Cookie: Cookie,
-            },
-            body: JSON.stringify({ t: token }),
-            agent: stickyAgent,
-          },
+          `t=${encodeURIComponent(token)}`,
         );
 
-        const apiData = (await apiResponse.json()) as { url?: string };
-
-      
+        const jsonMatch = rawSolution.match(/\{[\s\S]*"url"[\s\S]*\}/);
+        if (!jsonMatch) {
+          throw new Error("Could not parse iframe URL from player API response");
+        }
+        const apiData = JSON.parse(jsonMatch[0]) as { url?: string };
         if (!apiData?.url) throw new Error("Could not resolve iframe URL");
-
-      
 
         const iframeUrl: string = apiData.url;
 
-        const { context, page } = await getBrowserContext(anonymizedProxy);
-
+        // 3. Abrir Playwright en contexto aislado local con parches anti-bot
+        const { context, page } = await getBrowserContext();
         browserContext = context;
 
         await context.grantPermissions([]);
         await context.addInitScript(() => {
           try {
+            // Eliminar navigator.webdriver para que player.pelisserieshoy.com no redirija a Google
+            Object.defineProperty(navigator, "webdriver", {
+              get: () => undefined,
+            });
             Object.defineProperty(window, "Notification", {
               get: () => ({
                 permission: "denied",
@@ -115,6 +91,7 @@ export class GetUrl implements StrategyGetUrl {
           route.continue();
         });
 
+        // Contenedor virtual para proveer el origen padre sololatino.net al iframe
         await page.route("https://sololatino.net/__player_proxy__", (route) => {
           route.fulfill({
             contentType: "text/html",
@@ -129,16 +106,21 @@ export class GetUrl implements StrategyGetUrl {
           fallbackUrl: null,
         };
 
-        // context.on captures responses from ALL frames (including cross-origin iframes)
-        const videoPromise = (callback: (responseUrl: string) => boolean) =>
+        // Escucha de respuestas en toda la jerarquía de frames
+        const videoPromise = (
+          callback: (responseUrl: string, headers: Record<string, string>) => boolean,
+        ) =>
           new Promise<string>((resolveVideo) => {
-            const handler = (response: { url: () => string }) => {
+            const handler = (response: {
+              url: () => string;
+              headers: () => Record<string, string>;
+            }) => {
               const responseUrl = response.url();
+              const headers = response.headers();
 
-              if (!callback(responseUrl)) return;
+              if (!callback(responseUrl, headers)) return;
 
               context.off("response", handler);
-
               resolveVideo(responseUrl);
             };
 
@@ -149,7 +131,6 @@ export class GetUrl implements StrategyGetUrl {
           await newPage.close().catch(() => {});
         });
 
-        // Navigate to the fake page — the iframe loads with sololatino.net as parent origin
         console.info("[🌐] Navigating to proxy page. iframeUrl:", iframeUrl);
         await page.goto("https://sololatino.net/__player_proxy__", {
           waitUntil: "domcontentloaded",
@@ -160,34 +141,44 @@ export class GetUrl implements StrategyGetUrl {
         const frame = page.frameLocator("#pl");
         const play = frame.locator("#playBtn");
         await play.waitFor({ timeout: 20000 });
+
         const opcion1 = frame
-          .locator("button.tab")
+          .locator("button.tab, button")
           .filter({ hasText: "Opción 1" });
 
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
-          while (!dataUrls.url || !dataUrls.fallbackUrl) {
+          while (!dataUrls.url) {
             try {
               if (
                 (await opcion1.isVisible({ timeout: 1000 })) &&
-                dataUrls.url &&
-                !dataUrls.fallbackUrl
+                !dataUrls.url
               ) {
                 await opcion1.click({ timeout: 1000, force: true });
                 await opcion1.waitFor({ timeout: 1000 });
                 continue;
               }
-              await play.click({ timeout: 1000 });
+              await play.click({ timeout: 1000, force: true });
               await play.waitFor({ timeout: 1000 });
-            } catch (error) {}
+            } catch (_) {}
           }
         };
 
-        const getUrlMediafire = (responseUrl: string) => {
-          if (!isUrlMediafire(responseUrl)) return false;
-          dataUrls.url = responseUrl;
-          return true;
+        const getUrlMediafire = (
+          responseUrl: string,
+          headers: Record<string, string>,
+        ) => {
+          if (isUrlMediafire(responseUrl)) {
+            dataUrls.url = responseUrl;
+            return true;
+          }
+          const location = headers["location"];
+          if (location && isUrlMediafire(location)) {
+            dataUrls.url = location;
+            return true;
+          }
+          return false;
         };
 
         const getUrlM3u8 = (responseUrl: string) => {
@@ -203,7 +194,7 @@ export class GetUrl implements StrategyGetUrl {
             videoPromise(getUrlMediafire),
             Promise.race([
               videoPromise(getUrlM3u8),
-              new Promise((res, _) => setTimeout(() => res(null), 10000)),
+              new Promise((res) => setTimeout(() => res(null), 10000)),
             ]),
           ]),
           new Promise((_, rej) =>
@@ -217,13 +208,6 @@ export class GetUrl implements StrategyGetUrl {
         if (!dataUrls.url)
           throw new Error("Failed to retrieve video URL or fallback URL");
 
-        /*     const extractNameUrl = (url: string) => {
-          const match = url.match(/[^/]+(?=\/[^/]+$)/);
-          return match ? `https://www.mediafire.com/file/${match[0]}` : "";
-        };
- */
-        //upsert(path, { movieUrl: extractNameUrl(dataUrls.url) });
-
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
         await context.storageState({ path: "state.json" });
@@ -235,9 +219,6 @@ export class GetUrl implements StrategyGetUrl {
       } finally {
         if (browserContext) {
           await browserContext.close().catch(() => {});
-        }
-        if (anonymizedProxy) {
-          await closeAnonymizedProxy(anonymizedProxy).catch(() => {});
         }
       }
     });
