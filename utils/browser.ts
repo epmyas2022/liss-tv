@@ -58,11 +58,7 @@ export async function getBrowserContext(
   anonymizedProxy?: string,
   userAgent?: string,
 ) {
-  const browser = await chromium.launch({
-    headless: true,
-    args: BROWSER_ARGS,
-    ...(anonymizedProxy && { proxy: { server: anonymizedProxy } }),
-  });
+  const browser = await chromium.connectOverCDP(`http://localhost:8192`)
 
   const isExistFileState = await fs
     .access("state.json")
@@ -73,13 +69,14 @@ export async function getBrowserContext(
     console.info("[📁] state.json file exists. Using it for storage state.");
   }
 
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 720 },
-    userAgent: userAgent || BROWSER_UA,
-    ...(isExistFileState && { storageState: "state.json" }),
-  });
+  const context = await browser.contexts()[0] || null;
 
-  const page = await context.newPage();
+  if(!context) throw new Error("No browser context available. Please ensure the browser is running and accessible.");
+
+  const page = await context.pages()[0] || null;
+
+  if(!page) throw new Error("No page available in the browser context. Please ensure the browser is running and accessible.");
+
   return { browser, context, page };
 }
 

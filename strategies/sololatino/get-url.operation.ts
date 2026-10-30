@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { get, remove, /* upsert */ } from "@/services/movie.store";
+import { get, remove /* upsert */ } from "@/services/movie.store";
 import { StrategyGetUrl, Url } from "@/types/movie";
 import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
 import {
@@ -12,6 +12,7 @@ import {
   closeAnonymizedProxy,
 } from "@/utils/browser";
 import nodeFetch from "node-fetch";
+import { resolver } from "@/utils/flaresolverr";
 
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
@@ -38,8 +39,16 @@ export class GetUrl implements StrategyGetUrl {
         anonymizedProxy = await anonymizeProxy(stickyUrl);
 
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
+
+        const { userAgent, cookies } = await resolver(targetUrl, {
+          proxyKey: anonymizedProxy,
+          proxyUrl: stickyUrl,
+        });
+
+        const Cookie = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
+
         const htmlResponse = await nodeFetch(targetUrl, {
-          headers: { "User-Agent": BROWSER_UA },
+          headers: { "User-Agent": userAgent, Cookie: Cookie },
           agent: stickyAgent,
         });
         if (!htmlResponse.ok)
@@ -58,7 +67,8 @@ export class GetUrl implements StrategyGetUrl {
             headers: {
               "Content-Type": "application/json",
               "X-Requested-With": "XMLHttpRequest",
-              "User-Agent": BROWSER_UA,
+              "User-Agent": userAgent,
+              Cookie: Cookie,
             },
             body: JSON.stringify({ t: token }),
             agent: stickyAgent,
@@ -147,7 +157,7 @@ export class GetUrl implements StrategyGetUrl {
         const opcion1 = frame
           .locator("button.tab")
           .filter({ hasText: "Opción 1" });
-      
+
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
@@ -201,7 +211,7 @@ export class GetUrl implements StrategyGetUrl {
         if (!dataUrls.url)
           throw new Error("Failed to retrieve video URL or fallback URL");
 
-    /*     const extractNameUrl = (url: string) => {
+        /*     const extractNameUrl = (url: string) => {
           const match = url.match(/[^/]+(?=\/[^/]+$)/);
           return match ? `https://www.mediafire.com/file/${match[0]}` : "";
         };
