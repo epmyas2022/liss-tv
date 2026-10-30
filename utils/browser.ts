@@ -58,7 +58,9 @@ export async function getBrowserContext(
   anonymizedProxy?: string,
   userAgent?: string,
 ) {
-  const browser = await chromium.connectOverCDP(`http://localhost:8192`)
+
+  const HOST_CDP = process.env.HOST_CDP || "http://localhost:8192";
+  const browser = await chromium.connectOverCDP(HOST_CDP);
 
   const isExistFileState = await fs
     .access("state.json")
