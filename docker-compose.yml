@@ -18,7 +18,8 @@ services:
     container_name: flaresolverr
     ports:
       - 8191:8191
+      - 8192:8192
     environment:
       - LOG_LEVEL=info
     restart: unless-stopped
-    image: ghcr.io/flaresolverr/flaresolverr:latest
+    image: epmyas2022/flaresolverr:latest

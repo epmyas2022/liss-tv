@@ -6,6 +6,8 @@ import {
   BASE_URL,
   getBrowserContext,
   blacklistedDomains,
+  createStickySession,
+  getBrowser,
 } from "@/utils/browser";
 import { fetchFlare, postFlare } from "@/utils/flaresolverr";
 
@@ -29,6 +31,7 @@ export class GetUrl implements StrategyGetUrl {
 
       try {
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
+
 
         // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr
         const htmlResponse = await fetchFlare(targetUrl);
@@ -59,7 +62,7 @@ export class GetUrl implements StrategyGetUrl {
         const iframeUrl: string = apiData.url;
 
         // 3. Abrir Playwright en contexto aislado local con parches anti-bot
-        const { context, page } = await getBrowserContext();
+        const { context, page } = await getBrowser();
         browserContext = context;
 
         await context.grantPermissions([]);
@@ -149,11 +152,11 @@ export class GetUrl implements StrategyGetUrl {
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
-          while (!dataUrls.url) {
+          while (!dataUrls.url || !dataUrls.fallbackUrl) {
             try {
               if (
                 (await opcion1.isVisible({ timeout: 1000 })) &&
-                !dataUrls.url
+                dataUrls.url && !dataUrls.fallbackUrl
               ) {
                 await opcion1.click({ timeout: 1000, force: true });
                 await opcion1.waitFor({ timeout: 1000 });
