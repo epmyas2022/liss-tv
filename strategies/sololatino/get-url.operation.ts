@@ -173,12 +173,12 @@ export class GetUrl implements StrategyGetUrl {
           headers: Record<string, string>,
         ) => {
           if (isUrlMediafire(responseUrl)) {
-            dataUrls.url = responseUrl;
+            dataUrls.url = `/api/video?url=${encodeURIComponent(responseUrl)}`;
             return true;
           }
           const location = headers["location"];
           if (location && isUrlMediafire(location)) {
-            dataUrls.url = location;
+            dataUrls.url = `/api/video?url=${encodeURIComponent(location)}`;
             return true;
           }
           return false;
