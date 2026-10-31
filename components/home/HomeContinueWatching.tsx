@@ -3,13 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  Play,
-  X,
-  Clock,
-  ChevronRight,
-  ChevronLeft,
-} from "lucide-react";
+import { Play, X, Clock, ChevronRight, ChevronLeft } from "lucide-react";
 import { pb, response } from "@/hooks/useAuth";
 import { useAuthentication } from "@/components/providers/context/AuthContext";
 import { useMovieStore } from "@/store/useMovieStore";
@@ -47,7 +41,8 @@ function PanoramicContinueCard({ item, onPlay, onRemove }: PanoramicCardProps) {
       : 0;
   const remaining = Math.max(item.duration - item.currentTime, 0);
   const isSerie = item.link.includes("serie");
-  const imageSrc = item.backgroundImage || item.image || "/logo-with-background.png";
+  const imageSrc =
+    item.backgroundImage || item.image || "/logo-with-background.png";
 
   return (
     <div
@@ -194,15 +189,17 @@ export function HomeContinueWatching() {
   }, [items]);
 
   const handlePlay = (item: ContinueWatching) => {
+    const regex = /(?<=sololatino\.net)(\/[^\/]+\/[^\/]+)/;
     setMovieData({
       ...item,
       startTime: item.currentTime,
     });
     analytics.watchVideo(item.title || item.link, item.link);
-    router.push(`${item.link.split("/").slice(0, 2).join("/")}/player`);
+    router.push(`${item.link.match(regex)?.[0]}/player`);
   };
 
   const handleRemove = async (item: ContinueWatching) => {
+    /*  */
     const userId = user?.id || pb.authStore?.record?.id;
     if (!userId) return;
 
