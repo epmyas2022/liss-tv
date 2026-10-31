@@ -11,6 +11,13 @@ import {
 } from "@/utils/browser";
 import { fetchFlare, postFlare } from "@/utils/flaresolverr";
 
+const TIMEOUT_NAVIGATION_MS = 45_000;
+const TIMEOUT_PLAY_BTN_MS = 35_000;
+const TIMEOUT_CLICK_ACTION_MS = 3_000;
+const TIMEOUT_CLICK_INTERVAL_MS = 2_500;
+const TIMEOUT_M3U8_FALLBACK_MS = 20_000;
+const TIMEOUT_TOTAL_CAPTURE_MS = 60_000;
+
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
     const cached = get(path);
@@ -31,7 +38,6 @@ export class GetUrl implements StrategyGetUrl {
 
       try {
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
-
 
         // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr
         const htmlResponse = await fetchFlare(targetUrl);
@@ -137,13 +143,13 @@ export class GetUrl implements StrategyGetUrl {
         console.info("[🌐] Navigating to proxy page. iframeUrl:", iframeUrl);
         await page.goto("https://sololatino.net/__player_proxy__", {
           waitUntil: "domcontentloaded",
-          timeout: 20000,
+          timeout: TIMEOUT_NAVIGATION_MS,
         });
 
         console.info("[⏳] Waiting for #playBtn...");
         const frame = page.frameLocator("#pl");
         const play = frame.locator("#playBtn");
-        await play.waitFor({ timeout: 20000 });
+        await play.waitFor({ timeout: TIMEOUT_PLAY_BTN_MS });
 
         const opcion1 = frame
           .locator("button.tab, button")
@@ -155,16 +161,19 @@ export class GetUrl implements StrategyGetUrl {
           while (!dataUrls.url || !dataUrls.fallbackUrl) {
             try {
               if (
-                (await opcion1.isVisible({ timeout: 1000 })) &&
-                dataUrls.url && !dataUrls.fallbackUrl
+                (await opcion1.isVisible({ timeout: TIMEOUT_CLICK_ACTION_MS })) &&
+                dataUrls.url &&
+                !dataUrls.fallbackUrl
               ) {
-                await opcion1.click({ timeout: 1000, force: true });
-                await opcion1.waitFor({ timeout: 1000 });
+                await opcion1.click({ timeout: TIMEOUT_CLICK_ACTION_MS, force: true });
+                await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS));
                 continue;
               }
-              await play.click({ timeout: 1000, force: true });
-              await play.waitFor({ timeout: 1000 });
-            } catch (_) {}
+              await play.click({ timeout: TIMEOUT_CLICK_ACTION_MS, force: true });
+              await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS));
+            } catch (_) {
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
           }
         };
 
@@ -197,13 +206,18 @@ export class GetUrl implements StrategyGetUrl {
             videoPromise(getUrlMediafire),
             Promise.race([
               videoPromise(getUrlM3u8),
-              new Promise((res) => setTimeout(() => res(null), 10000)),
+              new Promise((res) => setTimeout(() => res(null), TIMEOUT_M3U8_FALLBACK_MS)),
             ]),
           ]),
           new Promise((_, rej) =>
             setTimeout(
-              () => rej(new Error("Timeout: no Mediafire URL captured in 30s")),
-              30000,
+              () =>
+                rej(
+                  new Error(
+                    `Timeout: no Mediafire URL captured in ${TIMEOUT_TOTAL_CAPTURE_MS / 1000}s`,
+                  ),
+                ),
+              TIMEOUT_TOTAL_CAPTURE_MS,
             ),
           ),
         ]);
