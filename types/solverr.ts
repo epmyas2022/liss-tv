@@ -41,6 +41,11 @@ export interface ResolverOptions {
   proxyKey?: string;
 }
 
+export interface PostFlareOptions {
+  proxyUrl?: string;
+  proxyKey?: string;
+}
+
 export interface FetchFlareOptions extends RequestInit {
   agent?: HttpsProxyAgent<string>;
   proxyUrl?: string;

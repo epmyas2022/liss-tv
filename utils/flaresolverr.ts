@@ -6,6 +6,7 @@ import {
   FlareSolverrCacheStore,
   ResolverOptions,
   FetchFlareOptions,
+  PostFlareOptions,
 } from "@/types/solverr";
 import { BASE_URL } from "@/utils/browser";
 import { markProxyExhausted, createStickySession } from "@/utils/proxy";
@@ -400,7 +401,7 @@ export async function resolver(
   });
 }
 
-export type { FetchFlareOptions, ResolverOptions } from "@/types/solverr";
+export type { FetchFlareOptions, ResolverOptions, PostFlareOptions } from "@/types/solverr";
 
 /**
  * Helper to perform a fetch:
@@ -520,47 +521,164 @@ export async function postFlare(
   url: string,
   postData: string,
   headers: Record<string, string> = {},
+  options: PostFlareOptions = {},
 ): Promise<string> {
+  let defaultProxyKey = "direct";
+  if (options.proxyUrl) {
+    try {
+      const parsed = new URL(options.proxyUrl);
+      defaultProxyKey = `proxy:${parsed.hostname || parsed.host}`;
+    } catch {
+      defaultProxyKey = `proxy:${process.env.PROXY_HOST || "default"}`;
+    }
+  }
+  const cacheKey = options.proxyKey || defaultProxyKey;
+
+  // 1. Intentar HTTP directo si hay cookies válidas en caché (ultrarrápido, ~200ms)
+  const cached = await loadCache(cacheKey);
+  const now = Date.now();
+  if (cached && cached.expiry > now) {
+    try {
+      const cookieHeader = cached.cookies.map((c) => `${c.name}=${c.value}`).join("; ");
+      const directHeaders: Record<string, string> = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Requested-With": "XMLHttpRequest",
+        "User-Agent": cached.userAgent,
+        ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        ...headers,
+      };
+
+      const directRes = await fetch(url, {
+        method: "POST",
+        headers: directHeaders,
+        body: postData,
+      });
+
+      if (directRes.ok) {
+        const text = await directRes.text();
+        const isChallenge =
+          text.includes("Just a moment...") ||
+          text.includes("cf-browser-verification") ||
+          text.includes("challenges.cloudflare.com");
+
+        if (!isChallenge) {
+          return text;
+        }
+      }
+    } catch {
+      // Fallback a FlareSolverr si falla la conexión directa
+    }
+  }
+
+  // 2. Fallback a FlareSolverr reutilizando sesión persistente y caché
   const flareSolverrEndpoint =
     process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
 
-  const payload = {
-    cmd: "request.post",
-    url,
-    postData,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "X-Requested-With": "XMLHttpRequest",
-      ...headers,
-    },
-    maxTimeout: 60000,
-  };
+  const sessionId = getSessionId(options.proxyKey);
 
-  const response = await fetch(flareSolverrEndpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  if (!response.ok) {
-    let errorDetail = "";
+  let proxyPayload: Record<string, string> | undefined;
+  if (options.proxyUrl) {
     try {
-      const errJson = (await response.json()) as { message?: string };
-      errorDetail = errJson.message || JSON.stringify(errJson);
+      const parsed = new URL(options.proxyUrl);
+      proxyPayload = {
+        url: `${parsed.protocol}//${parsed.host}`,
+      };
+      if (parsed.username) {
+        proxyPayload.username = decodeURIComponent(parsed.username);
+      }
+      if (parsed.password) {
+        proxyPayload.password = decodeURIComponent(parsed.password);
+      }
     } catch {
-      errorDetail = await response.text().catch(() => "");
+      proxyPayload = {
+        url: cleanProxyUrl(options.proxyUrl),
+      };
     }
-    throw new Error(
-      `FlareSolverr POST failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
-    );
   }
 
-  const data = (await response.json()) as FlareSolverrResponse;
-  if (data.status !== "ok") {
-    throw new Error(
-      `FlareSolverr POST returned error: ${data.message || data.status}`,
-    );
-  }
+  return withSessionLock(sessionId, async () => {
+    await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
 
-  return data.solution.response || "";
+    const payload: Record<string, unknown> = {
+      cmd: "request.post",
+      url,
+      postData,
+      session: sessionId,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Requested-With": "XMLHttpRequest",
+        ...headers,
+      },
+      maxTimeout: 60000,
+    };
+
+    const executeRequest = async (retries = 1): Promise<string> => {
+      let response = await fetch(flareSolverrEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        let errorDetail = "";
+        try {
+          const errJson = (await response.json()) as { message?: string };
+          errorDetail = errJson.message || JSON.stringify(errJson);
+        } catch {
+          errorDetail = await response.text().catch(() => "");
+        }
+        throw new Error(
+          `FlareSolverr POST failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
+        );
+      }
+
+      let data = (await response.json()) as FlareSolverrResponse;
+
+      if (
+        data.status !== "ok" &&
+        typeof data.message === "string" &&
+        data.message.toLowerCase().includes("session")
+      ) {
+        activeSessions.delete(sessionId);
+        await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
+        response = await fetch(flareSolverrEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        data = await response.json();
+      }
+
+      if (data.status !== "ok") {
+        throw new Error(
+          `FlareSolverr POST returned error: ${data.message || data.status}`,
+        );
+      }
+
+      // Guardar cookies actualizadas en caché si FlareSolverr obtuvo nuevas
+      if (data.solution?.cookies && data.solution.cookies.length > 0) {
+        const cfClearance = data.solution.cookies.find(
+          (c) => c.name === "cf_clearance",
+        ) as (FlareSolverrCookies & { expiry?: number }) | undefined;
+        let expiry = now + 60 * 60 * 1000;
+        if (
+          cfClearance?.expiry &&
+          typeof cfClearance.expiry === "number" &&
+          cfClearance.expiry * 1000 > now
+        ) {
+          expiry = cfClearance.expiry * 1000;
+        }
+
+        await saveCache(cacheKey, {
+          userAgent: data.solution.userAgent,
+          cookies: data.solution.cookies,
+          expiry,
+        });
+      }
+
+      return data.solution.response || "";
+    };
+
+    return executeRequest();
+  });
 }
