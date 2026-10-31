@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { get, remove /* upsert */ } from "@/services/movie.store";
+import { get, remove, /* upsert */ 
+upsert} from "@/services/movie.store";
 import { StrategyGetUrl, Url } from "@/types/movie";
-import { getLinkMediafire, isUrlMediafire } from "@/utils/utils";
+import { getLinkMediafire, isUrlMediafire, extractMediafireFileUrl } from "@/utils/utils";
 import {
   BASE_URL,
   getBrowserContext,
@@ -22,16 +23,30 @@ export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
     const cached = get(path);
 
-    const linkCached = cached?.movieUrl
-      ? await getLinkMediafire(cached.movieUrl)
-      : null;
+    if (cached?.movieUrl) {
+      // 1. Si es o contiene un enlace a Mediafire, extraer la URL canónica permanente
+      const mediafireFileUrl = extractMediafireFileUrl(cached.movieUrl);
 
-    if (linkCached)
-      return {
-        url: linkCached,
-      };
+      if (mediafireFileUrl) {
+        // Resolver una URL de descarga fresca y vigente a partir del enlace canónico
+        const freshDirectLink = await getLinkMediafire(mediafireFileUrl);
+        if (freshDirectLink) {
+          return {
+            url: `/api/video?url=${encodeURIComponent(freshDirectLink)}`,
+          };
+        }
+      }
 
-    if (cached?.movieUrl && !linkCached) remove(path);
+      // 2. Si es una URL de proxy de video previa o streaming directo
+      if (cached.movieUrl.startsWith("/api/")) {
+        return {
+          url: cached.movieUrl,
+        };
+      }
+
+      // Si la URL en caché expiró o ya no es válida, eliminarla para re-raspar
+      remove(path);
+    }
 
     return new Promise(async (resolve, reject) => {
       let browserContext: Awaited<ReturnType<typeof getBrowserContext>>["context"] | null = null;
@@ -228,6 +243,13 @@ export class GetUrl implements StrategyGetUrl {
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
         await context.storageState({ path: "state.json" });
+
+        // Guardar en formato canónico permanente https://www.mediafire.com/file/<key> para que no expire en caché
+        const canonicalMediafireUrl = extractMediafireFileUrl(dataUrls.url);
+
+        upsert(path, {
+          movieUrl: canonicalMediafireUrl || dataUrls.url,
+        });
 
         resolve(dataUrls);
       } catch (error) {

@@ -84,7 +84,45 @@ export function isUrlMediafire(url: string): boolean {
     /https:\/\/download[^\s"'><]+mediafire\.com[^\s"'><]+/i;
   return mediafireRegex.test(url);
 }
+/**
+ * Extrae la URL canónica permanente de Mediafire (https://www.mediafire.com/file/<key>)
+ * a partir de un enlace de descarga directa temporal o de una URL de proxy.
+ */
+export function extractMediafireFileUrl(rawUrl: string | undefined | null): string | null {
+  if (!rawUrl) return null;
+  let url = rawUrl;
+
+  if (url.includes("url=")) {
+    try {
+      const parsed = new URL(url, "http://localhost");
+      const param = parsed.searchParams.get("url");
+      if (param) url = param;
+    } catch (_) {}
+  }
+
+  // Caso 1: Enlace estándar: https://www.mediafire.com/file/<key> o /download/<key>
+  const fileMatch = url.match(
+    /https?:\/\/(?:www\.)?mediafire\.com\/(?:file|download)\/([a-zA-Z0-9]+)/i,
+  );
+  if (fileMatch) {
+    return `https://www.mediafire.com/file/${fileMatch[1]}`;
+  }
+
+  // Caso 2: Enlace de descarga directa: https://downloadXXXX.mediafire.com/<token>/<key>/<filename>
+  const downloadMatch = url.match(
+    /https?:\/\/download\d*\.mediafire\.com\/[^\/]+\/([a-zA-Z0-9]+)/i,
+  );
+  if (downloadMatch) {
+    return `https://www.mediafire.com/file/${downloadMatch[1]}`;
+  }
+
+  return null;
+}
+
 export async function getLinkMediafire(url: string) {
+  if (!url || !url.startsWith("http")) {
+    return null;
+  }
   try {
     const result = await fetch(url, {
       method: "GET",
