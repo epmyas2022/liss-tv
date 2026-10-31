@@ -60,7 +60,7 @@ export async function getBrowserContext(
 ) {
   //const HOST_CDP = process.env.HOST_CDP || "http://localhost:8192";
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
     args: BROWSER_ARGS,
   });
 
