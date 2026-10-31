@@ -189,13 +189,20 @@ export function HomeContinueWatching() {
   }, [items]);
 
   const handlePlay = (item: ContinueWatching) => {
-    const regex = /(?<=sololatino\.net)(\/[^\/]+\/[^\/]+)/;
+    const regex = /(?:serie|pelicula)\/[^\/\s?]+/;
     setMovieData({
       ...item,
       startTime: item.currentTime,
     });
     analytics.watchVideo(item.title || item.link, item.link);
-    router.push(`${item.link.match(regex)?.[0]}/player`);
+
+    const redirect = item.link.match(regex)?.[0];
+
+    if (!redirect) {
+      throw new Error(`Invalid link format: ${item.link}`);
+    }
+
+    router.push(`/${redirect}/player`);
   };
 
   const handleRemove = async (item: ContinueWatching) => {
