@@ -11,6 +11,12 @@ services:
       - PROXY_HOST=${PROXY_HOST}
       - PROXY_USERNAME=${PROXY_USERNAME}
       - PROXY_PASSWORD=${PROXY_PASSWORD}
+      - FLARESOLVERR_ENDPOINT=http://flaresolverr:8191/v1
+      - NEXT_PUBLIC_POCKETBASE_URL=${NEXT_PUBLIC_POCKETBASE_URL:-https://pocketbase.isaacdev.site}
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - flaresolverr
     ports:
       - "8000:8000"
 

@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const syncCookie = () => {
       document.cookie = pb.authStore.exportToCookie({
         httpOnly: false,
-        secure: process.env.NODE_ENV === "production",
+        secure: typeof window !== "undefined" && window.location.protocol === "https:",
         sameSite: "lax",
         path: "/",
       });

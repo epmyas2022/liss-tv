@@ -33,6 +33,9 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
+ARG NEXT_PUBLIC_POCKETBASE_URL
+ENV NEXT_PUBLIC_POCKETBASE_URL=$NEXT_PUBLIC_POCKETBASE_URL
+
 # Instalar el proxy para navegar en red tor
 RUN apt-get update && apt-get install -y \
     tor \
@@ -56,6 +59,8 @@ ENV PORT=8000
 
 EXPOSE $PORT
 
-VOLUME [ "/data" ]
+RUN mkdir -p /app/data
+
+VOLUME [ "/app/data" ]
 
 CMD ["sh", "-c", "tor & HOSTNAME=0.0.0.0 PORT=$PORT node server.js"]

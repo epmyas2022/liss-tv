@@ -26,7 +26,9 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      router.push("/");
+      router.refresh();
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.href = "/";
     } catch (err) {
       console.error(err);
     }

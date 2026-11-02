@@ -49,6 +49,14 @@ export function useAuth() {
       const authData = await pb
         .collection("users")
         .authWithPassword(email, pass);
+      if (typeof document !== "undefined") {
+        document.cookie = pb.authStore.exportToCookie({
+          httpOnly: false,
+          secure: window.location.protocol === "https:",
+          sameSite: "lax",
+          path: "/",
+        });
+      }
 
       analytics.login(
         authData.record.id,
@@ -72,6 +80,9 @@ export function useAuth() {
 
   const logout = () => {
     pb.authStore.clear();
+    if (typeof document !== "undefined") {
+      document.cookie = "pb_auth=; Max-Age=0; path=/";
+    }
   };
 
   return {

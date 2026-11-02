@@ -80,7 +80,7 @@ async function loadCacheStore(): Promise<FlareSolverrCacheStore> {
 /**
  * Load cache entry for a specific key (e.g. "direct" or "proxy:<host>").
  */
-async function loadCache(key: string): Promise<FlareSolverrCacheEntry | null> {
+export async function loadCache(key: string): Promise<FlareSolverrCacheEntry | null> {
   const store = await loadCacheStore();
   const entry = store[key];
   if (
@@ -98,14 +98,14 @@ async function loadCache(key: string): Promise<FlareSolverrCacheEntry | null> {
 /**
  * Persist cache entry for a specific key back to disk.
  */
-async function saveCache(key: string, entry: FlareSolverrCacheEntry): Promise<void> {
+export async function saveCache(key: string, entry: FlareSolverrCacheEntry): Promise<void> {
   const store = await loadCacheStore();
   store[key] = entry;
   await mkdir(path.dirname(CACHE_FILE_PATH), { recursive: true });
   await writeFile(CACHE_FILE_PATH, JSON.stringify(store, null, 2), "utf-8");
 }
 
-async function deleteCache(key: string): Promise<void> {
+export async function deleteCache(key: string): Promise<void> {
   const store = await loadCacheStore();
   if (store[key]) {
     delete store[key];

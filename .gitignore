@@ -44,6 +44,7 @@ next-env.d.ts
 android
 certificates
 data/flaresolverrCache.json
+state.json
 
 *.db
 *.db-shm
