@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { get, remove, /* upsert */ 
-upsert} from "@/services/movie.store";
+import { get, remove /* upsert */, upsert } from "@/services/movie.store";
 import { StrategyGetUrl, Url } from "@/types/movie";
-import { getLinkMediafire, isUrlMediafire, extractMediafireFileUrl } from "@/utils/utils";
+import {
+  getLinkMediafire,
+  isUrlMediafire,
+  extractMediafireFileUrl,
+} from "@/utils/utils";
 import {
   BASE_URL,
   getBrowserContext,
@@ -49,13 +52,16 @@ export class GetUrl implements StrategyGetUrl {
     }
 
     return new Promise(async (resolve, reject) => {
-      let browserContext: Awaited<ReturnType<typeof getBrowserContext>>["context"] | null = null;
+      let browserContext:
+        | Awaited<ReturnType<typeof getBrowserContext>>["context"]
+        | null = null;
 
       try {
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
 
+        const { agent } = await createStickySession();
         // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr
-        const htmlResponse = await fetchFlare(targetUrl);
+        const htmlResponse = await fetchFlare(targetUrl, { agent });
         if (!htmlResponse.ok) {
           throw new Error("Failed to fetch page HTML: " + htmlResponse.status);
         }
@@ -75,7 +81,9 @@ export class GetUrl implements StrategyGetUrl {
 
         const jsonMatch = rawSolution.match(/\{[\s\S]*"url"[\s\S]*\}/);
         if (!jsonMatch) {
-          throw new Error("Could not parse iframe URL from player API response");
+          throw new Error(
+            "Could not parse iframe URL from player API response",
+          );
         }
         const apiData = JSON.parse(jsonMatch[0]) as { url?: string };
         if (!apiData?.url) throw new Error("Could not resolve iframe URL");
@@ -132,7 +140,10 @@ export class GetUrl implements StrategyGetUrl {
 
         // Escucha de respuestas en toda la jerarquía de frames
         const videoPromise = (
-          callback: (responseUrl: string, headers: Record<string, string>) => boolean,
+          callback: (
+            responseUrl: string,
+            headers: Record<string, string>,
+          ) => boolean,
         ) =>
           new Promise<string>((resolveVideo) => {
             const handler = (response: {
@@ -176,16 +187,28 @@ export class GetUrl implements StrategyGetUrl {
           while (!dataUrls.url || !dataUrls.fallbackUrl) {
             try {
               if (
-                (await opcion1.isVisible({ timeout: TIMEOUT_CLICK_ACTION_MS })) &&
+                (await opcion1.isVisible({
+                  timeout: TIMEOUT_CLICK_ACTION_MS,
+                })) &&
                 dataUrls.url &&
                 !dataUrls.fallbackUrl
               ) {
-                await opcion1.click({ timeout: TIMEOUT_CLICK_ACTION_MS, force: true });
-                await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS));
+                await opcion1.click({
+                  timeout: TIMEOUT_CLICK_ACTION_MS,
+                  force: true,
+                });
+                await new Promise((resolve) =>
+                  setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS),
+                );
                 continue;
               }
-              await play.click({ timeout: TIMEOUT_CLICK_ACTION_MS, force: true });
-              await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS));
+              await play.click({
+                timeout: TIMEOUT_CLICK_ACTION_MS,
+                force: true,
+              });
+              await new Promise((resolve) =>
+                setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS),
+              );
             } catch (_) {
               await new Promise((resolve) => setTimeout(resolve, 1000));
             }
@@ -221,7 +244,9 @@ export class GetUrl implements StrategyGetUrl {
             videoPromise(getUrlMediafire),
             Promise.race([
               videoPromise(getUrlM3u8),
-              new Promise((res) => setTimeout(() => res(null), TIMEOUT_M3U8_FALLBACK_MS)),
+              new Promise((res) =>
+                setTimeout(() => res(null), TIMEOUT_M3U8_FALLBACK_MS),
+              ),
             ]),
           ]),
           new Promise((_, rej) =>
