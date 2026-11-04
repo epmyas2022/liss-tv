@@ -281,6 +281,9 @@ export async function resolver(
       url: url || BASE_URL.SoloLatino,
       session: sessionId,
       maxTimeout: 60000,
+      headers: {
+        Referer: BASE_URL.SoloLatino,
+      },
     };
 
     const executeRequest = async (retries = 1): Promise<FlareSolverrOutput> => {
@@ -449,6 +452,9 @@ export async function fetchFlare(
     const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
     const mergedHeaders = new Headers(options.headers || {});
     mergedHeaders.set("User-Agent", userAgent);
+    if (!mergedHeaders.has("Referer")) {
+      mergedHeaders.set("Referer", BASE_URL.SoloLatino);
+    }
     if (cookieHeader) {
       const existingCookie = mergedHeaders.get("Cookie");
       mergedHeaders.set(
@@ -540,13 +546,18 @@ export async function postFlare(
   if (cached && cached.expiry > now) {
     try {
       const cookieHeader = cached.cookies.map((c) => `${c.name}=${c.value}`).join("; ");
+      const xsrfCookie = cached.cookies.find((c) => c.name === "XSRF-TOKEN");
       const directHeaders: Record<string, string> = {
         "Content-Type": "application/x-www-form-urlencoded",
         "X-Requested-With": "XMLHttpRequest",
         "User-Agent": cached.userAgent,
+        Referer: BASE_URL.SoloLatino,
         ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         ...headers,
       };
+      if (xsrfCookie) {
+        directHeaders["X-XSRF-TOKEN"] = decodeURIComponent(xsrfCookie.value);
+      }
 
       const directRes = await fetch(url, {
         method: "POST",
@@ -599,16 +610,23 @@ export async function postFlare(
   return withSessionLock(sessionId, async () => {
     await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
 
+    const xsrfCookie = cached?.cookies?.find((c) => c.name === "XSRF-TOKEN");
+    const solverHeaders: Record<string, string> = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "X-Requested-With": "XMLHttpRequest",
+      Referer: BASE_URL.SoloLatino,
+      ...headers,
+    };
+    if (xsrfCookie) {
+      solverHeaders["X-XSRF-TOKEN"] = decodeURIComponent(xsrfCookie.value);
+    }
+
     const payload: Record<string, unknown> = {
       cmd: "request.post",
       url,
       postData,
       session: sessionId,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-Requested-With": "XMLHttpRequest",
-        ...headers,
-      },
+      headers: solverHeaders,
       maxTimeout: 60000,
     };
 

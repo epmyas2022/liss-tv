@@ -59,9 +59,8 @@ export class GetUrl implements StrategyGetUrl {
       try {
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
 
-        const { agent } = await createStickySession();
         // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr
-        const htmlResponse = await fetchFlare(targetUrl, { agent });
+        const htmlResponse = await fetchFlare(targetUrl);
         if (!htmlResponse.ok) {
           throw new Error("Failed to fetch page HTML: " + htmlResponse.status);
         }
@@ -71,12 +70,15 @@ export class GetUrl implements StrategyGetUrl {
         if (!tokenMatch) throw new Error("Player token not found in HTML");
         const token = tokenMatch[1];
 
-        console.log("[🔑] Player token extracted:", token.slice(0, 20) + "...");
-
         // 2. Resolver la URL del reproductor enviando el POST vía FlareSolverr (evita el 403 de Cloudflare Turnstile)
         const rawSolution = await postFlare(
           BASE_URL.SoloLatino + "api/player-url",
-          `t=${encodeURIComponent(token)}`,
+          JSON.stringify({ t: token }),
+          {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Referer: targetUrl,
+          },
         );
 
         const jsonMatch = rawSolution.match(/\{[\s\S]*"url"[\s\S]*\}/);
