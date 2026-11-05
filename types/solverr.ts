@@ -32,6 +32,7 @@ export interface FlareSolverrCacheEntry {
   userAgent: string;
   cookies: FlareSolverrCookies[];
   expiry: number;
+  updatedAt?: number;
 }
 
 export type FlareSolverrCacheStore = Record<string, FlareSolverrCacheEntry>;

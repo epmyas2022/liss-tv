@@ -396,6 +396,7 @@ export async function resolver(
       userAgent: result.userAgent,
       cookies: result.cookies,
       expiry,
+      updatedAt: now,
     });
 
     }
@@ -691,6 +692,7 @@ export async function postFlare(
           userAgent: data.solution.userAgent,
           cookies: data.solution.cookies,
           expiry,
+          updatedAt: now,
         });
       }
 

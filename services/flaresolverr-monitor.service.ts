@@ -2,7 +2,6 @@ import { BASE_URL } from "@/utils/browser";
 import { bitacora } from "@/utils/bitacora";
 import {
   loadCache,
-  saveCache,
   deleteCache,
   resolver,
 } from "@/utils/flaresolverr";
@@ -10,9 +9,9 @@ import { FlareSolverrCookies } from "@/types/solverr";
 
 const DEFAULT_CACHE_KEY = "direct";
 const INITIAL_BOOT_DELAY_MS = 15_000;
-const MIN_INTERVAL_MINUTES = 40;
-const MAX_JITTER_MINUTES = 25;
-const EXTENDED_CACHE_LIFETIME_MS = 60 * 60 * 1000;
+const MIN_INTERVAL_MINUTES = 10;
+const MAX_JITTER_MINUTES = 3;
+const MAX_SESSION_AGE_MS = 11 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 15_000;
 
 const CHALLENGE_INDICATORS = [
@@ -46,9 +45,10 @@ async function pingSession(
       method: "GET",
       headers: {
         "User-Agent": userAgent,
+        Referer: BASE_URL.SoloLatino,
         ...(cookieHeader ? { Cookie: cookieHeader } : {}),
-        Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        Accept: "application/json, text/plain, */*",
+        "X-Requested-With": "XMLHttpRequest",
       },
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
@@ -69,7 +69,7 @@ async function pingSession(
 }
 
 function calculateNextDelayMs(): number {
-  const jitterMinutes = Math.floor(Math.random() * MAX_JITTER_MINUTES);
+  const jitterMinutes = Math.floor(Math.random() * (MAX_JITTER_MINUTES + 1));
   const totalMinutes = MIN_INTERVAL_MINUTES + jitterMinutes;
   return totalMinutes * 60 * 1000;
 }
@@ -84,27 +84,37 @@ export async function checkAndWarmSession(): Promise<void> {
     return;
   }
 
+  const isStale =
+    !cached.updatedAt || Date.now() - cached.updatedAt >= MAX_SESSION_AGE_MS;
+
+  if (isStale) {
+    logger.warning(
+      "Session reached proactive renewal threshold (11m). Refreshing via FlareSolverr in background...",
+    );
+    await deleteCache(DEFAULT_CACHE_KEY);
+    await resolver(BASE_URL.SoloLatino);
+    logger.success("FlareSolverr session successfully renewed proactively.");
+    return;
+  }
+
+  const pingUrl = `${BASE_URL.SoloLatino}api/search/suggest?q=a`;
   const isHealthy = await pingSession(
-    BASE_URL.SoloLatino,
+    pingUrl,
     cached.userAgent,
     cached.cookies,
   );
 
   if (!isHealthy) {
-    logger.warning("Cached session expired or challenge detected. Renewing session...");
+    logger.warning(
+      "Cached session failed health check or challenge detected. Renewing session...",
+    );
     await deleteCache(DEFAULT_CACHE_KEY);
     await resolver(BASE_URL.SoloLatino);
     logger.success("FlareSolverr session successfully renewed and cached.");
     return;
   }
 
-  const extendedExpiry = Date.now() + EXTENDED_CACHE_LIFETIME_MS;
-  await saveCache(DEFAULT_CACHE_KEY, {
-    ...cached,
-    expiry: extendedExpiry,
-  });
-
-  logger.success("Cloudflare session is still active. Cache expiry extended.");
+  logger.success("Cloudflare session verified and healthy.");
 }
 
 export function startFlareSolverrMonitor(): void {
