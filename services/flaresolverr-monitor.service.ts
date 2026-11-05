@@ -5,68 +5,16 @@ import {
   deleteCache,
   resolver,
 } from "@/utils/flaresolverr";
-import { FlareSolverrCookies } from "@/types/solverr";
 
 const DEFAULT_CACHE_KEY = "direct";
 const INITIAL_BOOT_DELAY_MS = 15_000;
 const MIN_INTERVAL_MINUTES = 10;
-const MAX_JITTER_MINUTES = 3;
-const MAX_SESSION_AGE_MS = 11 * 60 * 1000;
-const REQUEST_TIMEOUT_MS = 15_000;
-
-const CHALLENGE_INDICATORS = [
-  "Just a moment...",
-  "cf-browser-verification",
-  "challenges.cloudflare.com",
-  "_cf_chl_opt",
-] as const;
+const MAX_JITTER_MINUTES = 2; // Ciclos entre 10 y 12 minutos
+const RECENT_BOOT_THRESHOLD_MS = 5 * 60 * 1000; // Si la caché tiene < 5 min al iniciar, reusar
 
 const logger = bitacora.createScope("FlareSolverrMonitor");
 
 let isMonitorActive = false;
-
-function buildCookieHeader(cookies: FlareSolverrCookies[]): string {
-  return cookies.map((cookie) => `${cookie.name}=${cookie.value}`).join("; ");
-}
-
-function containsCloudflareChallenge(html: string): boolean {
-  return CHALLENGE_INDICATORS.some((indicator) => html.includes(indicator));
-}
-
-async function pingSession(
-  targetUrl: string,
-  userAgent: string,
-  cookies: FlareSolverrCookies[],
-): Promise<boolean> {
-  const cookieHeader = buildCookieHeader(cookies);
-
-  try {
-    const response = await fetch(targetUrl, {
-      method: "GET",
-      headers: {
-        "User-Agent": userAgent,
-        Referer: BASE_URL.SoloLatino,
-        ...(cookieHeader ? { Cookie: cookieHeader } : {}),
-        Accept: "application/json, text/plain, */*",
-        "X-Requested-With": "XMLHttpRequest",
-      },
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-
-    if (!response.ok) {
-      return false;
-    }
-
-    const html = await response.text();
-    if (containsCloudflareChallenge(html)) {
-      return false;
-    }
-
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 function calculateNextDelayMs(): number {
   const jitterMinutes = Math.floor(Math.random() * (MAX_JITTER_MINUTES + 1));
@@ -74,47 +22,32 @@ function calculateNextDelayMs(): number {
   return totalMinutes * 60 * 1000;
 }
 
-export async function checkAndWarmSession(): Promise<void> {
+export async function checkAndWarmSession(isInitialBoot = false): Promise<void> {
   const cached = await loadCache(DEFAULT_CACHE_KEY);
 
-  if (!cached) {
-    logger.warning("No cached session found. Resolving fresh session via FlareSolverr...");
-    await resolver(BASE_URL.SoloLatino);
-    logger.success("Initial FlareSolverr session resolved and cached.");
-    return;
+  // Al arrancar: si ya hay caché muy reciente (< 5 min), la consideramos válida para no duplicar peticiones
+  if (isInitialBoot && cached?.updatedAt) {
+    const ageMs = Date.now() - cached.updatedAt;
+    if (ageMs < RECENT_BOOT_THRESHOLD_MS) {
+      const ageSeconds = Math.round(ageMs / 1000);
+      logger.success(
+        `Cached session is fresh (${ageSeconds}s old). Skipping initial boot resolution.`,
+      );
+      return;
+    }
   }
 
-  const isStale =
-    !cached.updatedAt || Date.now() - cached.updatedAt >= MAX_SESSION_AGE_MS;
-
-  if (isStale) {
-    logger.warning(
-      "Session reached proactive renewal threshold (11m). Refreshing via FlareSolverr in background...",
-    );
-    await deleteCache(DEFAULT_CACHE_KEY);
-    await resolver(BASE_URL.SoloLatino);
-    logger.success("FlareSolverr session successfully renewed proactively.");
-    return;
-  }
-
-  const pingUrl = `${BASE_URL.SoloLatino}api/search/suggest?q=a`;
-  const isHealthy = await pingSession(
-    pingUrl,
-    cached.userAgent,
-    cached.cookies,
+  logger.warning(
+    "Proactively refreshing FlareSolverr session in background to prevent expiration...",
   );
 
-  if (!isHealthy) {
-    logger.warning(
-      "Cached session failed health check or challenge detected. Renewing session...",
-    );
+  try {
     await deleteCache(DEFAULT_CACHE_KEY);
     await resolver(BASE_URL.SoloLatino);
-    logger.success("FlareSolverr session successfully renewed and cached.");
-    return;
+    logger.success("FlareSolverr session successfully renewed and cached proactively.");
+  } catch (error) {
+    logger.error("Failed to renew FlareSolverr session during monitor cycle", error);
   }
-
-  logger.success("Cloudflare session verified and healthy.");
 }
 
 export function startFlareSolverrMonitor(): void {
@@ -141,7 +74,19 @@ export function startFlareSolverrMonitor(): void {
     }, nextDelayMs);
   };
 
-  setTimeout(() => {
-    void executeCycle();
+  setTimeout(async () => {
+    try {
+      await checkAndWarmSession(true);
+    } catch (error) {
+      logger.error("Error during initial FlareSolverr boot cycle", error);
+    }
+
+    const nextDelayMs = calculateNextDelayMs();
+    const nextDelayMinutes = Math.round(nextDelayMs / (60 * 1000));
+    logger.warning(`Next session verification scheduled in ${nextDelayMinutes} minutes.`);
+
+    setTimeout(() => {
+      void executeCycle();
+    }, nextDelayMs);
   }, INITIAL_BOOT_DELAY_MS);
 }
