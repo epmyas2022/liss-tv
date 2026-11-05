@@ -183,6 +183,8 @@ export class GetUrl implements StrategyGetUrl {
           .locator("button.tab, button")
           .filter({ hasText: "Opción 1" });
 
+        const errorMessage = frame.locator("#srvErrorOverlay");
+
         console.info("[▶️] Found #playBtn, starting click loop...");
 
         const clickLoop = async () => {
@@ -192,7 +194,7 @@ export class GetUrl implements StrategyGetUrl {
                 (await opcion1.isVisible({
                   timeout: TIMEOUT_CLICK_ACTION_MS,
                 })) &&
-                dataUrls.url &&
+                (dataUrls.url || (await errorMessage.isVisible())) &&
                 !dataUrls.fallbackUrl
               ) {
                 await opcion1.click({
@@ -264,8 +266,8 @@ export class GetUrl implements StrategyGetUrl {
           ),
         ]);
 
-        if (!dataUrls.url)
-          throw new Error("Failed to retrieve video URL or fallback URL");
+        if (!dataUrls.url && !dataUrls.fallbackUrl)
+          return reject(new Error("No video URL or fallback URL captured"));
 
         console.log("[✅] Video URL and fallback URL captured:", dataUrls);
 
@@ -275,7 +277,7 @@ export class GetUrl implements StrategyGetUrl {
         const canonicalMediafireUrl = extractMediafireFileUrl(dataUrls.url);
 
         upsert(path, {
-          movieUrl: canonicalMediafireUrl || dataUrls.url,
+          movieUrl: canonicalMediafireUrl || dataUrls?.url || undefined,
         });
 
         resolve(dataUrls);
