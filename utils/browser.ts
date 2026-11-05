@@ -6,9 +6,10 @@ import {
   createStickySession,
   anonymizeProxy,
   closeAnonymizedProxy,
+  isProxyEnabled,
 } from "./proxy";
 
-export { createStickySession, anonymizeProxy, closeAnonymizedProxy };
+export { createStickySession, anonymizeProxy, closeAnonymizedProxy, isProxyEnabled };
 
 const BROWSER_ARGS = [
   "--autoplay-policy=no-user-gesture-required",
@@ -94,7 +95,7 @@ export interface GetBrowserOptions {
 
 export async function getBrowser(options: GetBrowserOptions = {}) {
   let anonymizedProxy = options.anonymizedProxy;
-  if (!anonymizedProxy) {
+  if (!anonymizedProxy && (isProxyEnabled() || options.proxyUrl)) {
     const proxyUrl = options.proxyUrl || createStickySession().url;
     anonymizedProxy = await anonymizeProxy(proxyUrl);
   }

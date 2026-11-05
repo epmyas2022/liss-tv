@@ -7,6 +7,13 @@ const proxyLogger = bitacora.createScope("Proxy");
 
 const PROXY_HOST = process.env.PROXY_HOST;
 
+/**
+ * Determine if proxy usage is enabled globally via environment variable.
+ */
+export function isProxyEnabled(): boolean {
+  return process.env.USE_PROXY === "true" || process.env.ENABLE_PROXY === "true";
+}
+
 let currentAccountIndex = 0;
 const exhaustedUsernames = new Set<string>();
 

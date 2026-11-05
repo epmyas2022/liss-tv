@@ -9,7 +9,8 @@ import {
   PostFlareOptions,
 } from "@/types/solverr";
 import { BASE_URL } from "@/utils/browser";
-import { markProxyExhausted, createStickySession } from "@/utils/proxy";
+import { markProxyExhausted, createStickySession, isProxyEnabled } from "@/utils/proxy";
+import { HttpsProxyAgent } from "https-proxy-agent";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import nodeFetch from "node-fetch";
@@ -145,6 +146,20 @@ function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
     }
   }
 
+  if (isProxyEnabled()) {
+    try {
+      const session = createStickySession();
+      const parsed = new URL(session.url);
+      const host = parsed.hostname || parsed.host;
+      return {
+        proxyUrl: session.url,
+        proxyKey: `proxy:${host}`,
+      };
+    } catch (e) {
+      console.error("[⚠️ Error creating sticky session for proxy details]", e);
+    }
+  }
+
   return { proxyKey: "direct" };
 }
 
@@ -228,7 +243,22 @@ export async function resolver(
   url: string,
   options: ResolverOptions = {},
 ): Promise<FlareSolverrOutput> {
-  let defaultProxyKey = "direct";
+  if (isProxyEnabled() && !options.proxyUrl) {
+    try {
+      const session = createStickySession();
+      options = {
+        ...options,
+        proxyUrl: session.url,
+        proxyKey: options.proxyKey || `proxy:${new URL(session.url).hostname || process.env.PROXY_HOST || "default"}`,
+      };
+    } catch (e) {
+      console.error("[⚠️ Failed to initialize proxy session in resolver]", e);
+    }
+  }
+
+  let defaultProxyKey = isProxyEnabled()
+    ? `proxy:${process.env.PROXY_HOST || "default"}`
+    : "direct";
   if (options.proxyUrl) {
     try {
       const parsed = new URL(options.proxyUrl);
@@ -419,7 +449,7 @@ export async function fetchFlare(
   options: FetchFlareOptions = {},
   retriesLeft = 3,
 ): Promise<Response> {
-  if (options.agent) {
+  if ((isProxyEnabled() || options.agent) && !options.proxyUrl) {
     const session = createStickySession();
     options = {
       ...options,
@@ -433,7 +463,10 @@ export async function fetchFlare(
   const username = extractProxyUsername(options);
 
   try {
-    const resolverOutput = await resolver(url, !options.agent ? undefined : proxyDetails);
+    const resolverOutput = await resolver(
+      url,
+      !options.agent && !isProxyEnabled() ? undefined : proxyDetails,
+    );
 
     // If FlareSolverr solved and retrieved the target URL directly, reuse its HTML response
     if (resolverOutput.html) {
@@ -530,7 +563,22 @@ export async function postFlare(
   headers: Record<string, string> = {},
   options: PostFlareOptions = {},
 ): Promise<string> {
-  let defaultProxyKey = "direct";
+  if (isProxyEnabled() && !options.proxyUrl) {
+    try {
+      const session = createStickySession();
+      options = {
+        ...options,
+        proxyUrl: session.url,
+        proxyKey: options.proxyKey || `proxy:${new URL(session.url).hostname || process.env.PROXY_HOST || "default"}`,
+      };
+    } catch (e) {
+      console.error("[⚠️ Failed to initialize proxy in postFlare]", e);
+    }
+  }
+
+  let defaultProxyKey = isProxyEnabled()
+    ? `proxy:${process.env.PROXY_HOST || "default"}`
+    : "direct";
   if (options.proxyUrl) {
     try {
       const parsed = new URL(options.proxyUrl);
@@ -560,11 +608,22 @@ export async function postFlare(
         directHeaders["X-XSRF-TOKEN"] = decodeURIComponent(xsrfCookie.value);
       }
 
-      const directRes = await fetch(url, {
-        method: "POST",
-        headers: directHeaders,
-        body: postData,
-      });
+      let agent: HttpsProxyAgent<string> | undefined;
+      if (options.proxyUrl) {
+        agent = new HttpsProxyAgent(options.proxyUrl);
+      }
+      const directRes = (await (agent
+        ? nodeFetch(url, {
+            method: "POST",
+            headers: directHeaders,
+            body: postData,
+            agent,
+          } as never)
+        : fetch(url, {
+            method: "POST",
+            headers: directHeaders,
+            body: postData,
+          }))) as unknown as Response;
 
       if (directRes.ok) {
         const text = await directRes.text();

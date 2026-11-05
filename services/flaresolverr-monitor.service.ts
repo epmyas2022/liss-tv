@@ -2,11 +2,17 @@ import { BASE_URL } from "@/utils/browser";
 import { bitacora } from "@/utils/bitacora";
 import {
   loadCache,
-  deleteCache,
   resolver,
 } from "@/utils/flaresolverr";
+import { isProxyEnabled } from "@/utils/proxy";
 
-const DEFAULT_CACHE_KEY = "direct";
+function getMonitorCacheKey(): string {
+  if (isProxyEnabled()) {
+    return `proxy:${process.env.PROXY_HOST || "default"}`;
+  }
+  return "direct";
+}
+
 const INITIAL_BOOT_DELAY_MS = 15_000;
 const MIN_INTERVAL_MINUTES = 10;
 const MAX_JITTER_MINUTES = 2; // Ciclos entre 10 y 12 minutos
@@ -23,28 +29,38 @@ function calculateNextDelayMs(): number {
 }
 
 export async function checkAndWarmSession(isInitialBoot = false): Promise<void> {
-  const cached = await loadCache(DEFAULT_CACHE_KEY);
+  const cacheKey = getMonitorCacheKey();
+  const cached = await loadCache(cacheKey);
+  const now = Date.now();
+
+  // Si la sesión sigue vigente (y le quedan más de 10 min de vida útil), no la forzamos
+  if (cached?.expiry && cached.expiry - now > 10 * 60 * 1000) {
+    const remainingMinutes = Math.round((cached.expiry - now) / 60000);
+    logger.success(
+      `Cached session (${cacheKey}) is fresh (valid for ${remainingMinutes}m). Skipping resolution.`,
+    );
+    return;
+  }
 
   // Al arrancar: si ya hay caché muy reciente (< 5 min), la consideramos válida para no duplicar peticiones
   if (isInitialBoot && cached?.updatedAt) {
-    const ageMs = Date.now() - cached.updatedAt;
+    const ageMs = now - cached.updatedAt;
     if (ageMs < RECENT_BOOT_THRESHOLD_MS) {
       const ageSeconds = Math.round(ageMs / 1000);
       logger.success(
-        `Cached session is fresh (${ageSeconds}s old). Skipping initial boot resolution.`,
+        `Cached session (${cacheKey}) is fresh (${ageSeconds}s old). Skipping initial boot resolution.`,
       );
       return;
     }
   }
 
   logger.warning(
-    "Proactively refreshing FlareSolverr session in background to prevent expiration...",
+    `Proactively refreshing FlareSolverr session (${cacheKey}) in background to prevent expiration...`,
   );
 
   try {
-    await deleteCache(DEFAULT_CACHE_KEY);
     await resolver(BASE_URL.SoloLatino);
-    logger.success("FlareSolverr session successfully renewed and cached proactively.");
+    logger.success(`FlareSolverr session (${cacheKey}) successfully renewed and cached proactively.`);
   } catch (error) {
     logger.error("Failed to renew FlareSolverr session during monitor cycle", error);
   }
