@@ -9,7 +9,7 @@ import {
 
 import { useState } from "react";
 
-import { Maximize2, Minimize2 } from "lucide-react";
+import { ArrowLeftRight, Maximize2, Minimize2 } from "lucide-react";
 import {
   DefaultVideoLayout,
   defaultLayoutIcons,
@@ -32,10 +32,10 @@ export default function MobileAndDeskPlayer({
   handleTimeUpdate,
   handlePause,
   onErrorCapture,
-  
+  canSwitchToFallback,
+  onSwitchToFallback,
 }: VideoPlayerProps) {
   const [isFullScreenIOS, setIsFullScreenIOS] = useState(false);
-
 
   const canFullscreen =
     typeof document !== "undefined" && !!document.fullscreenEnabled;
@@ -81,7 +81,7 @@ export default function MobileAndDeskPlayer({
         }
       >
         <MediaPlayer
-        key={src}
+          key={src}
           autoPlay
           src={{
             src,
@@ -120,6 +120,18 @@ export default function MobileAndDeskPlayer({
               thumbnails={thumbnails}
               icons={defaultLayoutIcons}
               slots={{
+                beforeFullscreenButton:
+                  canSwitchToFallback && onSwitchToFallback ? (
+                    <button
+                      type="button"
+                      onClick={onSwitchToFallback}
+                      className="vds-button"
+                      aria-label="Cambiar a fuente alternativa"
+                      title="Cambiar a fuente alternativa"
+                    >
+                      <ArrowLeftRight size={19} />
+                    </button>
+                  ) : null,
                 fullscreenButton: !canFullscreen ? (
                   <button
                     onClick={() => setIsFullScreenIOS(!isFullScreenIOS)}

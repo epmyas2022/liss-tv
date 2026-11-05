@@ -28,5 +28,8 @@ export interface VideoPlayerProps {
   thumbnails?: string;
   textTracks?: TextTrack[];
   fallback?: () => Promise<string | null>;
-  onErrorCapture?: ReactEventHandler<HTMLElement> | undefined
+  fallbackUrl?: string | null;
+  canSwitchToFallback?: boolean;
+  onSwitchToFallback?: () => void;
+  onErrorCapture?: ReactEventHandler<HTMLElement> | undefined;
 }

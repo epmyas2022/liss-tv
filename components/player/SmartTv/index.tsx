@@ -9,6 +9,7 @@ import {
 } from "@vidstack/react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import {
+  ArrowLeftRight,
   Play,
   Pause,
   SkipBack,
@@ -178,6 +179,8 @@ export default function SmartTvPlayer({
   handleTimeUpdate,
   handlePause,
   onErrorCapture,
+  canSwitchToFallback,
+  onSwitchToFallback,
 }: VideoPlayerProps) {
   const internalRef = useRef<MediaPlayerInstance | null>(null);
   const playerRef =
@@ -456,6 +459,16 @@ export default function SmartTvPlayer({
                 label={muted ? "Activar sonido" : "Silenciar"}
                 onPress={toggleMute}
               />
+              {canSwitchToFallback && onSwitchToFallback && (
+                <ControlButton
+                  icon={<ArrowLeftRight size={18} />}
+                  label="Cambiar a fuente alternativa"
+                  onPress={() => {
+                    onSwitchToFallback();
+                    revealControls();
+                  }}
+                />
+              )}
             </div>
           </FocusContextProvider>
         </div>

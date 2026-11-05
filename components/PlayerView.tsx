@@ -86,7 +86,9 @@ export function PlayerView() {
       </div>
     );
 
-  if (!movieUrl || !movieUrl.url)
+  const primaryUrl = movieUrl?.url || movieUrl?.fallbackUrl;
+
+  if (!movieUrl || !primaryUrl)
     return (
       <div className="flex items-center justify-center h-screen text-white bg-black">
         <p className="text-lg font-semibold">
@@ -129,7 +131,8 @@ export function PlayerView() {
             }
           }}
           startTime={moviePreview.startTime}
-          src={movieUrl.url}
+          src={primaryUrl}
+          fallbackUrl={movieUrl.fallbackUrl}
           title={moviePreview.title}
           poster={moviePreview.backgroundImage || moviePreview.image}
           fallback={fallback}
