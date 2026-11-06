@@ -9,7 +9,7 @@ export default async function MovieDetailPage({
   params: { slug: string };
 }) {
   const { slug } = await params;
-  const movie = await getDetails(`/pelicula/${slug}`);
+  const movie = await getDetails(`pelicula/${slug}`);
 
   if (!movie) {
     return (
