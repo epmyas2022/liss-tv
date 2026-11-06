@@ -75,18 +75,27 @@ function getDatabase(): DatabaseType {
   return globalThis.__movieDb;
 }
 
+export function normalizeKey(key: string): string {
+  if (!key) return "";
+  let clean = key.trim().split("?")[0].split("#")[0];
+  clean = clean.replace(/^https?:\/\/[^/]+/, "");
+  if (!clean.startsWith("/")) clean = `/${clean}`;
+  return clean;
+}
+
 /** Upsert by link — merges partial data, never duplicates */
 export function upsert(
   link: string,
   data: Partial<Omit<StoredMovie, "link" | "updatedAt">>,
 ): StoredMovie {
   const db = getDatabase();
+  const normalized = normalizeKey(link);
   const existing = get(link) || ({} as StoredMovie);
   const updatedAt = new Date().toISOString();
   const merged: StoredMovie = {
     ...existing,
     ...data,
-    link,
+    link: normalized,
     updatedAt,
   };
 
@@ -98,7 +107,7 @@ export function upsert(
       updated_at = excluded.updated_at
   `);
 
-  stmt.run(link, JSON.stringify(merged), updatedAt);
+  stmt.run(normalized, JSON.stringify(merged), updatedAt);
   return merged;
 }
 
@@ -118,8 +127,9 @@ export function upsertAll<T>(prefix: string, data: T): void {
 
 export function get(link: string): StoredMovie | undefined {
   const db = getDatabase();
-  const stmt = db.prepare(`SELECT data FROM movie_cache WHERE key = ?`);
-  const row = stmt.get(link) as { data: string } | undefined;
+  const normalized = normalizeKey(link);
+  const stmt = db.prepare(`SELECT data FROM movie_cache WHERE key = ? OR key = ?`);
+  const row = stmt.get(normalized, link) as { data: string } | undefined;
   if (!row) return undefined;
   try {
     return JSON.parse(row.data) as StoredMovie;
@@ -130,8 +140,9 @@ export function get(link: string): StoredMovie | undefined {
 
 export function remove(link: string): void {
   const db = getDatabase();
-  const stmt = db.prepare(`DELETE FROM movie_cache WHERE key = ?`);
-  stmt.run(link);
+  const normalized = normalizeKey(link);
+  const stmt = db.prepare(`DELETE FROM movie_cache WHERE key = ? OR key = ?`);
+  stmt.run(normalized, link);
 }
 
 export function getAllData<A>(

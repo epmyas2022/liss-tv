@@ -16,10 +16,8 @@ export class GetDetail implements StrategyGetMovieDetails {
 
     if (
       cached?.title &&
-      cached?.image &&
-      cached?.backgroundImage &&
       !isPastDays(cached.updatedAt, 7) &&
-      (!isSerie || cached?.episodes?.length)
+      (!isSerie || Boolean(cached?.episodes && cached.episodes.length > 0))
     ) {
       return {
         backgroundImage: cached.backgroundImage ?? "",
@@ -62,8 +60,17 @@ export class GetDetail implements StrategyGetMovieDetails {
         backgroundImage = backgroundImage.replace(/\/w\d+\//, "/original/");
       }
 
-      const image = container.find("img").eq(0).attr("src") ?? "";
-      const title = container.find("h1").text().trim() ?? "";
+      const image =
+        container.find("img").eq(0).attr("src") ||
+        $('meta[property="og:image"]').attr("content") ||
+        "";
+
+      const title =
+        container.find("h1").text().trim() ||
+        $("h1").first().text().trim() ||
+        $('meta[property="og:title"]').attr("content")?.trim() ||
+        $("title").text().replace(/—.*$/, "").replace(/SoloLatino.*$/i, "").trim() ||
+        "";
 
       const spans = container.find("span:not(.badge):not(.rating-badge)");
       const year = spans.eq(0).text() ?? "";
@@ -86,13 +93,16 @@ export class GetDetail implements StrategyGetMovieDetails {
             .find("a.ep-item")
             .map((_, epEl) => {
               const imgEl = $(epEl).find("img.ep-thumb");
-              // The title element has multiple classes; match by the ones that are stable
               const titleEl = $(epEl).find("p.text-sm.font-semibold");
               const numEl = $(epEl).find("p.ep-num");
               const captionEl = $(epEl).find("p.line-clamp-2");
               const fullLink = $(epEl).attr("href") || "";
               const match = fullLink.match(/https?:\/\/[^/]+\/(?:pelicula|serie)\/[^?#]+/);
-              const cleanedLink = match ? match[0] : "";
+              const cleanedLink = match
+                ? match[0]
+                : fullLink.startsWith("/")
+                  ? new URL(fullLink, BASE_URL.SoloLatino).href
+                  : fullLink;
               return {
                 link: cleanedLink,
                 title: titleEl.text().trim(),
@@ -104,6 +114,33 @@ export class GetDetail implements StrategyGetMovieDetails {
             .get();
           seasonsData.push({ season: seasonNumber, episodes: episodesData });
         });
+
+        // Fallback si no había data-season-panel pero sí a.ep-item
+        if (seasonsData.length === 0 && $("a.ep-item").length > 0) {
+          const episodesData = $("a.ep-item")
+            .map((_, epEl) => {
+              const imgEl = $(epEl).find("img.ep-thumb");
+              const titleEl = $(epEl).find("p.text-sm.font-semibold");
+              const numEl = $(epEl).find("p.ep-num");
+              const captionEl = $(epEl).find("p.line-clamp-2");
+              const fullLink = $(epEl).attr("href") || "";
+              const match = fullLink.match(/https?:\/\/[^/]+\/(?:pelicula|serie)\/[^?#]+/);
+              const cleanedLink = match
+                ? match[0]
+                : fullLink.startsWith("/")
+                  ? new URL(fullLink, BASE_URL.SoloLatino).href
+                  : fullLink;
+              return {
+                link: cleanedLink,
+                title: titleEl.text().trim(),
+                image: imgEl.attr("src") ?? "",
+                numberEpisode: numEl.text().trim(),
+                caption: captionEl.text().trim(),
+              };
+            })
+            .get();
+          seasonsData.push({ season: "1", episodes: episodesData });
+        }
       }
 
       const detail = {
@@ -119,7 +156,10 @@ export class GetDetail implements StrategyGetMovieDetails {
       };
 
       if (!title) {
-        console.warn(`[GetDetail] Could not parse title for ${link}, skipping cache.`);
+        const pageTitle = $("title").text().trim();
+        console.warn(
+          `[GetDetail] Could not parse title for ${link}. (Page <title>: "${pageTitle}", HTML length: ${html.length}), skipping cache.`,
+        );
         return undefined;
       }
 
