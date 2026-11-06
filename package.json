@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:scripts": "esbuild scripts/sync-urls.ts --bundle --platform=node --format=cjs --packages=external --outfile=dist/sync-urls.js",
+    "build": "next build && npm run build:scripts",
     "start": "next start",
     "lint": "eslint",
-    "sync:urls": "tsx scripts/sync-urls.ts"
+    "sync:urls": "node sync-urls.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.0",
@@ -42,6 +43,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "tailwindcss": "^4",

@@ -54,6 +54,9 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist/sync-urls.js ./sync-urls.js
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/scripts ./scripts
 
 ENV PORT=8000
 
