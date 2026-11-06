@@ -59,7 +59,7 @@ export class GetUrl implements StrategyGetUrl {
           finalUrl = getManifestPublicUrl(cleanPath);
         }
         return {
-          url: finalUrl,
+          url: null,
           fallbackUrl: finalUrl,
         };
       }
