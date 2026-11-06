@@ -18,14 +18,20 @@ export class GetAll implements StrategyGetAllMovies {
     slug?: string,
     pageNumber?: number,
   ): Promise<Movies | undefined> {
-    const key = !slug || slug == "" ? "home" : `${slug}/page/${pageNumber}`;
+    const key = search
+      ? `search:${search.toLowerCase().trim()}`
+      : !slug || slug == ""
+        ? "home"
+        : `${slug}/page/${pageNumber}`;
 
-    const cached = !search ? getAllData<Movies>(key) : null;
+    const cached = getAllData<Movies>(key);
 
     const isPastHours = (dateString: string, hours: number): boolean =>
       (Date.now() - new Date(dateString).getTime()) / (1000 * 60 * 60) > hours;
 
-    if (cached && !isPastHours(cached.updatedAt, 8)) {
+    const maxAgeHours = search ? 1 : 8;
+
+    if (cached && !isPastHours(cached.updatedAt, maxAgeHours)) {
       return cached.data;
     }
 
@@ -92,7 +98,9 @@ export class GetAll implements StrategyGetAllMovies {
               })
           : [];
 
-        return { movies, lastPageNumber: 1 };
+        const searchData = { movies, lastPageNumber: 1 };
+        upsertAll<Movies>(key, searchData);
+        return searchData;
       }
 
       const $ = cheerio.load(rawText);

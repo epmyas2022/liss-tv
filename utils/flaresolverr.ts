@@ -165,6 +165,8 @@ function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
 
 const activeSessions = new Set<string>();
 const sessionLocks = new Map<string, Promise<unknown>>();
+const inFlightResolutions = new Map<string, Promise<FlareSolverrOutput>>();
+const STALE_GRACE_PERIOD_MS = 24 * 60 * 60 * 1000;
 
 async function withSessionLock<T>(sessionId: string, fn: () => Promise<T>): Promise<T> {
   const currentLock = sessionLocks.get(sessionId) || Promise.resolve();
@@ -235,80 +237,25 @@ async function ensureFlareSession(
 }
 
 /**
- * Resolve a captcha challenge via FlareSolverr using persistent browser sessions.
- * FlareSolverr retains clearance cookies inside the session, avoiding TLS fingerprint blocks.
- * Uses a per-session lock to prevent concurrent requests from trampling the single browser tab.
+ * Execute actual FlareSolverr challenge resolution.
+ * Always resolves on the base domain to avoid Turnstile issues on API endpoints.
  */
-export async function resolver(
+async function executeFlareResolution(
   url: string,
-  options: ResolverOptions = {},
+  options: ResolverOptions,
+  cacheKey: string,
+  sessionId: string,
+  proxyPayload?: Record<string, string>,
 ): Promise<FlareSolverrOutput> {
-  if (isProxyEnabled() && !options.proxyUrl) {
-    try {
-      const session = createStickySession();
-      options = {
-        ...options,
-        proxyUrl: session.url,
-        proxyKey: options.proxyKey || `proxy:${new URL(session.url).hostname || process.env.PROXY_HOST || "default"}`,
-      };
-    } catch (e) {
-      console.error("[⚠️ Failed to initialize proxy session in resolver]", e);
-    }
-  }
-
-  let defaultProxyKey = isProxyEnabled()
-    ? `proxy:${process.env.PROXY_HOST || "default"}`
-    : "direct";
-  if (options.proxyUrl) {
-    try {
-      const parsed = new URL(options.proxyUrl);
-      defaultProxyKey = `proxy:${parsed.hostname || parsed.host}`;
-    } catch {
-      defaultProxyKey = `proxy:${process.env.PROXY_HOST || "default"}`;
-    }
-  }
-  const cacheKey = options.proxyKey || defaultProxyKey;
-
-  const cached = await loadCache(cacheKey);
-  const now = Date.now();
-  if (cached && cached.expiry > now) {
-    return {
-      userAgent: cached.userAgent,
-      cookies: cached.cookies,
-    };
-  }
-
   const flareSolverrEndpoint =
     process.env.FLARESOLVERR_ENDPOINT || "http://localhost:8191/v1";
-
-  const sessionId = getSessionId(options.proxyKey);
-
-  let proxyPayload: Record<string, string> | undefined;
-  if (options.proxyUrl) {
-    try {
-      const parsed = new URL(options.proxyUrl);
-      proxyPayload = {
-        url: `${parsed.protocol}//${parsed.host}`,
-      };
-      if (parsed.username) {
-        proxyPayload.username = decodeURIComponent(parsed.username);
-      }
-      if (parsed.password) {
-        proxyPayload.password = decodeURIComponent(parsed.password);
-      }
-    } catch {
-      proxyPayload = {
-        url: cleanProxyUrl(options.proxyUrl),
-      };
-    }
-  }
 
   return withSessionLock(sessionId, async () => {
     await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
 
     const payload: Record<string, unknown> = {
       cmd: "request.get",
-      url: url || BASE_URL.SoloLatino,
+      url: BASE_URL.SoloLatino,
       session: sessionId,
       maxTimeout: 60000,
       headers: {
@@ -408,31 +355,146 @@ export async function resolver(
     };
 
     const result = await executeRequest();
+    const now = Date.now();
 
     if (result.cookies && result.cookies.length > 0) {
       const cfClearance = result.cookies.find((c) => c.name === "cf_clearance") as
-      | (FlareSolverrCookies & { expiry?: number })
-      | undefined;
-    let expiry = now + 60 * 60 * 1000;
-    if (
-      cfClearance?.expiry &&
-      typeof cfClearance.expiry === "number" &&
-      cfClearance.expiry * 1000 > now
-    ) {
-      expiry = cfClearance.expiry * 1000;
-    }
+        | (FlareSolverrCookies & { expiry?: number })
+        | undefined;
+      let expiry = now + 60 * 60 * 1000;
+      if (
+        cfClearance?.expiry &&
+        typeof cfClearance.expiry === "number" &&
+        cfClearance.expiry * 1000 > now
+      ) {
+        expiry = cfClearance.expiry * 1000;
+      }
 
-    await saveCache(cacheKey, {
-      userAgent: result.userAgent,
-      cookies: result.cookies,
-      expiry,
-      updatedAt: now,
-    });
-
+      await saveCache(cacheKey, {
+        userAgent: result.userAgent,
+        cookies: result.cookies,
+        expiry,
+        updatedAt: now,
+      });
     }
 
     return result;
   });
+}
+
+/**
+ * Resolve a captcha challenge via FlareSolverr using persistent browser sessions.
+ * Implements Stale-While-Revalidate (SWR): returns stale cookies immediately so user
+ * requests (search, detail, etc.) don't block on FlareSolverr, while refreshing in the background.
+ */
+export async function resolver(
+  url: string = BASE_URL.SoloLatino,
+  options: ResolverOptions = {},
+): Promise<FlareSolverrOutput> {
+  if (isProxyEnabled() && !options.proxyUrl) {
+    try {
+      const session = createStickySession();
+      options = {
+        ...options,
+        proxyUrl: session.url,
+        proxyKey: options.proxyKey || `proxy:${new URL(session.url).hostname || process.env.PROXY_HOST || "default"}`,
+      };
+    } catch (e) {
+      console.error("[⚠️ Failed to initialize proxy session in resolver]", e);
+    }
+  }
+
+  let defaultProxyKey = isProxyEnabled()
+    ? `proxy:${process.env.PROXY_HOST || "default"}`
+    : "direct";
+  if (options.proxyUrl) {
+    try {
+      const parsed = new URL(options.proxyUrl);
+      defaultProxyKey = `proxy:${parsed.hostname || parsed.host}`;
+    } catch {
+      defaultProxyKey = `proxy:${process.env.PROXY_HOST || "default"}`;
+    }
+  }
+  const cacheKey = options.proxyKey || defaultProxyKey;
+
+  const sessionId = getSessionId(options.proxyKey);
+
+  let proxyPayload: Record<string, string> | undefined;
+  if (options.proxyUrl) {
+    try {
+      const parsed = new URL(options.proxyUrl);
+      proxyPayload = {
+        url: `${parsed.protocol}//${parsed.host}`,
+      };
+      if (parsed.username) {
+        proxyPayload.username = decodeURIComponent(parsed.username);
+      }
+      if (parsed.password) {
+        proxyPayload.password = decodeURIComponent(parsed.password);
+      }
+    } catch {
+      proxyPayload = {
+        url: cleanProxyUrl(options.proxyUrl),
+      };
+    }
+  }
+
+  const cached = await loadCache(cacheKey);
+  const now = Date.now();
+
+  // 1. Fresh cache: return instantly
+  if (cached && cached.expiry > now) {
+    return {
+      userAgent: cached.userAgent,
+      cookies: cached.cookies,
+    };
+  }
+
+  // 2. Stale cache (within grace period):
+  // Return stale cookies immediately so user requests don't freeze with spinners.
+  // Trigger background renewal non-blocking.
+  if (cached && (now - cached.expiry) < STALE_GRACE_PERIOD_MS) {
+    if (!inFlightResolutions.has(cacheKey)) {
+      const bgPromise = executeFlareResolution(
+        url,
+        options,
+        cacheKey,
+        sessionId,
+        proxyPayload,
+      )
+        .catch((err) => {
+          console.error("[⚠️ Background FlareSolverr renewal error]", err);
+          return null as unknown as FlareSolverrOutput;
+        })
+        .finally(() => {
+          inFlightResolutions.delete(cacheKey);
+        });
+      inFlightResolutions.set(cacheKey, bgPromise);
+    }
+
+    return {
+      userAgent: cached.userAgent,
+      cookies: cached.cookies,
+    };
+  }
+
+  // 3. No cache available at all: execute resolution (deduplicated across concurrent requests)
+  if (inFlightResolutions.has(cacheKey)) {
+    return inFlightResolutions.get(cacheKey)!;
+  }
+
+  const resolutionPromise = executeFlareResolution(
+    url,
+    options,
+    cacheKey,
+    sessionId,
+    proxyPayload,
+  ).finally(() => {
+    inFlightResolutions.delete(cacheKey);
+  });
+
+  inFlightResolutions.set(cacheKey, resolutionPromise);
+  return resolutionPromise;
 }
 
 export type { FetchFlareOptions, ResolverOptions, PostFlareOptions } from "@/types/solverr";
