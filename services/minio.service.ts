@@ -69,6 +69,8 @@ export function normalizeMoviePath(rawPath: string): string {
   cleaned = cleaned.replace(/^https?:\/\/[^/]+\//i, "");
   // Remove leading and trailing slashes
   cleaned = cleaned.replace(/^\/+/, "").replace(/\/+$/, "");
+  // Remove movies/ bucket prefix if present
+  cleaned = cleaned.replace(/^movies\//i, "");
   // Remove .m3u8 or index.m3u8 if present at the end
   cleaned = cleaned.replace(/\/index\.m3u8$/i, "").replace(/\.m3u8$/i, "");
   return cleaned;
@@ -121,6 +123,8 @@ export async function hasManifest(path: string): Promise<boolean> {
     `${cleanPath}/index.m3u8`,
     `${cleanPath}.m3u8`,
     cleanPath,
+    `movies/${cleanPath}/index.m3u8`,
+    `movies/${cleanPath}.m3u8`,
   ];
 
   for (const objectKey of candidateKeys) {
@@ -157,6 +161,8 @@ export async function getManifest(path: string): Promise<string | null> {
     `${cleanPath}/index.m3u8`,
     `${cleanPath}.m3u8`,
     cleanPath,
+    `movies/${cleanPath}/index.m3u8`,
+    `movies/${cleanPath}.m3u8`,
   ];
 
   for (const objectKey of candidateKeys) {

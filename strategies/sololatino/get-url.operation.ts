@@ -62,6 +62,7 @@ export class GetUrl implements StrategyGetUrl {
         cached.movieUrl.includes(".m3u8") ||
         cached.movieUrl.startsWith("/api/video/m3u8")
       ) {
+        // 1. Si ya existe en MinIO, SIEMPRE devolver la URL limpia del bucket (/api/video/m3u8?path=...)
         const inMinio = await hasManifest(cleanPath).catch(() => false);
         if (inMinio) {
           const appUrl = getManifestPublicUrl(cleanPath);
@@ -74,20 +75,43 @@ export class GetUrl implements StrategyGetUrl {
           };
         }
 
-        let finalUrl = cached.movieUrl;
+        // 2. Si la URL guardada en SQLite ya es limpia (/api/video/m3u8?path=...)
         if (
-          finalUrl.includes("/movies/pelicula/") ||
-          finalUrl.includes("/movies/serie/")
+          cached.movieUrl.startsWith("/api/video/m3u8?path=") &&
+          !cached.movieUrl.includes("&url=")
         ) {
-          finalUrl = getManifestPublicUrl(cleanPath);
-          try {
-            upsert(path, { movieUrl: finalUrl });
-          } catch (_) {}
+          return {
+            url: cached.movieUrl,
+            fallbackUrl: cached.movieUrl,
+          };
         }
-        return {
-          url: finalUrl,
-          fallbackUrl: finalUrl,
-        };
+
+        // 3. Si la URL en caché contiene tokens o rutas temporales de upstream (player.pelisserieshoy.com, p.php, .ts o url=)
+        // y NO está en MinIO: ese token ya expiró y no sirve. Purgar caché para forzar re-scrape y guardado en MinIO
+        if (
+          cached.movieUrl.includes("player.pelisserieshoy.com") ||
+          cached.movieUrl.includes("p.php") ||
+          cached.movieUrl.includes(".ts") ||
+          cached.movieUrl.includes("&url=") ||
+          cached.movieUrl.includes("?url=")
+        ) {
+          remove(path);
+        } else {
+          let finalUrl = cached.movieUrl;
+          if (
+            finalUrl.includes("/movies/pelicula/") ||
+            finalUrl.includes("/movies/serie/")
+          ) {
+            finalUrl = getManifestPublicUrl(cleanPath);
+            try {
+              upsert(path, { movieUrl: finalUrl });
+            } catch (_) {}
+          }
+          return {
+            url: finalUrl,
+            fallbackUrl: finalUrl,
+          };
+        }
       }
 
       // 2. Si es o contiene un enlace a Mediafire, extraer la URL canónica permanente
@@ -302,13 +326,7 @@ export class GetUrl implements StrategyGetUrl {
         const getUrlM3u8 = (responseUrl: string) => {
           if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
             return false;
-          if (
-            responseUrl.includes("tiktok") ||
-            responseUrl.includes("google") ||
-            responseUrl.includes("doubleclick")
-          ) {
-            return false;
-          }
+         
           rawM3u8Url = responseUrl;
           dataUrls.fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}`;
           return true;
