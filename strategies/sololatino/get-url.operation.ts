@@ -48,7 +48,18 @@ export class GetUrl implements StrategyGetUrl {
     const cached = get(path);
 
     if (cached?.movieUrl) {
-      // 1. Si es o contiene un enlace a Mediafire, extraer la URL canónica permanente
+      // 1. Si es una URL de manifest m3u8 (MinIO o proxy)
+      if (
+        cached.movieUrl.includes(".m3u8") ||
+        cached.movieUrl.startsWith("/api/video/m3u8")
+      ) {
+        return {
+          url: cached.movieUrl,
+          fallbackUrl: cached.movieUrl,
+        };
+      }
+
+      // 2. Si es o contiene un enlace a Mediafire, extraer la URL canónica permanente
       const mediafireFileUrl = extractMediafireFileUrl(cached.movieUrl);
 
       if (mediafireFileUrl) {
@@ -61,7 +72,7 @@ export class GetUrl implements StrategyGetUrl {
         }
       }
 
-      // 2. Si es una URL de proxy de video previa o streaming directo
+      // 3. Si es una URL de proxy de video previa o streaming directo
       if (cached.movieUrl.startsWith("/api/")) {
         return {
           url: cached.movieUrl,
@@ -313,11 +324,11 @@ export class GetUrl implements StrategyGetUrl {
 
         await context.storageState({ path: "state.json" });
 
-        // Guardar en formato canónico permanente https://www.mediafire.com/file/<key> para que no expire en caché
-        const canonicalMediafireUrl = extractMediafireFileUrl(dataUrls.url);
+        // Guardar exclusivamente el fallbackUrl (que contiene la URL del manifest m3u8 / MinIO)
+        const m3u8ToSave = dataUrls.fallbackUrl || undefined;
 
         upsert(path, {
-          movieUrl: canonicalMediafireUrl || dataUrls?.url || undefined,
+          movieUrl: m3u8ToSave,
         });
 
         resolve(dataUrls);

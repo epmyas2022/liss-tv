@@ -169,7 +169,8 @@ async function runSyncPass(
     console.info(`${indexStr} [▶️] Resolving URL and storing manifest for: ${link}`);
     try {
       const result = await getUrlStrategy.operation(link);
-      console.info(`${indexStr} [✅] Success! Result URL: ${result.url || result.fallbackUrl || "N/A"}`);
+      const savedUrl = result.fallbackUrl || result.url || "N/A";
+      console.info(`${indexStr} [✅] Success! Stored fallbackUrl (m3u8): ${savedUrl}`);
       processed++;
     } catch (err) {
       errors++;

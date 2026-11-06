@@ -14,7 +14,7 @@ services:
       - PROXY_PASSWORD=${PROXY_PASSWORD}
       - FLARESOLVERR_ENDPOINT=http://flaresolverr:8191/v1
       - NEXT_PUBLIC_POCKETBASE_URL=${NEXT_PUBLIC_POCKETBASE_URL:-https://pocketbase.isaacdev.site}
-      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-mi_servidor_minio}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-minio}
       - MINIO_PORT=${MINIO_PORT:-9000}
       - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadminpassword}
