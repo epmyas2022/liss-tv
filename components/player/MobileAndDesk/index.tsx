@@ -85,7 +85,7 @@ export default function MobileAndDeskPlayer({
           autoPlay
           src={{
             src,
-            type: src.includes(".m3u8") ? "application/x-mpegurl" : "video/mp4",
+            type: src.includes("m3u8") ? "application/x-mpegurl" : "video/mp4",
           }}
           ref={ref}
           viewType="video"
