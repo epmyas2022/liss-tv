@@ -49,8 +49,13 @@ export class GetUrl implements StrategyGetUrl {
     const cached = get(path);
 
     if (cached?.movieUrl) {
-      // 1. Si es una URL de manifest m3u8 (MinIO o proxy)
+      // Si la URL en caché contiene el path corrupto previo con "path=https" o "sololatino.net", purgarla
       if (
+        cached.movieUrl.includes("path=https") ||
+        cached.movieUrl.includes("sololatino.net")
+      ) {
+        remove(path);
+      } else if (
         cached.movieUrl.includes(".m3u8") ||
         cached.movieUrl.startsWith("/api/video/m3u8")
       ) {
@@ -59,7 +64,7 @@ export class GetUrl implements StrategyGetUrl {
           finalUrl = getManifestPublicUrl(cleanPath);
         }
         return {
-          url: null,
+          url: finalUrl,
           fallbackUrl: finalUrl,
         };
       }
@@ -276,8 +281,15 @@ export class GetUrl implements StrategyGetUrl {
         const getUrlM3u8 = (responseUrl: string) => {
           if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
             return false;
+          if (
+            responseUrl.includes("tiktok") ||
+            responseUrl.includes("google") ||
+            responseUrl.includes("doubleclick")
+          ) {
+            return false;
+          }
           rawM3u8Url = responseUrl;
-          dataUrls.fallbackUrl = `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}&path=${encodeURIComponent(cleanPath)}`;
+          dataUrls.fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}`;
           return true;
         };
 
@@ -307,18 +319,22 @@ export class GetUrl implements StrategyGetUrl {
 
         if (rawM3u8Url && cleanPath) {
           try {
-            const minioPublicUrl = await saveManifestFromUpstream(
+            console.info(`[MinIO] Uploading M3U8 to bucket for: ${cleanPath}...`);
+            const minioAppUrl = await saveManifestFromUpstream(
               cleanPath,
               rawM3u8Url,
-              process.env.APP_URL,
             );
+            dataUrls.fallbackUrl = minioAppUrl;
             if (!dataUrls.url) {
-              dataUrls.url = minioPublicUrl;
-            } else {
-              dataUrls.fallbackUrl = minioPublicUrl;
+              dataUrls.url = minioAppUrl;
             }
+            console.info(`[MinIO] Successfully saved in bucket: ${cleanPath}`);
           } catch (err) {
             console.warn(`[MinIO] Save manifest error for ${cleanPath}:`, err);
+            dataUrls.fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}&url=${encodeURIComponent(rawM3u8Url)}`;
+            if (!dataUrls.url) {
+              dataUrls.url = dataUrls.fallbackUrl;
+            }
           }
         }
 

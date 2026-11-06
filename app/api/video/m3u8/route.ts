@@ -70,7 +70,8 @@ export async function GET(req: NextRequest) {
       }
 
       const body = manifestRes.body;
-      const appOrigin = process.env.APP_URL || req.nextUrl.origin;
+      const origin = process.env.APP_URL;
+      const appOrigin = origin || (req.nextUrl.origin.includes("0.0.0.0") ? "" : req.nextUrl.origin);
       const rewrittenBody = rewriteManifest(body, url, appOrigin);
 
       // Si viene el pathParam, guardar la versión reescrita en MinIO en background

@@ -38,8 +38,17 @@ export function getMinioClient(): Minio.Client {
 }
 
 export function normalizeMoviePath(rawPath: string): string {
-  const withoutQuery = rawPath.split("?")[0].split("#")[0];
-  return withoutQuery.replace(/^\/+/, "").replace(/\/+$/, "");
+  if (!rawPath) return "";
+  let cleaned = rawPath.trim();
+  // Remove query string and hash
+  cleaned = cleaned.split("?")[0].split("#")[0];
+  // Remove full domain/protocol if present (e.g. https://sololatino.net/...)
+  cleaned = cleaned.replace(/^https?:\/\/[^/]+\//i, "");
+  // Remove leading and trailing slashes
+  cleaned = cleaned.replace(/^\/+/, "").replace(/\/+$/, "");
+  // Remove .m3u8 or index.m3u8 if present at the end
+  cleaned = cleaned.replace(/\/index\.m3u8$/i, "").replace(/\.m3u8$/i, "");
+  return cleaned;
 }
 
 export function getPublicBaseUrl(): string {

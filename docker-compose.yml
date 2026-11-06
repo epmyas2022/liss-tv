@@ -22,6 +22,7 @@ services:
       - MINIO_PUBLIC_URL=${MINIO_PUBLIC_URL:-http://localhost:9000}
     volumes:
       - ./data:/app/data
+      - ./dist/sync-urls.js:/app/sync-urls.js
     depends_on:
       - flaresolverr
       - minio

@@ -12,12 +12,29 @@ export function rewriteManifest(
   manifestUrl: string,
   baseOrigin?: string,
 ): string {
-  const prefix = baseOrigin
-    ? `${baseOrigin.replace(/\/+$/, "")}${M3U8_PROXY_PATH}`
+  const validOrigin =
+    baseOrigin && !baseOrigin.includes("0.0.0.0")
+      ? baseOrigin.replace(/\/+$/, "")
+      : "";
+  const prefix = validOrigin
+    ? `${validOrigin}${M3U8_PROXY_PATH}`
     : M3U8_PROXY_PATH;
 
   return body
     .split("\n")
+    .filter((line) => {
+      const trimmed = line.trim();
+      // Filter out tracking/ad networks and image trackers
+      if (
+        trimmed.includes("tiktokcdn.com") ||
+        trimmed.includes("doubleclick.net") ||
+        trimmed.includes("googleads") ||
+        trimmed.includes("googlesyndication")
+      ) {
+        return false;
+      }
+      return true;
+    })
     .map((line) => {
       const trimmed = line.trim();
 
