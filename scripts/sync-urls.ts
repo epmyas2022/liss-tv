@@ -34,7 +34,7 @@ interface CliOptions {
 function parseCliArgs(): CliOptions {
   const args = process.argv.slice(2);
   const options: CliOptions = {
-    delayMs: 5000,
+    delayMs: 20000,
     detailDelayMs: 2000,
     force: false,
     watch: false,
