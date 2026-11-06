@@ -1,7 +1,7 @@
 import { BROWSER_UA, createStickySession } from "@/utils/browser";
 import { isProxyEnabled } from "@/utils/proxy";
 import { rewriteManifest } from "@/utils/m3u8";
-import { saveManifest } from "@/services/minio.service";
+import { getManifest, saveManifest } from "@/services/minio.service";
 import got from "got";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "node:stream";
@@ -10,9 +10,35 @@ export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
   const pathParam = req.nextUrl.searchParams.get("path");
 
+  // 1. Si viene pathParam, buscar primero si ya está almacenado en MinIO
+  if (pathParam) {
+    try {
+      const storedManifest = await getManifest(pathParam);
+      if (storedManifest) {
+        return new NextResponse(storedManifest, {
+          status: 200,
+          headers: {
+            "Content-Type": "application/vnd.apple.mpegurl",
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "public, max-age=86400",
+          },
+        });
+      }
+    } catch (err) {
+      console.warn(`[MinIO] Failed to retrieve manifest for ${pathParam}:`, err);
+    }
+  }
+
+  // 2. Si no hay manifest guardado y no se proporcionó URL, devolver error
   if (!url) {
+    if (pathParam) {
+      return NextResponse.json(
+        { error: `Manifest not found in storage for '${pathParam}' and no 'url' provided` },
+        { status: 404 },
+      );
+    }
     return NextResponse.json(
-      { error: "Missing 'url' parameter" },
+      { error: "Missing 'url' or 'path' parameter" },
       { status: 400 },
     );
   }

@@ -100,10 +100,37 @@ export async function hasManifest(path: string): Promise<boolean> {
   }
 }
 
-export function getManifestPublicUrl(path: string): string {
+export function getManifestAppUrl(path: string): string {
   const cleanPath = normalizeMoviePath(path);
+  return `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}`;
+}
+
+export function getManifestPublicUrl(path: string): string {
+  return getManifestAppUrl(path);
+}
+
+export async function getManifest(path: string): Promise<string | null> {
+  const cleanPath = normalizeMoviePath(path);
+  if (!cleanPath) return null;
+
   const objectKey = `${cleanPath}/index.m3u8`;
-  return `${getPublicBaseUrl()}/${MINIO_BUCKET_NAME}/${objectKey}`;
+  const client = getMinioClient();
+
+  try {
+    const stream = await client.getObject(MINIO_BUCKET_NAME, objectKey);
+    const chunks: Buffer[] = [];
+    for await (const chunk of stream) {
+      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+    }
+    return Buffer.concat(chunks).toString("utf-8");
+  } catch (err: unknown) {
+    const error = err as { code?: string };
+    if (error?.code === "NotFound" || error?.code === "NoSuchKey") {
+      return null;
+    }
+    console.warn(`[MinIO] getManifest error for ${objectKey}:`, err);
+    return null;
+  }
 }
 
 export async function saveManifest(
@@ -127,7 +154,7 @@ export async function saveManifest(
     },
   );
 
-  return getManifestPublicUrl(path);
+  return getManifestAppUrl(path);
 }
 
 export async function saveManifestFromUpstream(

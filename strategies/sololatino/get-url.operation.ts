@@ -32,13 +32,14 @@ export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
     const cleanPath = normalizeMoviePath(path);
 
-    // 0. Si ya existe el manifest en MinIO para esta película/serie, retornar su URL pública
+    // 0. Si ya existe el manifest en MinIO para esta película/serie, retornar su URL vía /api/video/m3u8
     try {
       const existsInMinio = await hasManifest(cleanPath);
       if (existsInMinio) {
-        const publicUrl = getManifestPublicUrl(cleanPath);
+        const appUrl = getManifestPublicUrl(cleanPath);
         return {
-          url: publicUrl,
+          url: appUrl,
+          fallbackUrl: appUrl,
         };
       }
     } catch (err) {
@@ -53,9 +54,13 @@ export class GetUrl implements StrategyGetUrl {
         cached.movieUrl.includes(".m3u8") ||
         cached.movieUrl.startsWith("/api/video/m3u8")
       ) {
+        let finalUrl = cached.movieUrl;
+        if (finalUrl.includes("/movies/pelicula/") || finalUrl.includes("/movies/serie/")) {
+          finalUrl = getManifestPublicUrl(cleanPath);
+        }
         return {
-          url: cached.movieUrl,
-          fallbackUrl: cached.movieUrl,
+          url: finalUrl,
+          fallbackUrl: finalUrl,
         };
       }
 
