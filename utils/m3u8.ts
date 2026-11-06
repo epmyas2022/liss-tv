@@ -22,19 +22,6 @@ export function rewriteManifest(
 
   return body
     .split("\n")
-    .filter((line) => {
-      const trimmed = line.trim();
-      // Filter out tracking/ad networks and image trackers
-      if (
-        trimmed.includes("tiktokcdn.com") ||
-        trimmed.includes("doubleclick.net") ||
-        trimmed.includes("googleads") ||
-        trimmed.includes("googlesyndication")
-      ) {
-        return false;
-      }
-      return true;
-    })
     .map((line) => {
       const trimmed = line.trim();
 
