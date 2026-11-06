@@ -40,6 +40,29 @@ export function getMinioClient(): Minio.Client {
 export function normalizeMoviePath(rawPath: string): string {
   if (!rawPath) return "";
   let cleaned = rawPath.trim();
+
+  // If a full or relative proxy URL is passed (e.g. /api/video/m3u8?path=serie/foo&url=...), extract the path param
+  if (cleaned.includes("path=")) {
+    try {
+      const dummyUrl = cleaned.startsWith("http")
+        ? new URL(cleaned)
+        : new URL(`http://localhost${cleaned.startsWith("/") ? "" : "/"}${cleaned}`);
+      const extractedPath = dummyUrl.searchParams.get("path");
+      if (extractedPath) {
+        cleaned = extractedPath;
+      }
+    } catch (_) {
+      const match = cleaned.match(/[?&]path=([^&]+)/);
+      if (match) {
+        cleaned = match[1];
+      }
+    }
+  }
+
+  try {
+    cleaned = decodeURIComponent(cleaned);
+  } catch (_) {}
+
   // Remove query string and hash
   cleaned = cleaned.split("?")[0].split("#")[0];
   // Remove full domain/protocol if present (e.g. https://sololatino.net/...)
@@ -93,20 +116,27 @@ export async function hasManifest(path: string): Promise<boolean> {
   const cleanPath = normalizeMoviePath(path);
   if (!cleanPath) return false;
 
-  const objectKey = `${cleanPath}/index.m3u8`;
   const client = getMinioClient();
+  const candidateKeys = [
+    `${cleanPath}/index.m3u8`,
+    `${cleanPath}.m3u8`,
+    cleanPath,
+  ];
 
-  try {
-    await client.statObject(MINIO_BUCKET_NAME, objectKey);
-    return true;
-  } catch (err: unknown) {
-    const error = err as { code?: string };
-    if (error?.code === "NotFound" || error?.code === "NoSuchKey") {
-      return false;
+  for (const objectKey of candidateKeys) {
+    try {
+      await client.statObject(MINIO_BUCKET_NAME, objectKey);
+      return true;
+    } catch (err: unknown) {
+      const error = err as { code?: string };
+      if (error?.code === "NotFound" || error?.code === "NoSuchKey") {
+        continue;
+      }
+      console.warn(`[MinIO] statObject warning for ${objectKey}:`, err);
     }
-    console.warn(`[MinIO] statObject warning for ${objectKey}:`, err);
-    return false;
   }
+
+  return false;
 }
 
 export function getManifestAppUrl(path: string): string {
@@ -122,24 +152,31 @@ export async function getManifest(path: string): Promise<string | null> {
   const cleanPath = normalizeMoviePath(path);
   if (!cleanPath) return null;
 
-  const objectKey = `${cleanPath}/index.m3u8`;
   const client = getMinioClient();
+  const candidateKeys = [
+    `${cleanPath}/index.m3u8`,
+    `${cleanPath}.m3u8`,
+    cleanPath,
+  ];
 
-  try {
-    const stream = await client.getObject(MINIO_BUCKET_NAME, objectKey);
-    const chunks: Buffer[] = [];
-    for await (const chunk of stream) {
-      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+  for (const objectKey of candidateKeys) {
+    try {
+      const stream = await client.getObject(MINIO_BUCKET_NAME, objectKey);
+      const chunks: Buffer[] = [];
+      for await (const chunk of stream) {
+        chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+      }
+      return Buffer.concat(chunks).toString("utf-8");
+    } catch (err: unknown) {
+      const error = err as { code?: string };
+      if (error?.code === "NotFound" || error?.code === "NoSuchKey") {
+        continue;
+      }
+      console.warn(`[MinIO] getManifest error for ${objectKey}:`, err);
     }
-    return Buffer.concat(chunks).toString("utf-8");
-  } catch (err: unknown) {
-    const error = err as { code?: string };
-    if (error?.code === "NotFound" || error?.code === "NoSuchKey") {
-      return null;
-    }
-    console.warn(`[MinIO] getManifest error for ${objectKey}:`, err);
-    return null;
   }
+
+  return null;
 }
 
 export async function saveManifest(

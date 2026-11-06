@@ -1,7 +1,12 @@
 import { BROWSER_UA, createStickySession } from "@/utils/browser";
 import { isProxyEnabled } from "@/utils/proxy";
 import { rewriteManifest } from "@/utils/m3u8";
-import { getManifest, saveManifest } from "@/services/minio.service";
+import {
+  getManifest,
+  saveManifest,
+  getManifestAppUrl,
+} from "@/services/minio.service";
+import { upsert } from "@/services/movie.store";
 import got from "got";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "node:stream";
@@ -15,6 +20,10 @@ export async function GET(req: NextRequest) {
     try {
       const storedManifest = await getManifest(pathParam);
       if (storedManifest) {
+        try {
+          upsert(pathParam, { movieUrl: getManifestAppUrl(pathParam) });
+        } catch (_) {}
+
         return new NextResponse(storedManifest, {
           status: 200,
           headers: {
@@ -74,11 +83,17 @@ export async function GET(req: NextRequest) {
       const appOrigin = origin || (req.nextUrl.origin.includes("0.0.0.0") ? "" : req.nextUrl.origin);
       const rewrittenBody = rewriteManifest(body, url, appOrigin);
 
-      // Si viene el pathParam, guardar la versión reescrita en MinIO en background
+      // Si viene el pathParam, guardar la versión reescrita en MinIO en background y actualizar SQLite
       if (pathParam) {
-        void saveManifest(pathParam, rewrittenBody).catch((err) => {
-          console.warn(`[MinIO] Background save failed for ${pathParam}:`, err);
-        });
+        void saveManifest(pathParam, rewrittenBody)
+          .then((savedAppUrl) => {
+            try {
+              upsert(pathParam, { movieUrl: savedAppUrl });
+            } catch (_) {}
+          })
+          .catch((err) => {
+            console.warn(`[MinIO] Background save failed for ${pathParam}:`, err);
+          });
       }
 
       return new NextResponse(rewrittenBody, {

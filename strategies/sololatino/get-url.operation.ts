@@ -37,6 +37,9 @@ export class GetUrl implements StrategyGetUrl {
       const existsInMinio = await hasManifest(cleanPath);
       if (existsInMinio) {
         const appUrl = getManifestPublicUrl(cleanPath);
+        try {
+          upsert(path, { movieUrl: appUrl });
+        } catch (_) {}
         return {
           url: appUrl,
           fallbackUrl: appUrl,
@@ -59,9 +62,27 @@ export class GetUrl implements StrategyGetUrl {
         cached.movieUrl.includes(".m3u8") ||
         cached.movieUrl.startsWith("/api/video/m3u8")
       ) {
+        const inMinio = await hasManifest(cleanPath).catch(() => false);
+        if (inMinio) {
+          const appUrl = getManifestPublicUrl(cleanPath);
+          try {
+            upsert(path, { movieUrl: appUrl });
+          } catch (_) {}
+          return {
+            url: appUrl,
+            fallbackUrl: appUrl,
+          };
+        }
+
         let finalUrl = cached.movieUrl;
-        if (finalUrl.includes("/movies/pelicula/") || finalUrl.includes("/movies/serie/")) {
+        if (
+          finalUrl.includes("/movies/pelicula/") ||
+          finalUrl.includes("/movies/serie/")
+        ) {
           finalUrl = getManifestPublicUrl(cleanPath);
+          try {
+            upsert(path, { movieUrl: finalUrl });
+          } catch (_) {}
         }
         return {
           url: finalUrl,
