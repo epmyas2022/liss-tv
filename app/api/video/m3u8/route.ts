@@ -1,44 +1,14 @@
 import { BROWSER_UA, createStickySession } from "@/utils/browser";
+import { isProxyEnabled } from "@/utils/proxy";
+import { rewriteManifest } from "@/utils/m3u8";
+import { saveManifest } from "@/services/minio.service";
 import got from "got";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "node:stream";
 
-const PROXY_PATH = "/api/video/m3u8";
-
-
-
-function resolveUrl(uri: string, manifestUrl: string): string {
-  if (/^https?:\/\//i.test(uri)) return uri;
-  const base = new URL(manifestUrl);
-  base.pathname = base.pathname.replace(/\/[^/]*$/, "/");
-  return new URL(uri, base).href;
-}
-
-function rewriteManifest(body: string, manifestUrl: string): string {
-  return body
-    .split("\n")
-    .map((line) => {
-      const trimmed = line.trim();
-
-      if (trimmed.startsWith("#") && trimmed.includes("URI=")) {
-        return line.replace(/URI="([^"]+)"/gi, (_, uri: string) => {
-          const absolute = resolveUrl(uri, manifestUrl);
-          return `URI="${PROXY_PATH}?url=${encodeURIComponent(absolute)}"`;
-        });
-      }
-
-      if (trimmed !== "" && !trimmed.startsWith("#")) {
-        const absolute = resolveUrl(trimmed, manifestUrl);
-        return `${PROXY_PATH}?url=${encodeURIComponent(absolute)}`;
-      }
-
-      return line;
-    })
-    .join("\n");
-}
-
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
+  const pathParam = req.nextUrl.searchParams.get("path");
 
   if (!url) {
     return NextResponse.json(
@@ -56,7 +26,9 @@ export async function GET(req: NextRequest) {
     // never touches the proxy.
     // ------------------------------------------------------------------
     if (isManifestUrl) {
-      const {agent} = createStickySession();
+      const { agent } = isProxyEnabled()
+        ? createStickySession()
+        : { agent: undefined };
 
       const manifestRes = await got(url, {
         headers: { "user-agent": BROWSER_UA },
@@ -72,8 +44,17 @@ export async function GET(req: NextRequest) {
       }
 
       const body = manifestRes.body;
+      const appOrigin = process.env.APP_URL || req.nextUrl.origin;
+      const rewrittenBody = rewriteManifest(body, url, appOrigin);
 
-      return new NextResponse(rewriteManifest(body, url), {
+      // Si viene el pathParam, guardar la versión reescrita en MinIO en background
+      if (pathParam) {
+        void saveManifest(pathParam, rewrittenBody).catch((err) => {
+          console.warn(`[MinIO] Background save failed for ${pathParam}:`, err);
+        });
+      }
+
+      return new NextResponse(rewrittenBody, {
         status: 200,
         headers: {
           "Content-Type": "application/vnd.apple.mpegurl",

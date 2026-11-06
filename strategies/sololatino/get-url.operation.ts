@@ -14,6 +14,12 @@ import {
   getBrowser,
 } from "@/utils/browser";
 import { fetchFlare, postFlare } from "@/utils/flaresolverr";
+import {
+  hasManifest,
+  getManifestPublicUrl,
+  saveManifestFromUpstream,
+  normalizeMoviePath,
+} from "@/services/minio.service";
 
 const TIMEOUT_NAVIGATION_MS = 45_000;
 const TIMEOUT_PLAY_BTN_MS = 35_000;
@@ -24,6 +30,21 @@ const TIMEOUT_TOTAL_CAPTURE_MS = 60_000;
 
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
+    const cleanPath = normalizeMoviePath(path);
+
+    // 0. Si ya existe el manifest en MinIO para esta película/serie, retornar su URL pública
+    try {
+      const existsInMinio = await hasManifest(cleanPath);
+      if (existsInMinio) {
+        const publicUrl = getManifestPublicUrl(cleanPath);
+        return {
+          url: publicUrl,
+        };
+      }
+    } catch (err) {
+      console.warn(`[MinIO] Check failed for ${cleanPath}:`, err);
+    }
+
     const cached = get(path);
 
     if (cached?.movieUrl) {
@@ -235,10 +256,12 @@ export class GetUrl implements StrategyGetUrl {
           return false;
         };
 
+        let rawM3u8Url: string | null = null;
         const getUrlM3u8 = (responseUrl: string) => {
           if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
             return false;
-          dataUrls.fallbackUrl = `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}`;
+          rawM3u8Url = responseUrl;
+          dataUrls.fallbackUrl = `/api/video/m3u8?url=${encodeURIComponent(responseUrl)}&path=${encodeURIComponent(cleanPath)}`;
           return true;
         };
 
@@ -265,6 +288,23 @@ export class GetUrl implements StrategyGetUrl {
             ),
           ),
         ]);
+
+        if (rawM3u8Url && cleanPath) {
+          try {
+            const minioPublicUrl = await saveManifestFromUpstream(
+              cleanPath,
+              rawM3u8Url,
+              process.env.APP_URL,
+            );
+            if (!dataUrls.url) {
+              dataUrls.url = minioPublicUrl;
+            } else {
+              dataUrls.fallbackUrl = minioPublicUrl;
+            }
+          } catch (err) {
+            console.warn(`[MinIO] Save manifest error for ${cleanPath}:`, err);
+          }
+        }
 
         if (!dataUrls.url && !dataUrls.fallbackUrl)
           return reject(new Error("No video URL or fallback URL captured"));

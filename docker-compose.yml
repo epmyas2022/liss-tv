@@ -14,10 +14,17 @@ services:
       - PROXY_PASSWORD=${PROXY_PASSWORD}
       - FLARESOLVERR_ENDPOINT=http://flaresolverr:8191/v1
       - NEXT_PUBLIC_POCKETBASE_URL=${NEXT_PUBLIC_POCKETBASE_URL:-https://pocketbase.isaacdev.site}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-mi_servidor_minio}
+      - MINIO_PORT=${MINIO_PORT:-9000}
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadminpassword}
+      - MINIO_BUCKET_NAME=${MINIO_BUCKET_NAME:-movies}
+      - MINIO_PUBLIC_URL=${MINIO_PUBLIC_URL:-http://localhost:9000}
     volumes:
       - ./data:/app/data
     depends_on:
       - flaresolverr
+      - minio
     ports:
       - "8000:8000"
 
@@ -30,3 +37,16 @@ services:
       - LOG_LEVEL=info
     restart: unless-stopped
     image: epmyas2022/flaresolverr:latest
+
+  minio:
+    image: pgsty/silo:latest
+    container_name: mi_servidor_minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadminpassword}
+    volumes:
+      - ./data/minio:/data
+    restart: unless-stopped
