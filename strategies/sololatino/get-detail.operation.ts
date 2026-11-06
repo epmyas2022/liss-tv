@@ -35,9 +35,12 @@ export class GetDetail implements StrategyGetMovieDetails {
     }
 
     // Fetch page with FlareSolverr and parse via cheerio
-    const targetUrl = `${BASE_URL.SoloLatino}${link}`;
+    const targetUrl = new URL(link, BASE_URL.SoloLatino).href;
     try {
       const response = await fetchFlare(targetUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch detail for ${link}: HTTP ${response.status}`);
+      }
       const html = await response.text();
       const $ = cheerio.load(html);
 
@@ -114,6 +117,11 @@ export class GetDetail implements StrategyGetMovieDetails {
         caption,
         episodes: seasonsData,
       };
+
+      if (!title) {
+        console.warn(`[GetDetail] Could not parse title for ${link}, skipping cache.`);
+        return undefined;
+      }
 
       upsert(link, detail);
       return detail;
