@@ -192,9 +192,11 @@ async function hydrateMetadataAndEpisodes(
       continue;
     }
 
-    console.info(`${prefix} [🌐] Fetching series details and episode list for: ${serieLink}...`);
+
+    const serieLinkCleaned = serieLink.replace("/serie", "serie");
+    console.info(`${prefix} [🌐] Fetching series details and episode list for: ${serieLinkCleaned}...`);
     try {
-      const detail = await getDetailStrategy.operation(serieLink);
+      const detail = await getDetailStrategy.operation(serieLinkCleaned);
       if (detail?.episodes && detail.episodes.length > 0) {
         const epTotal = detail.episodes.reduce((acc, s) => acc + (s.episodes?.length || 0), 0);
         console.info(`${prefix} [✅] Saved ${epTotal} episode(s) across ${detail.episodes.length} season(s) into SQLite for: ${serieLink}`);
