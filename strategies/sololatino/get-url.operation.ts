@@ -168,6 +168,8 @@ export class GetUrl implements StrategyGetUrl {
           },
         );
 
+        console.log(rawSolution);
+
         const jsonMatch = rawSolution.match(/\{[\s\S]*"url"[\s\S]*\}/);
         if (!jsonMatch) {
           throw new Error(
@@ -326,7 +328,7 @@ export class GetUrl implements StrategyGetUrl {
         const getUrlM3u8 = (responseUrl: string) => {
           if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
             return false;
-         
+
           rawM3u8Url = responseUrl;
           dataUrls.fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}`;
           return true;
@@ -358,7 +360,9 @@ export class GetUrl implements StrategyGetUrl {
 
         if (rawM3u8Url && cleanPath) {
           try {
-            console.info(`[MinIO] Uploading M3U8 to bucket for: ${cleanPath}...`);
+            console.info(
+              `[MinIO] Uploading M3U8 to bucket for: ${cleanPath}...`,
+            );
             const minioAppUrl = await saveManifestFromUpstream(
               cleanPath,
               rawM3u8Url,
