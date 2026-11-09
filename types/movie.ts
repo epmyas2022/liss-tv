@@ -62,6 +62,7 @@ export interface MoviePreview {
   startTime: number;
   backgroundImage?: string;
   next?: MoviePreview;
+  provider: string
 }
 
 export type ContinueWatching = MoviePreview & {

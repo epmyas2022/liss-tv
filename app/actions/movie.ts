@@ -4,7 +4,7 @@ import { withTimeout, attempts } from "@/utils/utils";
 
 import { MovieContextFactory } from "@/builder/factory";
 
-const context = MovieContextFactory.driver("solo-latino");
+const context = MovieContextFactory.driver("gnula");
 
 export async function getMovieUrl(link: string) {
   return await attempts([
