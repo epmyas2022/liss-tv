@@ -1,4 +1,7 @@
 import type { HttpsProxyAgent } from "https-proxy-agent";
+import type { SocksProxyAgent } from "socks-proxy-agent";
+
+export type AnyProxyAgent = HttpsProxyAgent<string> | SocksProxyAgent;
 
 export interface FlareSolverrCookies {
   name: string;
@@ -48,7 +51,7 @@ export interface PostFlareOptions {
 }
 
 export interface FetchFlareOptions extends RequestInit {
-  agent?: HttpsProxyAgent<string>;
+  agent?: AnyProxyAgent;
   proxyUrl?: string;
   proxyUsername?: string;
 }

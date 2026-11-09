@@ -4,11 +4,11 @@ import {
   loadCache,
   resolver,
 } from "@/utils/flaresolverr";
-import { isProxyEnabled } from "@/utils/proxy";
+import { isProxyEnabled, getProxyHost } from "@/utils/proxy";
 
 function getMonitorCacheKey(): string {
   if (isProxyEnabled()) {
-    return `proxy:${process.env.PROXY_HOST || "default"}`;
+    return `proxy:${getProxyHost() || "default"}`;
   }
   return "direct";
 }

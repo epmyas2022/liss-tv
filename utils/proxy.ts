@@ -1,11 +1,16 @@
 import * as proxyChain from "proxy-chain";
 import { HttpsProxyAgent } from "https-proxy-agent";
-import { ProxyAccount, StickySession } from "@/types/proxy";
+import { SocksProxyAgent } from "socks-proxy-agent";
+import { AnyProxyAgent, ProxyAccount, StickySession } from "@/types/proxy";
 import { bitacora } from "@/utils/bitacora";
 
 const proxyLogger = bitacora.createScope("Proxy");
 
-const PROXY_HOST = process.env.PROXY_HOST;
+export interface ProxyResolvedConfig {
+  protocol: string;
+  host: string;
+  accounts: ProxyAccount[];
+}
 
 /**
  * Determine if proxy usage is enabled globally via environment variable.
@@ -20,7 +25,7 @@ const exhaustedUsernames = new Set<string>();
 /**
  * Register that a proxy account ran out of bandwidth and should be skipped.
  */
-export function markProxyExhausted(username: string): void {
+export function markProxyExhausted(username?: string): void {
   if (!username) return;
   if (!exhaustedUsernames.has(username)) {
     exhaustedUsernames.add(username);
@@ -87,14 +92,78 @@ function getProxyAccounts(): ProxyAccount[] {
   return [];
 }
 
-function getNextProxyAccount(): ProxyAccount {
-  const accounts = getProxyAccounts();
-  if (accounts.length === 0) {
-    throw new Error(
-      "Proxy credentials are missing. Please configure PROXY_ACCOUNTS (e.g. 'user1:pass1,user2:pass2') or PROXY_USERNAME and PROXY_PASSWORD.",
-    );
+/**
+ * Parse and resolve the current proxy configuration.
+ */
+export function getProxyConfig(): ProxyResolvedConfig | null {
+  const rawTarget = process.env.PROXY_URL || process.env.PROXY_HOST;
+  if (!rawTarget) return null;
+
+  let protocol = (process.env.PROXY_PROTOCOL || process.env.PROXY_TYPE || "")
+    .toLowerCase()
+    .replace(":", "");
+  let host = rawTarget.trim();
+  let defaultUser: string | undefined;
+  let defaultPass: string | undefined;
+
+  // Check if target contains protocol scheme (e.g. socks5://127.0.0.1:1080)
+  if (/^[a-zA-Z0-9+-]+:\/\//.test(host)) {
+    try {
+      const parsed = new URL(host);
+      protocol = parsed.protocol.replace(":", "").toLowerCase();
+      host = parsed.host;
+      if (parsed.username) defaultUser = decodeURIComponent(parsed.username);
+      if (parsed.password) defaultPass = decodeURIComponent(parsed.password);
+    } catch {
+      // fallback to raw host
+    }
   }
 
+  // Strip trailing slashes if any
+  host = host.replace(/\/+$/, "");
+
+  // Auto-detect protocol if not specified
+  if (!protocol) {
+    if (host.endsWith(":1080") || host.endsWith(":9050")) {
+      protocol = "socks5";
+    } else {
+      protocol = "http";
+    }
+  }
+
+  const accounts = getProxyAccounts();
+  if (accounts.length === 0 && defaultUser && defaultPass) {
+    accounts.push({ username: defaultUser, password: defaultPass });
+  }
+
+  return { protocol, host, accounts };
+}
+
+/**
+ * Get normalized proxy host for cache keys or logging.
+ */
+export function getProxyHost(): string | undefined {
+  const config = getProxyConfig();
+  return config?.host || process.env.PROXY_HOST;
+}
+
+/**
+ * Create appropriate agent (HTTP or SOCKS5) for a given proxy URL.
+ */
+export function createProxyAgent(url: string): AnyProxyAgent {
+  const isSocks =
+    url.startsWith("socks5://") ||
+    url.startsWith("socks5h://") ||
+    url.startsWith("socks4://") ||
+    url.startsWith("socks://");
+
+  if (isSocks) {
+    return new SocksProxyAgent(url);
+  }
+  return new HttpsProxyAgent(url);
+}
+
+function getNextProxyAccount(accounts: ProxyAccount[]): ProxyAccount {
   const availableAccounts = accounts.filter(
     (acc) => !exhaustedUsernames.has(acc.username),
   );
@@ -122,15 +191,27 @@ function getNextProxyAccount(): ProxyAccount {
 }
 
 export function createStickySession(): StickySession {
-  if (!PROXY_HOST) {
+  const config = getProxyConfig();
+  if (!config) {
     throw new Error(
-      "Proxy configuration is missing. Please set PROXY_HOST environment variable.",
+      "Proxy configuration is missing. Please set PROXY_HOST or PROXY_URL environment variable.",
     );
   }
 
-  const { username, password } = getNextProxyAccount();
-  const url = `http://${username}:${password}@${PROXY_HOST}`;
-  const agent = new HttpsProxyAgent(url);
+  const { protocol, host, accounts } = config;
+
+  // Open proxy (such as Cloudflare WARP or Tor) without credentials
+  if (accounts.length === 0) {
+    const url = `${protocol}://${host}`;
+    const agent = createProxyAgent(url);
+    return { url, agent };
+  }
+
+  // Authenticated proxy with rotation
+  const { username, password } = getNextProxyAccount(accounts);
+  const auth = `${encodeURIComponent(username)}:${encodeURIComponent(password)}@`;
+  const url = `${protocol}://${auth}${host}`;
+  const agent = createProxyAgent(url);
   return { url, agent, username };
 }
 

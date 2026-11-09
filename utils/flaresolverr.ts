@@ -9,8 +9,14 @@ import {
   PostFlareOptions,
 } from "@/types/solverr";
 import { BASE_URL } from "@/utils/browser";
-import { markProxyExhausted, createStickySession, isProxyEnabled } from "@/utils/proxy";
-import { HttpsProxyAgent } from "https-proxy-agent";
+import {
+  markProxyExhausted,
+  createStickySession,
+  isProxyEnabled,
+  createProxyAgent,
+  getProxyHost,
+} from "@/utils/proxy";
+import { AnyProxyAgent } from "@/types/proxy";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import nodeFetch from "node-fetch";
@@ -34,11 +40,19 @@ function cleanProxyUrl(url: string): string {
  */
 function extractProxyUsername(options: FetchFlareOptions): string | undefined {
   if (options.proxyUsername) return options.proxyUsername;
-  const proxyUrl =
-    options.proxyUrl ||
-    (options.agent && typeof options.agent === "object" && "proxy" in options.agent
-      ? (options.agent as { proxy: URL }).proxy.href
-      : undefined);
+  let proxyUrl = options.proxyUrl;
+  if (!proxyUrl && options.agent && typeof options.agent === "object") {
+    const agentObj = options.agent as unknown as Record<string, unknown>;
+    if (typeof agentObj.proxyUrl === "string") {
+      proxyUrl = agentObj.proxyUrl;
+    } else if (agentObj.proxy && typeof agentObj.proxy === "object") {
+      const p = agentObj.proxy as { href?: string };
+      if (typeof p.href === "string") {
+        proxyUrl = p.href;
+      }
+    }
+  }
+
   if (proxyUrl) {
     try {
       const parsed = new URL(proxyUrl);
@@ -121,12 +135,33 @@ export async function deleteCache(key: string): Promise<void> {
  */
 function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
   if (options.agent) {
-    const proxyUrl = cleanProxyUrl(options.agent.proxy.href);
-    const host = options.agent.proxy.hostname || options.agent.proxy.host;
-    return {
-      proxyUrl,
-      proxyKey: `proxy:${host}`,
-    };
+    const agentObj = options.agent as unknown as Record<string, unknown>;
+    let rawUrl: string | undefined;
+    let host: string | undefined;
+
+    if (typeof agentObj.proxyUrl === "string") {
+      rawUrl = agentObj.proxyUrl;
+    } else if (agentObj.proxy && typeof agentObj.proxy === "object") {
+      const p = agentObj.proxy as { href?: string; hostname?: string; host?: string };
+      rawUrl = p.href;
+      host = p.hostname || p.host;
+    }
+
+    if (rawUrl) {
+      const proxyUrl = cleanProxyUrl(rawUrl);
+      if (!host) {
+        try {
+          const parsed = new URL(proxyUrl);
+          host = parsed.hostname || parsed.host;
+        } catch {
+          host = "default";
+        }
+      }
+      return {
+        proxyUrl,
+        proxyKey: `proxy:${host}`,
+      };
+    }
   }
 
   if (options.proxyUrl) {
@@ -141,7 +176,7 @@ function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
     } catch {
       return {
         proxyUrl,
-        proxyKey: `proxy:${process.env.PROXY_HOST || "default"}`,
+        proxyKey: `proxy:${getProxyHost() || "default"}`,
       };
     }
   }
@@ -423,8 +458,9 @@ export async function resolver(
   if (options.proxyUrl) {
     try {
       const parsed = new URL(options.proxyUrl);
+      const protocol = parsed.protocol === "socks5h:" ? "socks5:" : parsed.protocol;
       proxyPayload = {
-        url: `${parsed.protocol}//${parsed.host}`,
+        url: `${protocol}//${parsed.host}`,
       };
       if (parsed.username) {
         proxyPayload.username = decodeURIComponent(parsed.username);
@@ -670,9 +706,9 @@ export async function postFlare(
         directHeaders["X-XSRF-TOKEN"] = decodeURIComponent(xsrfCookie.value);
       }
 
-      let agent: HttpsProxyAgent<string> | undefined;
+      let agent: AnyProxyAgent | undefined;
       if (options.proxyUrl) {
-        agent = new HttpsProxyAgent(options.proxyUrl);
+        agent = createProxyAgent(options.proxyUrl);
       }
       const directRes = (await (agent
         ? nodeFetch(url, {
@@ -713,8 +749,9 @@ export async function postFlare(
   if (options.proxyUrl) {
     try {
       const parsed = new URL(options.proxyUrl);
+      const protocol = parsed.protocol === "socks5h:" ? "socks5:" : parsed.protocol;
       proxyPayload = {
-        url: `${parsed.protocol}//${parsed.host}`,
+        url: `${protocol}//${parsed.host}`,
       };
       if (parsed.username) {
         proxyPayload.username = decodeURIComponent(parsed.username);

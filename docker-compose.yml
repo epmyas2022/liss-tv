@@ -9,7 +9,9 @@ services:
         - NEXT_PUBLIC_POCKETBASE_URL=https://pocketbase.isaacdev.site
     environment:
       - USE_PROXY=${USE_PROXY:-false}
-      - PROXY_HOST=${PROXY_HOST}
+      - PROXY_HOST=${PROXY_HOST:-cloudflare-warp-socks:1080}
+      - PROXY_PROTOCOL=${PROXY_PROTOCOL:-socks5}
+      - PROXY_URL=${PROXY_URL}
       - PROXY_USERNAME=${PROXY_USERNAME}
       - PROXY_PASSWORD=${PROXY_PASSWORD}
       - FLARESOLVERR_ENDPOINT=http://flaresolverr:8191/v1
@@ -26,6 +28,7 @@ services:
     depends_on:
       - flaresolverr
       - minio
+      - warp
     ports:
       - "8000:8000"
 
@@ -38,6 +41,8 @@ services:
       - LOG_LEVEL=info
     restart: unless-stopped
     image: epmyas2022/flaresolverr:latest
+    depends_on:
+      - warp
 
   minio:
     image: pgsty/silo:latest
@@ -51,3 +56,21 @@ services:
     volumes:
       - ./data/minio:/data
     restart: unless-stopped
+
+  warp:
+    image: caomingjun/warp:latest
+    container_name: cloudflare-warp-socks
+    restart: unless-stopped
+    ports:
+      - "1080:1080"
+    environment:
+      - WARP_SLEEP=2
+      # Opcional: Si tienes una clave de WARP+ (Plus), colócala aquí:
+      # - WARP_LICENSE_KEY=tu_clave_aqui
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - ./warp_data:/var/lib/cloudflare-warp
