@@ -14,7 +14,7 @@ import {
   createStickySession,
   getBrowser,
 } from "@/utils/browser";
-import { fetchFlare, postFlare } from "@/utils/flaresolverr";
+import { fetchFlare, loadCache } from "@/utils/flaresolverr";
 import { normalizeMoviePath } from "@/services/minio.service";
 import {
   resolveCachedStream,
@@ -73,20 +73,33 @@ export class GetUrl implements StrategyGetUrl {
         if (!tokenMatch) throw new Error("Player token not found in HTML");
         const token = tokenMatch[1];
 
-        // 2. Resolver la URL del reproductor enviando el POST vía FlareSolverr (evita el 403 de Cloudflare Turnstile)
-        const rawSolution = await postFlare(
-          BASE_URL.SoloLatino + "api/player-url",
-          JSON.stringify({ t: token }),
-          {
+        // 2. Resolver la URL del reproductor enviando el POST directo con los headers y cookies requeridos
+        const cache = await loadCache("direct");
+        const cookieHeader = cache?.cookies
+          ?.map((c) => `${c.name}=${c.value}`)
+          .join("; ");
+        const userAgent = cache?.userAgent || BROWSER_UA;
+
+        const playerUrlEndpoint = new URL(
+          "/api/player-url",
+          BASE_URL.SoloLatino,
+        ).href;
+
+        const apiResponse = await fetch(playerUrlEndpoint, {
+          method: "POST",
+          headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Referer: targetUrl,
             Origin: new URL(targetUrl).origin,
-            "User-Agent": BROWSER_UA,
+            "User-Agent": userAgent,
+            ...(cookieHeader ? { Cookie: cookieHeader } : {}),
           },
-        );
+          body: JSON.stringify({ t: token }),
+        });
 
-        console.log(rawSolution);
+        const rawSolution = await apiResponse.text();
+        console.log(`[SoloLatino] Player API status: ${apiResponse.status}`);
 
         const jsonMatch = rawSolution.match(/\{[\s\S]*"url"[\s\S]*\}/);
         if (!jsonMatch) {
