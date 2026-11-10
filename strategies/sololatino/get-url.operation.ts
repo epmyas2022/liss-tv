@@ -8,6 +8,7 @@ import {
 } from "@/utils/utils";
 import {
   BASE_URL,
+  BROWSER_UA,
   getBrowserContext,
   blacklistedDomains,
   createStickySession,
@@ -80,6 +81,8 @@ export class GetUrl implements StrategyGetUrl {
             "Content-Type": "application/json",
             Accept: "application/json",
             Referer: targetUrl,
+            Origin: new URL(targetUrl).origin,
+            "User-Agent": BROWSER_UA,
           },
         );
 
