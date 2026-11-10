@@ -52,10 +52,18 @@ export function HeroBackdrop({
   context,
   provider,
 }: HeroBackdropProps) {
-  const cleanTitle = getCleanTitle(title);
+  const cleanTitle = getCleanTitle(title) || "No disponible";
   const cleanYear = getCleanYear(year);
   const cleanRating = rating?.replace(/★/, "").trim();
-  const backdropSrc = backgroundImage || image || "/logo-with-background.png";
+  const isUnavailable =
+    !title ||
+    title.trim() === "" ||
+    cleanTitle.toLowerCase() === "no disponible" ||
+    (!caption && !year && !rating && (!tags || tags.length === 0));
+
+  const posterSrc =
+    image && image !== "/logo.png" ? image : "/logo-with-background.png";
+  const backdropSrc = backgroundImage || posterSrc;
   const isSerie = link.includes("serie");
 
   return (
@@ -79,7 +87,7 @@ export function HeroBackdrop({
       {/* ── Content Container ── */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-10">
         {/* Floating Poster */}
-        {image && (
+        {posterSrc && (
           <FocusElementProvider className="rounded-xl shrink-0">
             <div
               className="w-36 sm:w-44 md:w-52 aspect-[2/3] shrink-0 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.9)] border border-white/10"
@@ -88,7 +96,7 @@ export function HeroBackdrop({
               }}
             >
               <Image
-                src={image}
+                src={posterSrc}
                 alt={cleanTitle}
                 width={208}
                 height={312}
@@ -153,12 +161,12 @@ export function HeroBackdrop({
 
           {/* Actions for movies and series */}
           <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center md:justify-start gap-3 w-full sm:w-auto">
-            {!isSerie && (
+            {!isSerie && !isUnavailable && (
               <div className="w-full sm:w-auto">
                 <WatchButton
                   moviePreview={{
                     title: cleanTitle,
-                    image,
+                    image: posterSrc,
                     link,
                     backgroundImage: backdropSrc,
                     context,
@@ -169,22 +177,30 @@ export function HeroBackdrop({
               </div>
             )}
 
-            <div className="w-full sm:w-auto">
-              <FavoriteButton
-                item={{
-                  link,
-                  title: cleanTitle,
-                  image,
-                  backgroundImage: backdropSrc,
-                  rating: cleanRating,
-                  year: cleanYear,
-                  duration,
-                  caption,
-                  tags,
-                  type: isSerie ? "serie" : "movie",
-                }}
-              />
-            </div>
+            {!isUnavailable && (
+              <div className="w-full sm:w-auto">
+                <FavoriteButton
+                  item={{
+                    link,
+                    title: cleanTitle,
+                    image: posterSrc,
+                    backgroundImage: backdropSrc,
+                    rating: cleanRating,
+                    year: cleanYear,
+                    duration,
+                    caption,
+                    tags,
+                    type: isSerie ? "serie" : "movie",
+                  }}
+                />
+              </div>
+            )}
+
+            {isUnavailable && (
+              <div className="text-xs sm:text-sm font-semibold text-gray-400 bg-white/[0.05] border border-white/10 px-4 py-2.5 rounded-xl">
+                Información del título no disponible
+              </div>
+            )}
           </div>
         </div>
       </div>

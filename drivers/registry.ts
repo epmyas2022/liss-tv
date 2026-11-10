@@ -4,7 +4,7 @@ import { CachedDriverDecorator } from "./cached-driver.decorator";
 
 export class DriverRegistry {
   private static drivers: Map<string, MovieDriver> = new Map();
-  private static defaultProviderId: string = "gnula";
+  private static defaultProviderId: string = "solo-latino";
   private static isInitialized: boolean = false;
 
   private static initialize(): void {

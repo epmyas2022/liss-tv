@@ -34,8 +34,8 @@ export default async function MovieDetailPage({
       <FocusContextProvider condition={movie !== null}>
         <HeroBackdrop
           backgroundImage={movie.backgroundImage || ""}
-          image={movie.image || "/logo.png"}
-          title={movie.title || ""}
+          image={movie.image || "/logo-with-background.png"}
+          title={movie.title || "No disponible"}
           year={movie.year || ""}
           duration={movie.duration || ""}
           rating={movie.rating || ""}

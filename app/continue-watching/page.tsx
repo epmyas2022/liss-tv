@@ -53,6 +53,24 @@ function ProgressBar({
   );
 }
 
+function getPlayerHref(link: string): string {
+  const clean = link.replace(/^\/+|\/+$/g, "");
+  const parts = clean.split("/");
+
+  if (parts[0] === "pelicula" || parts[0] === "serie") {
+    const type = parts[0];
+    const slug = parts[1] || "";
+    return `/${type}/${slug}/player`;
+  }
+
+  const gnulaMatch = clean.match(/^([^/]+)-\d+x\d+$/i);
+  if (gnulaMatch) {
+    return `/serie/${gnulaMatch[1]}/player`;
+  }
+
+  return `/${parts.slice(0, 2).join("/")}/player`;
+}
+
 function ContinueWatchingCard({
   item,
   onRemove,
@@ -268,7 +286,7 @@ export default function ContinueWatchingPage() {
       startTime: item.currentTime,
     });
 
-    router.push(`${item.link.split("/").slice(0, 2).join("/")}/player`);
+    router.push(getPlayerHref(item.link));
   };
 
   const handleRemove = async (

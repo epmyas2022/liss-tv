@@ -13,6 +13,11 @@ interface FavoriteButtonProps {
 }
 
 export default function FavoriteButton({ item, className = "" }: FavoriteButtonProps) {
+  const isInvalid =
+    !item.title ||
+    item.title.trim() === "" ||
+    item.title.trim().toLowerCase() === "no disponible";
+
   const isClient = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -21,6 +26,10 @@ export default function FavoriteButton({ item, className = "" }: FavoriteButtonP
 
   const isFav = useFavoritesStore((state) => state.isFavorite(item.link));
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+
+  if (isInvalid) {
+    return null;
+  }
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();

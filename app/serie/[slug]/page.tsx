@@ -37,7 +37,7 @@ export default async function SerieDetailPage({
       <FocusContextProvider condition={movie !== null}>
         <HeroBackdrop
           backgroundImage={movie.backgroundImage || ""}
-          image={movie.image || "/logo.png"}
+          image={movie.image || "/logo-with-background.png"}
           title={movie.title || "No disponible"}
           year={movie.year || ""}
           duration={movie.duration || ""}

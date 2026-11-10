@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { get, remove /* upsert */, upsert } from "@/services/movie.store";
+import { get, remove } from "@/services/movie.store";
 import { StrategyGetUrl, Url } from "@/types/movie";
 import {
   getLinkMediafire,
@@ -14,12 +14,12 @@ import {
   getBrowser,
 } from "@/utils/browser";
 import { fetchFlare, postFlare } from "@/utils/flaresolverr";
+import { normalizeMoviePath } from "@/services/minio.service";
 import {
-  hasManifest,
-  getManifestPublicUrl,
-  saveManifestFromUpstream,
-  normalizeMoviePath,
-} from "@/services/minio.service";
+  resolveCachedStream,
+  persistUpstreamManifest,
+  persistStreamUrl,
+} from "@/services/stream-cache.service";
 
 const TIMEOUT_NAVIGATION_MS = 45_000;
 const TIMEOUT_PLAY_BTN_MS = 35_000;
@@ -32,93 +32,17 @@ export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
     const cleanPath = normalizeMoviePath(path);
 
-    // 0. Si ya existe el manifest en MinIO para esta película/serie, retornar su URL vía /api/video/m3u8
-    try {
-      const existsInMinio = await hasManifest(cleanPath);
-      if (existsInMinio) {
-        const appUrl = getManifestPublicUrl(cleanPath);
-        try {
-          upsert(path, { movieUrl: appUrl });
-        } catch (_) {}
-        return {
-          url: appUrl,
-          fallbackUrl: appUrl,
-        };
-      }
-    } catch (err) {
-      console.warn(`[MinIO] Check failed for ${cleanPath}:`, err);
+    // 1. Verificar si el stream ya existe en el bucket de MinIO o en caché válida
+    const cachedStream = await resolveCachedStream(path);
+    if (cachedStream) {
+      return cachedStream;
     }
 
+    // 2. Si SoloLatino tiene un enlace Mediafire canónico en SQLite, resolver enlace fresco
     const cached = get(path);
-
     if (cached?.movieUrl) {
-      // Si la URL en caché contiene el path corrupto previo con "path=https" o "sololatino.net", purgarla
-      if (
-        cached.movieUrl.includes("path=https") ||
-        cached.movieUrl.includes("sololatino.net")
-      ) {
-        remove(path);
-      } else if (
-        cached.movieUrl.includes(".m3u8") ||
-        cached.movieUrl.startsWith("/api/video/m3u8")
-      ) {
-        // 1. Si ya existe en MinIO, SIEMPRE devolver la URL limpia del bucket (/api/video/m3u8?path=...)
-        const inMinio = await hasManifest(cleanPath).catch(() => false);
-        if (inMinio) {
-          const appUrl = getManifestPublicUrl(cleanPath);
-          try {
-            upsert(path, { movieUrl: appUrl });
-          } catch (_) {}
-          return {
-            url: appUrl,
-            fallbackUrl: appUrl,
-          };
-        }
-
-        // 2. Si la URL guardada en SQLite ya es limpia (/api/video/m3u8?path=...)
-        if (
-          cached.movieUrl.startsWith("/api/video/m3u8?path=") &&
-          !cached.movieUrl.includes("&url=")
-        ) {
-          return {
-            url: cached.movieUrl,
-            fallbackUrl: cached.movieUrl,
-          };
-        }
-
-        // 3. Si la URL en caché contiene tokens o rutas temporales de upstream (player.pelisserieshoy.com, p.php, .ts o url=)
-        // y NO está en MinIO: ese token ya expiró y no sirve. Purgar caché para forzar re-scrape y guardado en MinIO
-        if (
-          cached.movieUrl.includes("player.pelisserieshoy.com") ||
-          cached.movieUrl.includes("p.php") ||
-          cached.movieUrl.includes(".ts") ||
-          cached.movieUrl.includes("&url=") ||
-          cached.movieUrl.includes("?url=")
-        ) {
-          remove(path);
-        } else {
-          let finalUrl = cached.movieUrl;
-          if (
-            finalUrl.includes("/movies/pelicula/") ||
-            finalUrl.includes("/movies/serie/")
-          ) {
-            finalUrl = getManifestPublicUrl(cleanPath);
-            try {
-              upsert(path, { movieUrl: finalUrl });
-            } catch (_) {}
-          }
-          return {
-            url: finalUrl,
-            fallbackUrl: finalUrl,
-          };
-        }
-      }
-
-      // 2. Si es o contiene un enlace a Mediafire, extraer la URL canónica permanente
       const mediafireFileUrl = extractMediafireFileUrl(cached.movieUrl);
-
       if (mediafireFileUrl) {
-        // Resolver una URL de descarga fresca y vigente a partir del enlace canónico
         const freshDirectLink = await getLinkMediafire(mediafireFileUrl);
         if (freshDirectLink) {
           return {
@@ -126,15 +50,6 @@ export class GetUrl implements StrategyGetUrl {
           };
         }
       }
-
-      // 3. Si es una URL de proxy de video previa o streaming directo
-      if (cached.movieUrl.startsWith("/api/")) {
-        return {
-          url: cached.movieUrl,
-        };
-      }
-
-      // Si la URL en caché expiró o ya no es válida, eliminarla para re-raspar
       remove(path);
     }
 
@@ -359,25 +274,10 @@ export class GetUrl implements StrategyGetUrl {
         ]);
 
         if (rawM3u8Url && cleanPath) {
-          try {
-            console.info(
-              `[MinIO] Uploading M3U8 to bucket for: ${cleanPath}...`,
-            );
-            const minioAppUrl = await saveManifestFromUpstream(
-              cleanPath,
-              rawM3u8Url,
-            );
-            dataUrls.fallbackUrl = minioAppUrl;
-            if (!dataUrls.url) {
-              dataUrls.url = minioAppUrl;
-            }
-            console.info(`[MinIO] Successfully saved in bucket: ${cleanPath}`);
-          } catch (err) {
-            console.warn(`[MinIO] Save manifest error for ${cleanPath}:`, err);
-            dataUrls.fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}&url=${encodeURIComponent(rawM3u8Url)}`;
-            if (!dataUrls.url) {
-              dataUrls.url = dataUrls.fallbackUrl;
-            }
+          const streamUrl = await persistUpstreamManifest(cleanPath, rawM3u8Url);
+          dataUrls.fallbackUrl = streamUrl;
+          if (!dataUrls.url) {
+            dataUrls.url = streamUrl;
           }
         }
 
@@ -388,12 +288,9 @@ export class GetUrl implements StrategyGetUrl {
 
         await context.storageState({ path: "state.json" });
 
-        // Guardar exclusivamente el fallbackUrl (que contiene la URL del manifest m3u8 / MinIO)
-        const m3u8ToSave = dataUrls.fallbackUrl || undefined;
-
-        upsert(path, {
-          movieUrl: m3u8ToSave,
-        });
+        if (dataUrls.fallbackUrl) {
+          persistStreamUrl(path, dataUrls.fallbackUrl);
+        }
 
         resolve(dataUrls);
       } catch (error) {

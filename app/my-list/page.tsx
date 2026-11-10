@@ -22,6 +22,7 @@ function FavoriteCard({
 }) {
   const router = useRouter();
   const rating = item.rating?.replace(/★/, "").trim();
+  const href = item.link.startsWith("/") ? item.link : `/${item.link}`;
 
   return (
     <FocusElementProvider
@@ -32,11 +33,11 @@ function FavoriteCard({
         outlineOffset: "2px",
         transform: "scale(1.04)",
       }}
-      onEnterPress={() => router.push(item.link)}
+      onEnterPress={() => router.push(href)}
     >
       <div className="group/card relative block rounded-xl overflow-hidden bg-[#131519] border border-white/[0.06] hover:border-white/20 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.8)] cursor-pointer select-none">
         {/* Poster Container */}
-        <Link href={item.link} className="block relative aspect-[2/3] w-full overflow-hidden">
+        <Link href={href} className="block relative aspect-[2/3] w-full overflow-hidden">
           <Image
             src={item.image || "/logo-with-background.png"}
             alt={item.title || item.link}

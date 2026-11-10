@@ -1,5 +1,6 @@
 import { DriverQuery, GetUrlOptions, MovieDriver, Movies, StoredMovie, Url } from "@/types/movie";
 import { get, getAllData, upsert, upsertAll } from "@/services/movie.store";
+import { resolveCachedStream } from "@/services/stream-cache.service";
 
 export class CachedDriverDecorator implements MovieDriver {
   constructor(private readonly innerDriver: MovieDriver) {}
@@ -86,6 +87,10 @@ export class CachedDriverDecorator implements MovieDriver {
   }
 
   async getUrl(path: string, options?: GetUrlOptions): Promise<Url> {
+    const cached = await resolveCachedStream(path);
+    if (cached) {
+      return cached;
+    }
     return await this.innerDriver.getUrl(path, options);
   }
 }

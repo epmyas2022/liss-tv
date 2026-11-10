@@ -9,12 +9,11 @@ import { HomeContinueWatching } from "@/components/home/HomeContinueWatching";
 import { Movie, StoredMovie } from "../types/movie";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getAllMovies, getDetails } from "@/app/actions/movie";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
-import { Search } from "lucide-react";
+import { NotFoundAnimation } from "@/components/ui/NotFoundAnimation";
 
 export default function Home() {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") || undefined;
@@ -181,17 +180,11 @@ export default function Home() {
         </div>
 
         {!loading && movies.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center px-4 rounded-2xl my-4">
-            <h3 className="text-xl sm:text-2xl font-bold font-poppins text-white mb-2 max-w-xl mx-auto break-words px-2">
-              No encontramos resultados para{" "}
-              <span className="text-[#e50914] break-all sm:break-words">
-                &ldquo;{search}&rdquo;
-              </span>
+          <div className="flex flex-col items-center justify-center py-6 sm:py-10 px-4 w-full gap-3 text-center">
+            <NotFoundAnimation />
+            <h3 className="font-poppins text-lg sm:text-xl font-bold text-white tracking-tight">
+              Sin resultados { search && search !== "" ? "para: " + search : ""}
             </h3>
-            <p className="text-gray-400 max-w-md text-sm mb-6">
-              Revisá que las palabras estén bien escritas o probá con otros
-              términos más generales.
-            </p>
           </div>
         ) : (
           <FocusContextProvider

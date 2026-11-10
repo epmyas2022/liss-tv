@@ -85,10 +85,25 @@ export function PlayerView() {
     fetchMovieUrl();
   }, [moviePreview]);
 
-  if (loading || !moviePreview)
+  if (loading)
     return (
       <div className="flex items-center justify-center h-screen text-white bg-black">
         <Spinner size="lg"></Spinner>
+      </div>
+    );
+
+  if (!moviePreview)
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-white bg-black gap-4 px-4 text-center">
+        <p className="text-lg font-semibold">
+          No hay contenido seleccionado para reproducir.
+        </p>
+        <button
+          onClick={() => router.back()}
+          className="px-5 py-2.5 rounded-xl bg-[#e50914] text-white font-bold hover:bg-[#b80710] transition-colors cursor-pointer"
+        >
+          Volver
+        </button>
       </div>
     );
 
