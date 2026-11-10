@@ -74,31 +74,31 @@ export class GetAll implements StrategyGetAllMovies {
 
         const movies: Movie[] = Array.isArray(items)
           ? items
-              .filter(
-                (item) =>
-                  item.type !== "person" &&
-                  item.url &&
-                  item.title &&
-                  item.poster,
-              )
-              .map((item) => {
-                const linkRaw = item.url || "";
-                const match = linkRaw.match(
-                  /(?:\/\/[^/]+)?(\/(pelicula|serie)\/[^/?#]+)/,
-                );
-                const link = match ? match[1] : linkRaw;
+          .filter(
+            (item) =>
+              item.type !== "person" &&
+              item.url &&
+              item.title &&
+              item.poster,
+          )
+          .map((item) => {
+            const linkRaw = item.url || "";
+            const match = linkRaw.match(
+              /(?:\/\/[^/]+)?(\/(pelicula|serie)\/[^/?#]+)/,
+            );
+            const link = match ? match[1] : linkRaw;
 
-                return {
-                  link,
-                  image: item.poster || "",
-                  rating: "",
-                  title: item.title || "",
-                  year: item.year ? String(item.year) : "",
-                };
-              })
+            return {
+              link,
+              image: item.poster || "",
+              rating: "",
+              title: item.title || "",
+              year: item.year ? String(item.year) : "",
+            };
+          })
           : [];
 
-        const searchData = { movies, lastPageNumber: 1 };
+        const searchData: Movies = { movies, lastPageNumber: 1, hasMore: false };
         upsertAll<Movies>(key, searchData);
         return searchData;
       }
@@ -134,7 +134,9 @@ export class GetAll implements StrategyGetAllMovies {
         })
         .get();
 
-      const data = { movies, lastPageNumber };
+      const currentPage = pageNumber ?? 1;
+      const hasMore = currentPage < lastPageNumber;
+      const data: Movies = { movies, lastPageNumber, hasMore };
 
       upsertAll<Movies>(key, data);
 

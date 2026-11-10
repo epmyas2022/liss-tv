@@ -14,37 +14,52 @@ const isPastHours = (dateString: string, hours: number): boolean =>
   (Date.now() - new Date(dateString).getTime()) / (1000 * 60 * 60) > hours;
 
 const buildCacheKey = (search?: string, slug?: string, pageNumber?: number): string => {
-  if (search) return `gnula:search:${search.toLowerCase().trim()}`;
-  if (!slug || slug === "") return "gnula:home";
-  return `gnula:${slug}/page/${pageNumber ?? 1}`;
+  const page = pageNumber ?? 1;
+  if (search) return `gnula:search:${search.toLowerCase().trim()}:page:${page}`;
+  if (!slug || slug === "") return `gnula:home:page:${page}`;
+  return `gnula:${slug}:page:${page}`;
 };
 
 const buildTargetUrl = (search?: string, slug?: string, pageNumber?: number): string => {
   if (search) {
-    return `${GNULA_BASE_URL}?s=${encodeURIComponent(search)}`;
+    const query = encodeURIComponent(search);
+    return pageNumber && pageNumber > 1
+      ? `${GNULA_BASE_URL}?s=${query}&page=${pageNumber}`
+      : `${GNULA_BASE_URL}?s=${query}`;
   }
 
-  if (!slug || slug === "") {
-    return pageNumber && pageNumber > 1
-      ? `${GNULA_BASE_URL}page/${pageNumber}/`
-      : GNULA_BASE_URL;
-  }
+  const cleanSlug = slug ? slug.replace(/^\/+|\/+$/g, "") : "";
+  const basePath = cleanSlug ? `${GNULA_BASE_URL}ver/${cleanSlug}/` : GNULA_BASE_URL;
 
   return pageNumber && pageNumber > 1
-    ? `${GNULA_BASE_URL}ver/${slug}/page/${pageNumber}/`
-    : `${GNULA_BASE_URL}ver/${slug}/`;
+    ? `${basePath}?page=${pageNumber}`
+    : basePath;
 };
 
-const parseLastPageNumber = ($: cheerio.CheerioAPI): number => {
-  let lastPage = 1;
+const parsePagination = (
+  $: cheerio.CheerioAPI,
+  currentPage: number = 1,
+): { hasMore: boolean; lastPageNumber: number } => {
+  const loadMoreBtn = $("a.gnrd-loadmore, a[rel='next']");
+  const hasMore = loadMoreBtn.length > 0;
 
-  // WordPress pagination: a.page-numbers contains numeric page links
+  let maxFoundPage = 1;
   $("a.page-numbers").each((_, el) => {
     const n = parseInt($(el).text().trim(), 10);
-    if (!isNaN(n) && n > lastPage) lastPage = n;
+    if (!isNaN(n) && n > maxFoundPage) maxFoundPage = n;
   });
 
-  return lastPage;
+  if (maxFoundPage > 1) {
+    return {
+      hasMore: currentPage < maxFoundPage,
+      lastPageNumber: maxFoundPage,
+    };
+  }
+
+  return {
+    hasMore,
+    lastPageNumber: hasMore ? currentPage + 1 : currentPage,
+  };
 };
 
 export class GetAll implements StrategyGetAllMovies {
@@ -76,17 +91,26 @@ export class GetAll implements StrategyGetAllMovies {
       });
 
       const html = await response.text();
-
-      console.log(html)
       const $ = cheerio.load(html);
 
       const movies: Movie[] = $("a.gnrd-card")
         .map((_, el) => {
           const href = $(el).attr("href") ?? "";
 
-          // Extract the /ver/<slug>/ path, stripping the domain
-          const pathMatch = href.match(/https?:\/\/[^/]+(\/ver\/[^/?#]+\/?)/);
-          const link = pathMatch ? pathMatch[1] : href;
+          // Extract the item slug
+          const slugMatch = href.match(/https?:\/\/[^/]+(?:\/ver)?\/([^/?#]+)/);
+          const itemSlug = slugMatch ? slugMatch[1] : href.replace(/^.*\/|\/$/g, "");
+
+          // Map Gnula's cards to common domain routes: /serie/<slug> or /pelicula/<slug>
+          const typeBadge = $(el).find(".gnrd-type-badge").text().trim().toLowerCase();
+          const isSerie =
+            slug === "series" ||
+            typeBadge.includes("serie") ||
+            typeBadge.includes("anime") ||
+            typeBadge.includes("dorama");
+
+          const typePrefix = isSerie ? "serie" : "pelicula";
+          const link = `/${typePrefix}/${itemSlug}`;
 
           const image = $(el).find(".gnrd-card-art img").attr("src") ?? "";
           const title = $(el).find("span.gnrd-card-title").text().trim();
@@ -108,9 +132,9 @@ export class GetAll implements StrategyGetAllMovies {
         .get()
         .filter((m) => Boolean(m.link) && Boolean(m.title));
 
-      const lastPageNumber = parseLastPageNumber($);
+      const { hasMore, lastPageNumber } = parsePagination($, pageNumber ?? 1);
 
-      const data: Movies = { movies, lastPageNumber };
+      const data: Movies = { movies, lastPageNumber, hasMore };
       upsertAll<Movies>(key, data);
 
       return data;

@@ -48,12 +48,15 @@ export default function Home() {
       const response = await getAllMovies(search, filter, page);
 
       const newMovies = response?.movies || [];
-      const lastPageNumber = response?.lastPageNumber || 1;
+      const hasMoreData =
+        response?.hasMore !== undefined
+          ? response.hasMore
+          : page < (response?.lastPageNumber || 1);
 
       if (!isMounted) return;
 
       setMovies((prev) => (page === 1 ? newMovies : [...prev, ...newMovies]));
-      setHasMore(!search && page < lastPageNumber);
+      setHasMore(!search && hasMoreData);
       setLoading(false);
     };
 

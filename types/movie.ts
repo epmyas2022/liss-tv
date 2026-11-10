@@ -35,6 +35,7 @@ export type StoredMovie = {
 export interface Movies {
   movies: Movie[];
   lastPageNumber: number;
+  hasMore?: boolean;
 }
 
 export interface Episode {

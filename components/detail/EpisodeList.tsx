@@ -79,8 +79,11 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
             const match = ep.link.match(
               /\/serie\/([^/]+)\/(?:[^\/]+\/)?episodio-([^/]+)/i,
             );
-            const slug = match ? match[1] : undefined;
-
+            const gnulaMatch = ep.link.match(/\/([^/]+)-\d+x\d+\/?$/);
+            const slug =
+              match?.[1] ||
+              gnulaMatch?.[1] ||
+              ep.link.replace(/^\/+|\/+$/g, "").split("/")[0];
 
             if (!slug) return null;
 
