@@ -3,6 +3,7 @@ import { Season } from "./domain";
 export interface EpisodeListProps {
   title: string;
   seasons: Season[];
+  slug: string;
   provider?: string;
 }
 

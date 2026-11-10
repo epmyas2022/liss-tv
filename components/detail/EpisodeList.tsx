@@ -7,7 +7,12 @@ import EpisodeWatchButton from "../ui/EpisodeWatchButton";
 import SeasonSelect from "../ui/SeasonSelect";
 import { analytics } from "@/analytics/event";
 
-export function EpisodeList({ title, seasons, provider }: EpisodeListProps) {
+export function EpisodeList({
+  title,
+  seasons,
+  provider,
+  slug,
+}: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
 
   const store = useMovieStore();
@@ -80,17 +85,6 @@ export function EpisodeList({ title, seasons, provider }: EpisodeListProps) {
       {current?.episodes && current.episodes.length > 0 ? (
         <ol className="flex flex-col gap-2.5">
           {current.episodes.map((ep) => {
-            const match = ep.link.match(
-              /\/serie\/([^/]+)\/(?:[^\/]+\/)?episodio-([^/]+)/i,
-            );
-            const gnulaMatch = ep.link.match(/\/([^/]+)-\d+x\d+\/?$/);
-            const slug =
-              match?.[1] ||
-              gnulaMatch?.[1] ||
-              ep.link.replace(/^\/+|\/+$/g, "").split("/")[0];
-
-            if (!slug) return null;
-
             const targetHref = `/serie/${slug}/player`;
 
             return (

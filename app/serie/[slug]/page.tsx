@@ -54,6 +54,7 @@ export default async function SerieDetailPage({
               title={movie.title || ""}
               seasons={seasons}
               provider={movie.provider}
+              slug={slug}
             />
           </div>
         )}
