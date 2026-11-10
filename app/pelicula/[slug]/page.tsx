@@ -42,6 +42,8 @@ export default async function MovieDetailPage({
           tags={movie.tags || []}
           caption={movie.caption || ""}
           link={`pelicula/${slug}`}
+          context={movie.context}
+          provider={movie.provider}
         />
       </FocusContextProvider>
     </main>

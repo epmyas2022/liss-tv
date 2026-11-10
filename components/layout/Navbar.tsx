@@ -9,6 +9,7 @@ import { useAuthentication } from "../providers/context/AuthContext";
 import dynamic from "next/dynamic";
 import NetflixSearch from "../ui/NetflixSearch";
 import { BrandLogo } from "./BrandLogo";
+import { ProviderSelector } from "../ui/ProviderSelector";
 
 const UserAvatar = dynamic(() => import("@/components/ui/UserAvatar"), {
   ssr: false,
@@ -112,8 +113,11 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* Right: Search & Profile */}
+          {/* Right: Provider Selector, Search & Profile */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Dynamic Provider Selector */}
+            <ProviderSelector />
+
             {/* Search */}
             <NetflixSearch />
 

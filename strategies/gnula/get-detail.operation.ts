@@ -1,30 +1,168 @@
-import { get, upsert } from "@/services/movie.store";
-import { Episode, Season, StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
 import * as cheerio from "cheerio";
-import nodeFetch from "node-fetch";
-import https from "https";
+import { Episode, Season, StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
+import { get, upsert } from "@/services/movie.store";
+import { gnulaFetch } from "./client";
 
-const GNULA_BASE_URL = "https://ww3.gnulahd.nu/";
+const CACHE_TTL_DAYS = 7;
 
-const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+function isCacheExpired(dateString: string, maxAgeDays: number): boolean {
+  const ageInDays = (Date.now() - new Date(dateString).getTime()) / (1000 * 60 * 60 * 24);
+  return ageInDays > maxAgeDays;
+}
 
-const isPastDays = (dateString: string, days: number): boolean => {
-  const date = new Date(dateString);
-  return (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24) > days;
-};
-
-const buildDetailUrl = (link: string): string => {
+function resolveDetailPath(link: string): string {
   if (link.startsWith("http://") || link.startsWith("https://")) {
     return link;
   }
   const clean = link.replace(/^\/+/, "");
   if (clean.startsWith("ver/")) {
-    return `${GNULA_BASE_URL}${clean}`;
+    return clean;
   }
   const slugMatch = clean.match(/(?:pelicula|serie)\/([^/]+)/);
   const slug = slugMatch ? slugMatch[1] : clean.replace(/\/+$/, "");
-  return `${GNULA_BASE_URL}ver/${slug}/`;
-};
+  return `ver/${slug}/`;
+}
+
+function extractGnulaContext($: cheerio.CheerioAPI): Record<string, unknown> {
+  const context: Record<string, unknown> = {};
+
+  // Extract post or media ID from element data attributes
+  const dataId = $("[data-id]").first().attr("data-id");
+  if (dataId) {
+    context.id = dataId;
+  }
+
+  // Extract streaming resolve tokens from embedded inline scripts
+  $("script").each((_, el) => {
+    const text = $(el).html() || "";
+    if (text.includes("the-tube-resolve") || text.includes("vidara-resolve") || text.includes("AUTH=")) {
+      const authMatch = text.match(/[&?]t=([a-f0-9]+)/i);
+      if (authMatch && !context.t) {
+        context.t = authMatch[1];
+      }
+      const resolveMatch = text.match(/RESOLVE\s*=\s*['"]([^'"]+)['"]/);
+      if (resolveMatch && !context.resolveEndpoint) {
+        context.resolveEndpoint = resolveMatch[1];
+      }
+    }
+  });
+
+  return context;
+}
+
+function extractTitle($: cheerio.CheerioAPI): string {
+  const titleFromSr = $("h1.gnrd-fi-title .gnrd-sr").text().trim();
+  if (titleFromSr) return titleFromSr;
+
+  const altFromImg = $("h1.gnrd-fi-title img").attr("alt")?.trim();
+  if (altFromImg) return altFromImg;
+
+  return $("h1.gnrd-fi-title").text().trim();
+}
+
+function extractBackdrop($: cheerio.CheerioAPI): string {
+  const bgStyle = $(".gnrd-fi-bg").attr("style") || "";
+  const bgMatch = bgStyle.match(/url\(['"]?([^'"]+?)['"]?\)/);
+  let backgroundImage = bgMatch?.[1]?.trim() ?? "";
+
+  // Prefer original resolution for TMDB images
+  if (backgroundImage.includes("image.tmdb.org")) {
+    backgroundImage = backgroundImage.replace(/\/w\d+\//, "/original/");
+  }
+  return backgroundImage;
+}
+
+function extractPoster($: cheerio.CheerioAPI, fallbackBackdrop: string): string {
+  return (
+    $('meta[itemprop="image"]').attr("content") ||
+    $('meta[property="og:image"]').attr("content") ||
+    $("img.gnrd-fi-logo").attr("src") ||
+    fallbackBackdrop ||
+    ""
+  );
+}
+
+function extractYear($: cheerio.CheerioAPI): string {
+  let year = "";
+  $(".gnrd-fi-meta span, .gnrd-eyebrow").each((_, el) => {
+    const text = $(el).text().trim();
+    const match = text.match(/\b(19\d\d|20\d\d)\b/);
+    if (match && !year) {
+      year = match[0];
+    }
+  });
+  return year;
+}
+
+function extractDuration($: cheerio.CheerioAPI): string {
+  let duration = "";
+  $(".gnrd-fi-meta span").each((_, el) => {
+    const text = $(el).text().trim();
+    if (/\b\d+\s*(?:hr|min|m|h)\b/i.test(text)) {
+      duration = text;
+    }
+  });
+  return duration;
+}
+
+function extractSeasons(
+  $: cheerio.CheerioAPI,
+  fallbackImage: string,
+  baseContext: Record<string, unknown>,
+): Season[] {
+  const seasonsMap = new Map<string, Episode[]>();
+
+  $("a.gnrd-epc").each((_, el) => {
+    const href = $(el).attr("href") || "";
+    const seasonAttr = $(el).attr("data-s");
+    const epAttr = $(el).attr("data-e");
+
+    const epCode = $(el).find(".gnrd-epc-n").text().trim();
+    const codeMatch = epCode.match(/^(\d+)x(\d+)$/i);
+
+    const seasonNum = seasonAttr || (codeMatch ? codeMatch[1] : "1");
+    const epNum = epAttr || (codeMatch ? codeMatch[2] : "1");
+
+    const thumbStyle = $(el).find(".gnrd-epc-thumb").attr("style") || "";
+    const thumbMatch = thumbStyle.match(/url\(['"]?([^'"]+?)['"]?\)/);
+    const epThumb =
+      thumbMatch?.[1]?.trim() || $(el).find("img").attr("src") || fallbackImage;
+
+    const epTitle =
+      $(el).find(".gnrd-epc-title").text().trim() || `Episodio ${epNum}`;
+    const epDate = $(el).find(".gnrd-epc-date").text().trim();
+    const epDur = $(el).find(".gnrd-epc-dur").text().trim();
+    const epCaption = [epDate, epDur].filter(Boolean).join(" · ");
+
+    const pathMatch = href.match(/https?:\/\/[^/]+(\/[^?#]+)/);
+    const cleanedLink = pathMatch ? pathMatch[1] : href;
+
+    const episode: Episode = {
+      link: cleanedLink,
+      title: epTitle,
+      image: epThumb,
+      numberEpisode: epNum,
+      caption: epCaption,
+      context: {
+        ...baseContext,
+        season: seasonNum,
+        episode: epNum,
+      },
+    };
+
+    if (!seasonsMap.has(seasonNum)) {
+      seasonsMap.set(seasonNum, []);
+    }
+    seasonsMap.get(seasonNum)!.push(episode);
+  });
+
+  return Array.from(seasonsMap.entries()).map(([season, episodes]) => ({
+    season,
+    episodes: episodes.sort(
+      (a, b) => parseInt(a.numberEpisode, 10) - parseInt(b.numberEpisode, 10),
+    ),
+  }));
+}
 
 export class GetDetail implements StrategyGetMovieDetails {
   async operation(link: string): Promise<Omit<StoredMovie, "link" | "updatedAt"> | undefined> {
@@ -35,7 +173,7 @@ export class GetDetail implements StrategyGetMovieDetails {
       cached?.title &&
       cached?.image &&
       cached?.backgroundImage &&
-      !isPastDays(cached.updatedAt, 7) &&
+      !isCacheExpired(cached.updatedAt, CACHE_TTL_DAYS) &&
       (!isSerie || cached?.episodes?.length)
     ) {
       return {
@@ -48,134 +186,43 @@ export class GetDetail implements StrategyGetMovieDetails {
         tags: cached.tags ?? [],
         caption: cached.caption ?? "",
         episodes: cached.episodes ?? [],
+        context: cached.context,
       };
     }
 
-    const targetUrl = buildDetailUrl(link);
-
     try {
-      const response = await nodeFetch(targetUrl, {
-        agent: httpsAgent,
+      const endpoint = resolveDetailPath(link);
+      const response = await gnulaFetch(endpoint, {
         headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          Referer: GNULA_BASE_URL,
           Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-          "Accept-Language": "es-419,es;q=0.9",
         },
       });
 
       const html = await response.text();
       const $ = cheerio.load(html);
 
-      // Title
-      let title = $("h1.gnrd-fi-title .gnrd-sr").text().trim();
-      if (!title) {
-        title = $("h1.gnrd-fi-title img").attr("alt")?.trim() ?? "";
-      }
-      if (!title) {
-        title = $("h1.gnrd-fi-title").text().trim();
-      }
+      const gnulaContext = extractGnulaContext($);
+      const title = extractTitle($);
+      const backgroundImage = extractBackdrop($);
+      const image = extractPoster($, backgroundImage);
 
-      // Backdrop
-      const bgStyle = $(".gnrd-fi-bg").attr("style") || "";
-      const bgMatch = bgStyle.match(/url\(['"]?([^'"]+?)['"]?\)/);
-      let backgroundImage = bgMatch?.[1]?.trim() ?? "";
-      if (backgroundImage.includes("image.tmdb.org")) {
-        backgroundImage = backgroundImage.replace(/\/w\d+\//, "/original/");
-      }
-
-      // Poster / Cover
-      const image =
-        $('meta[itemprop="image"]').attr("content") ||
-        $('meta[property="og:image"]').attr("content") ||
-        $("img.gnrd-fi-logo").attr("src") ||
-        backgroundImage ||
-        "";
-
-      // Rating
       const ratingRaw = $(".gnrd-rating, .gnrd-cm-rating").first().text().trim();
       const rating = ratingRaw.replace(/^★\s*/, "");
 
-      // Year
-      let year = "";
-      $(".gnrd-fi-meta span, .gnrd-eyebrow").each((_, el) => {
-        const text = $(el).text().trim();
-        const m = text.match(/\b(19\d\d|20\d\d)\b/);
-        if (m && !year) year = m[0];
-      });
+      const year = extractYear($);
+      const duration = extractDuration($);
 
-      // Duration
-      let duration = "";
-      $(".gnrd-fi-meta span").each((_, el) => {
-        const text = $(el).text().trim();
-        if (/\b\d+\s*(?:hr|min|m|h)\b/i.test(text)) {
-          duration = text;
-        }
-      });
-
-      // Tags / Genres
       const tags = $(".gnrd-fi-genres a, .gnrd-fi-genres span")
         .map((_, el) => $(el).text().trim())
         .get()
         .filter(Boolean);
 
-      // Synopsis / Caption
       const caption = $("p.gnrd-fi-syn, #gnrd-syn, p[itemprop='description']")
         .first()
         .text()
         .trim();
 
-      // Seasons & Episodes
-      const seasonsMap = new Map<string, Episode[]>();
-
-      $("a.gnrd-epc").each((_, el) => {
-        const href = $(el).attr("href") || "";
-        const seasonAttr = $(el).attr("data-s");
-        const epAttr = $(el).attr("data-e");
-
-        const epCode = $(el).find(".gnrd-epc-n").text().trim();
-        const codeMatch = epCode.match(/^(\d+)x(\d+)$/i);
-
-        const seasonNum = seasonAttr || (codeMatch ? codeMatch[1] : "1");
-        const epNum = epAttr || (codeMatch ? codeMatch[2] : "1");
-
-        const thumbStyle = $(el).find(".gnrd-epc-thumb").attr("style") || "";
-        const thumbMatch = thumbStyle.match(/url\(['"]?([^'"]+?)['"]?\)/);
-        const epThumb =
-          thumbMatch?.[1]?.trim() || $(el).find("img").attr("src") || image;
-
-        const epTitle =
-          $(el).find(".gnrd-epc-title").text().trim() || `Episodio ${epNum}`;
-        const epDate = $(el).find(".gnrd-epc-date").text().trim();
-        const epDur = $(el).find(".gnrd-epc-dur").text().trim();
-        const epCaption = [epDate, epDur].filter(Boolean).join(" · ");
-
-        const pathMatch = href.match(/https?:\/\/[^/]+(\/[^?#]+)/);
-        const cleanedLink = pathMatch ? pathMatch[1] : href;
-
-        const episode: Episode = {
-          link: cleanedLink,
-          title: epTitle,
-          image: epThumb,
-          numberEpisode: epNum,
-          caption: epCaption,
-        };
-
-        if (!seasonsMap.has(seasonNum)) {
-          seasonsMap.set(seasonNum, []);
-        }
-        seasonsMap.get(seasonNum)!.push(episode);
-      });
-
-      const seasonsData: Season[] = Array.from(seasonsMap.entries()).map(
-        ([season, episodes]) => ({
-          season,
-          episodes: episodes.sort(
-            (a, b) => parseInt(a.numberEpisode, 10) - parseInt(b.numberEpisode, 10),
-          ),
-        }),
-      );
+      const seasons = extractSeasons($, image, gnulaContext);
 
       const movieData: Omit<StoredMovie, "link" | "updatedAt"> = {
         title,
@@ -186,13 +233,15 @@ export class GetDetail implements StrategyGetMovieDetails {
         duration,
         tags,
         caption,
-        episodes: seasonsData.length > 0 ? seasonsData : undefined,
+        episodes: seasons.length > 0 ? seasons : undefined,
+        context: Object.keys(gnulaContext).length > 0 ? gnulaContext : undefined,
       };
 
       upsert(link, movieData);
       return movieData;
     } catch (error) {
-      console.error("[Gnula] Error fetching movie details:", error);
+      console.error("[Gnula] GetDetail operation failed:", error);
+      return undefined;
     }
   }
 }

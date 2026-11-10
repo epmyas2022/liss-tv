@@ -45,10 +45,16 @@ export default async function SerieDetailPage({
           tags={movie.tags || []}
           caption={movie.caption || ""}
           link={`serie/${slug}`}
+          context={movie.context}
+          provider={movie.provider}
         />
         {seasons.length > 0 && (
           <div id="episodios" className="scroll-mt-24">
-            <EpisodeList title={movie.title || ""} seasons={seasons} />
+            <EpisodeList
+              title={movie.title || ""}
+              seasons={seasons}
+              provider={movie.provider}
+            />
           </div>
         )}
       </FocusContextProvider>

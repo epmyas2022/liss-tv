@@ -14,6 +14,8 @@ interface HeroBackdropProps {
   tags: string[];
   caption: string;
   link: string;
+  context?: Record<string, unknown>;
+  provider?: string;
 }
 
 function getCleanTitle(title?: string): string {
@@ -47,6 +49,8 @@ export function HeroBackdrop({
   tags,
   caption,
   link,
+  context,
+  provider,
 }: HeroBackdropProps) {
   const cleanTitle = getCleanTitle(title);
   const cleanYear = getCleanYear(year);
@@ -96,8 +100,6 @@ export function HeroBackdrop({
 
         {/* Text & Action Details */}
         <div className="flex flex-col gap-3.5 sm:gap-4 text-center md:text-left flex-1">
-     
-
           {/* Title */}
           <h1 className="font-poppins text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)]">
             {cleanTitle}
@@ -159,6 +161,8 @@ export function HeroBackdrop({
                     image,
                     link,
                     backgroundImage: backdropSrc,
+                    context,
+                    provider,
                   }}
                   label="Reproducir"
                 />

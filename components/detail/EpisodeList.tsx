@@ -7,7 +7,7 @@ import EpisodeWatchButton from "../ui/EpisodeWatchButton";
 import SeasonSelect from "../ui/SeasonSelect";
 import { analytics } from "@/analytics/event";
 
-export function EpisodeList({ title, seasons }: EpisodeListProps) {
+export function EpisodeList({ title, seasons, provider }: EpisodeListProps) {
   const [activeSeason, setActiveSeason] = useState(seasons[0]?.season ?? "1");
 
   const store = useMovieStore();
@@ -28,6 +28,8 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
       link: episodes[index].link,
       title: `${title} - ${episodes[index].title}`,
       startTime: 0,
+      context: episodes[index].context,
+      provider: (episodes[index].context?.provider as string | undefined) || provider,
       next: next(episodes.slice(index + 1), nextValue),
     };
 
@@ -42,6 +44,8 @@ export function EpisodeList({ title, seasons }: EpisodeListProps) {
       image: ep.image,
       link: ep.link,
       startTime: 0,
+      context: ep.context,
+      provider: (ep.context?.provider as string | undefined) || provider,
       next: next(allEpisodes.slice(index + 1)),
     });
 

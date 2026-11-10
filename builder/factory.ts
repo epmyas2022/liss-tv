@@ -4,7 +4,7 @@ import { GnulaMovieBuilder } from "./gnula.build";
 import { MovieBuilder } from "@/types/movie";
 
 export class MovieContextFactory {
-  private static providers: { [key: string]: MovieBuilder } = {
+  private static providers: { [key: string]: MovieBuilder<MovieContext> } = {
     "solo-latino": new SoloLatinoMovieBuilder(),
     gnula: new GnulaMovieBuilder(),
   };

@@ -17,6 +17,8 @@ export default function WatchButton({
 }: {
   moviePreview: Pick<Movie, "title" | "link" | "image"> & {
     backgroundImage?: string;
+    context?: Record<string, unknown>;
+    provider?: string;
   };
   backgroundImage?: string;
   redirectDetails?: boolean;

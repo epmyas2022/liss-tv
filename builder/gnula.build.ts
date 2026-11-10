@@ -9,10 +9,17 @@ class GetUrl implements StrategyGetUrl {
   }
 }
 
-export class GnulaMovieBuilder implements MovieBuilder {
-  name: string = "ww3.gnulahd.nu";
+export class GnulaMovieBuilder implements MovieBuilder<MovieContext> {
+  name: string = "Gnula HD";
+  id: string = "gnula";
 
   build(): MovieContext {
-    return new MovieContext(new GetAll(), new GetDetail(), new GetUrl());
+    return new MovieContext(
+      new GetAll(),
+      new GetDetail(),
+      new GetUrl(),
+      "gnula",
+      "Gnula HD",
+    );
   }
 }
