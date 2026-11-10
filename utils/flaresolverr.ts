@@ -201,7 +201,6 @@ function extractProxyDetails(options: FetchFlareOptions): ResolverOptions {
 const activeSessions = new Set<string>();
 const sessionLocks = new Map<string, Promise<unknown>>();
 const inFlightResolutions = new Map<string, Promise<FlareSolverrOutput>>();
-const STALE_GRACE_PERIOD_MS = 24 * 60 * 60 * 1000;
 
 async function withSessionLock<T>(sessionId: string, fn: () => Promise<T>): Promise<T> {
   const currentLock = sessionLocks.get(sessionId) || Promise.resolve();
@@ -478,19 +477,14 @@ export async function resolver(
   const cached = await loadCache(cacheKey);
   const now = Date.now();
 
-  // 1. Fresh cache: return instantly
+  // 1. Fresh cache: return instantly.
+  // If approaching expiry (e.g. within 3 minutes), trigger a non-blocking background
+  // refresh while returning the still-valid session immediately, ensuring zero latency.
   if (cached && cached.expiry > now) {
-    return {
-      userAgent: cached.userAgent,
-      cookies: cached.cookies,
-    };
-  }
+    const PROACTIVE_RENEWAL_WINDOW_MS = 3 * 60 * 1000;
+    const isApproachingExpiry = cached.expiry - now < PROACTIVE_RENEWAL_WINDOW_MS;
 
-  // 2. Stale cache (within grace period):
-  // Return stale cookies immediately so user requests don't freeze with spinners.
-  // Trigger background renewal non-blocking.
-  if (cached && (now - cached.expiry) < STALE_GRACE_PERIOD_MS) {
-    if (!inFlightResolutions.has(cacheKey)) {
+    if (isApproachingExpiry && !inFlightResolutions.has(cacheKey)) {
       const bgPromise = executeFlareResolution(
         url,
         options,
@@ -499,7 +493,7 @@ export async function resolver(
         proxyPayload,
       )
         .catch((err) => {
-          console.error("[⚠️ Background FlareSolverr renewal error]", err);
+          console.error("[⚠️ Background FlareSolverr proactive renewal error]", err);
           return null as unknown as FlareSolverrOutput;
         })
         .finally(() => {
@@ -514,7 +508,8 @@ export async function resolver(
     };
   }
 
-  // 3. No cache available at all: execute resolution (deduplicated across concurrent requests)
+  // 2. Expired or missing cache: DO NOT return dead clearance tokens.
+  // Wait for resolution so that in-flight requests succeed on the first attempt without empty states.
   if (inFlightResolutions.has(cacheKey)) {
     return inFlightResolutions.get(cacheKey)!;
   }
@@ -585,7 +580,11 @@ export async function fetchFlare(
     const mergedHeaders = new Headers(options.headers || {});
     mergedHeaders.set("User-Agent", userAgent);
     if (!mergedHeaders.has("Referer")) {
-      mergedHeaders.set("Referer", BASE_URL.SoloLatino);
+      try {
+        mergedHeaders.set("Referer", new URL(url).origin + "/");
+      } catch {
+        mergedHeaders.set("Referer", BASE_URL.SoloLatino);
+      }
     }
     if (cookieHeader) {
       const existingCookie = mergedHeaders.get("Cookie");
@@ -694,11 +693,16 @@ export async function postFlare(
     try {
       const cookieHeader = cached.cookies.map((c) => `${c.name}=${c.value}`).join("; ");
       const xsrfCookie = cached.cookies.find((c) => c.name === "XSRF-TOKEN");
+      let refererHeader = BASE_URL.SoloLatino;
+      try {
+        refererHeader = new URL(url).origin + "/";
+      } catch {}
+
       const directHeaders: Record<string, string> = {
         "Content-Type": "application/x-www-form-urlencoded",
         "X-Requested-With": "XMLHttpRequest",
         "User-Agent": cached.userAgent,
-        Referer: BASE_URL.SoloLatino,
+        Referer: refererHeader,
         ...(cookieHeader ? { Cookie: cookieHeader } : {}),
         ...headers,
       };

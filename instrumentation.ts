@@ -1,10 +1,4 @@
 export async function register(): Promise<void> {
-  if (process.env.NEXT_RUNTIME !== "nodejs") {
-    return;
-  }
-
-  const { startFlareSolverrMonitor } = await import(
-    "@/services/flaresolverr-monitor.service"
-  );
-  startFlareSolverrMonitor();
+  // FlareSolverr monitor removed: sessions are resolved on-demand and proactively
+  // renewed before expiration without 24/7 background polling, preventing Cloudflare bot detection.
 }
