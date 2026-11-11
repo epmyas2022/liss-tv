@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { get, remove } from "@/services/movie.store";
+import nodeFetch from "node-fetch";
 import { StrategyGetUrl, Url } from "@/types/movie";
 import {
   getLinkMediafire,
@@ -62,8 +63,24 @@ export class GetUrl implements StrategyGetUrl {
       try {
         const targetUrl = new URL(path, BASE_URL.SoloLatino).href;
 
-        // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr
-        const htmlResponse = await fetchFlare(targetUrl);
+        // Crear sesión sticky de proxy para que ambos fetch y Playwright compartan la misma IP/sesión
+        let stickySession: ReturnType<typeof createStickySession> | null = null;
+        try {
+          stickySession = createStickySession();
+        } catch {
+          // Si no hay configuración de proxy, continúa directo
+        }
+
+        // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr a través del proxy
+        const htmlResponse = await fetchFlare(targetUrl, {
+          ...(stickySession
+            ? {
+                agent: stickySession.agent,
+                proxyUrl: stickySession.url,
+                proxyUsername: stickySession.username,
+              }
+            : {}),
+        });
         if (!htmlResponse.ok) {
           throw new Error("Failed to fetch page HTML: " + htmlResponse.status);
         }
@@ -73,8 +90,18 @@ export class GetUrl implements StrategyGetUrl {
         if (!tokenMatch) throw new Error("Player token not found in HTML");
         const token = tokenMatch[1];
 
-        // 2. Resolver la URL del reproductor enviando el POST directo con los headers y cookies requeridos
-        const cache = await loadCache("direct");
+        // 2. Resolver la URL del reproductor enviando el POST con headers, cookies y a través del proxy
+        let cacheKey = "direct";
+        if (stickySession) {
+          try {
+            const parsed = new URL(stickySession.url);
+            cacheKey = `proxy:${parsed.hostname || parsed.host}`;
+          } catch {
+            cacheKey = `proxy:${process.env.PROXY_HOST || "default"}`;
+          }
+        }
+
+        const cache = (await loadCache(cacheKey)) || (await loadCache("direct"));
         const cookieHeader = cache?.cookies
           ?.map((c) => `${c.name}=${c.value}`)
           .join("; ");
@@ -85,18 +112,29 @@ export class GetUrl implements StrategyGetUrl {
           BASE_URL.SoloLatino,
         ).href;
 
-        const apiResponse = await fetch(playerUrlEndpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Referer: targetUrl,
-            Origin: new URL(targetUrl).origin,
-            "User-Agent": userAgent,
-            ...(cookieHeader ? { Cookie: cookieHeader } : {}),
-          },
-          body: JSON.stringify({ t: token }),
-        });
+        const postHeaders: Record<string, string> = {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Referer: targetUrl,
+          Origin: new URL(targetUrl).origin,
+          "User-Agent": userAgent,
+          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        };
+
+        const postBody = JSON.stringify({ t: token });
+
+        const apiResponse = stickySession?.agent
+          ? ((await nodeFetch(playerUrlEndpoint, {
+              method: "POST",
+              headers: postHeaders,
+              body: postBody,
+              agent: stickySession.agent,
+            } as never)) as unknown as Response)
+          : await fetch(playerUrlEndpoint, {
+              method: "POST",
+              headers: postHeaders,
+              body: postBody,
+            });
 
         const rawSolution = await apiResponse.text();
         console.log(`[SoloLatino] Player API status: ${apiResponse.status}`);
@@ -112,8 +150,10 @@ export class GetUrl implements StrategyGetUrl {
 
         const iframeUrl: string = apiData.url;
 
-        // 3. Abrir Playwright en contexto aislado local con parches anti-bot
-        const { context, page } = await getBrowser();
+        // 3. Abrir Playwright en contexto aislado local con parches anti-bot y el mismo proxy
+        const { context, page } = await getBrowser({
+          proxyUrl: stickySession?.url,
+        });
         browserContext = context;
 
         await context.grantPermissions([]);
