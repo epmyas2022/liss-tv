@@ -4,6 +4,7 @@ import {
   getManifestPublicUrl,
   saveManifestFromUpstream,
   normalizeMoviePath,
+  SaveManifestOptions,
 } from "@/services/minio.service";
 import { Url } from "@/types/movie";
 
@@ -86,6 +87,8 @@ export async function resolveCachedStream(path: string): Promise<Url | null> {
   return null;
 }
 
+export type PersistManifestOptions = SaveManifestOptions;
+
 /**
  * Persists an upstream M3U8 manifest into MinIO bucket, rewriting segments for local proxying,
  * and updates SQLite persistent store. Returns the public stream URL.
@@ -93,12 +96,13 @@ export async function resolveCachedStream(path: string): Promise<Url | null> {
 export async function persistUpstreamManifest(
   path: string,
   rawM3u8Url: string,
+  options?: PersistManifestOptions,
 ): Promise<string> {
   const cleanPath = normalizeMoviePath(path);
 
   try {
     console.info(`[StreamCache] Uploading M3U8 to MinIO bucket for: ${cleanPath}...`);
-    const minioAppUrl = await saveManifestFromUpstream(cleanPath, rawM3u8Url);
+    const minioAppUrl = await saveManifestFromUpstream(cleanPath, rawM3u8Url, options);
 
     try {
       upsert(path, { movieUrl: minioAppUrl });

@@ -330,7 +330,10 @@ export class GetUrl implements StrategyGetUrl {
         ]);
 
         if (rawM3u8Url && cleanPath) {
-          const streamUrl = await persistUpstreamManifest(cleanPath, rawM3u8Url);
+          const streamUrl = await persistUpstreamManifest(cleanPath, rawM3u8Url, {
+            agent: stickySession?.agent,
+            referer: iframeUrl,
+          });
           dataUrls.fallbackUrl = streamUrl;
           if (!dataUrls.url) {
             dataUrls.url = streamUrl;

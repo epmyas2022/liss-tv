@@ -3,6 +3,7 @@ import got from "got";
 import { BROWSER_UA, createStickySession } from "@/utils/browser";
 import { isProxyEnabled } from "@/utils/proxy";
 import { rewriteManifest } from "@/utils/m3u8";
+import type { AnyProxyAgent } from "@/types/proxy";
 
 const MINIO_ENDPOINT = process.env.MINIO_ENDPOINT || "localhost";
 const MINIO_PORT = parseInt(process.env.MINIO_PORT || "9000", 10);
@@ -209,19 +210,37 @@ export async function saveManifest(
   return getManifestAppUrl(path);
 }
 
+export interface SaveManifestOptions {
+  baseOrigin?: string;
+  agent?: AnyProxyAgent;
+  headers?: Record<string, string>;
+  referer?: string;
+}
+
 export async function saveManifestFromUpstream(
   path: string,
   manifestUrl: string,
-  baseOrigin?: string,
+  options?: SaveManifestOptions | string,
 ): Promise<string> {
-  const { agent } = isProxyEnabled()
-    ? createStickySession()
-    : { agent: undefined };
+  const opts: SaveManifestOptions =
+    typeof options === "string" ? { baseOrigin: options } : options || {};
+
+  const effectiveAgent =
+    opts.agent ||
+    (isProxyEnabled() ? createStickySession().agent : undefined);
+
+  const requestHeaders: Record<string, string> = {
+    "user-agent": BROWSER_UA,
+    ...(opts.referer ? { referer: opts.referer } : {}),
+    ...(opts.headers || {}),
+  };
 
   const manifestRes = await got(manifestUrl, {
-    headers: { "user-agent": BROWSER_UA },
+    headers: requestHeaders,
     throwHttpErrors: false,
-    ...(agent ? { agent: { https: agent, http: agent } } : {}),
+    ...(effectiveAgent
+      ? { agent: { https: effectiveAgent as never, http: effectiveAgent as never } }
+      : {}),
   });
 
   if (manifestRes.statusCode >= 400) {
@@ -230,7 +249,10 @@ export async function saveManifestFromUpstream(
     );
   }
 
-  const origin = baseOrigin || process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL;
+  const origin =
+    opts.baseOrigin ||
+    process.env.APP_URL ||
+    process.env.NEXT_PUBLIC_APP_URL;
   const rewritten = rewriteManifest(manifestRes.body, manifestUrl, origin);
   return await saveManifest(path, rewritten);
 }
