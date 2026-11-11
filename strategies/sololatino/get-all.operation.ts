@@ -52,6 +52,8 @@ export class GetAll implements StrategyGetAllMovies {
       });
       const rawText = await response.text();
 
+      console.log(rawText);
+
       if (search) {
         let jsonPayload = rawText.trim();
         if (jsonPayload.startsWith("<")) {
