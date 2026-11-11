@@ -36,6 +36,30 @@ function cleanProxyUrl(url: string): string {
 }
 
 /**
+ * Build proxy payload for FlareSolverr.
+ * FlareSolverr requires authentication credentials embedded inside the URL:
+ *   { url: "http://user:password@host:port" }
+ * Passing separate username/password fields is ignored by FlareSolverr and stalls.
+ */
+function buildProxyPayload(proxyUrl?: string): Record<string, string> | undefined {
+  if (!proxyUrl) return undefined;
+  try {
+    const parsed = new URL(proxyUrl);
+    const protocol = parsed.protocol === "socks5h:" ? "socks5:" : parsed.protocol;
+    const auth = parsed.username
+      ? `${parsed.username}${parsed.password ? `:${parsed.password}` : ""}@`
+      : "";
+    return {
+      url: cleanProxyUrl(`${protocol}//${auth}${parsed.host}`),
+    };
+  } catch {
+    return {
+      url: cleanProxyUrl(proxyUrl),
+    };
+  }
+}
+
+/**
  * Extract proxy username from options or agent to track quota.
  */
 function extractProxyUsername(options: FetchFlareOptions): string | undefined {
@@ -305,8 +329,9 @@ async function executeFlareResolution(
       });
 
       if (!response.ok) {
+        const errorDetail = await response.text().catch(() => "");
         throw new Error(
-          `FlareSolverr request failed with status ${response.status}`,
+          `FlareSolverr request failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
         );
       }
 
@@ -453,26 +478,7 @@ export async function resolver(
 
   const sessionId = getSessionId(options.proxyKey);
 
-  let proxyPayload: Record<string, string> | undefined;
-  if (options.proxyUrl) {
-    try {
-      const parsed = new URL(options.proxyUrl);
-      const protocol = parsed.protocol === "socks5h:" ? "socks5:" : parsed.protocol;
-      proxyPayload = {
-        url: `${protocol}//${parsed.host}`,
-      };
-      if (parsed.username) {
-        proxyPayload.username = decodeURIComponent(parsed.username);
-      }
-      if (parsed.password) {
-        proxyPayload.password = decodeURIComponent(parsed.password);
-      }
-    } catch {
-      proxyPayload = {
-        url: cleanProxyUrl(options.proxyUrl),
-      };
-    }
-  }
+  const proxyPayload = buildProxyPayload(options.proxyUrl);
 
   const cached = await loadCache(cacheKey);
   const now = Date.now();
@@ -749,26 +755,7 @@ export async function postFlare(
 
   const sessionId = getSessionId(options.proxyKey);
 
-  let proxyPayload: Record<string, string> | undefined;
-  if (options.proxyUrl) {
-    try {
-      const parsed = new URL(options.proxyUrl);
-      const protocol = parsed.protocol === "socks5h:" ? "socks5:" : parsed.protocol;
-      proxyPayload = {
-        url: `${protocol}//${parsed.host}`,
-      };
-      if (parsed.username) {
-        proxyPayload.username = decodeURIComponent(parsed.username);
-      }
-      if (parsed.password) {
-        proxyPayload.password = decodeURIComponent(parsed.password);
-      }
-    } catch {
-      proxyPayload = {
-        url: cleanProxyUrl(options.proxyUrl),
-      };
-    }
-  }
+  const proxyPayload = buildProxyPayload(options.proxyUrl);
 
   return withSessionLock(sessionId, async () => {
     await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
