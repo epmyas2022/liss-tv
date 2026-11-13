@@ -733,12 +733,23 @@ export async function fetchFlare(
     return inspectAndReturnResponse(res);
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
-    if (/bandwidth\s+limit\s+reached/i.test(errorMsg)) {
-      if (username) {
-        markProxyExhausted(username);
-      }
-      if (retriesLeft > 0 && options.agent) {
-        const nextSession = createStickySession();
+    console.warn(`[fetchFlare] Request failed on ${proxyDetails.proxyKey}: ${errorMsg}`);
+
+    if (username && /bandwidth\s+limit\s+reached/i.test(errorMsg)) {
+      markProxyExhausted(username);
+    }
+
+    if (retriesLeft > 0 && isProxyEnabled()) {
+      const jitter = Math.floor(Math.random() * 500) + 500;
+      await new Promise((r) => setTimeout(r, jitter));
+
+      let nextSession: ReturnType<typeof createStickySession> | null = null;
+      try {
+        nextSession = createStickySession();
+      } catch {}
+
+      if (nextSession) {
+        console.info(`[fetchFlare] Retrying with rotated proxy ${nextSession.url} (${retriesLeft - 1} retries left)...`);
         return fetchFlare(
           url,
           {
