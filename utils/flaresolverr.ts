@@ -15,7 +15,6 @@ import {
   isProxyEnabled,
   createProxyAgent,
   getProxyHost,
-  getActiveProxyUrl,
 } from "./proxy.ts";
 import type { AnyProxyAgent } from "../types/proxy.ts";
 import { ProxyPoolService } from "../services/proxy-pool.service.ts";
@@ -878,7 +877,7 @@ export async function postFlare(
       maxTimeout: 25000,
     };
 
-    const executeRequest = async (retries = 1): Promise<string> => {
+    const executeRequest = async (_retries = 1): Promise<string> => {
       try {
         let response = await fetch(flareSolverrEndpoint, {
           method: "POST",

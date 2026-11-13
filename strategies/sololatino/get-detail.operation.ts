@@ -1,6 +1,6 @@
 import { get, upsert } from "@/services/movie.store";
 import { Season, StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
-import { BASE_URL, createStickySession } from "@/utils/browser";
+import { BASE_URL } from "@/utils/browser";
 import { fetchFlare, isBannedResponse } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 
