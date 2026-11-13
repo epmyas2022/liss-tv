@@ -1,4 +1,5 @@
 import { chromium } from "playwright-extra";
+import type { Browser } from "playwright";
 import stealth from "puppeteer-extra-plugin-stealth";
 import fs from "fs/promises";
 import { FlareSolverrCookies } from "@/types/solverr";
@@ -138,4 +139,75 @@ export async function getBrowser(options: GetBrowserOptions = {}) {
   }
 
   return { ...result, anonymizedProxy };
+}
+
+let sharedBrowserInstance: Browser | null = null;
+
+export async function getSharedBrowser(): Promise<Browser> {
+  if (!sharedBrowserInstance || !sharedBrowserInstance.isConnected()) {
+    sharedBrowserInstance = (await chromium.launch({
+      headless: true,
+      args: BROWSER_ARGS,
+    })) as unknown as Browser;
+  }
+  return sharedBrowserInstance;
+}
+
+export async function getSharedBrowserContext(options: GetBrowserOptions = {}) {
+  let anonymizedProxy = options.anonymizedProxy;
+  if (!anonymizedProxy && (isProxyEnabled() || options.proxyUrl)) {
+    const proxyUrl = options.proxyUrl || createStickySession().url;
+    anonymizedProxy = await anonymizeProxy(proxyUrl);
+  }
+
+  const browser = await getSharedBrowser();
+
+  const isExistFileState = await fs
+    .access("state.json")
+    .then(() => true)
+    .catch(() => false);
+
+  const context = await browser.newContext({
+    ...(anonymizedProxy ? { proxy: { server: anonymizedProxy } } : {}),
+    ...(options.userAgent ? { userAgent: options.userAgent } : {}),
+    ...(isExistFileState ? { storageState: "state.json" } : {}),
+  });
+
+  const page = await context.newPage();
+
+  if (options.cookies && options.cookies.length > 0) {
+    await context.addCookies(
+      options.cookies.map((c) => ({
+        name: c.name,
+        value: c.value,
+        domain: c.domain.startsWith(".") ? c.domain : `.${c.domain}`,
+        path: c.path || "/",
+        secure: c.secure,
+      })),
+    );
+  }
+
+  if (options.blockAssets !== false) {
+    await page.route("**/*", (route) => {
+      const type = route.request().resourceType();
+      const url = route.request().url();
+
+      if (
+        url.includes("cloudflare.com") ||
+        url.includes("challenges.cloudflare.com")
+      ) {
+        return route.continue();
+      }
+
+      if (
+        blacklistedDomains.some((domain) => url.includes(domain)) ||
+        ["image", "media", "font"].includes(type)
+      ) {
+        return route.abort();
+      }
+      return route.continue();
+    });
+  }
+
+  return { browser, context, page, anonymizedProxy };
 }
