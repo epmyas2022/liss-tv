@@ -2,13 +2,13 @@ import { chromium } from "playwright-extra";
 import type { Browser } from "playwright";
 import stealth from "puppeteer-extra-plugin-stealth";
 import fs from "fs/promises";
-import { FlareSolverrCookies } from "@/types/solverr";
+import type { FlareSolverrCookies } from "../types/solverr.ts";
 import {
   createStickySession,
   anonymizeProxy,
   closeAnonymizedProxy,
   isProxyEnabled,
-} from "./proxy";
+} from "./proxy.ts";
 
 export { createStickySession, anonymizeProxy, closeAnonymizedProxy, isProxyEnabled };
 

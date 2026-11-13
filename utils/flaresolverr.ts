@@ -1,4 +1,4 @@
-import {
+import type {
   FlareSolverrCookies,
   FlareSolverrOutput,
   FlareSolverrResponse,
@@ -7,19 +7,63 @@ import {
   ResolverOptions,
   FetchFlareOptions,
   PostFlareOptions,
-} from "@/types/solverr";
-import { BASE_URL } from "@/utils/browser";
+} from "../types/solverr.ts";
+import { BASE_URL } from "./browser.ts";
 import {
   markProxyExhausted,
   createStickySession,
   isProxyEnabled,
   createProxyAgent,
   getProxyHost,
-} from "@/utils/proxy";
-import { AnyProxyAgent } from "@/types/proxy";
+  getActiveProxyUrl,
+} from "./proxy.ts";
+import type { AnyProxyAgent } from "../types/proxy.ts";
+import { ProxyPoolService } from "../services/proxy-pool.service.ts";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import nodeFetch from "node-fetch";
+
+/**
+ * Check if the returned HTML indicates an account or IP suspension on the target site.
+ */
+export function isBannedResponse(html: string): boolean {
+  if (!html) return false;
+  return (
+    html.includes("banned-modal") ||
+    html.includes("Cuenta suspendida") ||
+    html.includes("showBannedModal") ||
+    html.includes("Violación de los términos de servicio")
+  );
+}
+
+/**
+ * Check if the returned HTML is a Cloudflare managed challenge or Turnstile block.
+ */
+export function isChallengeResponse(html: string): boolean {
+  if (!html) return false;
+  return (
+    html.includes("Just a moment...") ||
+    html.includes("challenges.cloudflare.com") ||
+    html.includes("cf-browser-verification") ||
+    html.includes("cf-turnstile")
+  );
+}
+
+/**
+ * Build request payload for FlareSolverr conforming to v2/v3 without deprecated headers.
+ */
+export function buildFlarePayload(
+  url: string,
+  session: string,
+  maxTimeout = 25000,
+): Record<string, unknown> {
+  return {
+    cmd: "request.get",
+    url,
+    session,
+    maxTimeout,
+  };
+}
 
 /**
  * Cache file for storing resolved user-agent and cookies per IP/target.
@@ -310,107 +354,120 @@ async function executeFlareResolution(
 
   return withSessionLock(sessionId, async () => {
     await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
-
-    const payload: Record<string, unknown> = {
-      cmd: "request.get",
-      url: BASE_URL.SoloLatino,
-      session: sessionId,
-      maxTimeout: 60000,
-      headers: {
-        Referer: BASE_URL.SoloLatino,
-      },
-    };
+    const payload = buildFlarePayload(BASE_URL.SoloLatino, sessionId, 25000);
 
     const executeRequest = async (retries = 1): Promise<FlareSolverrOutput> => {
-      let response = await fetch(flareSolverrEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const errorDetail = await response.text().catch(() => "");
-        throw new Error(
-          `FlareSolverr request failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
-        );
-      }
-
-      let data: FlareSolverrResponse = await response.json();
-
-      // If the session died or was cleared on FlareSolverr side, recreate and retry once
-      if (
-        data.status !== "ok" &&
-        typeof data.message === "string" &&
-        data.message.toLowerCase().includes("session")
-      ) {
-        activeSessions.delete(sessionId);
-        await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
-        response = await fetch(flareSolverrEndpoint, {
+      try {
+        let response = await fetch(flareSolverrEndpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
 
-        data = await response.json();
-      }
-
-      if (data.status !== "ok") {
-        throw new Error(`FlareSolverr returned error status: ${data.status}`);
-      }
-
-      const {
-        userAgent,
-        cookies,
-        response: solutionHtml,
-        status: solutionStatus,
-      } = data.solution;
-
-      if (solutionHtml && solutionHtml.includes("ERR_NO_SUPPORTED_PROXIES")) {
-        throw new Error(
-          "FlareSolverr proxy connection failed with ERR_NO_SUPPORTED_PROXIES",
-        );
-      }
-
-      // Check if the MAIN frame itself failed to load (Chrome error page),
-      // ignoring sub-frame/iframe errors caused by blocked ads or trackers.
-      const isMainFrameError = Boolean(
-        solutionHtml &&
-        solutionHtml.includes('id="main-frame-error"') &&
-        !solutionHtml.includes("card") &&
-        !solutionHtml.includes("sololatino")
-      );
-
-      if (isMainFrameError) {
-        const errorMatch = solutionHtml!.match(/ERR_[A-Z0-9_]+/);
-        const detail = errorMatch ? errorMatch[0] : "unknown";
-
-        if (retries > 0) {
-          await destroyFlareSession(flareSolverrEndpoint, sessionId);
-          await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
-          await new Promise((r) => setTimeout(r, 600));
-          return executeRequest(retries - 1);
+        if (!response.ok) {
+          const errorDetail = await response.text().catch(() => "");
+          throw new Error(
+            `FlareSolverr request failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
+          );
         }
 
-        throw new Error(
-          `FlareSolverr failed to load page (${detail}): navigation failure for ${url}`,
-        );
-      }
+        let data: FlareSolverrResponse = await response.json();
 
-      if (
-        solutionHtml &&
-        /bandwidth\s+limit\s+reached/i.test(solutionHtml)
-      ) {
-        throw new Error(
-          "Proxy bandwidth limit reached. Please upgrade to continue using the proxy.",
-        );
-      }
+        // If the session died or was cleared on FlareSolverr side, recreate and retry once
+        if (
+          data.status !== "ok" &&
+          typeof data.message === "string" &&
+          data.message.toLowerCase().includes("session")
+        ) {
+          activeSessions.delete(sessionId);
+          await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
+          response = await fetch(flareSolverrEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          data = await response.json();
+        }
 
-      return {
-        userAgent,
-        cookies,
-        html: solutionHtml,
-        status: solutionStatus,
-      };
+        if (data.status !== "ok") {
+          throw new Error(`FlareSolverr returned error status: ${data.status}`);
+        }
+
+        const {
+          userAgent,
+          cookies,
+          response: solutionHtml,
+          status: solutionStatus,
+        } = data.solution;
+
+        if (solutionHtml && solutionHtml.includes("ERR_NO_SUPPORTED_PROXIES")) {
+          throw new Error(
+            "FlareSolverr proxy connection failed with ERR_NO_SUPPORTED_PROXIES",
+          );
+        }
+
+        if (isBannedResponse(solutionHtml || "")) {
+          if (options.proxyUrl) {
+            ProxyPoolService.getInstance().markProxyFailed(options.proxyUrl, "Banned account modal returned");
+          }
+          throw new Error("Target site returned banned account modal");
+        }
+
+        if (isChallengeResponse(solutionHtml || "")) {
+          throw new Error("FlareSolverr failed to clear Cloudflare challenge");
+        }
+
+        // Check if the MAIN frame itself failed to load (Chrome error page)
+        const isMainFrameError = Boolean(
+          solutionHtml &&
+          solutionHtml.includes('id="main-frame-error"') &&
+          !solutionHtml.includes("card") &&
+          !solutionHtml.includes("sololatino")
+        );
+
+        if (isMainFrameError) {
+          const errorMatch = solutionHtml!.match(/ERR_[A-Z0-9_]+/);
+          const detail = errorMatch ? errorMatch[0] : "unknown";
+
+          if (retries > 0) {
+            await destroyFlareSession(flareSolverrEndpoint, sessionId);
+            await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
+            await new Promise((r) => setTimeout(r, 600));
+            return executeRequest(retries - 1);
+          }
+
+          throw new Error(
+            `FlareSolverr failed to load page (${detail}): navigation failure for ${url}`,
+          );
+        }
+
+        if (
+          solutionHtml &&
+          /bandwidth\s+limit\s+reached/i.test(solutionHtml)
+        ) {
+          throw new Error(
+            "Proxy bandwidth limit reached. Please upgrade to continue using the proxy.",
+          );
+        }
+
+        return {
+          userAgent,
+          cookies,
+          html: solutionHtml,
+          status: solutionStatus,
+        };
+      } catch (err) {
+        // Unconditionally destroy session on failure to avoid leaving zombie tabs open!
+        console.warn(`[FlareSolverr] Session ${sessionId} encountered error or timeout. Destroying session...`);
+        await destroyFlareSession(flareSolverrEndpoint, sessionId);
+        if (options.proxyUrl) {
+          ProxyPoolService.getInstance().markProxyFailed(
+            options.proxyUrl,
+            err instanceof Error ? err.message : String(err),
+          );
+        }
+        throw err;
+      }
     };
 
     const result = await executeRequest();
@@ -605,15 +662,27 @@ export async function fetchFlare(
       headers: mergedHeaders,
     };
 
-    if (options.agent) {
-      const res = (await nodeFetch(
-        url,
-        fetchOptions as never,
-      )) as unknown as Response;
-
+    const inspectAndReturnResponse = async (res: Response): Promise<Response> => {
       if ((res.status === 403 || res.status === 503) && retriesLeft > 0) {
         await deleteCache(proxyDetails.proxyKey || "direct");
-        return fetchFlare(url, options, retriesLeft - 1);
+        if (options.proxyUrl) {
+          ProxyPoolService.getInstance().markProxyFailed(options.proxyUrl, `HTTP ${res.status}`);
+        }
+        const jitter = Math.floor(Math.random() * 400) + 400;
+        await new Promise((r) => setTimeout(r, jitter));
+        const nextSession = isProxyEnabled() ? createStickySession() : undefined;
+        return fetchFlare(
+          url,
+          nextSession
+            ? {
+                ...options,
+                agent: nextSession.agent,
+                proxyUrl: nextSession.url,
+                proxyUsername: nextSession.username,
+              }
+            : options,
+          retriesLeft - 1,
+        );
       }
 
       if (res.status === 402 || res.status === 407) {
@@ -622,17 +691,47 @@ export async function fetchFlare(
         );
       }
 
-      return res;
+      // Check if body is banned modal or challenge
+      const text = await res.text();
+      if ((isBannedResponse(text) || isChallengeResponse(text)) && retriesLeft > 0) {
+        console.warn(`[SoloLatino] Target returned ban/challenge modal on proxy ${proxyDetails.proxyKey}. Rotating...`);
+        await deleteCache(proxyDetails.proxyKey || "direct");
+        if (options.proxyUrl) {
+          ProxyPoolService.getInstance().markProxyFailed(options.proxyUrl, "Ban/challenge response");
+        }
+        const jitter = Math.floor(Math.random() * 500) + 400;
+        await new Promise((r) => setTimeout(r, jitter));
+        const nextSession = isProxyEnabled() ? createStickySession() : undefined;
+        return fetchFlare(
+          url,
+          nextSession
+            ? {
+                ...options,
+                agent: nextSession.agent,
+                proxyUrl: nextSession.url,
+                proxyUsername: nextSession.username,
+              }
+            : options,
+          retriesLeft - 1,
+        );
+      }
+
+      return new Response(text, {
+        status: res.status,
+        headers: res.headers,
+      });
+    };
+
+    if (options.agent) {
+      const res = (await nodeFetch(
+        url,
+        fetchOptions as never,
+      )) as unknown as Response;
+      return inspectAndReturnResponse(res);
     }
 
     const res = await fetch(url, fetchOptions);
-
-    if ((res.status === 403 || res.status === 503) && retriesLeft > 0) {
-      await deleteCache(proxyDetails.proxyKey || "direct");
-      return fetchFlare(url, options, retriesLeft - 1);
-    }
-
-    return res;
+    return inspectAndReturnResponse(res);
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     if (/bandwidth\s+limit\s+reached/i.test(errorMsg)) {
@@ -776,76 +875,87 @@ export async function postFlare(
       url,
       postData,
       session: sessionId,
-      headers: solverHeaders,
-      maxTimeout: 60000,
+      maxTimeout: 25000,
     };
 
     const executeRequest = async (retries = 1): Promise<string> => {
-      let response = await fetch(flareSolverrEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        let errorDetail = "";
-        try {
-          const errJson = (await response.json()) as { message?: string };
-          errorDetail = errJson.message || JSON.stringify(errJson);
-        } catch {
-          errorDetail = await response.text().catch(() => "");
-        }
-        throw new Error(
-          `FlareSolverr POST failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
-        );
-      }
-
-      let data = (await response.json()) as FlareSolverrResponse;
-
-      if (
-        data.status !== "ok" &&
-        typeof data.message === "string" &&
-        data.message.toLowerCase().includes("session")
-      ) {
-        activeSessions.delete(sessionId);
-        await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
-        response = await fetch(flareSolverrEndpoint, {
+      try {
+        let response = await fetch(flareSolverrEndpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
-        data = await response.json();
-      }
 
-      if (data.status !== "ok") {
-        throw new Error(
-          `FlareSolverr POST returned error: ${data.message || data.status}`,
-        );
-      }
-
-      // Guardar cookies actualizadas en caché si FlareSolverr obtuvo nuevas
-      if (data.solution?.cookies && data.solution.cookies.length > 0) {
-        const cfClearance = data.solution.cookies.find(
-          (c) => c.name === "cf_clearance",
-        ) as (FlareSolverrCookies & { expiry?: number }) | undefined;
-        let expiry = now + 60 * 60 * 1000;
-        if (
-          cfClearance?.expiry &&
-          typeof cfClearance.expiry === "number" &&
-          cfClearance.expiry * 1000 > now
-        ) {
-          expiry = cfClearance.expiry * 1000;
+        if (!response.ok) {
+          let errorDetail = "";
+          try {
+            const errJson = (await response.json()) as { message?: string };
+            errorDetail = errJson.message || JSON.stringify(errJson);
+          } catch {
+            errorDetail = await response.text().catch(() => "");
+          }
+          throw new Error(
+            `FlareSolverr POST failed with status ${response.status}${errorDetail ? `: ${errorDetail}` : ""}`,
+          );
         }
 
-        await saveCache(cacheKey, {
-          userAgent: data.solution.userAgent,
-          cookies: data.solution.cookies,
-          expiry,
-          updatedAt: now,
-        });
-      }
+        let data = (await response.json()) as FlareSolverrResponse;
 
-      return data.solution.response || "";
+        if (
+          data.status !== "ok" &&
+          typeof data.message === "string" &&
+          data.message.toLowerCase().includes("session")
+        ) {
+          activeSessions.delete(sessionId);
+          await ensureFlareSession(flareSolverrEndpoint, sessionId, proxyPayload);
+          response = await fetch(flareSolverrEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          data = await response.json();
+        }
+
+        if (data.status !== "ok") {
+          throw new Error(
+            `FlareSolverr POST returned error: ${data.message || data.status}`,
+          );
+        }
+
+        // Guardar cookies actualizadas en caché si FlareSolverr obtuvo nuevas
+        if (data.solution?.cookies && data.solution.cookies.length > 0) {
+          const cfClearance = data.solution.cookies.find(
+            (c) => c.name === "cf_clearance",
+          ) as (FlareSolverrCookies & { expiry?: number }) | undefined;
+          let expiry = now + 60 * 60 * 1000;
+          if (
+            cfClearance?.expiry &&
+            typeof cfClearance.expiry === "number" &&
+            cfClearance.expiry * 1000 > now
+          ) {
+            expiry = cfClearance.expiry * 1000;
+          }
+
+          await saveCache(cacheKey, {
+            userAgent: data.solution.userAgent,
+            cookies: data.solution.cookies,
+            expiry,
+            updatedAt: now,
+          });
+        }
+
+        return data.solution.response || "";
+      } catch (err) {
+        console.warn(`[FlareSolverr] POST failed for session ${sessionId}, destroying session...`);
+        await destroyFlareSession(flareSolverrEndpoint, sessionId);
+        if (options.proxyUrl) {
+          ProxyPoolService.getInstance().markProxyFailed(
+            options.proxyUrl,
+            err instanceof Error ? err.message : String(err),
+          );
+        }
+        throw err;
+      }
     };
 
     return executeRequest();
