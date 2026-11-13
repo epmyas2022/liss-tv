@@ -3,6 +3,7 @@ import got from "got";
 import { BROWSER_UA, createStickySession } from "@/utils/browser";
 import { isProxyEnabled } from "@/utils/proxy";
 import { rewriteManifest } from "@/utils/m3u8";
+import { isManifestReusable } from "@/utils/m3u8-validator";
 import type { AnyProxyAgent } from "@/types/proxy";
 
 const MINIO_ENDPOINT = process.env.MINIO_ENDPOINT || "localhost";
@@ -246,6 +247,12 @@ export async function saveManifestFromUpstream(
   if (manifestRes.statusCode >= 400) {
     throw new Error(
       `Upstream manifest returned HTTP ${manifestRes.statusCode}`,
+    );
+  }
+
+  if (!isManifestReusable(manifestRes.body)) {
+    throw new Error(
+      "Manifest contains host-bound player.pelisserieshoy.com URLs and cannot be cached in MinIO",
     );
   }
 

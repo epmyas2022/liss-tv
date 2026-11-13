@@ -10,10 +10,10 @@ import {
 import {
   BASE_URL,
   BROWSER_UA,
-  getBrowserContext,
   blacklistedDomains,
   createStickySession,
-  getBrowser,
+  isProxyEnabled,
+  getSharedBrowserContext,
 } from "@/utils/browser";
 import { fetchFlare, loadCache } from "@/utils/flaresolverr";
 import { normalizeMoviePath } from "@/services/minio.service";
@@ -22,16 +22,16 @@ import {
   persistUpstreamManifest,
   persistStreamUrl,
 } from "@/services/stream-cache.service";
+import { isManifestReusable } from "@/utils/m3u8-validator";
 
-const TIMEOUT_NAVIGATION_MS = 45_000;
-const TIMEOUT_PLAY_BTN_MS = 35_000;
-const TIMEOUT_CLICK_ACTION_MS = 3_000;
-const TIMEOUT_CLICK_INTERVAL_MS = 2_500;
-const TIMEOUT_M3U8_FALLBACK_MS = 20_000;
-const TIMEOUT_TOTAL_CAPTURE_MS = 60_000;
+const TIMEOUT_NAVIGATION_MS = 25_000;
+const TIMEOUT_PLAY_BTN_MS = 15_000;
+const TIMEOUT_TOTAL_CAPTURE_MS = 25_000;
+const TIMEOUT_GRACE_PERIOD_MS = 1_500;
 
 export class GetUrl implements StrategyGetUrl {
   async operation(path: string): Promise<Url> {
+    const tStart = performance.now();
     const cleanPath = normalizeMoviePath(path);
 
     // 1. Verificar si el stream ya existe en el bucket de MinIO o en caché válida
@@ -57,7 +57,7 @@ export class GetUrl implements StrategyGetUrl {
 
     return new Promise(async (resolve, reject) => {
       let browserContext:
-        | Awaited<ReturnType<typeof getBrowserContext>>["context"]
+        | Awaited<ReturnType<typeof getSharedBrowserContext>>["context"]
         | null = null;
 
       try {
@@ -65,10 +65,12 @@ export class GetUrl implements StrategyGetUrl {
 
         // Crear sesión sticky de proxy para que ambos fetch y Playwright compartan la misma IP/sesión
         let stickySession: ReturnType<typeof createStickySession> | null = null;
-        try {
-          stickySession = createStickySession();
-        } catch {
-          // Si no hay configuración de proxy, continúa directo
+        if (isProxyEnabled()) {
+          try {
+            stickySession = createStickySession();
+          } catch {
+            // Si no hay configuración de proxy, continúa directo
+          }
         }
 
         // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr a través del proxy
@@ -149,12 +151,14 @@ export class GetUrl implements StrategyGetUrl {
         if (!apiData?.url) throw new Error("Could not resolve iframe URL");
 
         const iframeUrl: string = apiData.url;
+        const tPreflight = performance.now();
 
-        // 3. Abrir Playwright en contexto aislado local con parches anti-bot y el mismo proxy
-        const { context, page } = await getBrowser({
+        // 3. Abrir Playwright en contexto aislado local desde el Singleton con parches anti-bot
+        const { context, page } = await getSharedBrowserContext({
           proxyUrl: stickySession?.url,
         });
         browserContext = context;
+        const tContext = performance.now();
 
         await context.grantPermissions([]);
         await context.addInitScript(() => {
@@ -200,29 +204,77 @@ export class GetUrl implements StrategyGetUrl {
           fallbackUrl: null,
         };
 
-        // Escucha de respuestas en toda la jerarquía de frames
-        const videoPromise = (
-          callback: (
-            responseUrl: string,
-            headers: Record<string, string>,
-          ) => boolean,
-        ) =>
-          new Promise<string>((resolveVideo) => {
-            const handler = (response: {
-              url: () => string;
-              headers: () => Record<string, string>;
-            }) => {
-              const responseUrl = response.url();
-              const headers = response.headers();
+        let rawM3u8Url: string | null = null;
+        let isCaptureDone = false;
+        let graceTimer: NodeJS.Timeout | null = null;
+        let resolveCapturePromise: () => void;
 
-              if (!callback(responseUrl, headers)) return;
+        const captureCompletePromise = new Promise<void>((res) => {
+          resolveCapturePromise = res;
+        });
 
-              context.off("response", handler);
-              resolveVideo(responseUrl);
-            };
+        const finishCapture = () => {
+          if (isCaptureDone) return;
+          isCaptureDone = true;
+          if (graceTimer) {
+            clearTimeout(graceTimer);
+            graceTimer = null;
+          }
+          resolveCapturePromise();
+        };
 
-            context.on("response", handler);
-          });
+        const startGraceWindow = () => {
+          if (graceTimer || isCaptureDone) return;
+          console.info(
+            `[SoloLatino] First stream URL captured. Starting ${TIMEOUT_GRACE_PERIOD_MS}ms grace window for secondary stream...`,
+          );
+          graceTimer = setTimeout(() => {
+            console.info("[SoloLatino] Grace period elapsed. Finalizing capture.");
+            finishCapture();
+          }, TIMEOUT_GRACE_PERIOD_MS);
+        };
+
+        // Escucha reactiva de respuestas de red en todo el contexto
+        context.on("response", (response) => {
+          if (isCaptureDone) return;
+          const responseUrl = response.url();
+          const headers = response.headers();
+
+          // 1. Detectar Mediafire
+          if (!dataUrls.url) {
+            if (isUrlMediafire(responseUrl)) {
+              dataUrls.url = `/api/video?url=${encodeURIComponent(responseUrl)}`;
+              console.info(`[SoloLatino] Captured Mediafire URL: ${responseUrl}`);
+            } else {
+              const location = headers["location"];
+              if (location && isUrlMediafire(location)) {
+                dataUrls.url = `/api/video?url=${encodeURIComponent(location)}`;
+                console.info(`[SoloLatino] Captured Mediafire redirect: ${location}`);
+              }
+            }
+
+            if (dataUrls.url) {
+              if (rawM3u8Url) {
+                finishCapture();
+              } else {
+                startGraceWindow();
+              }
+            }
+          }
+
+          // 2. Detectar M3U8
+          if (!rawM3u8Url) {
+            if (responseUrl.includes("index") && responseUrl.includes(".m3u8")) {
+              rawM3u8Url = responseUrl;
+              console.info(`[SoloLatino] Captured raw M3U8 URL: ${responseUrl}`);
+              if (dataUrls.url) {
+                finishCapture();
+              } else {
+                startGraceWindow();
+              }
+            }
+          }
+        });
 
         context.on("page", async (newPage) => {
           await newPage.close().catch(() => {});
@@ -238,90 +290,71 @@ export class GetUrl implements StrategyGetUrl {
         const frame = page.frameLocator("#pl");
         const play = frame.locator("#playBtn");
         await play.waitFor({ timeout: TIMEOUT_PLAY_BTN_MS });
+        const tPlayReady = performance.now();
 
         const opcion1 = frame
           .locator("button.tab, button")
           .filter({ hasText: "Opción 1" });
-
         const errorMessage = frame.locator("#srvErrorOverlay");
 
-        console.info("[▶️] Found #playBtn, starting click loop...");
+        console.info("[▶️] Found #playBtn, starting fast click trigger...");
 
-        const clickLoop = async () => {
-          while (!dataUrls.url || !dataUrls.fallbackUrl) {
+        // Bucle reactivo de clics rápidos con neutralización de overlays
+        const fastClickLoop = async () => {
+          let attempts = 0;
+          while (!isCaptureDone && attempts < 15) {
+            attempts++;
             try {
-              if (
-                (await opcion1.isVisible({
-                  timeout: TIMEOUT_CLICK_ACTION_MS,
-                })) &&
-                (dataUrls.url || (await errorMessage.isVisible())) &&
-                !dataUrls.fallbackUrl
-              ) {
-                await opcion1.click({
-                  timeout: TIMEOUT_CLICK_ACTION_MS,
-                  force: true,
-                });
-                await new Promise((resolve) =>
-                  setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS),
-                );
-                continue;
+              // 1. Si hay error en el player o se necesita fallback y Opción 1 está visible, clickear Opción 1
+              if (await opcion1.isVisible({ timeout: 200 }).catch(() => false)) {
+                if (
+                  dataUrls.url ||
+                  (await errorMessage.isVisible({ timeout: 150 }).catch(() => false))
+                ) {
+                  if (!rawM3u8Url) {
+                    await opcion1.click({ timeout: 800, force: true }).catch(() => {});
+                    await new Promise((r) => setTimeout(r, 400));
+                    continue;
+                  }
+                }
               }
-              await play.click({
-                timeout: TIMEOUT_CLICK_ACTION_MS,
-                force: true,
-              });
-              await new Promise((resolve) =>
-                setTimeout(resolve, TIMEOUT_CLICK_INTERVAL_MS),
-              );
-            } catch (_) {
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-            }
+
+              // 2. Neutralizar overlays transparentes de publicidad que roban el click en el iframe
+              await frame
+                .locator(
+                  "div[style*='position: fixed'], div[style*='position: absolute'][style*='z-index: 2'], a[target='_blank']",
+                )
+                .evaluateAll((elements) => {
+                  elements.forEach((el) => {
+                    if (
+                      el.id !== "playBtn" &&
+                      !el.contains(document.getElementById("playBtn"))
+                    ) {
+                      el.remove();
+                    }
+                  });
+                })
+                .catch(() => {});
+
+              // 3. Click forzado directo en el botón de reproducción
+              await play.click({ timeout: 800, force: true }).catch(() => {});
+            } catch (_) {}
+
+            if (isCaptureDone) break;
+            await new Promise((r) => setTimeout(r, 500));
           }
         };
 
-        const getUrlMediafire = (
-          responseUrl: string,
-          headers: Record<string, string>,
-        ) => {
-          if (isUrlMediafire(responseUrl)) {
-            dataUrls.url = `/api/video?url=${encodeURIComponent(responseUrl)}`;
-            return true;
-          }
-          const location = headers["location"];
-          if (location && isUrlMediafire(location)) {
-            dataUrls.url = `/api/video?url=${encodeURIComponent(location)}`;
-            return true;
-          }
-          return false;
-        };
-
-        let rawM3u8Url: string | null = null;
-        const getUrlM3u8 = (responseUrl: string) => {
-          if (!responseUrl.includes("index") || !responseUrl.includes(".m3u8"))
-            return false;
-
-          rawM3u8Url = responseUrl;
-          dataUrls.fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}`;
-          return true;
-        };
-
+        // Correr el click loop en paralelo con la captura reactiva y timeout global
         await Promise.race([
-          clickLoop(),
-          Promise.all([
-            videoPromise(getUrlMediafire),
-            Promise.race([
-              videoPromise(getUrlM3u8),
-              new Promise((res) =>
-                setTimeout(() => res(null), TIMEOUT_M3U8_FALLBACK_MS),
-              ),
-            ]),
-          ]),
+          fastClickLoop(),
+          captureCompletePromise,
           new Promise((_, rej) =>
             setTimeout(
               () =>
                 rej(
                   new Error(
-                    `Timeout: no Mediafire URL captured in ${TIMEOUT_TOTAL_CAPTURE_MS / 1000}s`,
+                    `Timeout: no video stream captured in ${TIMEOUT_TOTAL_CAPTURE_MS / 1000}s`,
                   ),
                 ),
               TIMEOUT_TOTAL_CAPTURE_MS,
@@ -329,23 +362,47 @@ export class GetUrl implements StrategyGetUrl {
           ),
         ]);
 
+        const tCapture = performance.now();
+
+        // Procesar M3U8 capturado respetando la regla de cacheo reutilizable
         if (rawM3u8Url && cleanPath) {
           const streamUrl = await persistUpstreamManifest(cleanPath, rawM3u8Url, {
             agent: stickySession?.agent,
             referer: iframeUrl,
           });
-          dataUrls.fallbackUrl = streamUrl;
-          if (!dataUrls.url) {
-            dataUrls.url = streamUrl;
+
+          if (streamUrl) {
+            dataUrls.fallbackUrl = streamUrl;
+            if (!dataUrls.url) {
+              dataUrls.url = streamUrl;
+            }
+          } else {
+            console.warn(
+              `[SoloLatino] Manifest was not saved to StreamCache because it contains player.pelisserieshoy.com URLs.`,
+            );
+            if (!dataUrls.url) {
+              dataUrls.url = rawM3u8Url;
+            }
           }
         }
 
-        if (!dataUrls.url && !dataUrls.fallbackUrl)
+        if (!dataUrls.url && !dataUrls.fallbackUrl) {
           return reject(new Error("No video URL or fallback URL captured"));
+        }
 
-        console.log("[✅] Video URL and fallback URL captured:", dataUrls);
+        const tTotal = performance.now();
+        console.info(
+          `[SoloLatino][⏱️ Telemetry for ${cleanPath}]:\n` +
+            `  Pre-flight (HTML + Player API): ${(tPreflight - tStart).toFixed(0)}ms\n` +
+            `  Browser Context setup: ${(tContext - tPreflight).toFixed(0)}ms\n` +
+            `  Wait for #playBtn: ${(tPlayReady - tContext).toFixed(0)}ms\n` +
+            `  Stream Capture & Grace: ${(tCapture - tPlayReady).toFixed(0)}ms\n` +
+            `  TOTAL TIME: ${(tTotal - tStart).toFixed(0)}ms`,
+        );
 
-        await context.storageState({ path: "state.json" });
+        console.log("[✅] Video URL and fallback URL resolved:", dataUrls);
+
+        await context.storageState({ path: "state.json" }).catch(() => {});
 
         if (dataUrls.fallbackUrl) {
           persistStreamUrl(path, dataUrls.fallbackUrl);
