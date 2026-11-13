@@ -8,7 +8,7 @@ import type {
   FetchFlareOptions,
   PostFlareOptions,
 } from "../types/solverr.ts";
-import { BASE_URL } from "./browser.ts";
+import { BASE_URL, BROWSER_UA } from "./browser.ts";
 import {
   markProxyExhausted,
   createStickySession,
@@ -605,18 +605,95 @@ export async function fetchFlare(
   retriesLeft = 3,
 ): Promise<Response> {
   if ((isProxyEnabled() || options.agent) && !options.proxyUrl) {
-    const session = createStickySession();
-    options = {
-      ...options,
-      agent: session.agent,
-      proxyUrl: session.url,
-      proxyUsername: session.username,
-    };
+    try {
+      const session = createStickySession();
+      options = {
+        ...options,
+        agent: session.agent,
+        proxyUrl: session.url,
+        proxyUsername: session.username,
+      };
+    } catch {}
   }
 
   const proxyDetails = extractProxyDetails(options);
   const username = extractProxyUsername(options);
+  const cacheKey = proxyDetails.proxyKey || "direct";
 
+  // 1. OPTIMISTIC HTTP-FIRST ATTEMPT (~150-250ms)
+  // SoloLatino delivers content directly without challenge to standard HTTP requests.
+  const cached = (await loadCache(cacheKey)) || (await loadCache("direct"));
+  const userAgent = cached?.userAgent || BROWSER_UA;
+  const cookieHeader = cached?.cookies?.map((c) => `${c.name}=${c.value}`).join("; ");
+
+  const directHeaders = new Headers(options.headers || {});
+  if (!directHeaders.has("User-Agent")) {
+    directHeaders.set("User-Agent", userAgent);
+  }
+  if (!directHeaders.has("Referer")) {
+    try {
+      directHeaders.set("Referer", new URL(url).origin + "/");
+    } catch {
+      directHeaders.set("Referer", BASE_URL.SoloLatino);
+    }
+  }
+  if (cookieHeader) {
+    const existingCookie = directHeaders.get("Cookie");
+    directHeaders.set(
+      "Cookie",
+      existingCookie ? `${existingCookie}; ${cookieHeader}` : cookieHeader,
+    );
+  }
+
+  const fetchOptions = {
+    ...options,
+    headers: directHeaders,
+  };
+
+  try {
+    const directRes = options.agent
+      ? ((await nodeFetch(url, fetchOptions as never)) as unknown as Response)
+      : await fetch(url, fetchOptions);
+
+    const directText = await directRes.text();
+    const isChallenge = isChallengeResponse(directText);
+    const isBanned = isBannedResponse(directText);
+
+    // If direct fetch succeeded cleanly without challenge, return instantly!
+    if (directRes.ok && !isChallenge && !isBanned) {
+      return new Response(directText, {
+        status: directRes.status,
+        headers: directRes.headers,
+      });
+    }
+
+    if (isBanned) {
+      console.warn(`[SoloLatino] Direct fetch detected ban modal on ${cacheKey}`);
+      if (options.proxyUrl) {
+        ProxyPoolService.getInstance().markProxyFailed(options.proxyUrl, "Banned by site");
+      }
+      if (retriesLeft > 0 && isProxyEnabled()) {
+        const nextSession = createStickySession();
+        return fetchFlare(
+          url,
+          {
+            ...options,
+            agent: nextSession.agent,
+            proxyUrl: nextSession.url,
+            proxyUsername: nextSession.username,
+          },
+          retriesLeft - 1,
+        );
+      }
+      return new Response(directText, { status: 200, headers: directRes.headers });
+    }
+
+    console.info(`[SoloLatino] Direct HTTP encountered challenge (${directRes.status}). Invoking FlareSolverr fallback...`);
+  } catch (directErr) {
+    console.warn(`[SoloLatino] Direct HTTP fetch exception:`, directErr);
+  }
+
+  // 2. FALLBACK TO FLARESOLVERR (Only when direct fetch is actually blocked/challenged)
   try {
     const resolverOutput = await resolver(
       url,
