@@ -34,7 +34,7 @@ async function runBenchmark() {
       console.log(`✅ Success for ${moviePath} in ${durationMs}ms`);
       console.log(`   url: ${res.url}`);
       console.log(`   fallbackUrl: ${res.fallbackUrl}`);
-      results.push({ path: moviePath, durationMs, url: res.url, fallbackUrl: res.fallbackUrl });
+      results.push({ path: moviePath, durationMs, url: res.url ?? null, fallbackUrl: res.fallbackUrl ?? null });
     } catch (err) {
       const durationMs = Math.round(performance.now() - start);
       console.error(`❌ Error testing ${moviePath} after ${durationMs}ms:`, err);

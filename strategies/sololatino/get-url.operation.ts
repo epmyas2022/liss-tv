@@ -12,6 +12,7 @@ import {
   BROWSER_UA,
   blacklistedDomains,
   createStickySession,
+  isProxyEnabled,
   getSharedBrowserContext,
 } from "@/utils/browser";
 import { fetchFlare, loadCache } from "@/utils/flaresolverr";
@@ -64,10 +65,12 @@ export class GetUrl implements StrategyGetUrl {
 
         // Crear sesión sticky de proxy para que ambos fetch y Playwright compartan la misma IP/sesión
         let stickySession: ReturnType<typeof createStickySession> | null = null;
-        try {
-          stickySession = createStickySession();
-        } catch {
-          // Si no hay configuración de proxy, continúa directo
+        if (isProxyEnabled()) {
+          try {
+            stickySession = createStickySession();
+          } catch {
+            // Si no hay configuración de proxy, continúa directo
+          }
         }
 
         // 1. Obtener la página del episodio usando la cookie/bypass limpio de FlareSolverr a través del proxy
