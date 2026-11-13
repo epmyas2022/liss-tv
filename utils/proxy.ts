@@ -192,53 +192,69 @@ function getNextProxyAccount(accounts: ProxyAccount[]): ProxyAccount {
 }
 
 export function getActiveProxyUrl(): string | null {
-  const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
-  if (dynamicBest) {
-    return dynamicBest.url;
+  // If explicitly requested to use dynamic public pool, prioritize it
+  if (process.env.USE_PROXY_POOL === "true") {
+    const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
+    if (dynamicBest) return dynamicBest.url;
   }
 
+  // Check static environment configuration (e.g. Cloudflare WARP or dedicated proxy)
   const config = getProxyConfig();
-  if (!config) return null;
-
-  const { protocol, host, accounts } = config;
-  if (accounts.length === 0) {
-    return `${protocol}://${host}`;
+  if (config) {
+    const { protocol, host, accounts } = config;
+    if (accounts.length === 0) {
+      return `${protocol}://${host}`;
+    }
+    const account = accounts.find((a) => !isProxyExhausted(a.username)) || accounts[0];
+    const auth = `${encodeURIComponent(account.username)}:${encodeURIComponent(account.password)}@`;
+    return `${protocol}://${auth}${host}`;
   }
 
-  const account = accounts.find((a) => !isProxyExhausted(a.username)) || accounts[0];
-  const auth = `${encodeURIComponent(account.username)}:${encodeURIComponent(account.password)}@`;
-  return `${protocol}://${auth}${host}`;
+  // Fallback to dynamic pool if no static configuration was provided
+  const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
+  return dynamicBest ? dynamicBest.url : null;
 }
 
 export function createStickySession(): StickySession {
+  // If explicitly requested to use dynamic public pool, prioritize it
+  if (process.env.USE_PROXY_POOL === "true") {
+    const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
+    if (dynamicBest) {
+      const agent = createProxyAgent(dynamicBest.url);
+      return { url: dynamicBest.url, agent };
+    }
+  }
+
+  // Check static environment configuration (e.g. Cloudflare WARP or dedicated proxy)
+  const config = getProxyConfig();
+  if (config) {
+    const { protocol, host, accounts } = config;
+
+    // Open proxy (such as Cloudflare WARP or Tor) without credentials
+    if (accounts.length === 0) {
+      const url = `${protocol}://${host}`;
+      const agent = createProxyAgent(url);
+      return { url, agent };
+    }
+
+    // Authenticated proxy with rotation
+    const { username, password } = getNextProxyAccount(accounts);
+    const auth = `${encodeURIComponent(username)}:${encodeURIComponent(password)}@`;
+    const url = `${protocol}://${auth}${host}`;
+    const agent = createProxyAgent(url);
+    return { url, agent, username };
+  }
+
+  // Fallback to dynamic pool if no static configuration was provided
   const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
   if (dynamicBest) {
     const agent = createProxyAgent(dynamicBest.url);
     return { url: dynamicBest.url, agent };
   }
 
-  const config = getProxyConfig();
-  if (!config) {
-    throw new Error(
-      "Proxy configuration is missing. Please set PROXY_HOST or PROXY_URL environment variable.",
-    );
-  }
-
-  const { protocol, host, accounts } = config;
-
-  // Open proxy (such as Cloudflare WARP or Tor) without credentials
-  if (accounts.length === 0) {
-    const url = `${protocol}://${host}`;
-    const agent = createProxyAgent(url);
-    return { url, agent };
-  }
-
-  // Authenticated proxy with rotation
-  const { username, password } = getNextProxyAccount(accounts);
-  const auth = `${encodeURIComponent(username)}:${encodeURIComponent(password)}@`;
-  const url = `${protocol}://${auth}${host}`;
-  const agent = createProxyAgent(url);
-  return { url, agent, username };
+  throw new Error(
+    "Proxy configuration is missing. Please set PROXY_HOST or PROXY_URL environment variable.",
+  );
 }
 
 export async function anonymizeProxy(url: string): Promise<string> {
