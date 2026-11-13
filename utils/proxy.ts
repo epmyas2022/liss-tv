@@ -1,8 +1,8 @@
 import * as proxyChain from "proxy-chain";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { SocksProxyAgent } from "socks-proxy-agent";
-import { AnyProxyAgent, ProxyAccount, StickySession } from "@/types/proxy";
-import { bitacora } from "@/utils/bitacora";
+import type { AnyProxyAgent, ProxyAccount, StickySession } from "../types/proxy.ts";
+import { bitacora } from "./bitacora.ts";
 
 const proxyLogger = bitacora.createScope("Proxy");
 

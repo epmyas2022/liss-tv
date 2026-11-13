@@ -14,3 +14,13 @@ export interface StickySession {
   username?: string;
 }
 
+export interface ManagedProxy {
+  url: string;
+  host: string;
+  protocol: string;
+  latencyMs: number;
+  lastChecked: number;
+  failCount: number;
+  isHealthy: boolean;
+}
+
