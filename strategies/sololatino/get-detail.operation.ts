@@ -1,7 +1,7 @@
 import { get, upsert } from "@/services/movie.store";
 import { Season, StoredMovie, StrategyGetMovieDetails } from "@/types/movie";
 import { BASE_URL, createStickySession } from "@/utils/browser";
-import { fetchFlare } from "@/utils/flaresolverr";
+import { fetchFlare, isBannedResponse } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 
 export class GetDetail implements StrategyGetMovieDetails {
@@ -39,6 +39,10 @@ export class GetDetail implements StrategyGetMovieDetails {
     try {
       const response = await fetchFlare(targetUrl);
       const html = await response.text();
+      if (isBannedResponse(html)) {
+        console.warn(`[SoloLatino] Detail request for ${link} returned banned account modal. Skipping parse.`);
+        return undefined;
+      }
       const $ = cheerio.load(html);
 
       const wrapper = $(".detail-hero + div");

@@ -1,5 +1,5 @@
 import { getAllData, upsertAll } from "@/services/movie.store";
-import { fetchFlare } from "@/utils/flaresolverr";
+import { fetchFlare, isBannedResponse } from "@/utils/flaresolverr";
 import * as cheerio from "cheerio";
 import { Movie, Movies, StrategyGetAllMovies } from "@/types/movie";
 import { BASE_URL } from "@/utils/browser";
@@ -52,7 +52,10 @@ export class GetAll implements StrategyGetAllMovies {
       });
       const rawText = await response.text();
 
-      console.log(rawText);
+      if (isBannedResponse(rawText)) {
+        console.warn("[SoloLatino] Target site returned account/IP suspension modal. Skipping parse.");
+        return { movies: [], lastPageNumber: 1, hasMore: false };
+      }
 
       if (search) {
         let jsonPayload = rawText.trim();
