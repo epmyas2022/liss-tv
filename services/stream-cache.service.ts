@@ -97,7 +97,7 @@ export async function persistUpstreamManifest(
   path: string,
   rawM3u8Url: string,
   options?: PersistManifestOptions,
-): Promise<string> {
+): Promise<string | null> {
   const cleanPath = normalizeMoviePath(path);
 
   try {
@@ -116,6 +116,16 @@ export async function persistUpstreamManifest(
     console.info(`[StreamCache] Successfully saved in MinIO bucket: ${cleanPath}`);
     return minioAppUrl;
   } catch (err) {
+    if (
+      err instanceof Error &&
+      err.message.includes("player.pelisserieshoy.com")
+    ) {
+      console.warn(
+        `[StreamCache] Skipping StreamCache for ${cleanPath}: manifest is host-bound (player.pelisserieshoy.com).`,
+      );
+      return null;
+    }
+
     console.warn(`[StreamCache] Failed to save manifest in MinIO for ${cleanPath}:`, err);
     const fallbackUrl = `/api/video/m3u8?path=${encodeURIComponent(cleanPath)}&url=${encodeURIComponent(rawM3u8Url)}`;
 
