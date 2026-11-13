@@ -1,8 +1,9 @@
 import * as proxyChain from "proxy-chain";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { SocksProxyAgent } from "socks-proxy-agent";
-import { AnyProxyAgent, ProxyAccount, StickySession } from "@/types/proxy";
-import { bitacora } from "@/utils/bitacora";
+import type { AnyProxyAgent, ProxyAccount, StickySession } from "../types/proxy.ts";
+import { bitacora } from "./bitacora.ts";
+import { ProxyPoolService } from "../services/proxy-pool.service.ts";
 
 const proxyLogger = bitacora.createScope("Proxy");
 
@@ -190,7 +191,32 @@ function getNextProxyAccount(accounts: ProxyAccount[]): ProxyAccount {
   return account;
 }
 
+export function getActiveProxyUrl(): string | null {
+  const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
+  if (dynamicBest) {
+    return dynamicBest.url;
+  }
+
+  const config = getProxyConfig();
+  if (!config) return null;
+
+  const { protocol, host, accounts } = config;
+  if (accounts.length === 0) {
+    return `${protocol}://${host}`;
+  }
+
+  const account = accounts.find((a) => !isProxyExhausted(a.username)) || accounts[0];
+  const auth = `${encodeURIComponent(account.username)}:${encodeURIComponent(account.password)}@`;
+  return `${protocol}://${auth}${host}`;
+}
+
 export function createStickySession(): StickySession {
+  const dynamicBest = ProxyPoolService.getInstance().getBestProxy();
+  if (dynamicBest) {
+    const agent = createProxyAgent(dynamicBest.url);
+    return { url: dynamicBest.url, agent };
+  }
+
   const config = getProxyConfig();
   if (!config) {
     throw new Error(
