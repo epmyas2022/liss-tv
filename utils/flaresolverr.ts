@@ -480,7 +480,7 @@ export async function resolver(
 
   const proxyPayload = buildProxyPayload(options.proxyUrl);
 
-  const cached = await loadCache(cacheKey);
+  const cached = (await loadCache(cacheKey)) || (await loadCache("direct"));
   const now = Date.now();
 
   // 1. Fresh cache: return instantly.
@@ -693,7 +693,7 @@ export async function postFlare(
   const cacheKey = options.proxyKey || defaultProxyKey;
 
   // 1. Intentar HTTP directo si hay cookies válidas en caché (ultrarrápido, ~200ms)
-  const cached = await loadCache(cacheKey);
+  const cached = (await loadCache(cacheKey)) || (await loadCache("direct"));
   const now = Date.now();
   if (cached && cached.expiry > now) {
     try {
