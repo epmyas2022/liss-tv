@@ -68,7 +68,12 @@ export class GetUrl implements StrategyGetUrl {
 
     const isWish = (server: string, url = ""): boolean => {
       const s = (server + " " + url).toLowerCase();
-      return s.includes("wish") || s.includes("swish") || s.includes("hglink");
+      return (
+        s.includes("wish") ||
+        s.includes("swish") ||
+        s.includes("hglink") ||
+        s.includes("hanerix")
+      );
     };
 
     const isVidhide = (server: string, url = ""): boolean => {

@@ -110,3 +110,27 @@ test("extractStreamwishM3u8 resolves stream from nested iframe in embed page", a
   assert.strictEqual(m3u8, "https://cdn.streamwish.com/nested/master.m3u8");
 });
 
+test("extractStreamwishM3u8 extracts stream directly from hanerix.com", async (t) => {
+  const originalFetch = global.fetch;
+  const mockHtml = `
+    <html>
+      <body>
+        <script>
+          jwplayer("vplayer").setup({
+            file: "https://cdn.hanerix.com/hls/master.m3u8"
+          });
+        </script>
+      </body>
+    </html>
+  `;
+
+  global.fetch = async () => new Response(mockHtml, { status: 200 });
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const m3u8 = await extractStreamwishM3u8("https://hanerix.com/e/test999");
+  assert.strictEqual(m3u8, "https://cdn.hanerix.com/hls/master.m3u8");
+});
+

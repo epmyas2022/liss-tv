@@ -1,6 +1,7 @@
 import { unpackDeanEdwards, extractM3u8FromUnpacked, isDeadCdn } from "./vidhide.extractor";
 
 const STREAMWISH_MIRRORS = [
+  "hanerix.com",
   "streamwish.to",
   "strwish.com",
   "wishembed.pro",
@@ -10,21 +11,31 @@ const STREAMWISH_MIRRORS = [
 ];
 
 async function fetchStreamwishPage(url: string): Promise<string | null> {
+  let originReferer = "https://megadede.mobi/";
   try {
-    const res = await fetch(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-        Referer: "https://megadede.mobi/",
-      },
-      signal: AbortSignal.timeout(6000),
-    });
+    originReferer = `${new URL(url).origin}/`;
+  } catch {}
 
-    if (res.ok) {
-      return await res.text();
+  const refererCandidates = ["https://megadede.mobi/", originReferer];
+
+  for (const referer of refererCandidates) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          Referer: referer,
+          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        },
+        signal: AbortSignal.timeout(6000),
+      });
+
+      if (res.ok) {
+        return await res.text();
+      }
+    } catch {
+      // Continue to next candidate
     }
-  } catch {
-    // Network / timeout failure on this mirror
   }
   return null;
 }

@@ -304,6 +304,56 @@ test("GetUrl prioritizes server named 'Wish' with custom domain over Vidhide", a
   assert(result.fallbackUrl?.includes(`referer=${encodeURIComponent("https://morencius.com/")}`));
 });
 
+test("GetUrl recognizes hanerix.com as StreamWish host and prioritizes it as primary stream", async (t) => {
+  const challenge = "testchallenge";
+  const salt = "testsalt";
+  const hanerixCipher = encryptTestPayload("https://hanerix.com/e/hanerix123", challenge, salt);
+  const vidhideCipher = encryptTestPayload("https://morencius.com/embed/vid123", challenge, salt);
+
+  const mockVidurlHtml = `
+    <script>
+      const LINK_CHALLENGE = '${challenge}';
+      const LINK_SALT = '${salt}';
+      const dataLink = [
+        {
+          video_language: "LAT",
+          sortedEmbeds: [
+            { servername: "Vidhide", link: "${vidhideCipher}" },
+            { servername: "hanerix", link: "${hanerixCipher}" }
+          ]
+        }
+      ];
+    </script>
+  `;
+
+  const originalFetch = global.fetch;
+  global.fetch = async (input: RequestInfo | URL) => {
+    const url = input.toString();
+    if (url.includes("/vidurl/")) {
+      return new Response(mockVidurlHtml, { status: 200 });
+    }
+    if (url.includes("hanerix.com")) {
+      return new Response('var links = { hls: "https://cdn.streamwish.com/hanerix/master.m3u8" };', { status: 200 });
+    }
+    if (url.includes("morencius.com")) {
+      return new Response('var links = { hls: "https://cdn.vidhide.com/hls/master.m3u8" };', { status: 200 });
+    }
+    return new Response("Not found", { status: 404 });
+  };
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const getUrl = new GetUrl();
+  const result = await getUrl.operation("/vidurl/tt12345/");
+
+  // hanerix should be prioritized over Vidhide
+  assert(result.url?.includes(encodeURIComponent("https://cdn.streamwish.com/hanerix/master.m3u8")));
+  assert(result.url?.includes(`referer=${encodeURIComponent("https://hanerix.com/")}`));
+  assert(result.fallbackUrl?.includes(encodeURIComponent("https://cdn.vidhide.com/hls/master.m3u8")));
+});
+
 test("GetUrl falls back to alternative language group when preferred group has only dead CDN links", async (t) => {
   const challenge = "testchallenge";
   const salt = "testsalt";
