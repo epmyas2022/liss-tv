@@ -1,13 +1,13 @@
 export function unpackDeanEdwards(packedCode: string): string | null {
   const match = packedCode.match(
-    /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\}\('([\s\S]*?)',\s*(\d+),\s*(\d+),\s*'([\s\S]*?)'\.split\('\|'\)/
+    /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\}\((['"])([\s\S]*?)\1,\s*(\d+),\s*(\d+),\s*(['"])([\s\S]*?)\5\.split\(['"]\|['"]\)/
   );
   if (!match) return null;
 
-  let p = match[1];
-  const aStr = match[2];
-  const cStr = match[3];
-  const kStr = match[4];
+  let p = match[2];
+  const aStr = match[3];
+  const cStr = match[4];
+  const kStr = match[6];
   const a = parseInt(aStr, 10);
   let c = parseInt(cStr, 10);
   const dict = kStr.split("|");
