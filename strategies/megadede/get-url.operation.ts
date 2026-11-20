@@ -82,8 +82,8 @@ export class GetUrl implements StrategyGetUrl {
     };
 
     const getServerPriority = (servername: string): number => {
-      if (isVoe(servername)) return 1;
-      if (isWish(servername)) return 2;
+      if (isWish(servername)) return 1;
+      if (isVoe(servername)) return 2;
       if (isVidhide(servername)) return 3;
       return 4;
     };

@@ -150,7 +150,7 @@ test("GetUrl resolves series episode via /api/episodio/", async (t) => {
   assert(resultViaContext.url?.includes("/api/video/m3u8?url="));
 });
 
-test("GetUrl prioritizes VOE and Streamwish over Vidhide", async (t) => {
+test("GetUrl prioritizes Streamwish over VOE and Vidhide", async (t) => {
   const challenge = "testchallenge";
   const salt = "testsalt";
   const vidhideCipher = encryptTestPayload("https://morencius.com/embed/vid1", challenge, salt);
@@ -199,13 +199,13 @@ test("GetUrl prioritizes VOE and Streamwish over Vidhide", async (t) => {
   const getUrl = new GetUrl();
   const result = await getUrl.operation("/vidurl/tt12345/");
 
-  // VOE should be prioritized first
-  assert(result.url?.includes(encodeURIComponent("https://cdn.voe.sx/master.m3u8")));
-  assert(result.url?.includes(`referer=${encodeURIComponent("https://voe.sx/")}`));
-  // Streamwish should be the fallback before Vidhide
-  assert(result.fallbackUrl?.includes(encodeURIComponent("https://cdn.streamwish.com/master.m3u8")));
-  assert(result.fallbackUrl?.includes(`referer=${encodeURIComponent("https://hglink.to/")}`));
-  assert.strictEqual(result.headers?.Referer, "https://voe.sx/");
+  // Streamwish should be prioritized first
+  assert(result.url?.includes(encodeURIComponent("https://cdn.streamwish.com/master.m3u8")));
+  assert(result.url?.includes(`referer=${encodeURIComponent("https://hglink.to/")}`));
+  // VOE should be the fallback before Vidhide
+  assert(result.fallbackUrl?.includes(encodeURIComponent("https://cdn.voe.sx/master.m3u8")));
+  assert(result.fallbackUrl?.includes(`referer=${encodeURIComponent("https://voe.sx/")}`));
+  assert.strictEqual(result.headers?.Referer, "https://hglink.to/");
   assert.strictEqual(result.directSegments, false);
 });
 
