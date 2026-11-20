@@ -43,7 +43,7 @@ export function unpackDeanEdwards(packedCode: string): string | null {
 
 const DEAD_CDNS = [
   "radiantgroveproduction.cfd",
-  "dramiyos-cdn.com",
+  "riverstonelearninghub.sbs",
 ];
 
 export function isDeadCdn(url: string): boolean {

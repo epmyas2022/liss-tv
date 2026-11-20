@@ -102,13 +102,13 @@ test("extractVidhideM3u8 returns null when all mirrors or embed URL resolve to d
   assert.strictEqual(m3u8, null);
 });
 
-test("extractVidhideM3u8 skips dramiyos-cdn.com domain as dead CDN", async (t) => {
+test("extractVidhideM3u8 skips riverstonelearninghub.sbs domain as dead CDN", async (t) => {
   const originalFetch = global.fetch;
   const mockPageHtml = `
     <script>
       var links = {
-        hls2: "https://pfabiwmfmeza.dramiyos-cdn.com/hls2/master.m3u8",
-        hls: "https://clean-mirror.example.com/hls/master.m3u8"
+        hls3: "https://esrzaekj9ifiue8.riverstonelearninghub.sbs/KurDwBvf3IESNvT/hls3/master.txt",
+        hls2: "https://clean-mirror.example.com/hls2/master.m3u8"
       };
     </script>
   `;
@@ -119,7 +119,7 @@ test("extractVidhideM3u8 skips dramiyos-cdn.com domain as dead CDN", async (t) =
     global.fetch = originalFetch;
   });
 
-  const m3u8 = await extractVidhideM3u8("https://morencius.com/embed/testdramiyos");
-  assert.strictEqual(m3u8, "https://clean-mirror.example.com/hls/master.m3u8");
+  const m3u8 = await extractVidhideM3u8("https://morencius.com/embed/testriverstone");
+  assert.strictEqual(m3u8, "https://clean-mirror.example.com/hls2/master.m3u8");
 });
 
