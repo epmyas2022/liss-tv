@@ -155,6 +155,11 @@ export function PlayerView() {
         });
 
         if (!isCancelled) {
+          if (content && typeof content === "object" && "error" in content && content.error) {
+            console.error("[PlayerView] Error retornado por getMovieUrl:", content.error);
+            setErrorMessage(content.error);
+            return;
+          }
           setMovieUrl(content as Url);
         }
       } catch (error) {
