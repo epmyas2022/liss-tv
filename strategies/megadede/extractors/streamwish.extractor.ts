@@ -11,27 +11,48 @@ const STREAMWISH_MIRRORS = [
 ];
 
 async function fetchStreamwishPage(url: string): Promise<string | null> {
-  let originReferer = "https://megadede.mobi/";
+  let originReferer: string | undefined;
   try {
-    originReferer = `${new URL(url).origin}/`;
+    const parsed = new URL(url);
+    originReferer = `${parsed.protocol}//${parsed.host}/`;
   } catch {}
 
-  const refererCandidates = ["https://megadede.mobi/", originReferer];
+  // 1. First candidate: same-origin referer (simulates direct browsing in new window, bypassing iframe embed guards)
+  // 2. Second candidate: no referer (clean direct navigation)
+  // 3. Third candidate: megadede referer
+  const refererCandidates: (string | undefined)[] = [
+    originReferer,
+    undefined,
+    "https://megadede.mobi/",
+  ];
 
   for (const referer of refererCandidates) {
     try {
+      const headers: Record<string, string> = {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      };
+      if (referer) {
+        headers["Referer"] = referer;
+      }
+
       const res = await fetch(url, {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          Referer: referer,
-          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        },
+        headers,
         signal: AbortSignal.timeout(6000),
       });
 
       if (res.ok) {
-        return await res.text();
+        const text = await res.text();
+        // If it returns the anti-embed block page, reject it so next candidate (e.g. origin/no-referer) can succeed
+        if (
+          text.includes("will not allow") ||
+          text.includes("embedded it") ||
+          text.includes("To protect your security")
+        ) {
+          continue;
+        }
+        return text;
       }
     } catch {
       // Continue to next candidate

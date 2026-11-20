@@ -134,3 +134,22 @@ test("extractStreamwishM3u8 extracts stream directly from hanerix.com", async (t
   assert.strictEqual(m3u8, "https://cdn.hanerix.com/hls/master.m3u8");
 });
 
+test("extractStreamwishM3u8 skips anti-embed warning page and recovers stream with origin referer", async (t) => {
+  const originalFetch = global.fetch;
+  let callCount = 0;
+  global.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    const referer = (init?.headers as Record<string, string>)?.["Referer"];
+    if (referer === "https://megadede.mobi/") {
+      return new Response("To protect your security, hanerix.com will not allow Zen to display the page if another site has embedded it.", { status: 200 });
+    }
+    return new Response('jwplayer("vplayer").setup({ file: "https://cdn.hanerix.com/direct/master.m3u8" });', { status: 200 });
+  };
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const m3u8 = await extractStreamwishM3u8("https://hanerix.com/e/bypass123");
+  assert.strictEqual(m3u8, "https://cdn.hanerix.com/direct/master.m3u8");
+});
+

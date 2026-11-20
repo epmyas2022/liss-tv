@@ -95,3 +95,24 @@ test("extractVidhideM3u8 returns null when all mirrors or embed URL resolve to d
   assert.strictEqual(m3u8, null);
 });
 
+test("extractVidhideM3u8 skips dramiyos-cdn.com domain as dead CDN", async (t) => {
+  const originalFetch = global.fetch;
+  const mockPageHtml = `
+    <script>
+      var links = {
+        hls2: "https://pfabiwmfmeza.dramiyos-cdn.com/hls2/master.m3u8",
+        hls: "https://clean-mirror.example.com/hls/master.m3u8"
+      };
+    </script>
+  `;
+
+  global.fetch = async () => new Response(mockPageHtml, { status: 200 });
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const m3u8 = await extractVidhideM3u8("https://morencius.com/embed/testdramiyos");
+  assert.strictEqual(m3u8, "https://clean-mirror.example.com/hls/master.m3u8");
+});
+

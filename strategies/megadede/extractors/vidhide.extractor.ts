@@ -29,7 +29,10 @@ export function unpackDeanEdwards(packedCode: string): string | null {
   return p;
 }
 
-const DEAD_CDNS = ["radiantgroveproduction.cfd"];
+const DEAD_CDNS = [
+  "radiantgroveproduction.cfd",
+  "dramiyos-cdn.com",
+];
 
 export function isDeadCdn(url: string): boolean {
   if (!url) return false;
@@ -73,7 +76,18 @@ export function extractM3u8FromUnpacked(unpacked: string, embedUrl: string): str
     }
   }
 
-  // 3. Check for direct absolute m3u8 or master/index playlist
+  // 3. Check for JWPlayer direct file property: file: "..."
+  const fileMatch = unpacked.match(
+    /\bfile\s*:\s*["']([^"']+(?:\.m3u8|\.txt|master\.|index\.)[^"']*)["']/i
+  );
+  if (fileMatch) {
+    const resolved = new URL(fileMatch[1], embedUrl).href;
+    if (!isDeadCdn(resolved)) {
+      return resolved;
+    }
+  }
+
+  // 4. Check for direct absolute m3u8 or master/index playlist
   const directMatches = unpacked.matchAll(
     /(https?:\/\/[^"'\s]+(?:\.m3u8|\.txt|master\.|index\.)[^"'\s]*)/g
   );
@@ -83,7 +97,7 @@ export function extractM3u8FromUnpacked(unpacked: string, embedUrl: string): str
     }
   }
 
-  // 4. Check for relative master/index playlist
+  // 5. Check for relative master/index playlist
   const relativeMatches = unpacked.matchAll(
     /["'](\/[^"'\s]+(?:\.m3u8|\.txt|master\.|index\.)[^"'\s]*)["']/g
   );
