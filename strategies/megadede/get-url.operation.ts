@@ -2,7 +2,7 @@ import crypto from "crypto";
 import type { GetUrlOptions, StrategyGetUrl, Url } from "@/types/movie";
 import { MegadedeError, megadedeFetch } from "./client";
 import type { MegadedeEpisodeApiResponse, MegadedeLanguageGroup } from "./types";
-import { extractVidhideM3u8 } from "./extractors/vidhide.extractor";
+import { isDeadCdn, extractVidhideM3u8 } from "./extractors/vidhide.extractor";
 import { extractStreamwishM3u8 } from "./extractors/streamwish.extractor";
 import { extractVoeM3u8 } from "./extractors/voe.extractor";
 
@@ -61,15 +61,6 @@ export class GetUrl implements StrategyGetUrl {
       "LAT"
     ).toUpperCase();
 
-    const selectedGroup =
-      groups.find((g) => g.video_language?.toUpperCase().includes(preferredLang)) ||
-      groups.find((g) => g.video_language?.toUpperCase().includes("LAT")) ||
-      groups[0];
-
-    if (!selectedGroup || !selectedGroup.sortedEmbeds?.length) {
-      throw new MegadedeError(`[Megadede] No streaming embeds available for language ${preferredLang}`);
-    }
-
     const isVoe = (server: string, url = ""): boolean => {
       const s = (server + " " + url).toLowerCase();
       return s.includes("voe");
@@ -97,12 +88,6 @@ export class GetUrl implements StrategyGetUrl {
       return 4;
     };
 
-    const prioritizedEmbeds = [...selectedGroup.sortedEmbeds].sort(
-      (a, b) =>
-        getServerPriority(a.servername || "") -
-        getServerPriority(b.servername || ""),
-    );
-
     interface ResolvedStream {
       m3u8Url: string;
       hosterReferer: string;
@@ -110,34 +95,58 @@ export class GetUrl implements StrategyGetUrl {
 
     const resolvedStreams: ResolvedStream[] = [];
 
-    for (const embed of prioritizedEmbeds) {
-      try {
-        const decryptedUrl = decryptAesLink(embed.link, challenge, salt);
-        if (!decryptedUrl) continue;
+    const sortedGroups = [...groups].sort((a, b) => {
+      const getScore = (lang = "") => {
+        const u = lang.toUpperCase();
+        if (u.includes(preferredLang)) return 3;
+        if (u.includes("LAT")) return 2;
+        return 1;
+      };
+      return getScore(b.video_language) - getScore(a.video_language);
+    });
 
-        let hosterReferer = "https://megadede.mobi/";
+    for (const group of sortedGroups) {
+      if (!group?.sortedEmbeds?.length) continue;
+
+      const prioritizedEmbeds = [...group.sortedEmbeds].sort(
+        (a, b) =>
+          getServerPriority(a.servername || "") -
+          getServerPriority(b.servername || ""),
+      );
+
+      for (const embed of prioritizedEmbeds) {
         try {
-          hosterReferer = `${new URL(decryptedUrl).origin}/`;
+          const decryptedUrl = decryptAesLink(embed.link, challenge, salt);
+          if (!decryptedUrl || isDeadCdn(decryptedUrl)) continue;
+
+          let hosterReferer = "https://megadede.mobi/";
+          try {
+            hosterReferer = `${new URL(decryptedUrl).origin}/`;
+          } catch {
+            // Fall back to default megadede referer
+          }
+
+          let m3u8Url: string | null = null;
+          const server = embed.servername?.toLowerCase() || "";
+
+          if (isVoe(server, decryptedUrl)) {
+            m3u8Url = await extractVoeM3u8(decryptedUrl);
+          } else if (isWish(server, decryptedUrl)) {
+            m3u8Url = await extractStreamwishM3u8(decryptedUrl);
+          } else if (isVidhide(server, decryptedUrl)) {
+            m3u8Url = await extractVidhideM3u8(decryptedUrl);
+          }
+
+          if (m3u8Url && !isDeadCdn(m3u8Url)) {
+            resolvedStreams.push({ m3u8Url, hosterReferer });
+          }
         } catch {
-          // Fall back to default megadede referer
+          // Continue to next embed
         }
+      }
 
-        let m3u8Url: string | null = null;
-        const server = embed.servername?.toLowerCase() || "";
-
-        if (isVoe(server, decryptedUrl)) {
-          m3u8Url = await extractVoeM3u8(decryptedUrl);
-        } else if (isWish(server, decryptedUrl)) {
-          m3u8Url = await extractStreamwishM3u8(decryptedUrl);
-        } else if (isVidhide(server, decryptedUrl)) {
-          m3u8Url = await extractVidhideM3u8(decryptedUrl);
-        }
-
-        if (m3u8Url) {
-          resolvedStreams.push({ m3u8Url, hosterReferer });
-        }
-      } catch {
-        // Continue to next embed
+      if (resolvedStreams.length > 0) {
+        break;
       }
     }
 

@@ -75,3 +75,23 @@ test("extractVidhideM3u8 skips dead radiantgroveproduction.cfd domain and select
   assert.strictEqual(m3u8, "https://clean-mirror.example.com/hls/master.m3u8");
 });
 
+test("extractVidhideM3u8 returns null when all mirrors or embed URL resolve to dead radiantgroveproduction CDN", async (t) => {
+  const originalFetch = global.fetch;
+  const mockPageHtml = `
+    <script>
+      var links = {
+        hls3: "/E1O6osy9qHm1/hls3/01/04546/6be8e3ippcux_,l,n,h,.urlset/master.txt"
+      };
+    </script>
+  `;
+
+  global.fetch = async () => new Response(mockPageHtml, { status: 200 });
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const m3u8 = await extractVidhideM3u8("https://pfabiwmfmeza.radiantgroveproduction.cfd/embed/testdead");
+  assert.strictEqual(m3u8, null);
+});
+

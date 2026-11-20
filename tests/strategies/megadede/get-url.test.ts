@@ -304,4 +304,55 @@ test("GetUrl prioritizes server named 'Wish' with custom domain over Vidhide", a
   assert(result.fallbackUrl?.includes(`referer=${encodeURIComponent("https://morencius.com/")}`));
 });
 
+test("GetUrl falls back to alternative language group when preferred group has only dead CDN links", async (t) => {
+  const challenge = "testchallenge";
+  const salt = "testsalt";
+  const deadCipher = encryptTestPayload("https://pfabiwmfmeza.radiantgroveproduction.cfd/embed/dead123", challenge, salt);
+  const workingVoeCipher = encryptTestPayload("https://voe.sx/e/work123", challenge, salt);
+
+  const mockVidurlHtml = `
+    <script>
+      const LINK_CHALLENGE = '${challenge}';
+      const LINK_SALT = '${salt}';
+      const dataLink = [
+        {
+          video_language: "LAT",
+          sortedEmbeds: [
+            { servername: "Vidhide", link: "${deadCipher}" }
+          ]
+        },
+        {
+          video_language: "SUB",
+          sortedEmbeds: [
+            { servername: "VOE", link: "${workingVoeCipher}" }
+          ]
+        }
+      ];
+    </script>
+  `;
+
+  const originalFetch = global.fetch;
+  global.fetch = async (input: RequestInfo | URL) => {
+    const url = input.toString();
+    if (url.includes("/vidurl/")) {
+      return new Response(mockVidurlHtml, { status: 200 });
+    }
+    if (url.includes("voe.sx")) {
+      const b64 = Buffer.from(JSON.stringify({ hls: "https://delivery.voe.sx/sub/master.m3u8" })).toString("base64");
+      return new Response(`<script>let payload = "${b64}";</script>`, { status: 200 });
+    }
+    return new Response("Not found", { status: 404 });
+  };
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const getUrl = new GetUrl();
+  const result = await getUrl.operation("/vidurl/tt12345/", { language: "LAT" });
+
+  assert(result.url?.includes(encodeURIComponent("https://delivery.voe.sx/sub/master.m3u8")));
+  assert(result.url?.includes(`referer=${encodeURIComponent("https://voe.sx/")}`));
+});
+
 

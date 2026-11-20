@@ -32,6 +32,7 @@ export function unpackDeanEdwards(packedCode: string): string | null {
 const DEAD_CDNS = ["radiantgroveproduction.cfd"];
 
 export function isDeadCdn(url: string): boolean {
+  if (!url) return false;
   return DEAD_CDNS.some((d) => url.toLowerCase().includes(d));
 }
 
@@ -50,7 +51,10 @@ export function extractM3u8FromUnpacked(unpacked: string, embedUrl: string): str
 
       for (const candidate of candidateList) {
         if (candidate && !isDeadCdn(candidate)) {
-          return new URL(candidate, embedUrl).href;
+          const resolved = new URL(candidate, embedUrl).href;
+          if (!isDeadCdn(resolved)) {
+            return resolved;
+          }
         }
       }
     } catch {
@@ -62,27 +66,42 @@ export function extractM3u8FromUnpacked(unpacked: string, embedUrl: string): str
   const sourcesMatch = unpacked.match(
     /sources\s*:\s*\[\s*\{\s*file\s*:\s*["']([^"']+)["']/,
   );
-  if (sourcesMatch && !isDeadCdn(sourcesMatch[1])) {
-    return new URL(sourcesMatch[1], embedUrl).href;
+  if (sourcesMatch) {
+    const resolved = new URL(sourcesMatch[1], embedUrl).href;
+    if (!isDeadCdn(resolved)) {
+      return resolved;
+    }
   }
 
-  // 3. Check for direct absolute or relative m3u8 or master/index playlist
-  const directMatch = unpacked.match(
-    /(https?:\/\/[^"'\s]+(?:\.m3u8|\.txt|master\.|index\.)[^"'\s]*)/
+  // 3. Check for direct absolute m3u8 or master/index playlist
+  const directMatches = unpacked.matchAll(
+    /(https?:\/\/[^"'\s]+(?:\.m3u8|\.txt|master\.|index\.)[^"'\s]*)/g
   );
-  if (directMatch && !isDeadCdn(directMatch[1])) return directMatch[1];
+  for (const m of directMatches) {
+    if (m[1] && !isDeadCdn(m[1])) {
+      return m[1];
+    }
+  }
 
-  const relativeMatch = unpacked.match(
-    /["'](\/[^"'\s]+(?:\.m3u8|\.txt|master\.|index\.)[^"'\s]*)["']/
+  // 4. Check for relative master/index playlist
+  const relativeMatches = unpacked.matchAll(
+    /["'](\/[^"'\s]+(?:\.m3u8|\.txt|master\.|index\.)[^"'\s]*)["']/g
   );
-  if (relativeMatch && !isDeadCdn(relativeMatch[1])) {
-    return new URL(relativeMatch[1], embedUrl).href;
+  for (const m of relativeMatches) {
+    if (m[1] && !isDeadCdn(m[1])) {
+      const resolved = new URL(m[1], embedUrl).href;
+      if (!isDeadCdn(resolved)) {
+        return resolved;
+      }
+    }
   }
 
   return null;
 }
 
 export async function extractVidhideM3u8(embedUrl: string): Promise<string | null> {
+  if (isDeadCdn(embedUrl)) return null;
+
   try {
     const res = await fetch(embedUrl, {
       headers: {
@@ -97,19 +116,19 @@ export async function extractVidhideM3u8(embedUrl: string): Promise<string | nul
 
     // 1. Check packed script first (where JWPlayer setup and links are defined)
     const packedMatch = html.match(
-      /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\.split\('\|'\)\)\)/,
+      /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\.split\('\|'\)[\s\S]*?\)\)/,
     );
     if (packedMatch) {
       const unpacked = unpackDeanEdwards(packedMatch[0]);
       if (unpacked) {
         const stream = extractM3u8FromUnpacked(unpacked, embedUrl);
-        if (stream) return stream;
+        if (stream && !isDeadCdn(stream)) return stream;
       }
     }
 
     // 2. Check unpacked/raw HTML as fallback
     const rawStream = extractM3u8FromUnpacked(html, embedUrl);
-    if (rawStream) return rawStream;
+    if (rawStream && !isDeadCdn(rawStream)) return rawStream;
 
     return null;
   } catch {

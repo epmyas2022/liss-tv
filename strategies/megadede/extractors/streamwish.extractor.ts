@@ -1,6 +1,8 @@
-import { unpackDeanEdwards, extractM3u8FromUnpacked } from "./vidhide.extractor";
+import { unpackDeanEdwards, extractM3u8FromUnpacked, isDeadCdn } from "./vidhide.extractor";
 
 export async function extractStreamwishM3u8(embedUrl: string): Promise<string | null> {
+  if (isDeadCdn(embedUrl)) return null;
+
   try {
     const res = await fetch(embedUrl, {
       headers: {
@@ -13,21 +15,26 @@ export async function extractStreamwishM3u8(embedUrl: string): Promise<string | 
     if (!res.ok) return null;
     const html = await res.text();
 
+    const redirectMatch = html.match(/window\.location\.href\s*=\s*['"]([^'"]+)['"]/);
+    if (redirectMatch) {
+      return extractStreamwishM3u8(new URL(redirectMatch[1], embedUrl).href);
+    }
+
     // 1. Check packed script first (where JWPlayer setup and links are defined)
     const packedMatch = html.match(
-      /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\.split\('\|'\)\)\)/,
+      /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\.split\('\|'\)[\s\S]*?\)\)/,
     );
     if (packedMatch) {
       const unpacked = unpackDeanEdwards(packedMatch[0]);
       if (unpacked) {
         const stream = extractM3u8FromUnpacked(unpacked, embedUrl);
-        if (stream) return stream;
+        if (stream && !isDeadCdn(stream)) return stream;
       }
     }
 
     // 2. Check unpacked/raw HTML as fallback
     const rawStream = extractM3u8FromUnpacked(html, embedUrl);
-    if (rawStream) return rawStream;
+    if (rawStream && !isDeadCdn(rawStream)) return rawStream;
 
     return null;
   } catch {
