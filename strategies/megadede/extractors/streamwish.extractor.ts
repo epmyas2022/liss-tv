@@ -48,11 +48,13 @@ async function fetchStreamwishPage(url: string): Promise<string | null> {
 
       if (res.ok) {
         const text = await res.text();
-        // If it returns the anti-embed block page, reject it so next candidate (e.g. origin/no-referer) can succeed
+        // If it returns the anti-embed block page or dummy loader, reject it so next candidate/mirror can succeed
         if (
           text.includes("will not allow") ||
           text.includes("embedded it") ||
-          text.includes("To protect your security")
+          text.includes("To protect your security") ||
+          text.includes("Page is loading") ||
+          text.includes("loading-container")
         ) {
           continue;
         }
@@ -90,17 +92,34 @@ export async function extractStreamwishM3u8(
   if (depth > 2 || isDeadCdn(embedUrl)) return null;
 
   try {
-    let html = await fetchStreamwishPage(embedUrl);
+    const isPlayerHtml = (content: string | null): boolean => {
+      if (!content) return false;
+      return (
+        content.includes("eval(") ||
+        content.includes(".m3u8") ||
+        content.includes("jwplayer") ||
+        content.includes("sources") ||
+        content.includes("links") ||
+        content.includes("<iframe") ||
+        content.includes("window.location")
+      );
+    };
 
-    // If initial embedUrl failed (e.g. primary domain timed out or blocked), try alternate mirrors
+    let html = await fetchStreamwishPage(embedUrl);
+    if (!isPlayerHtml(html)) {
+      html = null;
+    }
+
+    // If initial embedUrl failed or is a dummy loader (e.g. hglink.to), try alternate active mirrors
     if (!html) {
       try {
         const parsed = new URL(embedUrl);
         for (const mirror of STREAMWISH_MIRRORS) {
           if (!parsed.hostname.includes(mirror)) {
             const alternateUrl = `${parsed.protocol}//${mirror}${parsed.pathname}${parsed.search}`;
-            html = await fetchStreamwishPage(alternateUrl);
-            if (html) {
+            const altHtml = await fetchStreamwishPage(alternateUrl);
+            if (isPlayerHtml(altHtml)) {
+              html = altHtml;
               embedUrl = alternateUrl;
               break;
             }
