@@ -606,3 +606,64 @@ test("GetUrl populates fallbackUrl when multiple valid streams resolve", async (
   assert.strictEqual(result.fallbackUrl, expectedProxyUrl("https://cdn.they.tube/stream2.m3u8"));
   assert.strictEqual(result.headers?.Referer, "https://ww3.gnulahd.nu/");
 });
+
+test("GetUrl falls back to alternative language when Latino language only has dead aviso.mp4 servers", async () => {
+  const pageHtml = `
+    <html>
+      <script>
+        var _gnrdPid = 900;
+        var _gnrdTok = "tok_lang_fallback";
+        var VD_RESOLVE='/panel/vidara-resolve.php', VD_AUTH='&t=vd_latino_dead';
+        var SF_RESOLVE='/panel/savefiles-resolve.php', SF_AUTH='&t=sf_sub_alive';
+      </script>
+    </html>
+  `;
+
+  const payload = {
+    langs: [
+      {
+        label: "Latino",
+        servers: [
+          { title: "Servidor Vidara Latino", src: "https://vidaraa.cc/e/vdLatinoDead" },
+        ],
+      },
+      {
+        label: "Subtitulado",
+        servers: [
+          { title: "Servidor SaveFiles Sub", src: "https://savefiles.com/e/sfSubAlive" },
+        ],
+      },
+    ],
+  };
+  const jsonStr = JSON.stringify(payload);
+  const key = [103, 78, 55, 100];
+  const encoded = Buffer.from(jsonStr, "utf-8").map((byte, i) => byte ^ key[i & 3]);
+  const packedBase64 = Buffer.from(encoded).toString("base64");
+
+  const mockFetch: GnulaMockFetch = async (url: string) => {
+    if (url.includes("lang-fallback-test")) {
+      return new Response(pageHtml, { status: 200 });
+    }
+    if (url.includes("/wp-json/gnrd/v1/player")) {
+      return new Response(JSON.stringify({ p: packedBase64 }), { status: 200 });
+    }
+    if (url.includes("/panel/vidara-resolve.php")) {
+      return new Response(
+        JSON.stringify({ master: "https://ww3.gnulahd.nu/wp-content/uploads/epix/aviso.mp4" }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    if (url.includes("/panel/savefiles-resolve.php?code=sfSubAlive")) {
+      return new Response(
+        JSON.stringify({ master: "https://s1.savefiles.com/sub-alive.m3u8" }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    return new Response("Not found", { status: 404 });
+  };
+
+  const getUrl = new GetUrl(mockFetch);
+  const result = await getUrl.operation("/ver/lang-fallback-test/");
+  assert.strictEqual(result.url, expectedProxyUrl("https://s1.savefiles.com/sub-alive.m3u8"));
+  assert.strictEqual(result.headers?.Referer, "https://ww3.gnulahd.nu/");
+});

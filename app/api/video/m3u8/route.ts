@@ -144,6 +144,18 @@ export async function GET(req: NextRequest) {
           );
         }
       }
+
+      if (
+        !body ||
+        body.includes("aviso.mp4") ||
+        (!body.includes("#EXTM3U") && !body.includes("#EXT-X-"))
+      ) {
+        return NextResponse.json(
+          { error: "Upstream did not return a valid HLS manifest" },
+          { status: 502 },
+        );
+      }
+
       const origin = process.env.APP_URL;
       const appOrigin = origin || (req.nextUrl.origin.includes("0.0.0.0") ? "" : req.nextUrl.origin);
       const rewrittenBody = rewriteManifest(body, url, {

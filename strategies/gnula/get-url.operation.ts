@@ -173,6 +173,15 @@ function extractTheTubeCode(src: string): string | null {
   return null;
 }
 
+function resolveRelativeUrl(uri: string, baseUrl: string): string {
+  if (/^https?:\/\//i.test(uri)) return uri;
+  try {
+    return new URL(uri, baseUrl).href;
+  } catch {
+    return uri;
+  }
+}
+
 function buildProxyUrl(streamUrl: string, referer: string, directSegments = true): string {
   if (streamUrl.startsWith("/api/video/m3u8")) {
     return streamUrl;
@@ -267,107 +276,159 @@ export class GetUrl implements StrategyGetUrl {
 
     // 3. Select language (prefer requested language, then Latino, then first available)
     const preferredLang = (options?.params?.lang as string | undefined)?.toLowerCase();
-    const selectedLang =
+    const primaryLang =
       langs.find((l) => preferredLang && l.label.toLowerCase().includes(preferredLang)) ||
       langs.find((l) => l.label.toLowerCase().includes("latino")) ||
       langs[0];
 
-    const servers = selectedLang?.servers || [];
-    if (servers.length === 0) {
-      throw new GnulaError(`[Gnula] No servers found in language group for ${path}`);
-    }
-
-    const sortedServers = [...servers].sort(
-      (a, b) => getServerPriority(a.src) - getServerPriority(b.src)
-    );
+    const orderedLangs = [
+      primaryLang,
+      ...langs.filter((l) => l !== primaryLang),
+    ];
 
     const resolvedStreams: string[] = [];
 
-    // 4. Cascade resolution to direct M3U8
-    for (const server of sortedServers) {
-      // 4.1 Vidara Resolver
-      const vidara = extractVidaraInfo(server.src);
-      if (vidara && tokens.vdResolve) {
-        const vdAuth = tokens.vdAuth || "";
-        const vdUrl = `${tokens.vdResolve}?pl=1&code=${encodeURIComponent(vidara.code)}&host=${encodeURIComponent(vidara.host)}${vdAuth.startsWith("&") ? vdAuth : `&${vdAuth}`}`;
-        try {
-          const res = await this.fetchFn(vdUrl, {
-            headers: { Referer: referer },
-          });
-          if (res.ok) {
-            const contentType = res.headers.get("content-type") || "";
-            if (contentType.includes("json")) {
-              const json = (await res.json()) as { master?: string; error?: string };
-              if (json.master && !json.master.includes("aviso.mp4") && !json.error) {
-                resolvedStreams.push(json.master);
-              }
-            } else {
+    // 4. Cascade resolution to direct M3U8 across available languages
+    for (const lang of orderedLangs) {
+      const servers = lang?.servers || [];
+      const sortedServers = [...servers].sort(
+        (a, b) => getServerPriority(a.src) - getServerPriority(b.src)
+      );
+
+      for (const server of sortedServers) {
+        // 4.1 Vidara Resolver
+        const vidara = extractVidaraInfo(server.src);
+        if (vidara && tokens.vdResolve) {
+          const vdAuth = tokens.vdAuth || "";
+          const vdUrl = `${tokens.vdResolve}?pl=1&code=${encodeURIComponent(vidara.code)}&host=${encodeURIComponent(vidara.host)}${vdAuth.startsWith("&") ? vdAuth : `&${vdAuth}`}`;
+          try {
+            const res = await this.fetchFn(vdUrl, {
+              headers: { Referer: referer },
+            });
+            if (res.ok) {
               const text = await res.text();
-              if (text.includes("#EXTM3U") && !text.includes("aviso.mp4")) {
-                const fullVdUrl = vdUrl.startsWith("http")
-                  ? vdUrl
-                  : `${cleanBase}${vdUrl.startsWith("/") ? "" : "/"}${vdUrl}`;
-                resolvedStreams.push(fullVdUrl);
+              let isAviso = text.includes("aviso.mp4");
+              let jsonMaster: string | undefined;
+
+              try {
+                const json = JSON.parse(text) as { master?: string; error?: string };
+                if (json.master?.includes("aviso.mp4") || json.error) {
+                  isAviso = true;
+                } else if (json.master) {
+                  jsonMaster = json.master;
+                }
+              } catch {
+                // Not JSON, check EXTM3U
+              }
+
+              if (!isAviso) {
+                if (jsonMaster) {
+                  resolvedStreams.push(jsonMaster);
+                } else if (text.includes("#EXTM3U")) {
+                  const directStream = text
+                    .split("\n")
+                    .map((l) => l.trim())
+                    .find(
+                      (l) =>
+                        l.length > 0 &&
+                        !l.startsWith("#") &&
+                        (l.includes(".m3u8") ||
+                          l.includes(".txt") ||
+                          l.includes("master") ||
+                          l.includes("index"))
+                    );
+
+                  if (directStream) {
+                    const fullDirect = directStream.startsWith("http")
+                      ? directStream
+                      : resolveRelativeUrl(
+                          directStream,
+                          vdUrl.startsWith("http")
+                            ? vdUrl
+                            : `${cleanBase}${vdUrl.startsWith("/") ? "" : "/"}${vdUrl}`
+                        );
+                    resolvedStreams.push(fullDirect);
+                  } else {
+                    const fullVdUrl = vdUrl.startsWith("http")
+                      ? vdUrl
+                      : `${cleanBase}${vdUrl.startsWith("/") ? "" : "/"}${vdUrl}`;
+                    resolvedStreams.push(fullVdUrl);
+                  }
+                }
               }
             }
+          } catch {
+            // Continue to next server
           }
-        } catch {
-          // Continue to next server
+        }
+
+        // 4.2 SaveFiles Resolver
+        const sfCode = extractSaveFilesCode(server.src);
+        if (sfCode && tokens.sfResolve) {
+          const sfAuth = tokens.sfAuth || "";
+          const sfUrl = `${tokens.sfResolve}?code=${encodeURIComponent(sfCode)}${sfAuth.startsWith("&") ? sfAuth : `&${sfAuth}`}`;
+          try {
+            const res = await this.fetchFn(sfUrl, {
+              headers: { Referer: referer },
+            });
+            if (res.ok) {
+              const text = await res.text();
+              if (!text.includes("aviso.mp4")) {
+                try {
+                  const sfJson = JSON.parse(text) as { master?: string; error?: string };
+                  if (sfJson.master && !sfJson.master.includes("aviso.mp4") && !sfJson.error) {
+                    resolvedStreams.push(sfJson.master);
+                  }
+                } catch {}
+              }
+            }
+          } catch {
+            // Continue to next server
+          }
+        }
+
+        // 4.3 The Tube Resolver
+        const ttCode = extractTheTubeCode(server.src);
+        if (ttCode && tokens.ttResolve) {
+          const ttAuth = tokens.ttAuth || "";
+          const ttUrl = `${tokens.ttResolve}${encodeURIComponent(ttCode)}${ttAuth.startsWith("&") ? ttAuth : `&${ttAuth}`}`;
+          try {
+            const res = await this.fetchFn(ttUrl, {
+              headers: { Referer: referer },
+            });
+            if (res.ok) {
+              const text = await res.text();
+              if (!text.includes("aviso.mp4")) {
+                try {
+                  const ttJson = JSON.parse(text) as { master?: string; error?: string };
+                  if (ttJson.master && !ttJson.master.includes("aviso.mp4") && !ttJson.error) {
+                    resolvedStreams.push(ttJson.master);
+                  }
+                } catch {}
+              }
+            }
+          } catch {
+            // Continue to next server
+          }
         }
       }
 
-      // 4.2 SaveFiles Resolver
-      const sfCode = extractSaveFilesCode(server.src);
-      if (sfCode && tokens.sfResolve) {
-        const sfAuth = tokens.sfAuth || "";
-        const sfUrl = `${tokens.sfResolve}?code=${encodeURIComponent(sfCode)}${sfAuth.startsWith("&") ? sfAuth : `&${sfAuth}`}`;
-        try {
-          const res = await this.fetchFn(sfUrl, {
-            headers: { Referer: referer },
-          });
-          if (res.ok) {
-            const sfJson = (await res.json()) as { master?: string; error?: string };
-            if (sfJson.master && !sfJson.master.includes("aviso.mp4") && !sfJson.error) {
-              resolvedStreams.push(sfJson.master);
-            }
-          }
-        } catch {
-          // Continue to next server
-        }
-      }
-
-      // 4.3 The Tube Resolver
-      const ttCode = extractTheTubeCode(server.src);
-      if (ttCode && tokens.ttResolve) {
-        const ttAuth = tokens.ttAuth || "";
-        const ttUrl = `${tokens.ttResolve}${encodeURIComponent(ttCode)}${ttAuth.startsWith("&") ? ttAuth : `&${ttAuth}`}`;
-        try {
-          const res = await this.fetchFn(ttUrl, {
-            headers: { Referer: referer },
-          });
-          if (res.ok) {
-            const ttJson = (await res.json()) as { master?: string; error?: string };
-            if (ttJson.master && !ttJson.master.includes("aviso.mp4") && !ttJson.error) {
-              resolvedStreams.push(ttJson.master);
-            }
-          }
-        } catch {
-          // Continue to next server
-        }
+      if (resolvedStreams.length > 0) {
+        break;
       }
     }
 
     if (resolvedStreams.length > 0) {
       const primaryM3u8 = resolvedStreams[0];
       const secondaryM3u8 = resolvedStreams[1];
-      const referer = GNULA_BASE_URL;
+      const proxyReferer = GNULA_BASE_URL;
 
       return {
-        url: buildProxyUrl(primaryM3u8, referer, true),
-        fallbackUrl: secondaryM3u8 ? buildProxyUrl(secondaryM3u8, referer, true) : undefined,
+        url: buildProxyUrl(primaryM3u8, proxyReferer, true),
+        fallbackUrl: secondaryM3u8 ? buildProxyUrl(secondaryM3u8, proxyReferer, true) : undefined,
         directSegments: true,
         headers: {
-          Referer: referer,
+          Referer: proxyReferer,
         },
       };
     }
