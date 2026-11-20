@@ -13,6 +13,13 @@ test("unpackDeanEdwards correctly decodes packed JavaScript", () => {
   assert(unpacked.includes('var streamUrl="https://cdn.video.com/hls/master.m3u8";'));
 });
 
+test("unpackDeanEdwards correctly decodes packed JavaScript with r parameter", () => {
+  const codeWithR = `eval(function(p,a,c,k,e,r){while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+c.toString(a)+'\\\\b','g'),k[c]);return p}('0 1="2://3.4.5/6/7.8";',9,9,'var|streamUrl|https|cdn|video|com|hls|master|m3u8'.split('|')))`;
+  const unpacked = unpackDeanEdwards(codeWithR);
+  assert(unpacked !== null);
+  assert(unpacked.includes('var streamUrl="https://cdn.video.com/hls/master.m3u8";'));
+});
+
 test("extractVidhideM3u8 extracts master.m3u8 from embedded page", async (t) => {
   const originalFetch = global.fetch;
   const mockPageHtml = `

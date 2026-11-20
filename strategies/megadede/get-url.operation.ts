@@ -144,9 +144,11 @@ export class GetUrl implements StrategyGetUrl {
 
           if (m3u8Url && !isDeadCdn(m3u8Url)) {
             resolvedStreams.push({ m3u8Url, hosterReferer });
+          } else {
+            console.warn(`[Megadede] Could not extract valid stream from server '${embed.servername}' (${decryptedUrl})`);
           }
-        } catch {
-          // Continue to next embed
+        } catch (err) {
+          console.warn(`[Megadede] Error extracting from server '${embed.servername}':`, err);
         }
       }
 

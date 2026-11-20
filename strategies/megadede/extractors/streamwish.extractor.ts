@@ -1,12 +1,16 @@
 import { unpackDeanEdwards, extractM3u8FromUnpacked, isDeadCdn } from "./vidhide.extractor";
+import { fetchFlare } from "@/utils/flaresolverr";
 
 const STREAMWISH_MIRRORS = [
   "hanerix.com",
+  "swishsrv.com",
+  "embedwish.com",
+  "sfastwish.com",
+  "wishonly.site",
+  "swhoi.com",
+  "flaswish.com",
   "streamwish.to",
   "strwish.com",
-  "wishembed.pro",
-  "swishsrv.com",
-  "awish.pro",
   "hglink.to",
 ];
 
@@ -52,12 +56,30 @@ async function fetchStreamwishPage(url: string): Promise<string | null> {
         ) {
           continue;
         }
-        return text;
+        if (text.length > 50) {
+          return text;
+        }
       }
     } catch {
       // Continue to next candidate
     }
   }
+
+  // Fallback to fetchFlare in case Cloudflare challenge or bot protection is active
+  try {
+    const flareRes = await fetchFlare(url, {
+      headers: {
+        ...(originReferer ? { Referer: originReferer } : {}),
+      },
+    });
+    if (flareRes.ok) {
+      const flareHtml = await flareRes.text();
+      if (flareHtml && flareHtml.length > 50) {
+        return flareHtml;
+      }
+    }
+  } catch {}
+
   return null;
 }
 
@@ -70,11 +92,10 @@ export async function extractStreamwishM3u8(
   try {
     let html = await fetchStreamwishPage(embedUrl);
 
-    // If initial embedUrl failed (e.g. hglink.to returns 522/Cloudflare block), try alternate mirrors
+    // If initial embedUrl failed (e.g. primary domain timed out or blocked), try alternate mirrors
     if (!html) {
-      const parsed = new URL(embedUrl);
-      const isKnownMirror = STREAMWISH_MIRRORS.some((m) => parsed.hostname.includes(m));
-      if (isKnownMirror) {
+      try {
+        const parsed = new URL(embedUrl);
         for (const mirror of STREAMWISH_MIRRORS) {
           if (!parsed.hostname.includes(mirror)) {
             const alternateUrl = `${parsed.protocol}//${mirror}${parsed.pathname}${parsed.search}`;
@@ -85,7 +106,7 @@ export async function extractStreamwishM3u8(
             }
           }
         }
-      }
+      } catch {}
     }
 
     if (!html) return null;
@@ -107,8 +128,9 @@ export async function extractStreamwishM3u8(
     }
 
     // 3. Check packed script first (where JWPlayer setup and links are defined)
+    // Supports both (p,a,c,k,e,r) and (p,a,c,k,e,d) parameter variants
     const packedMatch = html.match(
-      /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\.split\(['"]\|['"]\)[\s\S]*?\)\)/,
+      /eval\s*\(\s*function\s*\(\s*p\s*,\s*a\s*,\s*c\s*,\s*k\s*,\s*e\s*,\s*[a-zA-Z0-9_]+[\s\S]*?\.split\(['"]\|['"]\)[\s\S]*?\)\)/,
     );
     if (packedMatch) {
       const unpacked = unpackDeanEdwards(packedMatch[0]);

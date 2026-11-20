@@ -20,6 +20,24 @@ test("extractStreamwishM3u8 extracts master.m3u8 from packed JavaScript", async 
   assert.strictEqual(m3u8, "https://cdn.streamwish.com/hls/master.m3u8");
 });
 
+test("extractStreamwishM3u8 extracts master.m3u8 from packed JavaScript with r parameter", async (t) => {
+  const originalFetch = global.fetch;
+  const mockPageHtml = `
+    <script>
+      eval(function(p,a,c,k,e,r){return p}('var links={"hls":"https://cdn.streamwish.com/hls/master.m3u8"};',1,1,''.split('|')))
+    </script>
+  `;
+
+  global.fetch = async () => new Response(mockPageHtml, { status: 200 });
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const m3u8 = await extractStreamwishM3u8("https://swishsrv.com/e/testrparam");
+  assert.strictEqual(m3u8, "https://cdn.streamwish.com/hls/master.m3u8");
+});
+
 test("extractStreamwishM3u8 extracts stream from unpacked sources array in raw HTML", async (t) => {
   const originalFetch = global.fetch;
   const mockPageHtml = `

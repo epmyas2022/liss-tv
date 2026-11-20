@@ -1,13 +1,25 @@
 export function unpackDeanEdwards(packedCode: string): string | null {
+  try {
+    const trimmed = packedCode.trim();
+    if (/^eval\s*\(\s*function\s*\(/.test(trimmed)) {
+      const runnable = trimmed.replace(/^eval\s*\(/, "return (");
+      const fn = new Function(runnable);
+      const res = fn();
+      if (typeof res === "string" && res.length > 0) {
+        return res;
+      }
+    }
+  } catch {}
+
   const match = packedCode.match(
-    /eval\(function\(p,a,c,k,e,d\)[\s\S]*?\}\((['"])([\s\S]*?)\1,\s*(\d+),\s*(\d+),\s*(['"])([\s\S]*?)\5\.split\(['"]\|['"]\)/
+    /eval\s*\(\s*function\s*\(\s*p\s*,\s*a\s*,\s*c\s*,\s*k\s*,\s*e\s*,\s*([a-zA-Z0-9_]+)\s*\)[\s\S]*?\}\s*\(\s*(['"])([\s\S]*?)\2\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(['"])([\s\S]*?)\6\.split\(['"]\|['"]\)/
   );
   if (!match) return null;
 
-  let p = match[2];
-  const aStr = match[3];
-  const cStr = match[4];
-  const kStr = match[6];
+  let p = match[3];
+  const aStr = match[4];
+  const cStr = match[5];
+  const kStr = match[7];
   const a = parseInt(aStr, 10);
   let c = parseInt(cStr, 10);
   const dict = kStr.split("|");
@@ -67,7 +79,7 @@ export function extractM3u8FromUnpacked(unpacked: string, embedUrl: string): str
 
   // 2. Check for jwplayer sources array: sources: [{ file: "..." }]
   const sourcesMatch = unpacked.match(
-    /sources\s*:\s*\[\s*\{\s*file\s*:\s*["']([^"']+)["']/,
+    /sources\s*:\s*\[\s*\{\s*(?:file|source|src)\s*:\s*["']([^"']+)["']/,
   );
   if (sourcesMatch) {
     const resolved = new URL(sourcesMatch[1], embedUrl).href;
@@ -76,9 +88,9 @@ export function extractM3u8FromUnpacked(unpacked: string, embedUrl: string): str
     }
   }
 
-  // 3. Check for JWPlayer direct file property: file: "..."
+  // 3. Check for JWPlayer/HTML5 direct property: file: "..." or source: "..." or src: "..."
   const fileMatch = unpacked.match(
-    /\bfile\s*:\s*["']([^"']+(?:\.m3u8|\.txt|master\.|index\.)[^"']*)["']/i
+    /\b(?:file|source|src)\s*:\s*["']([^"']+(?:\.m3u8|\.txt|master\.|index\.)[^"']*)["']/i
   );
   if (fileMatch) {
     const resolved = new URL(fileMatch[1], embedUrl).href;
