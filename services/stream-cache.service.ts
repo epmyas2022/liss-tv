@@ -2,10 +2,12 @@ import { get, getAny, remove, upsert } from "@/services/movie.store";
 import {
   hasManifest,
   getManifestPublicUrl,
+  saveManifest,
   saveManifestFromUpstream,
   normalizeMoviePath,
   type SaveManifestOptions,
 } from "@/services/minio.service";
+import { rewriteManifest } from "@/utils/m3u8";
 import type { Url } from "@/types/movie";
 import { inferProviderFromLink } from "@/utils/utils";
 
@@ -147,6 +149,48 @@ export async function persistUpstreamManifest(
     }
 
     return fallbackUrl;
+  }
+}
+
+/**
+ * Persists an in-memory M3U8 manifest directly into MinIO bucket,
+ * rewriting segments for local proxying, and updates SQLite persistent store.
+ */
+export async function persistManifestContent(
+  path: string,
+  content: string,
+  manifestUrl: string,
+  referer?: string,
+  providerId?: string,
+): Promise<string | null> {
+  const cleanPath = normalizeMoviePath(path);
+  if (!cleanPath) return null;
+  const targetProvider = providerId || inferProviderFromLink(path) || "sololatino";
+
+  try {
+    const origin =
+      process.env.APP_URL ||
+      process.env.NEXT_PUBLIC_APP_URL;
+    const rewritten = rewriteManifest(content, manifestUrl, {
+      baseOrigin: origin,
+      directSegments: true,
+      referer: referer,
+    });
+
+    const appUrl = await saveManifest(cleanPath, rewritten);
+    try {
+      upsert(targetProvider, path, { movieUrl: appUrl });
+      if (cleanPath !== path) {
+        upsert(targetProvider, cleanPath, { movieUrl: appUrl });
+      }
+    } catch {
+      // Ignore store upsert failure
+    }
+
+    return appUrl;
+  } catch (err) {
+    console.warn(`[StreamCache] Failed to save in-memory manifest for ${cleanPath}:`, err);
+    return null;
   }
 }
 

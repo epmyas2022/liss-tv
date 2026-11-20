@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import type { GetUrlOptions, StrategyGetUrl, Url } from "@/types/movie";
+import { persistManifestContent } from "@/services/stream-cache.service";
 import { gnulaFetch, GNULA_BASE_URL, GnulaError } from "./client";
 
 const DEFAULT_X_GN_SCR = "1920x1080|1920x1040|1920x969|1|0|0|8|8|24|0|1|hw";
@@ -349,10 +350,27 @@ export class GetUrl implements StrategyGetUrl {
                         );
                     resolvedStreams.push(fullDirect);
                   } else {
-                    const fullVdUrl = vdUrl.startsWith("http")
-                      ? vdUrl
-                      : `${cleanBase}${vdUrl.startsWith("/") ? "" : "/"}${vdUrl}`;
-                    resolvedStreams.push(fullVdUrl);
+                    let streamSaved: string | null = null;
+                    try {
+                      streamSaved = await persistManifestContent(
+                        path,
+                        text,
+                        vdUrl,
+                        referer,
+                        "gnula"
+                      );
+                    } catch {
+                      // Fallback to direct URL if persistence fails
+                    }
+
+                    if (streamSaved) {
+                      resolvedStreams.push(streamSaved);
+                    } else {
+                      const fullVdUrl = vdUrl.startsWith("http")
+                        ? vdUrl
+                        : `${cleanBase}${vdUrl.startsWith("/") ? "" : "/"}${vdUrl}`;
+                      resolvedStreams.push(fullVdUrl);
+                    }
                   }
                 }
               }
