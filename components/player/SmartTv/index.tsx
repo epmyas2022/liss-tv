@@ -6,6 +6,7 @@ import {
   Poster,
   Track,
   type MediaPlayerInstance,
+  type HLSProvider,
 } from "@vidstack/react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import {
@@ -351,7 +352,7 @@ export default function SmartTvPlayer({
         className="w-full h-full"
         onProviderChange={(provider) => {
           if (provider?.type === "hls") {
-            provider.config = {
+            (provider as HLSProvider).config = {
               maxBufferLength: 60,
               maxMaxBufferLength: 120,
               maxBufferSize: 100 * 1000 * 1000,

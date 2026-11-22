@@ -5,6 +5,7 @@ import {
   MediaProvider,
   Poster,
   Track,
+  type HLSProvider,
 } from "@vidstack/react";
 
 import { useState, useRef, useEffect } from "react";
@@ -126,7 +127,7 @@ export default function MobileAndDeskPlayer({
           poster={poster}
           onProviderChange={(provider) => {
             if (provider?.type === "hls") {
-              provider.config = {
+              (provider as HLSProvider).config = {
                 maxBufferLength: 60,
                 maxMaxBufferLength: 120,
                 maxBufferSize: 100 * 1000 * 1000,
