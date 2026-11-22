@@ -124,6 +124,18 @@ export default function MobileAndDeskPlayer({
           playsInline
           title={title}
           poster={poster}
+          onProviderChange={(provider) => {
+            if (provider?.type === "hls") {
+              provider.config = {
+                maxBufferLength: 60,
+                maxMaxBufferLength: 120,
+                maxBufferSize: 100 * 1000 * 1000,
+                abrBandWidthFactor: 0.8,
+                fragLoadingRetryDelay: 500,
+                startFragPrefetch: true,
+              };
+            }
+          }}
           onDurationChange={(dur) => performSeek(dur)}
           onCanPlay={() => performSeek()}
           onLoadedMetadata={() => performSeek()}

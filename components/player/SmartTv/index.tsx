@@ -349,6 +349,18 @@ export default function SmartTvPlayer({
         poster={poster}
         currentTime={startTime}
         className="w-full h-full"
+        onProviderChange={(provider) => {
+          if (provider?.type === "hls") {
+            provider.config = {
+              maxBufferLength: 60,
+              maxMaxBufferLength: 120,
+              maxBufferSize: 100 * 1000 * 1000,
+              abrBandWidthFactor: 0.8,
+              fragLoadingRetryDelay: 500,
+              startFragPrefetch: true,
+            };
+          }
+        }}
         onCanPlay={handleCanPlay}
         onError={onErrorCapture as any}
         onErrorCapture={onErrorCapture}
