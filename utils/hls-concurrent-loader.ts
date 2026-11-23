@@ -263,28 +263,25 @@ export function configureHlsInstance(hlsProvider: {
 
     instance.on("hlsManifestParsed", () => {
       try {
-        const levels: Array<{ height?: number }> = instance.levels || [];
+        const levels: Array<{ height?: number; bitrate?: number }> =
+          instance.levels || [];
         if (levels.length > 1) {
-          let best720Idx = levels.findIndex((lvl) => lvl.height === 720);
-          if (best720Idx === -1) {
-            for (let i = 0; i < levels.length; i++) {
-              const lvl = levels[i];
-              if (lvl.height && lvl.height <= 720) {
-                const currentBest = levels[best720Idx];
-                if (
-                  best720Idx === -1 ||
-                  (currentBest?.height && lvl.height > currentBest.height)
-                ) {
-                  best720Idx = i;
-                }
-              }
+          let highestIdx = levels.length - 1;
+          let maxScore = -1;
+          for (let i = 0; i < levels.length; i++) {
+            const lvl = levels[i];
+            const score =
+              (lvl.height || 0) * 10_000_000 + (lvl.bitrate || 0) + i;
+            if (score >= maxScore) {
+              maxScore = score;
+              highestIdx = i;
             }
           }
-          if (best720Idx !== -1) {
-            instance.autoLevelCapping = best720Idx;
-            if (instance.currentLevel === -1 || instance.startLevel === -1) {
-              instance.startLevel = best720Idx;
-            }
+          instance.autoLevelCapping = -1;
+          instance.startLevel = highestIdx;
+          instance.nextLoadLevel = highestIdx;
+          if (instance.currentLevel <= 0) {
+            instance.loadLevel = highestIdx;
           }
         }
       } catch {}
