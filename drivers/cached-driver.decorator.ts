@@ -67,8 +67,14 @@ export class CachedDriverDecorator implements MovieDriver {
     const cached = get(this.id, link);
     const isSerie = link.includes("serie");
 
+    const hasValidCachedTitle =
+      Boolean(cached?.title) &&
+      cached!.title!.trim().toLowerCase() !== this.name.toLowerCase();
+    const hasExcessiveCachedTags = (cached?.tags?.length ?? 0) > 10;
+
     if (
-      cached?.title &&
+      hasValidCachedTitle &&
+      !hasExcessiveCachedTags &&
       cached?.image &&
       cached?.backgroundImage &&
       !this.isPastDays(cached.updatedAt, 7) &&

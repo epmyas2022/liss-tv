@@ -5,17 +5,34 @@ import { GetDetail } from "../../../strategies/cinecalidad/get-detail.operation.
 test("GetDetail parses movie metadata and excludes trailer from embed options", async () => {
   const movieHtml = `
     <html>
-      <head><title>Madden (2026) - Cinecalidad</title></head>
+      <head>
+        <title>Ver Madden Online Gratis HD - Cinecalidad</title>
+        <meta property="og:title" content="Ver Madden Online Gratis HD - Cinecalidad" />
+      </head>
       <body>
+        <header>
+          <h1 class="h1titlecc">Cinecalidad</h1>
+          <nav>
+            <a href="https://www.cinecalidad.am/genero-de-la-pelicula/accion/">Acción</a>
+            <a href="https://www.cinecalidad.am/genero-de-la-pelicula/terror/">Terror</a>
+          </nav>
+        </header>
         <div class="single_left">
           <h1>Madden</h1>
           <img data-src="https://image.tmdb.org/t/p/w342/madden.jpg" src="data:image/png;base64,xxx" class="wp-post-image" />
           <p>La historia de John Madden en la NFL.</p>
+          <p>
+            <span><strong>Género:</strong>
+              <a href="https://www.cinecalidad.am/genero-de-la-pelicula/comedia/">Comedia</a>,
+              <a href="https://www.cinecalidad.am/genero-de-la-pelicula/drama/">Drama</a>
+            </span>
+          </p>
           <ul id="playeroptionsul">
             <li id="player-option-1" class="dooplay_player_option" data-option="https://vimeos.net/embed-h5hdebq7cuvi.html"><span>Vimeos</span></li>
             <li id="player-option-trailer" class="dooplay_player_option dooplay_player_option_trailer" data-option="https://www.youtube.com/embed/xzh7HzLXXpk"><span>Trailer</span></li>
           </ul>
         </div>
+        <footer><h1>Cinecalidad</h1></footer>
       </body>
     </html>
   `;
@@ -31,6 +48,7 @@ test("GetDetail parses movie metadata and excludes trailer from embed options", 
 
   assert.strictEqual(requestedPath, "/ver-pelicula/madden/");
   assert.strictEqual(detail.title, "Madden");
+  assert.deepStrictEqual(detail.tags, ["Comedia", "Drama"]);
   assert.strictEqual(detail.image, "https://image.tmdb.org/t/p/w342/madden.jpg");
   assert.strictEqual(detail.type, "movie");
   assert.strictEqual(detail.provider, "cinecalidad");
@@ -42,9 +60,16 @@ test("GetDetail parses movie metadata and excludes trailer from embed options", 
 test("GetDetail parses multi-season series and episode links from div#jstab containers", async () => {
   const serieHtml = `
     <html>
+      <head>
+        <title>Ver Serie CSI: Miami Online Gratis HD - Cinecalidad</title>
+        <meta property="og:title" content="Ver Serie CSI: Miami Online Gratis HD - Cinecalidad" />
+      </head>
       <body>
-        <h1>CSI: Miami</h1>
-        <img data-src="https://image.tmdb.org/t/p/w342/csi.jpg" />
+        <header><h1 class="h1titlecc">Cinecalidad</h1></header>
+        <div class="single_left">
+          <h1>CSI: Miami</h1>
+          <img data-src="https://image.tmdb.org/t/p/w342/csi.jpg" />
+        </div>
         <div id="jstab" data-tab="1" class="se-c">
           <ul class="episodios">
             <li class="mark-1">
@@ -76,6 +101,7 @@ test("GetDetail parses multi-season series and episode links from div#jstab cont
   const detail = await getDetail.operation("/serie/csi-miami");
 
   assert.strictEqual(requestedPath, "/ver-serie/csi-miami/");
+  assert.strictEqual(detail.title, "CSI: Miami");
   assert.strictEqual(detail.type, "serie");
   assert.strictEqual(detail.episodes?.length, 2);
   assert.strictEqual(detail.episodes?.[0].season, "1");

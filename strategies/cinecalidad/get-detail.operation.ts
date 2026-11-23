@@ -167,13 +167,29 @@ export class GetDetail implements StrategyGetMovieDetails {
     const html = await res.text();
     const $ = cheerio.load(html);
 
+    const nonBrandH1 = $("h1:not(.h1titlecc)")
+      .filter((_, el) => $(el).text().trim().toLowerCase() !== "cinecalidad")
+      .first()
+      .text()
+      .trim();
+
+    const ogTitle = $("meta[property='og:title']")
+      .attr("content")
+      ?.replace(/^Ver\s+(?:Serie\s+|Pel[ií]cula\s+)?/i, "")
+      .replace(/\s+Online\s+Gratis.*$/i, "")
+      .replace(/\s*-\s*Cinecalidad.*$/i, "")
+      .trim();
+
+    const cachedTitle =
+      cached?.title && cached.title.trim().toLowerCase() !== "cinecalidad"
+        ? cached.title
+        : undefined;
+
     let title =
-      $(".single_left h1, h1").first().text().trim() ||
-      $("meta[property='og:title']")
-        .attr("content")
-        ?.replace(/\s*-\s*Cinecalidad.*$/i, "")
-        .trim() ||
-      cached?.title ||
+      $(".single_left h1").first().text().trim() ||
+      nonBrandH1 ||
+      ogTitle ||
+      cachedTitle ||
       slug;
 
     const yearMatch =
@@ -206,10 +222,12 @@ export class GetDetail implements StrategyGetMovieDetails {
     });
 
     const tags: string[] = [];
-    $("a[href*='/genero-de-la-pelicula/'], .sgeneros a").each((_, gEl) => {
-      const g = $(gEl).text().trim();
-      if (g && !tags.includes(g)) tags.push(g);
-    });
+    $(".single_left a[href*='/genero-de-la-pelicula/'], .sgeneros a").each(
+      (_, gEl) => {
+        const g = $(gEl).text().trim();
+        if (g && !tags.includes(g)) tags.push(g);
+      },
+    );
 
     const embeds = extractEmbedOptions($);
     const episodes = parseSeasonsAndEpisodes($, poster, slug);
