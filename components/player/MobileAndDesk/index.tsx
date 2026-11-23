@@ -128,12 +128,17 @@ export default function MobileAndDeskPlayer({
           onProviderChange={(provider) => {
             if (provider?.type === "hls") {
               (provider as HLSProvider).config = {
-                maxBufferLength: 60,
-                maxMaxBufferLength: 120,
-                maxBufferSize: 100 * 1000 * 1000,
-                abrBandWidthFactor: 0.8,
-                fragLoadingRetryDelay: 500,
+                maxBufferLength: 180,
+                maxMaxBufferLength: 300,
+                maxBufferSize: 200 * 1000 * 1000,
+                backBufferLength: 60,
+                lowLatencyMode: false,
+                abrBandWidthFactor: 0.85,
+                fragLoadingRetryDelay: 1000,
+                fragLoadingMaxRetry: 4,
+                fragLoadingTimeOut: 20000,
                 startFragPrefetch: true,
+                maxFragLookUpTolerance: 0.25,
               };
             }
           }}

@@ -13,6 +13,37 @@ export function resolveUrl(uri: string, manifestUrl: string): string {
   return new URL(uri, base).href;
 }
 
+export function isManifestUri(uri: string): boolean {
+  try {
+    const urlObj = new URL(uri, "https://dummy.local");
+    const pathname = urlObj.pathname.toLowerCase();
+
+    // Si termina en extensión típica de segmento de video/audio, NO es manifiesto
+    if (/\.(ts|mp4|m4s|aac|mp3|m4a|webm|vtt)$/i.test(pathname)) {
+      return false;
+    }
+
+    // Si termina en .m3u8 o .txt
+    if (pathname.endsWith(".m3u8") || pathname.endsWith(".txt")) {
+      return true;
+    }
+
+    // Nombre de archivo sin extensión o rutas explícitas de playlists
+    const filename = pathname.split("/").pop() || "";
+    if (
+      filename === "master" ||
+      filename === "index" ||
+      filename === "playlist" ||
+      filename.startsWith("master.") ||
+      filename.startsWith("index.")
+    ) {
+      return true;
+    }
+  } catch {}
+
+  return uri.includes(".m3u8") || uri.includes(".txt");
+}
+
 export function rewriteManifest(
   body: string,
   manifestUrl: string,
@@ -52,11 +83,7 @@ export function rewriteManifest(
 
       if (trimmed !== "" && !trimmed.startsWith("#")) {
         const absolute = resolveUrl(trimmed, manifestUrl);
-        const isSubManifest =
-          absolute.includes(".m3u8") ||
-          absolute.includes(".txt") ||
-          absolute.includes("master.") ||
-          absolute.includes("index.");
+        const isSubManifest = isManifestUri(absolute);
 
         if (directSegments && !isSubManifest) {
           return absolute;

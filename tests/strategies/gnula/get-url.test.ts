@@ -602,8 +602,8 @@ test("GetUrl populates fallbackUrl when multiple valid streams resolve", async (
 
   const getUrl = new GetUrl(mockFetch);
   const result = await getUrl.operation("/ver/multi-test/");
-  assert.strictEqual(result.url, expectedProxyUrl("https://s1.savefiles.com/stream1.m3u8"));
-  assert.strictEqual(result.fallbackUrl, expectedProxyUrl("https://cdn.they.tube/stream2.m3u8"));
+  assert.strictEqual(result.url, expectedProxyUrl("https://cdn.they.tube/stream2.m3u8"));
+  assert.strictEqual(result.fallbackUrl, expectedProxyUrl("https://s1.savefiles.com/stream1.m3u8"));
   assert.strictEqual(result.headers?.Referer, "https://ww3.gnulahd.nu/");
 });
 

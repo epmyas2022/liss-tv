@@ -142,9 +142,9 @@ function extractVidaraInfo(src: string): { code: string; host: string } | null {
 
 function getServerPriority(src: string): number {
   const lower = src.toLowerCase();
-  if (lower.includes("savefiles.com")) return 1;
+  if (lower.includes("vidara.to") || lower.includes("vidaraa.cc")) return 1;
   if (lower.includes("the.tube") || lower.includes("they.tube")) return 2;
-  if (lower.includes("vidara.to") || lower.includes("vidaraa.cc")) return 3;
+  if (lower.includes("savefiles.com")) return 3;
   return 10;
 }
 
