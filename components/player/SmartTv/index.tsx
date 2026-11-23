@@ -352,19 +352,51 @@ export default function SmartTvPlayer({
         className="w-full h-full"
         onProviderChange={(provider) => {
           if (provider?.type === "hls") {
-            (provider as HLSProvider).config = {
+            const hls = provider as HLSProvider;
+            hls.config = {
               maxBufferLength: 120,
               maxMaxBufferLength: 180,
               maxBufferSize: 100 * 1000 * 1000,
               backBufferLength: 30,
               lowLatencyMode: false,
-              abrBandWidthFactor: 0.8,
+              abrBandWidthFactor: 0.7,
+              abrMaxWithRealBitrate: true,
+              capLevelToPlayerSize: true,
               fragLoadingRetryDelay: 1000,
               fragLoadingMaxRetry: 4,
               fragLoadingTimeOut: 20000,
               startFragPrefetch: true,
               maxFragLookUpTolerance: 0.25,
             };
+
+            // Limitar calidad máxima a 720p para evitar saturación de red y CPU en Smart TV
+            if (hls.instance) {
+              hls.instance.on("hlsManifestParsed" as any, () => {
+                try {
+                  const levels = hls.instance?.levels || [];
+                  if (levels.length > 1) {
+                    const targetIdx = levels.findIndex((lvl: { height?: number }) => lvl.height === 720);
+                    if (targetIdx !== -1) {
+                      hls.instance!.autoLevelCapping = targetIdx;
+                    } else {
+                      let max720Idx = -1;
+                      for (let i = 0; i < levels.length; i++) {
+                        const lvl = levels[i] as { height?: number };
+                        if (lvl.height && lvl.height <= 720) {
+                          const currentBest = levels[max720Idx] as { height?: number } | undefined;
+                          if (max720Idx === -1 || (currentBest?.height && lvl.height > currentBest.height)) {
+                            max720Idx = i;
+                          }
+                        }
+                      }
+                      if (max720Idx !== -1) {
+                        hls.instance!.autoLevelCapping = max720Idx;
+                      }
+                    }
+                  }
+                } catch {}
+              });
+            }
           }
         }}
         onCanPlay={handleCanPlay}
