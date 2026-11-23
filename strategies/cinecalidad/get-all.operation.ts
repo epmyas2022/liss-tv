@@ -149,7 +149,9 @@ export class GetAll implements StrategyGetAllMovies {
   }
 
   async operation(
-    searchOrQuery?: string | DriverQuery,
+    searchOrQuery?:
+      | string
+      | (DriverQuery & { filter?: string; page?: number }),
     slug?: string,
     pageNumber: number = 1,
   ): Promise<Movies> {
@@ -159,8 +161,8 @@ export class GetAll implements StrategyGetAllMovies {
 
     if (typeof searchOrQuery === "object" && searchOrQuery !== null) {
       search = searchOrQuery.search || "";
-      filter = searchOrQuery.filter || "";
-      page = searchOrQuery.page ?? 1;
+      filter = searchOrQuery.filter || searchOrQuery.slug || "";
+      page = searchOrQuery.page ?? searchOrQuery.pageNumber ?? 1;
     } else {
       search = searchOrQuery || "";
       filter = slug || "";

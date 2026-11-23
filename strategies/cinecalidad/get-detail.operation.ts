@@ -1,9 +1,9 @@
 import * as cheerio from "cheerio";
 import type {
   Episode,
-  MovieDetail,
-  SeasonGroup,
-  StrategyGetDetailMovie,
+  MediaDetail,
+  Season,
+  StrategyGetMovieDetails,
 } from "@/types/movie";
 import { get } from "@/services/movie.store";
 import { cinecalidadFetch } from "./client";
@@ -88,7 +88,7 @@ function parseSeasonsAndEpisodes(
   $: cheerio.CheerioAPI,
   defaultImage: string,
   seriesSlug: string,
-): SeasonGroup[] {
+): Season[] {
   const seasonMap = new Map<number, Episode[]>();
 
   $("div#jstab[data-tab], div.se-c[data-tab]").each((_, containerEl) => {
@@ -131,7 +131,6 @@ function parseSeasonsAndEpisodes(
           link: epPath,
           image: epImg,
           caption: "",
-          season: seasonNumber,
           context: {
             provider: "cinecalidad",
             slug: seriesSlug,
@@ -147,19 +146,19 @@ function parseSeasonsAndEpisodes(
   return Array.from(seasonMap.entries())
     .sort(([a], [b]) => a - b)
     .map(([season, episodes]) => ({
-      season,
+      season: String(season),
       episodes,
     }));
 }
 
-export class GetDetail implements StrategyGetDetailMovie {
+export class GetDetail implements StrategyGetMovieDetails {
   private readonly fetchFn: typeof fetch;
 
   constructor(fetchFn: typeof fetch = cinecalidadFetch as typeof fetch) {
     this.fetchFn = fetchFn;
   }
 
-  async operation(link: string): Promise<MovieDetail> {
+  async operation(link: string): Promise<MediaDetail> {
     const { upstreamPath, appLink, slug, isSerieHint } =
       resolveUpstreamDetailPath(link);
     const cached = get("cinecalidad", appLink) || get("cinecalidad", link);

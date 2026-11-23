@@ -20,6 +20,17 @@ export function inferProviderFromLink(
     return "serieslan";
   }
   if (
+    clean.includes("cinecalidad") ||
+    clean.startsWith("ver-pelicula/") ||
+    clean.startsWith("/ver-pelicula/") ||
+    clean.startsWith("ver-serie/") ||
+    clean.startsWith("/ver-serie/") ||
+    clean.startsWith("ver-el-episodio/") ||
+    clean.startsWith("/ver-el-episodio/")
+  ) {
+    return "cinecalidad";
+  }
+  if (
     clean.includes("gnula") ||
     /^[a-z0-9_-]+-\d+x\d+/.test(clean.replace(/^\/+/, "")) ||
     clean.startsWith("ver/") ||
@@ -90,6 +101,14 @@ export function getPlayerHref(link: string): string {
   // Gnula movie format, e.g. "ver/godzilla-minus-one"
   if (parts[0] === "ver" && parts[1]) {
     return `/pelicula/${parts[1]}/player${querySuffix}`;
+  }
+
+  // Cinecalidad movie & series formats
+  if (parts[0] === "ver-pelicula" && parts[1]) {
+    return `/pelicula/${parts[1]}/player${querySuffix}`;
+  }
+  if ((parts[0] === "ver-serie" || parts[0] === "ver-el-episodio") && parts[1]) {
+    return `/serie/${parts[1]}/player${querySuffix}`;
   }
 
   return `/${parts.slice(0, 2).join("/")}/player${querySuffix}`;

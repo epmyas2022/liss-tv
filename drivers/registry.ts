@@ -26,6 +26,9 @@ export class DriverRegistry {
 
       const seriesmetroContext = MovieContextFactory.driver("seriesmetro");
       this.register(new CachedDriverDecorator(seriesmetroContext));
+
+      const cinecalidadContext = MovieContextFactory.driver("cinecalidad");
+      this.register(new CachedDriverDecorator(cinecalidadContext));
     } catch (err) {
       console.warn("[DriverRegistry] Warning initializing built-in drivers:", err);
     }

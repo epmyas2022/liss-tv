@@ -60,7 +60,7 @@ test("GetUrl resolves series episode from season and episode options", async () 
   const getUrl = new GetUrl(mockFetch, mockExtractor);
   const result = await getUrl.operation("/serie/csi-miami#s1-e2");
 
-  assert.ok(result.url.includes("tokEp2"));
+  assert.ok(result.url?.includes("tokEp2"));
   assert.strictEqual(result.directSegments, false);
 });
 

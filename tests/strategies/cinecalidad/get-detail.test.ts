@@ -78,10 +78,10 @@ test("GetDetail parses multi-season series and episode links from div#jstab cont
   assert.strictEqual(requestedPath, "/ver-serie/csi-miami/");
   assert.strictEqual(detail.type, "serie");
   assert.strictEqual(detail.episodes?.length, 2);
-  assert.strictEqual(detail.episodes?.[0].season, 1);
+  assert.strictEqual(detail.episodes?.[0].season, "1");
   assert.strictEqual(detail.episodes?.[0].episodes[0].numberEpisode, "1");
   assert.strictEqual(detail.episodes?.[0].episodes[0].title, "Paracaídas de oro");
   assert.strictEqual(detail.episodes?.[0].episodes[0].link, "/ver-el-episodio/tmdb-1620-s1-e1/");
-  assert.strictEqual(detail.episodes?.[1].season, 2);
+  assert.strictEqual(detail.episodes?.[1].season, "2");
   assert.strictEqual(detail.episodes?.[1].episodes[0].link, "/ver-el-episodio/tmdb-1620-s2-e1/");
 });
