@@ -192,9 +192,14 @@ export async function GET(req: NextRequest) {
     // ------------------------------------------------------------------
     // SEGMENT path — stream directly with native fetch, no proxy.
     // ------------------------------------------------------------------
+    const isThirdPartyPublicCdn =
+      /tiktokcdn\.com|byteimg\.com|ibytedtos\.com|ttwstatic\.com/i.test(url);
+
     const segmentHeaders: Record<string, string> = {
       "user-agent": BROWSER_UA,
-      ...(effectiveReferer ? { referer: effectiveReferer } : {}),
+      ...(effectiveReferer && !isThirdPartyPublicCdn
+        ? { referer: effectiveReferer }
+        : {}),
     };
 
     const rangeHeader = req.headers.get("range");
@@ -202,7 +207,8 @@ export async function GET(req: NextRequest) {
       segmentHeaders["range"] = rangeHeader;
     }
 
-    const MAX_RETRIES = 2;
+    const RETRY_DELAYS_MS = [350, 800, 1500, 2400];
+    const MAX_RETRIES = RETRY_DELAYS_MS.length;
     let upstreamRes: Response | null = null;
     let lastError: unknown = null;
 
@@ -212,7 +218,8 @@ export async function GET(req: NextRequest) {
       }
 
       if (attempt > 0) {
-        await new Promise((r) => setTimeout(r, attempt * 150));
+        const delayMs = RETRY_DELAYS_MS[attempt - 1] ?? 2000;
+        await new Promise((r) => setTimeout(r, delayMs));
       }
 
       // Timeout only applies to initial connection & receiving HTTP headers (15s)
@@ -226,10 +233,16 @@ export async function GET(req: NextRequest) {
       req.signal?.addEventListener("abort", onReqAbort);
 
       try {
+        // On retry attempts, avoid reusing potentially poisoned keep-alive sockets in segmentAgent
+        const attemptHeaders =
+          attempt > 0
+            ? { ...segmentHeaders, connection: "close" }
+            : segmentHeaders;
+
         const res = await fetch(url, {
-          headers: segmentHeaders,
+          headers: attemptHeaders,
           signal: controller.signal,
-          dispatcher: segmentAgent,
+          ...(attempt === 0 ? { dispatcher: segmentAgent } : {}),
         } as RequestInit & { dispatcher?: Agent });
 
         if (res.ok || res.status === 206) {
@@ -237,10 +250,11 @@ export async function GET(req: NextRequest) {
           break;
         }
 
-        // Retry on transient upstream server errors (5xx, 429, 408)
+        // Retry on transient upstream server errors (5xx, 530 edge origin miss, 429, 408)
         if (res.status >= 500 || res.status === 429 || res.status === 408) {
+          await res.body?.cancel().catch(() => {});
           console.warn(
-            `[m3u8 proxy] Transient upstream error ${res.status} on attempt ${attempt + 1} for ${url}`,
+            `[m3u8 proxy] Transient upstream error ${res.status} on attempt ${attempt + 1}/${MAX_RETRIES + 1} for ${url}`,
           );
           lastError = new Error(`Upstream returned ${res.status}`);
           continue;
