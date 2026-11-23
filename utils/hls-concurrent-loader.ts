@@ -36,23 +36,104 @@ const pendingPrefetches = new Map<
   Promise<{ data: ArrayBuffer; durationMs: number } | null>
 >();
 const levelFragmentsMap = new Map<number, HlsFragmentLike[]>();
+const blockedDirectHosts = new Set<string>();
 
 const MAX_CACHE_ITEMS = 24;
 const PREFETCH_AHEAD_COUNT = 3;
 const CACHE_TTL_MS = 120_000;
 
+function hasValidByteRange(rangeStart?: number, rangeEnd?: number): boolean {
+  return (
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
+    Number.isFinite(rangeStart) &&
+    Number.isFinite(rangeEnd) &&
+    rangeStart >= 0 &&
+    rangeEnd > rangeStart
+  );
+}
+
 function buildCacheKey(url: string, rangeStart?: number, rangeEnd?: number): string {
-  if (Number.isFinite(rangeStart) && Number.isFinite(rangeEnd)) {
+  if (hasValidByteRange(rangeStart, rangeEnd)) {
     return `${url}#bytes=${rangeStart}-${(rangeEnd as number) - 1}`;
   }
   return url;
 }
 
 function buildRangeHeader(rangeStart?: number, rangeEnd?: number): Record<string, string> | undefined {
-  if (Number.isFinite(rangeStart) && Number.isFinite(rangeEnd)) {
+  if (hasValidByteRange(rangeStart, rangeEnd)) {
     return { Range: `bytes=${rangeStart}-${(rangeEnd as number) - 1}` };
   }
   return undefined;
+}
+
+function getHostname(url: string): string | null {
+  try {
+    if (/^https?:\/\//i.test(url)) {
+      return new URL(url).hostname.toLowerCase();
+    }
+  } catch {}
+  return null;
+}
+
+function isDirectExternalUrl(url: string): boolean {
+  if (!url || url.startsWith("/") || url.includes("/api/video/m3u8")) {
+    return false;
+  }
+  if (typeof window !== "undefined" && url.startsWith(window.location.origin)) {
+    return false;
+  }
+  return /^https?:\/\//i.test(url);
+}
+
+function toProxyUrl(url: string): string {
+  return `/api/video/m3u8?url=${encodeURIComponent(url)}`;
+}
+
+function resolveEffectiveSegmentUrl(url: string): string {
+  if (!isDirectExternalUrl(url)) return url;
+  const host = getHostname(url);
+  if (host && blockedDirectHosts.has(host)) {
+    return toProxyUrl(url);
+  }
+  return url;
+}
+
+async function fetchSegmentWithFallback(
+  rawUrl: string,
+  headers: Record<string, string> | undefined,
+  signal?: AbortSignal,
+): Promise<Response> {
+  const effectiveUrl = resolveEffectiveSegmentUrl(rawUrl);
+
+  try {
+    const res = await fetch(effectiveUrl, {
+      ...(headers ? { headers } : {}),
+      ...(signal ? { signal } : {}),
+    });
+    if (!res.ok && res.status !== 206 && isDirectExternalUrl(effectiveUrl)) {
+      const host = getHostname(rawUrl);
+      if (host) blockedDirectHosts.add(host);
+      return await fetch(toProxyUrl(rawUrl), {
+        ...(headers ? { headers } : {}),
+        ...(signal ? { signal } : {}),
+      });
+    }
+    return res;
+  } catch (err: any) {
+    if (err?.name === "AbortError" || signal?.aborted) {
+      throw err;
+    }
+    if (isDirectExternalUrl(effectiveUrl)) {
+      const host = getHostname(rawUrl);
+      if (host) blockedDirectHosts.add(host);
+      return await fetch(toProxyUrl(rawUrl), {
+        ...(headers ? { headers } : {}),
+        ...(signal ? { signal } : {}),
+      });
+    }
+    throw err;
+  }
 }
 
 function pruneCache() {
@@ -122,7 +203,7 @@ export function prefetchSegment(
   const t0 = performance.now();
   const headers = buildRangeHeader(rangeStart, rangeEnd);
 
-  const promise = fetch(url, headers ? { headers } : undefined)
+  const promise = fetchSegmentWithFallback(url, headers)
     .then(async (res) => {
       if (!res.ok && res.status !== 206) return null;
       const data = await res.arrayBuffer();
@@ -246,6 +327,7 @@ export function configureHlsInstance(hlsProvider: {
  * 1. Serves pre-downloaded segments from memory immediately.
  * 2. Joins in-flight parallel prefetch promises instead of starting duplicate downloads.
  * 3. Triggers parallel prefetching of upcoming segments (sn + 1 .. sn + 3).
+ * 4. Transparently falls back to `/api/video/m3u8` proxy if direct CDN connections are reset/blocked.
  */
 export function createConcurrentFragmentLoader(_HlsClass?: unknown) {
   return class ConcurrentFragmentLoader {
@@ -351,10 +433,7 @@ export function createConcurrentFragmentLoader(_HlsClass?: unknown) {
       this.abortController = new AbortController();
       const headers = buildRangeHeader(rangeStart, rangeEnd);
 
-      fetch(url, {
-        ...(headers ? { headers } : {}),
-        signal: this.abortController.signal,
-      })
+      fetchSegmentWithFallback(url, headers, this.abortController.signal)
         .then(async (res) => {
           if (!res.ok && res.status !== 206) {
             callbacks.onError(
