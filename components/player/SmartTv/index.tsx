@@ -22,6 +22,7 @@ import FocusContextProvider from "@/components/providers/FocusContextProvider";
 import FocusElementProvider from "@/components/providers/FocusElementProvider";
 import { useFocusable } from "@noriginmedia/norigin-spatial-navigation-react";
 import { type VideoPlayerProps } from "@/components/player/types";
+import { createConcurrentFragmentLoader } from "@/utils/hls-concurrent-loader";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 const SEEK_SECONDS = 10;
@@ -353,6 +354,9 @@ export default function SmartTvPlayer({
         onProviderChange={(provider) => {
           if (provider?.type === "hls") {
             const hls = provider as HLSProvider;
+            const HlsConstructor = (hls as any).ctor;
+            const fLoader = HlsConstructor ? createConcurrentFragmentLoader(HlsConstructor) : undefined;
+
             hls.config = {
               maxBufferLength: 120,
               maxMaxBufferLength: 180,
@@ -367,6 +371,7 @@ export default function SmartTvPlayer({
               fragLoadingTimeOut: 20000,
               startFragPrefetch: true,
               maxFragLookUpTolerance: 0.25,
+              ...(fLoader ? { fLoader } : {}),
             };
 
             // Limitar calidad máxima a 720p para evitar saturación de red y CPU en Smart TV

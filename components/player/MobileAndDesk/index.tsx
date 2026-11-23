@@ -20,6 +20,7 @@ import "@vidstack/react/player/styles/default/layouts/video.css";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
 import FocusElementProvider from "@/components/providers/FocusElementProvider";
 import { type VideoPlayerProps } from "@/components/player/types";
+import { createConcurrentFragmentLoader } from "@/utils/hls-concurrent-loader";
 
 export default function MobileAndDeskPlayer({
   src,
@@ -128,6 +129,9 @@ export default function MobileAndDeskPlayer({
           onProviderChange={(provider) => {
             if (provider?.type === "hls") {
               const hls = provider as HLSProvider;
+              const HlsConstructor = (hls as any).ctor;
+              const fLoader = HlsConstructor ? createConcurrentFragmentLoader(HlsConstructor) : undefined;
+
               hls.config = {
                 maxBufferLength: 180,
                 maxMaxBufferLength: 300,
@@ -142,6 +146,7 @@ export default function MobileAndDeskPlayer({
                 fragLoadingTimeOut: 20000,
                 startFragPrefetch: true,
                 maxFragLookUpTolerance: 0.25,
+                ...(fLoader ? { fLoader } : {}),
               };
 
               // Si el stream tiene variantes múltiples, limitar o preferir <= 720p para máxima fluidez
