@@ -77,7 +77,10 @@ export function rewriteManifest(
       if (trimmed.startsWith("#") && trimmed.includes("URI=")) {
         return line.replace(/URI="([^"]+)"/gi, (_, uri: string) => {
           const absolute = resolveUrl(uri, manifestUrl);
-          return `URI="${prefix}?url=${encodeURIComponent(absolute)}${refererParam}"`;
+          const isSubManifest = isManifestUri(absolute);
+          const directParam =
+            directSegments && isSubManifest ? "&directSegments=true" : "";
+          return `URI="${prefix}?url=${encodeURIComponent(absolute)}${directParam}${refererParam}"`;
         });
       }
 

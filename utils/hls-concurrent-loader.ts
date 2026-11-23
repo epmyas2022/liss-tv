@@ -1,142 +1,367 @@
-/**
- * Cache en memoria para segmentos precargados de forma concurrente
- */
-const segmentCache = new Map<string, { data: ArrayBuffer; timestamp: number }>();
-const pendingPrefetches = new Map<string, Promise<ArrayBuffer | null>>();
-const MAX_CACHE_ITEMS = 30;
+interface CachedSegment {
+  data: ArrayBuffer;
+  timestamp: number;
+  durationMs: number;
+}
+
+interface HlsFragmentLike {
+  sn: number | "initSegment";
+  url?: string;
+  level?: number;
+  byteRangeStartOffset?: number;
+  byteRangeEndOffset?: number;
+  levelDetails?: {
+    fragments?: HlsFragmentLike[];
+  };
+}
+
+export interface HlsLoadStats {
+  aborted: boolean;
+  loaded: number;
+  retry: number;
+  total: number;
+  chunkCount: number;
+  bwEstimate: number;
+  loading: { start: number; first: number; end: number };
+  parsing: { start: number; end: number };
+  buffering: { start: number; first: number; end: number };
+  trequest: number;
+  tfirst: number;
+  tload: number;
+}
+
+const segmentCache = new Map<string, CachedSegment>();
+const pendingPrefetches = new Map<
+  string,
+  Promise<{ data: ArrayBuffer; durationMs: number } | null>
+>();
+const levelFragmentsMap = new Map<number, HlsFragmentLike[]>();
+
+const MAX_CACHE_ITEMS = 24;
+const PREFETCH_AHEAD_COUNT = 3;
+const CACHE_TTL_MS = 120_000;
+
+function buildCacheKey(url: string, rangeStart?: number, rangeEnd?: number): string {
+  if (Number.isFinite(rangeStart) && Number.isFinite(rangeEnd)) {
+    return `${url}#bytes=${rangeStart}-${(rangeEnd as number) - 1}`;
+  }
+  return url;
+}
+
+function buildRangeHeader(rangeStart?: number, rangeEnd?: number): Record<string, string> | undefined {
+  if (Number.isFinite(rangeStart) && Number.isFinite(rangeEnd)) {
+    return { Range: `bytes=${rangeStart}-${(rangeEnd as number) - 1}` };
+  }
+  return undefined;
+}
 
 function pruneCache() {
-  if (segmentCache.size > MAX_CACHE_ITEMS) {
+  const now = Date.now();
+  for (const [key, entry] of segmentCache.entries()) {
+    if (now - entry.timestamp > CACHE_TTL_MS) {
+      segmentCache.delete(key);
+    }
+  }
+  while (segmentCache.size > MAX_CACHE_ITEMS) {
     const oldestKey = segmentCache.keys().next().value;
-    if (oldestKey) segmentCache.delete(oldestKey);
+    if (!oldestKey) break;
+    segmentCache.delete(oldestKey);
+  }
+}
+
+function createFreshStats(): HlsLoadStats {
+  return {
+    aborted: false,
+    loaded: 0,
+    retry: 0,
+    total: 0,
+    chunkCount: 0,
+    bwEstimate: 0,
+    loading: { start: 0, first: 0, end: 0 },
+    parsing: { start: 0, end: 0 },
+    buffering: { start: 0, first: 0, end: 0 },
+    trequest: 0,
+    tfirst: 0,
+    tload: 0,
+  };
+}
+
+function populateStats(
+  stats: HlsLoadStats,
+  byteLength: number,
+  startMs: number,
+  firstMs: number,
+  endMs: number,
+): HlsLoadStats {
+  const safeEnd = Math.max(endMs, startMs + 1);
+  const safeFirst = Math.min(Math.max(firstMs, startMs), safeEnd);
+  stats.loaded = byteLength;
+  stats.total = byteLength;
+  stats.chunkCount = 1;
+  stats.loading.start = startMs;
+  stats.loading.first = safeFirst;
+  stats.loading.end = safeEnd;
+  stats.trequest = startMs;
+  stats.tfirst = safeFirst;
+  stats.tload = safeEnd;
+  return stats;
+}
+
+/**
+ * Pre-fetches a segment in the background if not already cached or in flight.
+ */
+export function prefetchSegment(
+  url: string,
+  rangeStart?: number,
+  rangeEnd?: number,
+) {
+  if (!url) return;
+  const key = buildCacheKey(url, rangeStart, rangeEnd);
+  if (segmentCache.has(key) || pendingPrefetches.has(key)) return;
+
+  const t0 = performance.now();
+  const headers = buildRangeHeader(rangeStart, rangeEnd);
+
+  const promise = fetch(url, headers ? { headers } : undefined)
+    .then(async (res) => {
+      if (!res.ok && res.status !== 206) return null;
+      const data = await res.arrayBuffer();
+      const durationMs = Math.max(1, performance.now() - t0);
+      return { data, durationMs };
+    })
+    .then((result) => {
+      if (result && result.data.byteLength > 0) {
+        segmentCache.set(key, {
+          data: result.data,
+          timestamp: Date.now(),
+          durationMs: result.durationMs,
+        });
+        pruneCache();
+      }
+      pendingPrefetches.delete(key);
+      return result;
+    })
+    .catch(() => {
+      pendingPrefetches.delete(key);
+      return null;
+    });
+
+  pendingPrefetches.set(key, promise);
+}
+
+function prefetchNextFromList(
+  fragments: HlsFragmentLike[] | undefined,
+  currentSn: number | "initSegment",
+) {
+  if (!Array.isArray(fragments) || typeof currentSn !== "number") return;
+
+  for (let step = 1; step <= PREFETCH_AHEAD_COUNT; step++) {
+    const nextFrag = fragments.find((f) => f.sn === currentSn + step);
+    if (nextFrag?.url) {
+      prefetchSegment(
+        nextFrag.url,
+        nextFrag.byteRangeStartOffset,
+        nextFrag.byteRangeEndOffset,
+      );
+    }
   }
 }
 
 /**
- * Precarga en background un segmento si no está en cache
+ * Attaches level-capping (<= 720p) and concurrent ahead-of-time segment prefetching
+ * to a Vidstack HLSProvider via `hls.onInstance(...)`, ensuring hooks run even when
+ * `hls.js` is loaded asynchronously after `onProviderChange`.
  */
-export function prefetchSegment(url: string) {
-  if (!url || segmentCache.has(url) || pendingPrefetches.has(url)) return;
+export function configureHlsInstance(hlsProvider: {
+  instance?: any;
+  onInstance?: (cb: (instance: any) => void) => void;
+}) {
+  const bindInstance = (instance: any) => {
+    if (!instance || instance.__lissConfigured) return;
+    instance.__lissConfigured = true;
 
-  const promise = fetch(url)
-    .then((res) => {
-      if (!res.ok) return null;
-      return res.arrayBuffer();
-    })
-    .then((buf) => {
-      if (buf) {
-        segmentCache.set(url, { data: buf, timestamp: Date.now() });
-        pruneCache();
-      }
-      pendingPrefetches.delete(url);
-      return buf;
-    })
-    .catch(() => {
-      pendingPrefetches.delete(url);
-      return null;
+    instance.on("hlsManifestParsed", () => {
+      try {
+        const levels: Array<{ height?: number }> = instance.levels || [];
+        if (levels.length > 1) {
+          let best720Idx = levels.findIndex((lvl) => lvl.height === 720);
+          if (best720Idx === -1) {
+            for (let i = 0; i < levels.length; i++) {
+              const lvl = levels[i];
+              if (lvl.height && lvl.height <= 720) {
+                const currentBest = levels[best720Idx];
+                if (
+                  best720Idx === -1 ||
+                  (currentBest?.height && lvl.height > currentBest.height)
+                ) {
+                  best720Idx = i;
+                }
+              }
+            }
+          }
+          if (best720Idx !== -1) {
+            instance.autoLevelCapping = best720Idx;
+            if (instance.currentLevel === -1 || instance.startLevel === -1) {
+              instance.startLevel = best720Idx;
+            }
+          }
+        }
+      } catch {}
     });
 
-  pendingPrefetches.set(url, promise);
+    instance.on("hlsLevelLoaded", (_event: unknown, data: any) => {
+      try {
+        const levelIndex = typeof data?.level === "number" ? data.level : 0;
+        const fragments: HlsFragmentLike[] | undefined = data?.details?.fragments;
+        if (Array.isArray(fragments) && fragments.length > 0) {
+          levelFragmentsMap.set(levelIndex, fragments);
+        }
+      } catch {}
+    });
+
+    instance.on("hlsFragLoading", (_event: unknown, data: any) => {
+      try {
+        const frag: HlsFragmentLike | undefined = data?.frag;
+        if (!frag || typeof frag.sn !== "number") return;
+        const levelIdx = typeof frag.level === "number" ? frag.level : 0;
+        const fragments: HlsFragmentLike[] | undefined =
+          instance.levels?.[levelIdx]?.details?.fragments ||
+          levelFragmentsMap.get(levelIdx) ||
+          frag.levelDetails?.fragments;
+        prefetchNextFromList(fragments, frag.sn);
+      } catch {}
+    });
+  };
+
+  if (typeof hlsProvider.onInstance === "function") {
+    hlsProvider.onInstance(bindInstance);
+  }
+  if (hlsProvider.instance) {
+    bindInstance(hlsProvider.instance);
+  }
 }
 
 /**
- * Custom Fragment Loader para Hls.js que:
- * 1. Devuelve instantáneamente el segmento si ya fue pre-descargado en paralelo.
- * 2. Si no, lo descarga y simultáneamente dispara la pre-descarga de los siguientes 2 segmentos en paralelo.
+ * Custom Fragment Loader for Hls.js v1.x that:
+ * 1. Serves pre-downloaded segments from memory immediately.
+ * 2. Joins in-flight parallel prefetch promises instead of starting duplicate downloads.
+ * 3. Triggers parallel prefetching of upcoming segments (sn + 1 .. sn + 3).
  */
-export function createConcurrentFragmentLoader(HlsClass: any) {
-  const BaseLoader = HlsClass?.DefaultConfig?.loader || class {};
-
-  return class ConcurrentFragmentLoader extends (BaseLoader as any) {
+export function createConcurrentFragmentLoader(_HlsClass?: unknown) {
+  return class ConcurrentFragmentLoader {
+    public stats: HlsLoadStats = createFreshStats();
+    public context: any = null;
     private abortController: AbortController | null = null;
 
-    load(context: any, config: any, callbacks: any) {
-      const url = context.url;
+    constructor(_config?: unknown) {
+      this.stats = createFreshStats();
+    }
 
-      // 1. Si el segmento ya está en nuestra cache en memoria, entregarlo de inmediato (0ms de latencia)
-      if (segmentCache.has(url)) {
-        const cached = segmentCache.get(url)!;
-        segmentCache.delete(url);
+    load(context: any, _config: any, callbacks: any) {
+      this.context = context;
+      this.stats = createFreshStats();
 
-        // Desencadenar prefetch de los siguientes segmentos de la lista si están disponibles
-        this.prefetchUpcomingFragments(context);
+      const url: string = context.url;
+      const rangeStart: number | undefined = context.rangeStart;
+      const rangeEnd: number | undefined = context.rangeEnd;
+      const cacheKey = buildCacheKey(url, rangeStart, rangeEnd);
+
+      this.prefetchUpcomingFragments(context);
+
+      // 1. Immediate memory cache hit
+      if (segmentCache.has(cacheKey)) {
+        const cached = segmentCache.get(cacheKey)!;
+        segmentCache.delete(cacheKey);
+
+        const now = performance.now();
+        const syntheticStart = Math.max(0, now - cached.durationMs);
+        populateStats(
+          this.stats,
+          cached.data.byteLength,
+          syntheticStart,
+          syntheticStart + Math.min(10, cached.durationMs * 0.2),
+          now,
+        );
 
         callbacks.onSuccess(
-          {
-            url,
-            data: cached.data,
-          },
-          {
-            trequest: performance.now(),
-            tfirst: performance.now(),
-            tload: performance.now(),
-            loaded: cached.data.byteLength,
-            total: cached.data.byteLength,
-          },
-          context
+          { url, data: cached.data },
+          this.stats,
+          context,
+          null,
         );
         return;
       }
 
-      // 2. Si hay una pre-descarga en curso iniciada previamente
-      if (pendingPrefetches.has(url)) {
-        const pending = pendingPrefetches.get(url)!;
-        this.prefetchUpcomingFragments(context);
+      // 2. Join in-flight background prefetch
+      if (pendingPrefetches.has(cacheKey)) {
+        const pending = pendingPrefetches.get(cacheKey)!;
 
-        pending.then((data) => {
-          if (data) {
+        pending.then((result) => {
+          if (this.stats.aborted) return;
+          if (result && result.data) {
+            segmentCache.delete(cacheKey);
+            const now = performance.now();
+            const syntheticStart = Math.max(0, now - result.durationMs);
+            populateStats(
+              this.stats,
+              result.data.byteLength,
+              syntheticStart,
+              syntheticStart + Math.min(10, result.durationMs * 0.2),
+              now,
+            );
+
             callbacks.onSuccess(
-              { url, data },
-              {
-                trequest: performance.now(),
-                tfirst: performance.now(),
-                tload: performance.now(),
-                loaded: data.byteLength,
-                total: data.byteLength,
-              },
-              context
+              { url, data: result.data },
+              this.stats,
+              context,
+              null,
             );
           } else {
-            // Fallback a descarga normal si falló la precarga
-            this.executeNormalFetch(url, context, callbacks);
+            this.executeNormalFetch(url, rangeStart, rangeEnd, context, callbacks);
           }
         });
         return;
       }
 
-      // 3. Descarga normal e iniciar precarga concurrente de los siguientes 2 segmentos
-      this.prefetchUpcomingFragments(context);
-      this.executeNormalFetch(url, context, callbacks);
+      // 3. Direct fetch with concurrent prefetching already triggered
+      this.executeNormalFetch(url, rangeStart, rangeEnd, context, callbacks);
     }
 
     private prefetchUpcomingFragments(context: any) {
       try {
-        const frag = context.frag;
-        const levelDetails = frag?.levelDetails;
-        if (levelDetails && Array.isArray(levelDetails.fragments)) {
-          const currentSn = frag.sn;
-          // Precargar en paralelo los 2 fragmentos siguientes (sn + 1, sn + 2)
-          for (let step = 1; step <= 2; step++) {
-            const nextFrag = levelDetails.fragments.find((f: any) => f.sn === currentSn + step);
-            if (nextFrag && nextFrag.url) {
-              prefetchSegment(nextFrag.url);
-            }
-          }
-        }
+        const frag: HlsFragmentLike | undefined = context?.frag;
+        if (!frag || typeof frag.sn !== "number") return;
+        const levelIdx = typeof frag.level === "number" ? frag.level : 0;
+        const fragments =
+          frag.levelDetails?.fragments || levelFragmentsMap.get(levelIdx);
+        prefetchNextFromList(fragments, frag.sn);
       } catch {}
     }
 
-    private executeNormalFetch(url: string, context: any, callbacks: any) {
+    private executeNormalFetch(
+      url: string,
+      rangeStart: number | undefined,
+      rangeEnd: number | undefined,
+      context: any,
+      callbacks: any,
+    ) {
       const trequest = performance.now();
+      this.stats.loading.start = trequest;
+      this.stats.trequest = trequest;
       this.abortController = new AbortController();
+      const headers = buildRangeHeader(rangeStart, rangeEnd);
 
-      fetch(url, { signal: this.abortController.signal })
+      fetch(url, {
+        ...(headers ? { headers } : {}),
+        signal: this.abortController.signal,
+      })
         .then(async (res) => {
-          if (!res.ok) {
+          if (!res.ok && res.status !== 206) {
             callbacks.onError(
               { code: res.status, text: res.statusText },
               context,
-              res
+              res,
+              this.stats,
             );
             return;
           }
@@ -144,33 +369,46 @@ export function createConcurrentFragmentLoader(HlsClass: any) {
           const data = await res.arrayBuffer();
           const tload = performance.now();
 
+          populateStats(this.stats, data.byteLength, trequest, tfirst, tload);
+
           callbacks.onSuccess(
             { url, data },
-            {
-              trequest,
-              tfirst,
-              tload,
-              loaded: data.byteLength,
-              total: data.byteLength,
-            },
-            context
+            this.stats,
+            context,
+            res,
           );
         })
         .catch((err) => {
-          if (err.name !== "AbortError") {
-            callbacks.onError({ code: 0, text: err.message }, context, null);
+          if (err?.name !== "AbortError" && !this.stats.aborted) {
+            callbacks.onError(
+              { code: 0, text: err?.message || "Network error" },
+              context,
+              null,
+              this.stats,
+            );
           }
         });
     }
 
     abort() {
+      this.stats.aborted = true;
       if (this.abortController) {
         this.abortController.abort();
+        this.abortController = null;
       }
     }
 
     destroy() {
       this.abort();
+      this.context = null;
+    }
+
+    getCacheAge(): number | null {
+      return null;
+    }
+
+    getResponseHeader(_name: string): string | null {
+      return null;
     }
   };
 }

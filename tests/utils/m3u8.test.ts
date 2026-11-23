@@ -35,3 +35,20 @@ variant.m3u8?token=abc
   assert.match(result, /\/api\/video\/m3u8\?url=.*variant\.m3u8/);
   assert.match(result, /directSegments=true/);
 });
+
+test("rewriteManifest propagates directSegments=true on #EXT-X-MEDIA sub-manifest URIs", () => {
+  const masterContent = `#EXTM3U
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio",NAME="Latino",DEFAULT=YES,URI="audio/latino.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=1500000,AUDIO="audio"
+video/720p.m3u8`;
+
+  const result = rewriteManifest(masterContent, "https://cdn.example.com/hls/master.m3u8", {
+    directSegments: true,
+    referer: "https://ww3.gnulahd.nu/",
+  });
+
+  assert.match(
+    result,
+    /URI="\/api\/video\/m3u8\?url=https%3A%2F%2Fcdn\.example\.com%2Fhls%2Faudio%2Flatino\.m3u8&directSegments=true&referer=https%3A%2F%2Fww3\.gnulahd\.nu%2F"/,
+  );
+});

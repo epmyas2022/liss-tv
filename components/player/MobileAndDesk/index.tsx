@@ -20,7 +20,10 @@ import "@vidstack/react/player/styles/default/layouts/video.css";
 import FocusContextProvider from "@/components/providers/FocusContextProvider";
 import FocusElementProvider from "@/components/providers/FocusElementProvider";
 import { type VideoPlayerProps } from "@/components/player/types";
-import { createConcurrentFragmentLoader } from "@/utils/hls-concurrent-loader";
+import {
+  configureHlsInstance,
+  createConcurrentFragmentLoader,
+} from "@/utils/hls-concurrent-loader";
 
 export default function MobileAndDeskPlayer({
   src,
@@ -129,8 +132,7 @@ export default function MobileAndDeskPlayer({
           onProviderChange={(provider) => {
             if (provider?.type === "hls") {
               const hls = provider as HLSProvider;
-              const HlsConstructor = (hls as any).ctor;
-              const fLoader = HlsConstructor ? createConcurrentFragmentLoader(HlsConstructor) : undefined;
+              const fLoader = createConcurrentFragmentLoader();
 
               hls.config = {
                 maxBufferLength: 180,
@@ -146,37 +148,10 @@ export default function MobileAndDeskPlayer({
                 fragLoadingTimeOut: 20000,
                 startFragPrefetch: true,
                 maxFragLookUpTolerance: 0.25,
-                ...(fLoader ? { fLoader } : {}),
+                fLoader: fLoader as any,
               };
 
-              // Si el stream tiene variantes múltiples, limitar o preferir <= 720p para máxima fluidez
-              if (hls.instance) {
-                hls.instance.on("hlsManifestParsed" as any, () => {
-                  try {
-                    const levels = hls.instance?.levels || [];
-                    if (levels.length > 1) {
-                      const targetIdx = levels.findIndex((lvl: { height?: number }) => lvl.height === 720);
-                      if (targetIdx !== -1) {
-                        hls.instance!.autoLevelCapping = targetIdx;
-                      } else {
-                        let max720Idx = -1;
-                        for (let i = 0; i < levels.length; i++) {
-                          const lvl = levels[i] as { height?: number };
-                          if (lvl.height && lvl.height <= 720) {
-                            const currentBest = levels[max720Idx] as { height?: number } | undefined;
-                            if (max720Idx === -1 || (currentBest?.height && lvl.height > currentBest.height)) {
-                              max720Idx = i;
-                            }
-                          }
-                        }
-                        if (max720Idx !== -1) {
-                          hls.instance!.autoLevelCapping = max720Idx;
-                        }
-                      }
-                    }
-                  } catch {}
-                });
-              }
+              configureHlsInstance(hls as any);
             }
           }}
           onDurationChange={(dur) => performSeek(dur)}

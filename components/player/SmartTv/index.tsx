@@ -22,7 +22,10 @@ import FocusContextProvider from "@/components/providers/FocusContextProvider";
 import FocusElementProvider from "@/components/providers/FocusElementProvider";
 import { useFocusable } from "@noriginmedia/norigin-spatial-navigation-react";
 import { type VideoPlayerProps } from "@/components/player/types";
-import { createConcurrentFragmentLoader } from "@/utils/hls-concurrent-loader";
+import {
+  configureHlsInstance,
+  createConcurrentFragmentLoader,
+} from "@/utils/hls-concurrent-loader";
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 const SEEK_SECONDS = 10;
@@ -354,8 +357,7 @@ export default function SmartTvPlayer({
         onProviderChange={(provider) => {
           if (provider?.type === "hls") {
             const hls = provider as HLSProvider;
-            const HlsConstructor = (hls as any).ctor;
-            const fLoader = HlsConstructor ? createConcurrentFragmentLoader(HlsConstructor) : undefined;
+            const fLoader = createConcurrentFragmentLoader();
 
             hls.config = {
               maxBufferLength: 120,
@@ -371,37 +373,10 @@ export default function SmartTvPlayer({
               fragLoadingTimeOut: 20000,
               startFragPrefetch: true,
               maxFragLookUpTolerance: 0.25,
-              ...(fLoader ? { fLoader } : {}),
+              fLoader: fLoader as any,
             };
 
-            // Limitar calidad máxima a 720p para evitar saturación de red y CPU en Smart TV
-            if (hls.instance) {
-              hls.instance.on("hlsManifestParsed" as any, () => {
-                try {
-                  const levels = hls.instance?.levels || [];
-                  if (levels.length > 1) {
-                    const targetIdx = levels.findIndex((lvl: { height?: number }) => lvl.height === 720);
-                    if (targetIdx !== -1) {
-                      hls.instance!.autoLevelCapping = targetIdx;
-                    } else {
-                      let max720Idx = -1;
-                      for (let i = 0; i < levels.length; i++) {
-                        const lvl = levels[i] as { height?: number };
-                        if (lvl.height && lvl.height <= 720) {
-                          const currentBest = levels[max720Idx] as { height?: number } | undefined;
-                          if (max720Idx === -1 || (currentBest?.height && lvl.height > currentBest.height)) {
-                            max720Idx = i;
-                          }
-                        }
-                      }
-                      if (max720Idx !== -1) {
-                        hls.instance!.autoLevelCapping = max720Idx;
-                      }
-                    }
-                  }
-                } catch {}
-              });
-            }
+            configureHlsInstance(hls as any);
           }
         }}
         onCanPlay={handleCanPlay}
