@@ -8,8 +8,10 @@ export function parseMegadedeCatalog(html: string, currentPage = 1): Movies {
 
   $("article.mv, article.item, article.film, article.card").each((_, el) => {
     const $el = $(el);
-    const linkEl = $el.find("a.lnk-blk, a[href*='/pelicula/'], a[href*='/serie/']").first();
-    const link = linkEl.attr("href") || "";
+    const linkEl = $el
+      .find("a.lnk-blk, a[href*='/pelicula/'], a[href*='/serie/'], a[href*='/anime/']")
+      .first();
+    const rawLink = linkEl.attr("href") || "";
 
     // 1. Extract title accurately, discarding generic button labels like "Ver contenido"
     let title =
@@ -33,7 +35,7 @@ export function parseMegadedeCatalog(html: string, currentPage = 1): Movies {
       }
     }
 
-    if (!link || !title || title.toLowerCase() === "ver contenido") return;
+    if (!rawLink || !title || title.toLowerCase() === "ver contenido") return;
 
     // 2. Poster image
     let image =
@@ -56,10 +58,16 @@ export function parseMegadedeCatalog(html: string, currentPage = 1): Movies {
     const ratingText = $el.find(".rating-badge, .rating, .vote, .imdb").first().text().trim();
     const rating = ratingText.replace(/[^0-9.]/g, "").trim();
 
-    const isSerie = link.includes("/serie/");
+    const isAnime = rawLink.includes("/anime/");
+    const isSerie = rawLink.includes("/serie/") || isAnime;
+    const cleanSlug = rawLink
+      .replace(/^https?:\/\/[^/]+/, "")
+      .replace(/^\/?(?:pelicula|serie|anime)\//, "")
+      .replace(/\/+$/, "");
+    const link = isSerie ? `/serie/${cleanSlug}` : `/pelicula/${cleanSlug}`;
 
     movies.push({
-      id: link.replace(/^\/(?:pelicula|serie)\//, "").replace(/\/+$/, ""),
+      id: cleanSlug,
       link,
       title,
       image,
@@ -67,6 +75,15 @@ export function parseMegadedeCatalog(html: string, currentPage = 1): Movies {
       rating,
       type: isSerie ? "serie" : "movie",
       provider: "megadede",
+      ...(isAnime
+        ? {
+            context: {
+              provider: "megadede",
+              slug: cleanSlug,
+              upstreamType: "anime",
+            },
+          }
+        : {}),
     });
   });
 

@@ -86,8 +86,8 @@ export function getPlayerHref(link: string): string {
     return `/${parts.join("/")}${querySuffix}`;
   }
 
-  if (parts[0] === "pelicula" || parts[0] === "serie") {
-    const type = parts[0];
+  if (parts[0] === "pelicula" || parts[0] === "serie" || parts[0] === "anime") {
+    const type = parts[0] === "anime" ? "serie" : parts[0];
     const slug = parts[1] || "";
     return `/${type}/${slug}/player${querySuffix}`;
   }

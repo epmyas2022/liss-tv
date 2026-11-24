@@ -131,17 +131,46 @@ export function parseMegadedeDetail(
     ? link
     : `/${link}`;
 
+  const dataType = $("#item-context").attr("data-type")?.toLowerCase();
+  const isAnime =
+    cleanLink.startsWith("/anime/") ||
+    cleanLink.includes("/anime/") ||
+    dataType === "anime";
+
   const isSerie =
+    isAnime ||
     cleanLink.startsWith("/serie/") ||
     cleanLink.includes("/serie/") ||
     cleanLink.includes("serie") ||
-    $("#item-context").attr("data-type") === "serie" ||
+    dataType === "serie" ||
     $(".season-container").length > 0;
 
   const cleanSlug = cleanLink
-    .replace(/^\/?(?:serie|pelicula)\//, "")
+    .replace(/^\/?(?:serie|pelicula|anime)\//, "")
     .replace(/#.*$/, "")
     .replace(/\/+$/, "");
+
+  const upstreamType = isAnime ? "anime" : isSerie ? "serie" : "pelicula";
+
+  const normalizeEpisodeLink = (epHref: string, seasonNum: string, epNum: string): string => {
+    const hashMatch = epHref.match(/#(s\d+-e\d+)/i);
+    if (hashMatch) {
+      return `/serie/${cleanSlug}#${hashMatch[1]}`;
+    }
+    if (epHref.startsWith("http")) {
+      try {
+        const parsed = new URL(epHref);
+        const pathNormalized = parsed.pathname.replace(/^\/anime\//, "/serie/");
+        return `${pathNormalized}${parsed.hash || `#s${seasonNum}-e${epNum}`}`;
+      } catch {
+        return epHref;
+      }
+    }
+    if (epHref.startsWith("/")) {
+      return epHref.replace(/^\/anime\//, "/serie/");
+    }
+    return `/serie/${cleanSlug}${epHref.startsWith("#") ? epHref : `#${epHref}`}`;
+  };
 
   let movieUrl: string | undefined = undefined;
   if (!isSerie) {
@@ -175,11 +204,7 @@ export function parseMegadedeDetail(
             $ep.find(".tvw, .episode-title, p").first().text().trim() ||
             `Episodio ${epNum}`;
           const epHref = $ep.attr("href") || `#s${seasonNum}-e${epNum}`;
-          const cleanEpLink = epHref.startsWith("http")
-            ? epHref
-            : epHref.startsWith("/")
-            ? epHref
-            : `/serie/${cleanSlug}${epHref.startsWith("#") ? epHref : `#${epHref}`}`;
+          const cleanEpLink = normalizeEpisodeLink(epHref, seasonNum, epNum);
 
           episodes.push({
             numberEpisode: epNum,
@@ -192,6 +217,7 @@ export function parseMegadedeDetail(
               episode: parseInt(epNum, 10),
               slug: cleanSlug,
               provider: "megadede",
+              ...(isAnime ? { upstreamType } : {}),
             },
           });
         });
@@ -217,11 +243,7 @@ export function parseMegadedeDetail(
           $ep.find(".tvw, .episode-title, p").first().text().trim() ||
           `Episodio ${epNum}`;
         const epHref = $ep.attr("href") || `#s${seasonNum}-e${epNum}`;
-        const cleanEpLink = epHref.startsWith("http")
-          ? epHref
-          : epHref.startsWith("/")
-          ? epHref
-          : `/serie/${cleanSlug}${epHref.startsWith("#") ? epHref : `#${epHref}`}`;
+        const cleanEpLink = normalizeEpisodeLink(epHref, seasonNum, epNum);
 
         const existing = seasonsMap.get(seasonNum) || [];
         existing.push({
@@ -235,6 +257,7 @@ export function parseMegadedeDetail(
             episode: parseInt(epNum, 10),
             slug: cleanSlug,
             provider: "megadede",
+            ...(isAnime ? { upstreamType } : {}),
           },
         });
         seasonsMap.set(seasonNum, existing);
@@ -260,6 +283,15 @@ export function parseMegadedeDetail(
     provider: "megadede",
     movieUrl,
     episodes: seasons.length > 0 ? seasons : undefined,
+    ...(isAnime
+      ? {
+          context: {
+            provider: "megadede",
+            slug: cleanSlug,
+            upstreamType,
+          },
+        }
+      : {}),
   };
 }
 
@@ -270,6 +302,22 @@ export class GetDetail implements StrategyGetMovieDetails {
       const html = await res.text();
       return parseMegadedeDetail(html, link);
     } catch {
+      const cleanLink = link.startsWith("http")
+        ? new URL(link).pathname
+        : link.startsWith("/")
+        ? link
+        : `/${link}`;
+
+      if (cleanLink.startsWith("/serie/")) {
+        const animeFallbackLink = cleanLink.replace(/^\/serie\//, "/anime/");
+        try {
+          const fallbackRes = await megadedeFetch(animeFallbackLink);
+          const fallbackHtml = await fallbackRes.text();
+          return parseMegadedeDetail(fallbackHtml, link);
+        } catch {
+          return undefined;
+        }
+      }
       return undefined;
     }
   }

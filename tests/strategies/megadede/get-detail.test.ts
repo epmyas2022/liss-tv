@@ -201,3 +201,96 @@ test("parseMegadedeDetail caps tags to a maximum of 4", () => {
   assert.strictEqual(detail.tags?.length, 4);
   assert.deepStrictEqual(detail.tags, ["Acción", "Comedia", "Aventura", "Drama"]);
 });
+
+test("parseMegadedeDetail parses anime markup with data-type='anime' and /anime/<slug>#sX-eY episode cards into /serie/<slug>#sX-eY", () => {
+  const animeDetailHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta property="og:title" content="Ver Castlevania (2017) Online - Megadede" />
+      <meta property="og:image" content="https://image.tmdb.org/t/p/original/cSDQLgkdTqAHfEs9Zg0xBAoKlIn.jpg" />
+    </head>
+    <body>
+      <div class="movie-info" id="item-context" data-type="anime" data-slug="castlevania" data-season="1" data-episode="1">
+        <div class="poster"><img src="https://image.tmdb.org/t/p/w300/cSDQLgkdTqAHfEs9Zg0xBAoKlIn.jpg" /></div>
+        <h1>Castlevania</h1>
+        <div class="movie-meta">
+          <a href="/year/2017">📅 Año: 2017</a>
+          <span class="rating-badge">⭐ 8.3</span>
+        </div>
+        <div class="description">Un cazador de vampiros regresa a la ciudad.</div>
+        <div class="season-container" data-season="1">
+          <a href="/anime/castlevania#s1-e1" data-episode-link data-season="1" data-episode="1" class="episode-card">
+            <div class="fz5">Ep 1</div>
+            <p class="tvw">Botella de bruja</p>
+          </a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  const detail = parseMegadedeDetail(animeDetailHtml, "serie/castlevania");
+  assert(detail !== undefined);
+  assert.strictEqual(detail.title, "Castlevania");
+  assert.strictEqual(detail.type, "serie");
+  assert.strictEqual(detail.episodes?.length, 1);
+  assert.strictEqual(detail.episodes[0].episodes[0].link, "/serie/castlevania#s1-e1");
+  assert.deepStrictEqual(detail.episodes[0].episodes[0].context, {
+    season: 1,
+    episode: 1,
+    slug: "castlevania",
+    provider: "megadede",
+    upstreamType: "anime",
+  });
+});
+
+test("GetDetail falls back to /anime/<slug> when /serie/<slug> returns 404 on Megadede", async (t) => {
+  const animeHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta property="og:title" content="Castlevania" />
+      <meta property="og:image" content="https://image.tmdb.org/t/p/original/cSDQLgkdTqAHfEs9Zg0xBAoKlIn.jpg" />
+    </head>
+    <body>
+      <div class="movie-info" id="item-context" data-type="anime" data-slug="castlevania">
+        <h1>Castlevania</h1>
+        <div class="season-container" data-season="1">
+          <a href="/anime/castlevania#s1-e1" data-episode-link data-season="1" data-episode="1" class="episode-card">
+            <div class="fz5">Ep 1</div>
+            <p class="tvw">Episodio 1</p>
+          </a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  const requestedUrls: string[] = [];
+  const originalFetch = global.fetch;
+  global.fetch = async (input: RequestInfo | URL) => {
+    const url = input.toString();
+    requestedUrls.push(url);
+    if (url.includes("/serie/castlevania")) {
+      return new Response("Not found", { status: 404 });
+    }
+    if (url.includes("/anime/castlevania")) {
+      return new Response(animeHtml, { status: 200 });
+    }
+    return new Response("Not found", { status: 404 });
+  };
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const getDetail = new GetDetail();
+  const detail = await getDetail.operation("serie/castlevania");
+  assert(detail !== undefined);
+  assert.strictEqual(detail.title, "Castlevania");
+  assert.strictEqual(detail.type, "serie");
+  assert.strictEqual(detail.episodes?.[0].episodes[0].link, "/serie/castlevania#s1-e1");
+  assert(requestedUrls.some((u) => u.includes("/anime/castlevania")));
+});
+

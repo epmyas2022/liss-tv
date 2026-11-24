@@ -405,4 +405,66 @@ test("GetUrl falls back to alternative language group when preferred group has o
   assert(result.url?.includes(`referer=${encodeURIComponent("https://voe.sx/")}`));
 });
 
+test("GetUrl resolves anime episode links (/anime/<slug>#s1-e1 or upstreamType='anime')", async (t) => {
+  const challenge = "testchallenge";
+  const salt = "testsalt";
+  const cipherBase64 = encryptTestPayload("https://voe.sx/e/anime123", challenge, salt);
+
+  const mockEpisodeJson = {
+    success: true,
+    html: '<button class="ep-player__btn active" type="button" data-url="/vidurl/tt6517102-1x01/">Embed69</button>',
+  };
+
+  const mockVidurlHtml = `
+    <script>
+      const LINK_CHALLENGE = '${challenge}';
+      const LINK_SALT = '${salt}';
+      const dataLink = [
+        {
+          video_language: "LAT",
+          sortedEmbeds: [
+            { servername: "voe", link: "${cipherBase64}", type: "video" }
+          ]
+        }
+      ];
+    </script>
+  `;
+
+  const requestedUrls: string[] = [];
+  const originalFetch = global.fetch;
+  global.fetch = async (input: RequestInfo | URL) => {
+    const url = input.toString();
+    requestedUrls.push(url);
+    if (url.includes("/api/episodio/anime/castlevania/1/1") || url.includes("/api/episodio/serie/castlevania/1/1")) {
+      return new Response(JSON.stringify(mockEpisodeJson), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    if (url.includes("/vidurl/")) {
+      return new Response(mockVidurlHtml, { status: 200 });
+    }
+    if (url.includes("voe.sx")) {
+      return new Response('{"hls": "https://cdn.voe.sx/anime/master.m3u8"}', { status: 200 });
+    }
+    return new Response("Not found", { status: 404 });
+  };
+
+  t.after(() => {
+    global.fetch = originalFetch;
+  });
+
+  const getUrl = new GetUrl();
+  const result = await getUrl.operation("/anime/castlevania#s1-e1");
+  assert(result.url?.includes(encodeURIComponent("https://cdn.voe.sx/anime/master.m3u8")));
+  assert(
+    requestedUrls.some(
+      (u) =>
+        u.includes("/api/episodio/anime/castlevania/1/1") ||
+        u.includes("/api/episodio/serie/castlevania/1/1")
+    )
+  );
+});
+
+
 

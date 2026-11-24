@@ -125,3 +125,32 @@ test("GetAll operation queries series catalog when slug is series", async (t) =>
   assert(requestedUrl.includes("/series?page=1"));
   assert.strictEqual(res?.movies.length, 2);
 });
+
+test("parseMegadedeCatalog maps /anime/<slug> cards to /serie/<slug> app route with serie type", () => {
+  const animeCardHtml = `
+    <article class="mv v por">
+      <figure class="im brd1">
+        <img src="https://image.tmdb.org/t/p/w300/cSDQLgkdTqAHfEs9Zg0xBAoKlIn.jpg" alt="Castlevania" />
+        <a href="/anime/castlevania" class="lnk-blk" aria-label="Castlevania">
+          <span class="dn">Ver contenido</span>
+        </a>
+      </figure>
+      <header class="hd pdy1">
+        <h2 class="fz5 fw6 lh1 mab0">Castlevania</h2>
+        <span class="op6 db fz6">2017</span>
+        <span class="rating-badge">⭐ 8.3</span>
+      </header>
+    </article>
+  `;
+
+  const result = parseMegadedeCatalog(animeCardHtml, 1);
+  assert.strictEqual(result.movies.length, 1);
+  const anime = result.movies[0];
+  assert.strictEqual(anime.id, "castlevania");
+  assert.strictEqual(anime.title, "Castlevania");
+  assert.strictEqual(anime.link, "/serie/castlevania");
+  assert.strictEqual(anime.type, "serie");
+  assert.strictEqual(anime.provider, "megadede");
+  assert.strictEqual(anime.context?.upstreamType, "anime");
+});
+

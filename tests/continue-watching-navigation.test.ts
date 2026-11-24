@@ -97,6 +97,10 @@ describe("Continue Watching Navigation & Provider Inference", () => {
         getPlayerHref("/serie/drake-y-josh#s3-e7"),
         "/serie/drake-y-josh/player"
       );
+      assert.equal(
+        getPlayerHref("/anime/castlevania#s1-e1"),
+        "/serie/castlevania/player"
+      );
     });
 
     it("should clean malformed player URLs that appended /player to the hash", () => {

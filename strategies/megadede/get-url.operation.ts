@@ -209,22 +209,51 @@ export class GetUrl implements StrategyGetUrl {
       const slug =
         (options?.params?.slug as string | undefined) ??
         (options?.detailContext?.slug as string | undefined) ??
-        path.replace(/^\/?(?:serie|pelicula)\//, "").replace(/#.*$/, "").replace(/\/+$/, "");
+        path
+          .replace(/^https?:\/\/[^/]+/, "")
+          .replace(/^\/?(?:serie|pelicula|anime)\//, "")
+          .replace(/\/player\/?$/i, "")
+          .replace(/#.*$/, "")
+          .replace(/\/+$/, "");
 
-      const episodeApiUrl = `/api/episodio/serie/${encodeURIComponent(slug)}/${season}/${episode}`;
-      const epRes = await megadedeFetch(episodeApiUrl, {
-        headers: {
-          Accept: "application/json",
-          Referer: `https://megadede.mobi/serie/${encodeURIComponent(slug)}`,
-        },
-      });
+      const isAnimeHint =
+        options?.detailContext?.upstreamType === "anime" ||
+        options?.params?.upstreamType === "anime" ||
+        path.includes("/anime/");
 
-      const epData = (await epRes.json()) as MegadedeEpisodeApiResponse;
-      const vidurlMatch = epData.html?.match(/data-url="(\/vidurl\/[^"]+)"/);
-      if (vidurlMatch) {
-        return vidurlMatch[1];
+      const primaryKind = isAnimeHint ? "anime" : "serie";
+      const fallbackKind = isAnimeHint ? "serie" : "anime";
+
+      const fetchEpisodeVidurl = async (kind: "serie" | "anime"): Promise<string | null> => {
+        const episodeApiUrl = `/api/episodio/${kind}/${encodeURIComponent(slug)}/${season}/${episode}`;
+        const epRes = await megadedeFetch(episodeApiUrl, {
+          headers: {
+            Accept: "application/json",
+            Referer: `https://megadede.mobi/${kind}/${encodeURIComponent(slug)}`,
+          },
+        });
+        const epData = (await epRes.json()) as MegadedeEpisodeApiResponse;
+        const vidurlMatch = epData.html?.match(/data-url="(\/vidurl\/[^"]+)"/);
+        return vidurlMatch ? vidurlMatch[1] : null;
+      };
+
+      try {
+        const vidurl = await fetchEpisodeVidurl(primaryKind);
+        if (vidurl) return vidurl;
+      } catch {
+        // Fallback to alternate kind below
       }
-      throw new MegadedeError(`[Megadede] Episode player endpoint not found in ${episodeApiUrl}`);
+
+      try {
+        const fallbackVidurl = await fetchEpisodeVidurl(fallbackKind);
+        if (fallbackVidurl) return fallbackVidurl;
+      } catch {
+        // Handled by error throw below
+      }
+
+      throw new MegadedeError(
+        `[Megadede] Episode player endpoint not found for ${slug} ${season}x${episode}`
+      );
     }
 
     // Otherwise, assume it's a movie page: fetch page to locate vidurl button
